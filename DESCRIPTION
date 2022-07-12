@@ -1,0 +1,17 @@
+Title: shiny-template
+Author: c(person(given = "Laura",
+                 family = "Selby",
+                 role = c("cre", "aut"),
+                 email = "laura.selby@education.gov.uk"),
+          person(given = "Cameron",
+                 family = "Race",
+                 role = "aut",
+                 email = "cameron.race@education.gov.uk"))
+License: MIT
+Type: Shiny
+Imports:
+    shiny
+Suggests:
+    shinytest,
+    testthat,
+    styler

@@ -1,0 +1,68 @@
+on:
+  push:
+    branches:
+      - main
+
+name: deploy-shiny
+
+jobs:
+  deployShiny:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        # Running on mac as it's quicker to build
+          - {os: macOS-latest, r: 'release'}
+
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      RSPM: ${{ matrix.config.rspm }}
+      RENV_PATHS_ROOT: ~/.local/share/renv
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@master
+        with:
+          r-version: ${{ matrix.config.r }}
+
+      - name: Cache R packages
+        if: runner.os != 'Windows'
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - name: Cache renv packages
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.RENV_PATHS_ROOT }}
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-renv-
+        
+      - name: Restore renv snapshot
+        shell: Rscript {0}
+        run: |
+          if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
+          renv::restore()
+          
+      - name: Install rsconnect
+        shell: Rscript {0}
+        run: |
+          install.packages("rsconnect")
+         
+# Tokens are stored as secrets in GitHub to make sure only DfE analysts can publish apps in our shiny.io area
+# Navigate to Settings > Secrets to add and view secrets. These can also be things like admin login and passwords for SQL databases.
+# Get in touch with the Stats Development team if you need to add the below secrets to publish to shinyapps.io
+          
+      - name: Push to shiny.io
+        run: >
+          Rscript
+          -e "rsconnect::setAccountInfo(name = 'department-for-education', token = '${{secrets.SHINYAPPS_TOKEN}}', secret = '${{secrets.SHINYAPPS_SECRET}}')"
+          -e "rsconnect::deployApp()"
