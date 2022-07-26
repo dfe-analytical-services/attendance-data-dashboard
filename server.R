@@ -20,49 +20,54 @@
 
 
 server <- function(input, output, session) {
-
+  
   # Loading screen ---------------------------------------------------------------------------
   # Call initial loading screen
-
+  
   hide(id = "loading-content", anim = TRUE, animType = "fade")
   show("app-content")
-
+  
   # Simple server stuff goes here ------------------------------------------------------------
-
-
-  # Define server logic required to draw a histogram
-  output$distPlot <- renderPlot({
-
-    # generate bins based on input$bins from ui.R
-    x <- faithful[, 2]
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = "darkgray", border = "white")
+  
+  live_attendance_data <- reactive({
+    attendance_data %>% filter(
+      geographic_level == input$geography_choice,
+      la_name == input$la_choice,
+      region_name == input$region_choice,
+      school_type == input$school_choice,
+      time_period == "2021",
+      time_identifier == "Week 3"
+    )
   })
+  
 
-  # Define server logic to create a box
-
-  output$box_info <- renderValueBox({
-
+  
+  # Define server logic required to draw a line graph
+  output$testPlot <- renderPlot({
+    ggplot(attendance_data %>% filter(la_name == input$la_name), 
+           aes(time_identifier, sess_overall_percent)) + geom_line()
+  })
+  
+  
+  # create box for absence data
+  output$absence_rate<- renderValueBox({
+    
+    overall_absence_rate <- live_attendance_data() %>%
+      pull(sess_overall_percent)
+      
     # Put value into box to plug into app
     shinydashboard::valueBox(
-      # take input number
-      input$bins,
-      # add subtitle to explain what it's hsowing
-      paste0("Number that user has inputted"),
+      paste0(overall_absence_rate),
+      paste0("of pupils were absent in the most recent week"),
       color = "blue"
     )
   })
-
-  observeEvent(input$link_to_app_content_tab, {
-    updateTabsetPanel(session, "navbar", selected = "app_content")
-  })
-
-
+  
+  
   # Stop app ---------------------------------------------------------------------------------
-
+  
   session$onSessionEnded(function() {
     stopApp()
   })
 }
+

@@ -18,6 +18,24 @@ library(shinytest)
 library(shinydashboard)
 library(shinyWidgets)
 library(shinyGovstyle)
+library(data.table)
+library(ggplot2)
+library(plotly)
+library(dplyr)
+# library(shinya11y)
+library(shinycssloaders)
+library(tidyr)
+library(stringr)
+library(flexdashboard)
+library(scales)
+library(forcats)
+library(openxlsx)
+library(kableExtra)
+library(metathis)
+library(styler)
+library(rsconnect)
+library(bit64)
+
 
 # Functions ---------------------------------------------------------------------------------
 
@@ -71,3 +89,7 @@ appLoadingCSS <- "
 "
 
 source("R/support_links.R")
+
+# Read in data
+
+attendance_data <- fread("data/Weekly_dummy_data.csv")

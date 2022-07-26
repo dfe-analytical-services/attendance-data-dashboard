@@ -33,26 +33,27 @@ ui <- function(input, output, session) {
     tags$head(includeHTML(("google-analytics.html"))),
     includeCSS("www/dfe_shiny_gov_style.css"),
     useShinydashboard(),
+    title = "Attendance Data",
     # use_tota11y(), # accessibility layer for local testing
-
+    
     # Set metadata for browser ==================================================
-
+    
     tags$html(lang = "en"),
     # meta_general(
-    #   application_name = "DfE Analytical Services R-Shiny Template",
-    #   description = "R-Shiny template for use by DfE external data dashboards",
+    #   application_name = "Pupil Attendance Data Dashboard",
+    #   description = "Pupil absence in schools in England",
     #   robots = "index,follow",
     #   generator = "R-Shiny",
-    #   subject = "Education data dashboards",
+    #   subject = "Pupil Absence",
     #   rating = "General",
     #   referrer = "no-referrer"
     # ),
-
+    
     # Set title for search engines
-    HTML("<title>DfE Analytical Services R-Shiny Template</title>"),
-
+    HTML("<title>Pupil absence in schools in England data dashboard</title>"),
+    
     # Navbar ====================================================================
-
+    
     # This CSS sets the 4th item on the navbar to the right
     tagList(
       tags$head(tags$style(HTML("
@@ -65,136 +66,149 @@ ui <- function(input, output, session) {
                            ")))
     ),
     navbarPage("",
-      id = "navbar",
-
-      # Homepage tab ============================================================
-
-      tabPanel(
-        "Homepage",
-        fluidPage(
-          fluidRow(
-            column(
-              12,
-              h1("DfE Analytical Services R-Shiny data dashboard template"),
-              p("This app demonstrates the DfE Analytical Services R-Shiny data dashboard template."),
-              br(),
-              br()
-            ),
-
-            ## Left panel -------------------------------------------------------
-
-            column(
-              6,
-              div(
-                div(
-                  class = "panel panel-info",
-                  div(
-                    class = "panel-heading",
-                    style = "color: white;font-size: 18px;font-style: bold; background-color: #1d70b8;",
-                    h2("Contents")
-                  ),
-                  div(
-                    class = "panel-body",
-                    tags$div(
-                      title = "This section is useful if you want to understand how well different industries retain graduates.",
-                      h3(actionLink("link_to_app_content_tab", "App Content"))
-                    ),
-                    br()
-                  )
-                )
-              ),
-            ),
-
-            ## Right panel ------------------------------------------------------
-
-            column(
-              6,
-              div(
-                div(
-                  class = "panel panel-info",
-                  div(
-                    class = "panel-heading",
-                    style = "color: white;font-size: 18px;font-style: bold; background-color: #1d70b8;",
-                    h2("Background Info")
-                  ),
-                  div(
-                    class = "panel-body",
-                  )
-                )
-              )
-            )
-          )
-        )
-      ),
-      tabPanel(
-        value = "app_content",
-        "App content",
-
-        # Define UI for application that draws a histogram
-
-        # Sidebar with a slider input for number of bins
-        sidebarLayout(
-          sidebarPanel(
-            width = 2,
-            sliderInput("bins",
-              "Number of bins:",
-              min = 1,
-              max = 50,
-              value = 30
-            )
-          ),
-
-          # Show a plot of the generated distribution
-          mainPanel(
-            width = 10,
-            valueBoxOutput("box_info", width = 6),
-            plotOutput("distPlot"),
-            br()
-            # add box to show user input
-          )
-        )
-      ),
-
-      # Create the accessibility statement-----------------
-      tabPanel(
-        "Accessibility",
-        h2("Accessibility statement"),
-        br("This accessibility statement applies to the **application name**.
+               id = "navbar",
+               
+               # Homepage tab ============================================================
+               
+               tabPanel(
+                 "Homepage",
+                 fluidPage(
+                   fluidRow(
+                     column(
+                       12,
+                       h1("Pupil absence in schools in England data dashboard"),
+                       p("INSERT DESCRIPTION ON HOW TO USE DASHBOARD AND WHAT IT WILL TELL THE USER HERE"),
+                       br(),
+                       br()
+                     ),
+                     
+                     ## Left panel -------------------------------------------------------
+                     
+                     column(
+                       6,
+                       div(
+                         div(
+                           class = "panel panel-info",
+                           div(
+                             class = "panel-heading",
+                             style = "color: white;font-size: 18px;font-style: bold; background-color: #1d70b8;",
+                             h2("Contents")
+                           ),
+                           div(
+                             class = "panel-body",
+                             tags$div(
+                               title = "Headline information including overall absence, authorised absence and unauthorised absence",
+                               h3(actionLink("link_to_headlines_tab", "Headlines"))
+                             ),
+                             br()
+                           )
+                         )
+                       ),
+                     ),
+                     
+                     ## Right panel ------------------------------------------------------
+                     
+                     column(
+                       6,
+                       div(
+                         div(
+                           class = "panel panel-info",
+                           div(
+                             class = "panel-heading",
+                             style = "color: white;font-size: 18px;font-style: bold; background-color: #1d70b8;",
+                             h2("Background Info")
+                           ),
+                           div(
+                             class = "panel-body",
+                           )
+                         )
+                       )
+                     )
+                   )
+                 )
+               ),
+               tabPanel(
+                 value = "headlines",
+                 "Headlines",
+                 
+                 # Define UI for application that draws a histogram
+                 
+                 # Sidebar with la_name choice
+                 sidebarLayout(
+                   sidebarPanel(
+                     width = 2,
+                     selectInput(inputId = "geography_choice",
+                                 label = "Choose geographic breakdown level:",
+                                 choices = attendance_data$geographic_level[!duplicated(attendance_data$geographic_level)]
+                     ),
+                     selectInput(inputId = "la_choice",
+                                 label = "Choose local authority:",
+                                 choices = attendance_data$la_name[!duplicated(attendance_data$la_name)]
+                     ),
+                     selectInput(inputId = "region_choice",
+                                 label = "Choose region:",
+                                 choices = attendance_data$region_name[!duplicated(attendance_data$region_name)]
+                     ),
+                     selectInput(inputId = "school_choice",
+                                 label = "Choose school type:",
+                                 choices = attendance_data$school_type[!duplicated(attendance_data$school_type)]
+                     )
+                   ),
+                   
+                   # Show a box with most recent absence data
+                   mainPanel(
+                     width = 10,
+                     p(strong(paste0("Most recent absence data"))),
+                     p("Overall absences and absence rate in the most recent week"),
+                     valueBoxOutput("absence_rate", width = 6),
+                     br()
+                     
+                     
+                     # add box to show user input
+                   )
+                 )
+               ),
+               
+               # Create the accessibility statement-----------------
+               tabPanel(
+                 "Accessibility",
+                 h2("Accessibility statement"),
+                 br("This accessibility statement applies to the **application name**.
             This application is run by the Department for Education. We want as many people as possible to be able to use this application,
             and have actively developed this application with accessibilty in mind."),
-        h3("WCAG 2.1 compliance"),
-        br("We follow the reccomendations of the ", a(href = "https://www.w3.org/TR/WCAG21/", "WCAG 2.1 requirements. ", onclick = "ga('send', 'event', 'click', 'link', 'IKnow', 1)"), "This application has been checked using the ", a(href = "https://github.com/ewenme/shinya11y", "Shinya11y tool "), ", which did not detect accessibility issues.
+                 h3("WCAG 2.1 compliance"),
+                 br("We follow the reccomendations of the ", a(href = "https://www.w3.org/TR/WCAG21/", "WCAG 2.1 requirements. ", onclick = "ga('send', 'event', 'click', 'link', 'IKnow', 1)"), "This application has been checked using the ", a(href = "https://github.com/ewenme/shinya11y", "Shinya11y tool "), ", which did not detect accessibility issues.
              This application also fully passes the accessibility audits checked by the ", a(href = "https://developers.google.com/web/tools/lighthouse", "Google Developer Lighthouse tool"), ". This means that this application:"),
-        tags$div(tags$ul(
-          tags$li("uses colours that have sufficient contrast"),
-          tags$li("allows you to zoom in up to 300% without the text spilling off the screen"),
-          tags$li("has its performance regularly monitored, with a team working on any feedback to improve accessibility for all users")
-        )),
-        h3("Limitations"),
-        br("We recognise that there are still potential issues with accessibility in this application, but we will continue
+                 tags$div(tags$ul(
+                   tags$li("uses colours that have sufficient contrast"),
+                   tags$li("allows you to zoom in up to 300% without the text spilling off the screen"),
+                   tags$li("has its performance regularly monitored, with a team working on any feedback to improve accessibility for all users")
+                 )),
+                 h3("Limitations"),
+                 br("We recognise that there are still potential issues with accessibility in this application, but we will continue
              to review updates to technology available to us to keep improving accessibility for all of our users. For example, these
             are known issues that we will continue to monitor and improve:"),
-        tags$div(tags$ul(
-          tags$li("List"),
-          tags$li("known"),
-          tags$li("limitations, e.g."),
-          tags$li("Alternative text in interactive charts is limited to titles and could be more descriptive (although this data is available in csv format)")
-        )),
-        h3("Feedback"),
-        br(
-          "If you have any feedback on how we could further improve the accessibility of this application, please contact us at",
-          a(href = "mailto:email@education.gov.uk", "email@education.gov.uk")
-        )
-      ), # End of accessibility tab
-      # Support links ===========================================================
-
-      tabPanel(
-        "Support and feedback",
-        support_links() # defined in R/supporting_links.R
-      ),
-      # Footer ====================================================================
-
-      shinyGovstyle::footer(TRUE)
+                 tags$div(tags$ul(
+                   tags$li("List"),
+                   tags$li("known"),
+                   tags$li("limitations, e.g."),
+                   tags$li("Alternative text in interactive charts is limited to titles and could be more descriptive (although this data is available in csv format)")
+                 )),
+                 h3("Feedback"),
+                 br(
+                   "If you have any feedback on how we could further improve the accessibility of this application, please contact us at",
+                   a(href = "mailto:email@education.gov.uk", "email@education.gov.uk")
+                 )
+               ), # End of accessibility tab
+               # Support links ===========================================================
+               
+               tabPanel(
+                 "Support and feedback",
+                 support_links() # defined in R/supporting_links.R
+               ),
+               # Footer ====================================================================
+               
+               shinyGovstyle::footer(TRUE)
     ) # End of navBarPage
   )
 }
