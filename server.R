@@ -41,28 +41,85 @@ server <- function(input, output, session) {
   })
   
 
+  live_attendance_data_ts <- reactive({
+    attendance_data %>% filter(
+      geographic_level == input$geography_choice,
+      la_name == input$la_choice,
+      region_name == input$region_choice,
+      school_type == input$school_choice,
+      time_period == "2021"
+    )
+  })
+  
+  # trying to define selective outputs
+ 
+  
+  # end
   
   # Define server logic required to draw a line graph
-  output$testPlot <- renderPlot({
-    ggplot(attendance_data %>% filter(la_name == input$la_name), 
-           aes(time_identifier, sess_overall_percent)) + geom_line()
+  output$timeseries_plot <- renderPlotly({
+    plot_ly(live_attendance_data_ts(), x = ~time_identifier, y = ~sess_overall_percent) %>%
+      add_lines() %>%
+      layout(xaxis = list(title = 'Week number'), 
+             yaxis = list(title = 'Overall absence rate (%)'), hovermode = "x unified")
   })
   
   
-  # create box for absence data
-  output$absence_rate<- renderValueBox({
+  # create headline absence rate text
+  
+  output$absence_rate <- renderText({
+    paste0("• ",live_attendance_data() %>% pull(sess_overall_percent) %>% round(digits = 1), 
+           "% of pupils were absent in the most recent week.")
+  })
+  
+  output$illness_rate <- renderText({
+    paste0("• ",live_attendance_data() %>% pull(sess_auth_illness_rate) %>% round(digits = 1), 
+           "% of pupils were absent in the most recent week due to illness.")
+  })
+  
+  # create headline absence boxes
+  
+  output$headline_absence_rate <- renderValueBox({
     
-    overall_absence_rate <- live_attendance_data() %>%
-      pull(sess_overall_percent)
-      
+    overall_absence_rate_headline <- live_attendance_data() %>%
+      pull(sess_overall_percent) %>%
+      round(digits = 1)
+    
     # Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(overall_absence_rate),
-      paste0("of pupils were absent in the most recent week"),
+      paste0(overall_absence_rate_headline, "%"),
+      paste0("Overall absence rate"),
       color = "blue"
     )
   })
   
+  output$headline_auth_rate <- renderValueBox({
+    
+    overall_auth_rate_headline <- live_attendance_data() %>%
+      pull(sess_authorised_percent) %>%
+      round(digits = 1)
+    
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      paste0(overall_auth_rate_headline, "%"),
+      paste0("Authorised absence rate"),
+      color = "blue"
+    )
+  })
+  
+  output$headline_unauth_rate <- renderValueBox({
+    
+    overall_unauth_rate_headline <- live_attendance_data() %>%
+      pull(sess_unauthorised_percent) %>%
+      round(digits = 1)
+    
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      paste0(overall_unauth_rate_headline, "%"),
+      paste0("Unauthorised absence rate"),
+      color = "blue"
+    )
+  })
   
   # Stop app ---------------------------------------------------------------------------------
   

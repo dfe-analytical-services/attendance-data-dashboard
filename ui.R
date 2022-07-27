@@ -127,11 +127,15 @@ ui <- function(input, output, session) {
                    )
                  )
                ),
+               
+               
+               
+               
                tabPanel(
                  value = "headlines",
                  "Headlines",
                  
-                 # Define UI for application that draws a histogram
+                 # Define UI for application
                  
                  # Sidebar with la_name choice
                  sidebarLayout(
@@ -141,13 +145,13 @@ ui <- function(input, output, session) {
                                  label = "Choose geographic breakdown level:",
                                  choices = attendance_data$geographic_level[!duplicated(attendance_data$geographic_level)]
                      ),
-                     selectInput(inputId = "la_choice",
-                                 label = "Choose local authority:",
-                                 choices = attendance_data$la_name[!duplicated(attendance_data$la_name)]
-                     ),
                      selectInput(inputId = "region_choice",
                                  label = "Choose region:",
                                  choices = attendance_data$region_name[!duplicated(attendance_data$region_name)]
+                     ),
+                     selectInput(inputId = "la_choice",
+                                 label = "Choose local authority:",
+                                 choices = attendance_data$la_name[!duplicated(attendance_data$la_name)]
                      ),
                      selectInput(inputId = "school_choice",
                                  label = "Choose school type:",
@@ -159,13 +163,44 @@ ui <- function(input, output, session) {
                    mainPanel(
                      width = 10,
                      p(strong(paste0("Most recent absence data"))),
-                     p("Overall absences and absence rate in the most recent week"),
-                     valueBoxOutput("absence_rate", width = 6),
-                     br()
+                     textOutput("absence_rate"),
+                     textOutput("illness_rate"),
+                     br(),
                      
-                     
-                     # add box to show user input
-                   )
+                     fluidPage(
+                       fluidRow(
+                         column(width = 12, br()),
+                         column(
+                           6,
+                           p(strong("Overall absence rates across the year to date")),
+                           plotlyOutput("timeseries_plot")
+                         ),
+                         column(
+                           6,
+                           fluidRow(
+                             column(
+                               12,
+                               p(strong(paste0("Summary of absence rates in the most recent week"))),
+                               p("additional information"),
+                               valueBoxOutput("headline_absence_rate", width = 6),
+                               valueBoxOutput("headline_auth_rate", width = 6)
+                             )
+                           ),
+                           fluidRow(
+                             column(
+                               12,
+                             )
+                           ),
+                           fluidRow(
+                             column(
+                               12,
+                               valueBoxOutput("headline_unauth_rate", width = 6),
+                             )
+                           ),
+                         )
+                       ),
+                     )
+                   ),
                  )
                ),
                
