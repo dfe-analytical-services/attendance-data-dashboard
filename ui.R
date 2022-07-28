@@ -77,7 +77,9 @@ ui <- function(input, output, session) {
                      column(
                        12,
                        h1("Pupil absence in schools in England data dashboard"),
-                       p("INSERT DESCRIPTION ON HOW TO USE DASHBOARD AND WHAT IT WILL TELL THE USER HERE"),
+                       br("The Department for Education has been working alongside schools to collect attendance data directly from school management information systems. This has made it possible to view absence on a weekly basis in addition to published", 
+                        a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england-autumn-and-spring-terms", "termly National Statistics"), "based on the school census."),
+                       "This dashboard will be updated fortnightly with further measures and breakdowns being added when possible. The next iteration of this dashboard is likely to include persistent absence.",
                        br(),
                        br()
                      ),
@@ -98,9 +100,19 @@ ui <- function(input, output, session) {
                              class = "panel-body",
                              tags$div(
                                title = "Headline information including overall absence, authorised absence and unauthorised absence",
-                               h3(actionLink("link_to_headlines_tab", "Headlines"))
+                               h3(actionLink("link_to_headlines_tab", "Headlines")),
+                               br("The headlines page includes information on overall absence, authorised absence and unauthorised absence, in addition to brief information on absence due to illness. Figures are based on information collected by schools and shared with the department."),
+                               br(),
+                               br("The chart shows the overall absence rate across all data collected in the year to date."),
+                               br(),
+                               br("Headline boxes show:"),
+                               br("• Overall absence rate"),
+                               "• Authorised absence rate",
+                               br("• Unauthorised absence rate"),
+                               br(),
+                               br("It is possible to view breakdowns of these headline figures at National, Regional and Local Authority geographic levels, in addition to school type.")
                              ),
-                             br()
+                             br("To view breakdowns of the headline figures other than the total, use the drop-down menu options on the left side of the page. You will need to select the geographic level prior to selecting other options below.")
                            )
                          )
                        ),
@@ -120,6 +132,9 @@ ui <- function(input, output, session) {
                            ),
                            div(
                              class = "panel-body",
+                             tags$div(
+                               br("What do we want in here? Links to where to go for main publications? Do we want anything on key data notes e.g. how much data is lagged by or would that be better placed in a technical notes section etc?")
+                             ),
                            )
                          )
                        )
@@ -141,18 +156,28 @@ ui <- function(input, output, session) {
                  sidebarLayout(
                    sidebarPanel(
                      width = 2,
-                     selectInput(inputId = "geography_choice",
-                                 label = "Choose geographic breakdown level:",
-                                 choices = attendance_data$geographic_level[!duplicated(attendance_data$geographic_level)]
+                     # selectInput(inputId = "geography_choice",
+                     #             label = "Choose geographic breakdown level:",
+                     #             choices = attendance_data$geographic_level[!duplicated(attendance_data$geographic_level)]
+                     # ),
+                     uiOutput("levels_filtered"),
+                     conditionalPanel(condition = "input.geography_choice == 'Regional'|| input.geography_choice == 'Local authority'", 
+                                      uiOutput("reg_filtered")
+                                      # selectInput(inputId = "region_choice",
+                                      #             label = "Choose region:",
+                                      #             choices = geog_lookup$region_name %>% unique()
+                                      # )
                      ),
-                     selectInput(inputId = "region_choice",
-                                 label = "Choose region:",
-                                 choices = attendance_data$region_name[!duplicated(attendance_data$region_name)]
+                     conditionalPanel(condition = "input.geography_choice == 'Local authority'",
+                                      uiOutput("la_filtered")
+                                      
+                                      # selectInput(inputId = "la_choice",
+                                      #             label = "Choose local authority:",
+                                      #             choices = list(la_geog())
+                                      
                      ),
-                     selectInput(inputId = "la_choice",
-                                 label = "Choose local authority:",
-                                 choices = attendance_data$la_name[!duplicated(attendance_data$la_name)]
-                     ),
+                     
+                     #tableOutput("Table"),
                      selectInput(inputId = "school_choice",
                                  label = "Choose school type:",
                                  choices = attendance_data$school_type[!duplicated(attendance_data$school_type)]
@@ -203,6 +228,36 @@ ui <- function(input, output, session) {
                    ),
                  )
                ),
+               
+               
+               # Create the tech notes-----------------
+               tabPanel(
+                 value = "technical_notes",
+                 title = "Technical notes",
+                 meta_general(
+                   application_name = "School absence headlines",
+                   description = "Headlines on pupil absence by school type and geographical breakdown in England",
+                   robots = "index,follow",
+                   generator = "R-Shiny",
+                   subject = "Pupil absence in England",
+                   rating = "General",
+                   referrer = "no-referrer"
+                 ),
+                 h2("Technical notes"),
+                 br("Use this dashboard to view pupil absence by school type and geographical breakdown in England"),
+                 br("Week numbers refer to the year starting at January 1st and ending December 31st rather than following the academic year."),
+                 br("Data is lagged by x weeks in order to allow for any retrospective changes to the data in schools, for example changing an unauthorised absence to late."),
+                 br(),
+                 tabBox(
+                   title = "",
+                   id = "tabs_tech_notes", width = "12",
+                   tabPanel(
+                     "Headlines",
+                     tableOutput("notesTableHeadlines") # made in global.R file
+                   ), # end of tabPanel
+                 ) # end of tabBox
+               ),
+               
                
                # Create the accessibility statement-----------------
                tabPanel(

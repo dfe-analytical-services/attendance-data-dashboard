@@ -27,34 +27,114 @@ server <- function(input, output, session) {
   hide(id = "loading-content", anim = TRUE, animType = "fade")
   show("app-content")
   
+  
+  # Navigation with links 
+  observeEvent(input$link_to_headlines_tab, {
+    updateTabsetPanel(session, "navbar", selected = "headlines")
+  })
+  
+  
+  # Reactive geography levels 
+  
+  #levels
+  geog_levels <- reactive({geog_lookup %>% select(geographic_level) %>% unique() %>% as.data.table()
+  })
+  
+  output$levels_filtered <- renderUI({
+    selectInput(inputId = "geography_choice",
+                label = "Choose geographic breakdown level:",
+                choices = geog_levels())
+    
+  })
+  
+  
+  #regional
+  reg_geog <- reactive({geog_lookup %>% dplyr::filter(geographic_level == input$geography_choice) %>% select(region_name) %>% unique() %>% as.data.table()
+  })
+  
+  output$reg_filtered <- renderUI({
+    selectInput(inputId = "region_choice",
+                label = "Choose region:",
+                choices = reg_geog())
+    
+  })
+  
+  
+  #local authority
+  la_geog <- reactive({geog_lookup %>% dplyr::filter(region_name == input$region_choice) %>% select(la_name) %>% unique() %>% as.data.table()
+  })
+  
+  output$la_filtered <- renderUI({
+    selectInput(inputId = "la_choice",
+                label = "Choose local authority:",
+                choices = la_geog())
+                
+  })
+  
+
+  
   # Simple server stuff goes here ------------------------------------------------------------
   
+  #National
   live_attendance_data <- reactive({
-    attendance_data %>% filter(
-      geographic_level == input$geography_choice,
-      la_name == input$la_choice,
-      region_name == input$region_choice,
-      school_type == input$school_choice,
-      time_period == "2021",
-      time_identifier == "Week 3"
-    )
+
+    if(input$geography_choice == "National") {
+      dplyr::filter(attendance_data, geographic_level == "National",
+                                        school_type == input$school_choice,
+                                        time_period == "2021",
+                                        time_identifier == "Week 3")}
+
+    else if(input$geography_choice == "Regional") {
+      dplyr::filter(attendance_data, geographic_level == "Regional",
+                                        region_name == input$region_choice,
+                                        school_type == input$school_choice,
+                                        time_period == "2021",
+                                        time_identifier == "Week 3")}
+
+    else if(input$geography_choice == "Local authority") {
+      dplyr::filter(attendance_data, geographic_level == "Local authority",
+                                        region_name == input$region_choice,
+                                        la_name == input$la_choice,
+                                        school_type == input$school_choice,
+                                        time_period == "2021",
+                                        time_identifier == "Week 3")}
+
+    else {NA}
+    
   })
   
 
   live_attendance_data_ts <- reactive({
-    attendance_data %>% filter(
-      geographic_level == input$geography_choice,
-      la_name == input$la_choice,
-      region_name == input$region_choice,
-      school_type == input$school_choice,
-      time_period == "2021"
-    )
+    
+    if(input$geography_choice == "National") {
+      dplyr::filter(attendance_data, geographic_level == "National",
+                    school_type == input$school_choice,
+                    time_period == "2021")}
+    
+    else if(input$geography_choice == "Regional") {
+      dplyr::filter(attendance_data, geographic_level == "Regional",
+                    region_name == input$region_choice,
+                    school_type == input$school_choice,
+                    time_period == "2021")}
+    
+    else if(input$geography_choice == "Local authority") {
+      dplyr::filter(attendance_data, geographic_level == "Local authority",
+                    region_name == input$region_choice,
+                    la_name == input$la_choice,
+                    school_type == input$school_choice,
+                    time_period == "2021")}
+    
+    else {NA}
+    
+    # attendance_data %>% dplyr::filter(
+    #   geographic_level == input$geography_choice,
+    #   region_name == input$region_choice,
+    #   la_name == input$la_choice,
+    #   school_type == input$school_choice,
+    #   time_period == "2021"
+    
   })
-  
-  # trying to define selective outputs
- 
-  
-  # end
+
   
   # Define server logic required to draw a line graph
   output$timeseries_plot <- renderPlotly({
@@ -66,6 +146,10 @@ server <- function(input, output, session) {
   
   
   # create headline absence rate text
+  
+  output$Table <- renderTable({
+    live_attendance_data()
+  })
   
   output$absence_rate <- renderText({
     paste0("• ",live_attendance_data() %>% pull(sess_overall_percent) %>% round(digits = 1), 
@@ -120,6 +204,19 @@ server <- function(input, output, session) {
       color = "blue"
     )
   })
+  
+  
+  # Tech guidance tables ----------------------------------------------------
+  
+  output$notesTableHeadlines <- function() {
+    notesTableHeadlines[is.na(notesTableHeadlines)] <- " "
+    
+    kable(notesTableHeadlines, "html", align = "l", escape = FALSE) %>%
+      kable_styling(full_width = T) %>%
+      column_spec(1, bold = T, extra_css = "vertical-align: top !important;") %>%
+      column_spec(2, width_max = "40em") %>%
+      column_spec(3, width_max = "40em")
+  }
   
   # Stop app ---------------------------------------------------------------------------------
   
