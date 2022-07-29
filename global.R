@@ -92,7 +92,7 @@ source("R/support_links.R")
 
 # Read in data
 
-attendance_data <- fread("data/Weekly_dummy_data.csv")
+attendance_data <- fread("data/Weekly_dummy_data_2.csv")
 geog_lookup <- attendance_data %>% select(geographic_level, region_name, la_name) %>% unique()
 
 # Notes tables----------------------------------

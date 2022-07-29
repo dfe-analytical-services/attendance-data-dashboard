@@ -148,7 +148,7 @@ ui <- function(input, output, session) {
                
                tabPanel(
                  value = "headlines",
-                 "Headlines",
+                 "Headlines and reasons",
                  
                  # Define UI for application
                  
@@ -156,25 +156,12 @@ ui <- function(input, output, session) {
                  sidebarLayout(
                    sidebarPanel(
                      width = 2,
-                     # selectInput(inputId = "geography_choice",
-                     #             label = "Choose geographic breakdown level:",
-                     #             choices = attendance_data$geographic_level[!duplicated(attendance_data$geographic_level)]
-                     # ),
                      uiOutput("levels_filtered"),
                      conditionalPanel(condition = "input.geography_choice == 'Regional'|| input.geography_choice == 'Local authority'", 
                                       uiOutput("reg_filtered")
-                                      # selectInput(inputId = "region_choice",
-                                      #             label = "Choose region:",
-                                      #             choices = geog_lookup$region_name %>% unique()
-                                      # )
                      ),
                      conditionalPanel(condition = "input.geography_choice == 'Local authority'",
                                       uiOutput("la_filtered")
-                                      
-                                      # selectInput(inputId = "la_choice",
-                                      #             label = "Choose local authority:",
-                                      #             choices = list(la_geog())
-                                      
                      ),
                      
                      #tableOutput("Table"),
@@ -184,52 +171,72 @@ ui <- function(input, output, session) {
                      )
                    ),
                    
-                   # Show a box with most recent absence data
+                   # Show lines with most recent absence data
                    mainPanel(
                      width = 10,
-                     p(strong(paste0("Most recent absence data"))),
-                     textOutput("absence_rate"),
-                     textOutput("illness_rate"),
-                     br(),
-                     
-                     fluidPage(
-                       fluidRow(
-                         column(width = 12, br()),
-                         column(
-                           6,
-                           p(strong("Overall absence rates across the year to date")),
-                           plotlyOutput("timeseries_plot")
-                         ),
-                         column(
-                           6,
+                     h2("Absence headlines and reasons"),
+                     tabsetPanel(
+                       id = "tabs",
+                       tabPanel(
+                         value = "headlines",
+                         title = "Headlines",
+                         fluidPage(
                            fluidRow(
+                             br(),
+                             p(strong(paste0("Most recent absence data"))),
+                             textOutput("weekly_absence_rate"),
+                             textOutput("weekly_illness_rate"),
+                             textOutput("ytd_pa_rate"),
+                             br(),
+                             column(width = 12, br()),
                              column(
-                               12,
-                               p(strong(paste0("Summary of absence rates in the most recent week"))),
-                               p("additional information"),
-                               valueBoxOutput("headline_absence_rate", width = 6),
-                               valueBoxOutput("headline_auth_rate", width = 6)
+                               6,
+                               p(strong("Overall absence rates across the year to date")),
+                               plotlyOutput("absence_rates_timeseries_plot")
+                             ),
+                             column(
+                               6,
+                               fluidRow(
+                                 column(
+                                   12,
+                                   p(strong("Overall persistent absence rate (at least 10% sessions missed) across the year to date")),
+                                   plotlyOutput("pa_timeseries_plot")
+                                 )
+                               ),
                              )
                            ),
-                           fluidRow(
-                             column(
-                               12,
-                             )
-                           ),
-                           fluidRow(
-                             column(
-                               12,
-                               valueBoxOutput("headline_unauth_rate", width = 6),
-                             )
-                           ),
+                           p(strong(paste0("Summary of overall, authorised and unathorised absence"))),
+                           textOutput("daily_dates"),
+                           textOutput("weekly_dates"),
+                           br(),
+                           p(strong(paste0("Overall absence rate:"))),
+                           valueBoxOutput("headline_absence_rate_daily", width = 6),
+                           valueBoxOutput("headline_absence_rate_weekly", width = 6),
+                           valueBoxOutput("headline_absence_rate_ytd", width = 6)
                          )
                        ),
-                     )
+                       tabPanel(
+                         value = "reasons",
+                         title = "Reasons",
+                         fluidPage(
+                           fluidRow(
+                             p(strong(paste0("Authorised absence rate:"))),
+                             valueBoxOutput("headline_auth_rate_daily", width = 6),
+                             valueBoxOutput("headline_auth_rate_weekly", width = 6),
+                             valueBoxOutput("headline_auth_rate_ytd", width = 6),
+                             p(strong(paste0("Unauthorised absence rate:"))),
+                             valueBoxOutput("headline_unauth_rate_daily", width = 6),
+                             valueBoxOutput("headline_unauth_rate_weekly", width = 6),
+                             valueBoxOutput("headline_unauth_rate_ytd", width = 6) 
+                           )
+                         )
+                       )
+                     ),
                    ),
                  )
                ),
                
-               
+    
                # Create the tech notes-----------------
                tabPanel(
                  value = "technical_notes",
