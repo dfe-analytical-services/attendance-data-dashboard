@@ -30,13 +30,19 @@ server <- function(input, output, session) {
   
   # Navigation with links 
   observeEvent(input$link_to_headlines_tab, {
-    updateTabsetPanel(session, "navbar", selected = "headlines")
+    updateTabsetPanel(session, "navbar", selected = "headlines and reasons")
+    updateTabsetPanel(session, "tabs", selected = "headlines")
+  })
+  
+  observeEvent(input$link_to_reasons_tab, {
+    updateTabsetPanel(session, "navbar", selected = "headlines and reasons")
+    updateTabsetPanel(session, "tabs", selected = "reasons")
   })
   
   
-  # Reactive geography levels 
+  # Setting up reactive levels for dropdown ------------------------------------------------------------
   
-  #levels
+  #overall levels
   geog_levels <- reactive({geog_lookup %>% select(geographic_level) %>% unique() %>% as.data.table()
   })
   
@@ -70,13 +76,67 @@ server <- function(input, output, session) {
     selectInput(inputId = "la_choice",
                 label = "Choose local authority:",
                 choices = la_geog(),
-                selected = head(la_geog,1))
-                
+                selected = la_geog()[2,1]
+    )
+  })
+
+  # Defining reactive data ------------------------------------------------------------
+  
+  #Daily data
+  live_attendance_data_daily <- reactive({
+    
+    if(input$geography_choice == "National") {
+      dplyr::filter(attendance_data, geographic_level == "National",
+                    school_type == input$school_choice,
+                    time_period == "2021",
+                    date == "21/01/2021")}
+    
+    else if(input$geography_choice == "Regional") {
+      dplyr::filter(attendance_data, geographic_level == "Regional",
+                    region_name == input$region_choice,
+                    school_type == input$school_choice,
+                    time_period == "2021",
+                    date == "21/01/2021")}
+    
+    else if(input$geography_choice == "Local authority") {
+      dplyr::filter(attendance_data, geographic_level == "Local authority",
+                    region_name == input$region_choice,
+                    la_name == input$la_choice,
+                    school_type == input$school_choice,
+                    time_period == "2021",
+                    date == "21/01/2021")}
+    
+    else {NA}
+    
   })
   
-
-  
-  # Simple server stuff goes here ------------------------------------------------------------
+  #Daily data for start of week
+  live_attendance_data_daily_startweek <- reactive({
+    
+    if(input$geography_choice == "National") {
+      dplyr::filter(attendance_data, geographic_level == "National",
+                    school_type == input$school_choice,
+                    time_period == "2021",
+                    date == "15/01/2021")}
+    
+    else if(input$geography_choice == "Regional") {
+      dplyr::filter(attendance_data, geographic_level == "Regional",
+                    region_name == input$region_choice,
+                    school_type == input$school_choice,
+                    time_period == "2021",
+                    date == "15/01/2021")}
+    
+    else if(input$geography_choice == "Local authority") {
+      dplyr::filter(attendance_data, geographic_level == "Local authority",
+                    region_name == input$region_choice,
+                    la_name == input$la_choice,
+                    school_type == input$school_choice,
+                    time_period == "2021",
+                    date == "15/01/2021")}
+    
+    else {NA}
+    
+  })
   
   #Weekly data
   live_attendance_data_weekly <- reactive({
@@ -106,34 +166,6 @@ server <- function(input, output, session) {
 
   })
   
-  #Daily data
-  live_attendance_data_daily <- reactive({
-    
-    if(input$geography_choice == "National") {
-      dplyr::filter(attendance_data, geographic_level == "National",
-                    school_type == input$school_choice,
-                    time_period == "2021",
-                    date == max(date))}
-    
-    else if(input$geography_choice == "Regional") {
-      dplyr::filter(attendance_data, geographic_level == "Regional",
-                    region_name == input$region_choice,
-                    school_type == input$school_choice,
-                    time_period == "2021",
-                    date == max(date))}
-    
-    else if(input$geography_choice == "Local authority") {
-      dplyr::filter(attendance_data, geographic_level == "Local authority",
-                    region_name == input$region_choice,
-                    la_name == input$la_choice,
-                    school_type == input$school_choice,
-                    time_period == "2021",
-                    date == max(date))}
-    
-    else {NA}
-    
-  })
-  
   
   #Full timeseries for most recent year
   live_attendance_data_ts <- reactive({
@@ -158,10 +190,12 @@ server <- function(input, output, session) {
     
     else {NA}
     
-  }) %>% bindCache(input$geography_choice, input$school_choice, input$region_choice, input$la_choice)
+  })
   
   
-  # Define server logic required to draw a line graph
+  # Creating reactive charts ------------------------------------------------------------
+  
+  # Headline absence rates
   output$absence_rates_timeseries_plot <- renderPlotly({
     ts_plot <- plot_ly(
       live_attendance_data_ts(), type = "scatter", mode = "lines"
@@ -170,19 +204,22 @@ server <- function(input, output, session) {
         x = ~time_identifier,
         y = ~sess_overall_percent,
         line = list(color = "black"),
-        name = "Overall absence rate"
+        name = "Overall absence rate",
+        hovertemplate='%{y:.1f}'
       ) %>%
       add_trace(
         x = ~time_identifier,
         y = ~sess_authorised_percent,
         line = list(color = "steelblue"),
-        name = "Authorised absence rate"
+        name = "Authorised absence rate",
+        hovertemplate='%{y:.1f}'
       ) %>%
       add_trace(
         x = ~time_identifier,
         y = ~sess_unauthorised_percent,
         line = list(color = "orangered"),
-        name = "Unauthorised absence rate"
+        name = "Unauthorised absence rate",
+        hovertemplate='%{y:.1f}'
       )
     
     ts_plot <- ts_plot %>%  layout(
@@ -197,7 +234,7 @@ server <- function(input, output, session) {
     )
   })
   
-  
+  # Headline persistent absence
   output$pa_timeseries_plot <- renderPlotly({
     plot_ly(live_attendance_data_ts(), x = ~time_identifier, y = ~enrolments_pa_10_exact_percent) %>%
       add_lines() %>%
@@ -205,10 +242,82 @@ server <- function(input, output, session) {
              yaxis = list(title = 'Persistent absence rate (%)'), hovermode = "x unified")
   })
   
-  # create headline absence rate text
   
-  output$Table <- renderTable({
-    live_attendance_data_weekly()
+  # Reasons for absence - note not all are included here due to colour palette size
+  output$absence_reasons_timeseries_plot <- renderPlotly({
+    reasons_ts_plot <- plot_ly(
+      live_attendance_data_ts(), type = "scatter", mode = "lines"
+    ) %>%
+      add_trace(
+        x = ~time_identifier,
+        y = ~sess_auth_illness_rate,
+        line = list(color = "#12436D"),
+        name = "Illness",
+        hovertemplate='%{y:.1f}'
+      ) %>%
+      add_trace(
+        x = ~time_identifier,
+        y = ~sess_auth_appointments_rate,
+        line = list(color = "#28A197"),
+        name = "Medical appointments",
+        hovertemplate='%{y:.1f}'
+      ) %>%
+      add_trace(
+        x = ~time_identifier,
+        y = ~sess_auth_excluded_rate,
+        line = list(color = "#801650"),
+        name = "Excluded",
+        hovertemplate='%{y:.1f}'
+      ) %>%
+      add_trace(
+        x = ~time_identifier,
+        y = ~sess_unauth_holiday_rate,
+        line = list(color = "	#F46A25"),
+        name = "Unauthorised holiday",
+        hovertemplate='%{y:.1f}'
+      ) %>%
+      add_trace(
+        x = ~time_identifier,
+        y = ~sess_unauth_other_rate,
+        line = list(color = "	#3D3D3D"),
+        name = "Unauthorised other",
+        hovertemplate='%{y:.1f}'
+      ) %>%
+      add_trace(
+        x = ~time_identifier,
+        y = ~sess_x_covid_rate,
+        line = list(color = "	#A285D1"),
+        name = "Not attending due to COVID circumstances",
+        hovertemplate='%{y:.1f}'
+      )
+    
+    
+    
+    reasons_ts_plot <- reasons_ts_plot %>%  layout(
+      xaxis = list(title = 'Week number'), 
+      yaxis = list(title = 'Absence rate (%)'), 
+      hovermode = "x unified",
+      legend = list(orientation = 'h',
+                    yanchor="bottom",
+                    y=-0.5,
+                    xanchor="left",
+                    x=0)
+    )
+  })
+  
+  # Creating reactive text ------------------------------------------------------------
+  
+  
+  schools_count <- attendance_data %>% filter(
+    time_period == "2021",
+    time_identifier == "Week 3",
+    geographic_level == "National",
+    school_type == "Total",
+    date == "21/01/2021"
+    ) %>% select(num_schools)
+  
+  output$daily_schools_count <- renderText({
+    paste0(schools_count, " schools provided information on the most recent full day of data, i.e. ",live_attendance_data_daily() %>% pull(date))
   })
   
   output$weekly_absence_rate <- renderText({
@@ -234,7 +343,7 @@ server <- function(input, output, session) {
   })
   
   output$weekly_dates <- renderText({
-    paste0("THIS NEEDS FIXING - The most recent full week of data was the week commencing  ",live_attendance_data_daily() %>% pull(date - 5))
+    paste0("The most recent full week of data was the week commencing  ",live_attendance_data_daily_startweek() %>% pull(date))
   })
   
   
@@ -384,6 +493,16 @@ server <- function(input, output, session) {
     notesTableHeadlines[is.na(notesTableHeadlines)] <- " "
     
     kable(notesTableHeadlines, "html", align = "l", escape = FALSE) %>%
+      kable_styling(full_width = T) %>%
+      column_spec(1, bold = T, extra_css = "vertical-align: top !important;") %>%
+      column_spec(2, width_max = "40em") %>%
+      column_spec(3, width_max = "40em")
+  }
+  
+  output$notesTableReasons <- function() {
+    notesTableReasons[is.na(notesTableReasons)] <- " "
+    
+    kable(notesTableReasons, "html", align = "l", escape = FALSE) %>%
       kable_styling(full_width = T) %>%
       column_spec(1, bold = T, extra_css = "vertical-align: top !important;") %>%
       column_spec(2, width_max = "40em") %>%

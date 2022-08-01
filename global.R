@@ -93,12 +93,9 @@ source("R/support_links.R")
 # Read in data
 
 attendance_data <- fread("data/Weekly_dummy_data_2.csv")
-geog_lookup <- attendance_data %>% select(geographic_level, region_name, la_name) %>% unique()
+geog_lookup <- attendance_data %>% select(geographic_level, region_name, la_name) %>% unique() %>% arrange(region_name)
 
 # Notes tables----------------------------------
 
-
-notesTableHeadlines <- read.xlsx(
-  xlsxFile = "data/tech_guidance.xlsx",
-  sheet = "Headlines"
-)
+notesTableHeadlines <- fread("data/Tech_guidance_headlines.csv")
+notesTableReasons <- fread("data/Tech_guidance_reasons.csv")

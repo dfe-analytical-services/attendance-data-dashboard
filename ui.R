@@ -98,21 +98,26 @@ ui <- function(input, output, session) {
                            ),
                            div(
                              class = "panel-body",
+                             p("It is possible to view breakdowns of both the headline figures and reasons for absence at National, Regional and Local Authority geographic levels, in addition to school type. To view breakdowns of these figures other than the total, use the drop-down menu options on the left side of the page. You will need to select the geographic level prior to selecting other options below."),
+                             br(),
                              tags$div(
-                               title = "Headline information including overall absence, authorised absence and unauthorised absence",
+                               title = "Headline information on overall and persistent absence",
                                h3(actionLink("link_to_headlines_tab", "Headlines")),
-                               br("The headlines page includes information on overall absence, authorised absence and unauthorised absence, in addition to brief information on absence due to illness. Figures are based on information collected by schools and shared with the department."),
-                               br(),
-                               br("The chart shows the overall absence rate across all data collected in the year to date."),
-                               br(),
-                               br("Headline boxes show:"),
-                               br("• Overall absence rate"),
-                               "• Authorised absence rate",
-                               br("• Unauthorised absence rate"),
-                               br(),
-                               br("It is possible to view breakdowns of these headline figures at National, Regional and Local Authority geographic levels, in addition to school type.")
+                               p("The headlines tab includes information on overall absence, authorised, unauthorised and persistent absence in the most recent day, week and across the year to date."),
+                               p("• Charts on this tab display overall, authorised, unauthorised and persistent absence rates across all data collected in the year to date."),
+                               p("• Headline boxes show the overall absence rate in the most recent full day and week of data, as well as across the year to date."),
                              ),
-                             br("To view breakdowns of the headline figures other than the total, use the drop-down menu options on the left side of the page. You will need to select the geographic level prior to selecting other options below.")
+                             br(),
+                             tags$div(
+                               title = "Reasons for absence including authorised and unauthorised, in addition to breakdowns of the above",
+                               h3(actionLink("link_to_reasons_tab", "Reasons")),
+                               p("The reasons tab includes information on authorised and unauthorised absence rates, and breakdowns into individual reasons for absence."),
+                               p("• The chart on this tab displays absence rates associated with some of the most common absence reasons, including illness, holidays and appointments."),
+                               p("• Headline boxes show the authorised and unauthorised absence rates in the most recent full day and week of data, as well as across the full year to date.")
+                             ),
+                             
+                             
+                             
                            )
                          )
                        ),
@@ -133,7 +138,30 @@ ui <- function(input, output, session) {
                            div(
                              class = "panel-body",
                              tags$div(
-                               br("What do we want in here? Links to where to go for main publications? Do we want anything on key data notes e.g. how much data is lagged by or would that be better placed in a technical notes section etc?")
+                               p("The statistics presented in this dashboard have been developed using management information from schools who have opted in to the data collection process."),
+                               textOutput("daily_schools_count"),
+                               br(),
+                               h3("Useful links"),
+                               p("This dashboard has been developed as an accompaniment to National statistics produced annually by the department on pupil absence across the full year and during spring and autumn terms. You can access these publications through the links below:"), 
+                              a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england", "Pupil absence in schools in England"),
+                              br(a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england-autumn-and-spring-terms", "Pupil absence in schools in England: autumn and spring terms")),
+                              br(),
+                              h3("Overview of absence statistics"),
+                              p("All maintained schools are required to provide 2 possible sessions per day, morning and afternoon, to all pupils. The length of each session, break and the school day is determined by the school’s governing body. Schools must meet for at least 380 sessions or 190 days during any school year to educate their pupils."),
+                              br("If a school is prevented from meeting for 1 or more sessions because of an unavoidable event, it should find a practical way of holding extra sessions. However, if it cannot find a practical way of doing this then it’s not required to make up the lost sessions. Academy and free school funding agreements state that the duration of the school day and sessions are the responsibility of the academy trust."),
+                              br("Schools are required to take attendance registers twice a day - once at the start of the first morning session and once during the second afternoon session. In their register, schools are required to record whether pupils are:"),
+                              p("• absent"),
+                              p("• attending an approved educational activity"),
+                              p("• present"),
+                              p("• unable to attend due to exceptional circumstances"),
+                              br("Where a pupil of compulsory school age is absent, schools have a responsibility to:"),
+                              p("• ascertain the reason"),
+                              p("• ensure the proper safeguarding action is taken"),
+                              p("• indicate in their register whether the absence is authorised by the school or unauthorised"),
+                              p("• identify the correct code to use before entering it on to the school’s electronic register, or management information system which is then used to download data to the school census"),
+                              br("The parent of every child of compulsory school age is required to ensure their child receives a suitable full-time education for their ability, age, aptitude and any special education needs they may have either by regular attendance at school or otherwise. Failure of a parent to secure regular attendance of their school registered child of compulsory school age can lead to a penalty notice or prosecution. Local authorities (LAs) and schools have legal responsibilities regarding accurate recording of a pupil’s attendance."),
+                              br("For further information please see ", 
+                                 a(href = "https://www.gov.uk/government/publications/school-attendance", "School attendance: guidance for schools"), ".")
                              ),
                            )
                          )
@@ -147,7 +175,7 @@ ui <- function(input, output, session) {
                
                
                tabPanel(
-                 value = "headlines",
+                 value = "headlines and reasons",
                  "Headlines and reasons",
                  
                  # Define UI for application
@@ -163,8 +191,6 @@ ui <- function(input, output, session) {
                      conditionalPanel(condition = "input.geography_choice == 'Local authority'",
                                       uiOutput("la_filtered")
                      ),
-                     
-                     #tableOutput("Table"),
                      selectInput(inputId = "school_choice",
                                  label = "Choose school type:",
                                  choices = attendance_data$school_type[!duplicated(attendance_data$school_type)]
@@ -187,7 +213,6 @@ ui <- function(input, output, session) {
                              textOutput("weekly_absence_rate"),
                              textOutput("weekly_illness_rate"),
                              textOutput("ytd_pa_rate"),
-                             br(),
                              column(width = 12, br()),
                              column(
                                6,
@@ -220,14 +245,29 @@ ui <- function(input, output, session) {
                          title = "Reasons",
                          fluidPage(
                            fluidRow(
-                             p(strong(paste0("Authorised absence rate:"))),
-                             valueBoxOutput("headline_auth_rate_daily", width = 6),
-                             valueBoxOutput("headline_auth_rate_weekly", width = 6),
-                             valueBoxOutput("headline_auth_rate_ytd", width = 6),
-                             p(strong(paste0("Unauthorised absence rate:"))),
-                             valueBoxOutput("headline_unauth_rate_daily", width = 6),
-                             valueBoxOutput("headline_unauth_rate_weekly", width = 6),
-                             valueBoxOutput("headline_unauth_rate_ytd", width = 6) 
+                             column(
+                               6,
+                               br(),
+                               p(strong("Reasons for absence across the year to date")),
+                               plotlyOutput("absence_reasons_timeseries_plot")
+                             ),
+                             column(
+                               6,
+                               fluidRow(
+                                 column(
+                                   12,
+                                   br(),
+                                   p(strong(paste0("Authorised absence rate:"))),
+                                   valueBoxOutput("headline_auth_rate_daily", width = 6),
+                                   valueBoxOutput("headline_auth_rate_weekly", width = 6),
+                                   valueBoxOutput("headline_auth_rate_ytd", width = 6),
+                                   p(strong(paste0("Unauthorised absence rate:"))),
+                                   valueBoxOutput("headline_unauth_rate_daily", width = 6),
+                                   valueBoxOutput("headline_unauth_rate_weekly", width = 6),
+                                   valueBoxOutput("headline_unauth_rate_ytd", width = 6)
+                                 )
+                               ),
+                             ),
                            )
                          )
                        )
@@ -261,6 +301,10 @@ ui <- function(input, output, session) {
                    tabPanel(
                      "Headlines",
                      tableOutput("notesTableHeadlines") # made in global.R file
+                   ), # end of tabPanel
+                   tabPanel(
+                     "Reasons",
+                     tableOutput("notesTableReasons") # made in global.R file
                    ), # end of tabPanel
                  ) # end of tabBox
                ),
