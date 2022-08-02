@@ -224,7 +224,7 @@ server <- function(input, output, session) {
     
     ts_plot <- ts_plot %>%  layout(
       xaxis = list(title = 'Week number'), 
-      yaxis = list(title = 'Absence rate (%)'), 
+      yaxis = list(rangemode = "tozero", title = 'Absence rate (%)'), 
       hovermode = "x unified",
       legend = list(orientation = 'h',
                     yanchor="bottom",
@@ -239,7 +239,7 @@ server <- function(input, output, session) {
     plot_ly(live_attendance_data_ts(), x = ~time_identifier, y = ~enrolments_pa_10_exact_percent) %>%
       add_lines() %>%
       layout(xaxis = list(title = 'Week number'), 
-             yaxis = list(title = 'Persistent absence rate (%)'), hovermode = "x unified")
+             yaxis = list(title = 'Persistent absence rate (%)', rangemode = "tozero"), hovermode = "x unified")
   })
   
   
@@ -295,11 +295,11 @@ server <- function(input, output, session) {
     
     reasons_ts_plot <- reasons_ts_plot %>%  layout(
       xaxis = list(title = 'Week number'), 
-      yaxis = list(title = 'Absence rate (%)'), 
+      yaxis = list(title = 'Absence rate (%)', rangemode = "tozero"), 
       hovermode = "x unified",
       legend = list(orientation = 'h',
                     yanchor="bottom",
-                    y=-0.5,
+                    y=-1.0,
                     xanchor="left",
                     x=0)
     )
