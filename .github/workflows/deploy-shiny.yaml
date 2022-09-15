@@ -65,4 +65,4 @@ jobs:
         run: >
           Rscript
           -e "rsconnect::setAccountInfo(name = 'department-for-education', token = '${{secrets.SHINYAPPS_TOKEN}}', secret = '${{secrets.SHINYAPPS_SECRET}}')"
-          -e "rsconnect::deployApp()"
+          -e "rsconnect::deployApp(appName= 'school-attendance-preprod')"

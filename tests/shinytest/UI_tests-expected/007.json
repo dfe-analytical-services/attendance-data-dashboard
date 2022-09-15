@@ -1,0 +1,467 @@
+{
+  "input": {
+    "dash": "headlines",
+    "geography_choice": "Local authority",
+    "la_choice": "Lincolnshire",
+    "link_to_coverage": 0,
+    "link_to_headlines_tab": 0,
+    "link_to_la_tab": 0,
+    "link_to_reasons_tab": 0,
+    "link_to_technotes": 0,
+    "navlistPanel": "dashboard",
+    "region_choice": "East Midlands",
+    "school_choice": "Secondary",
+    "ts_choice": "Year to date"
+  },
+  "output": {
+    "absence_rates_timeseries_plot": {
+      "x": {
+        "layout": {
+          "margin": {
+            "b": 40,
+            "l": 60,
+            "t": 25,
+            "r": 10
+          },
+          "xaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "title": "Week commencing",
+            "tickvals": [
+              "2021-01-04",
+              "2021-01-11",
+              "2021-01-18",
+              "2021-01-25",
+              "2021-02-01",
+              "2021-02-08",
+              "2021-02-15",
+              "2021-02-22",
+              "2021-03-01",
+              "2021-03-08",
+              "2021-03-15",
+              "2021-03-22",
+              "2021-03-29",
+              "2021-04-05",
+              "2021-04-12",
+              "2021-04-19"
+            ],
+            "zeroline": true,
+            "zerolinewidth": 2,
+            "zerolinecolor": "Grey",
+            "tickmode": "linear",
+            "tick0": "2021-08-01",
+            "dtick": "M1"
+          },
+          "yaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "rangemode": "tozero",
+            "title": "Absence rate (%)",
+            "zeroline": true,
+            "zerolinewidth": 2,
+            "zerolinecolor": "Grey"
+          },
+          "hovermode": "x unified",
+          "legend": {
+            "orientation": "h",
+            "yanchor": "bottom",
+            "y": -0.5,
+            "xanchor": "center",
+            "x": 0.5
+          },
+          "title": "Weekly summary of absence rates for secondary state-funded schools<br>at local authority level (East Midlands, Lincolnshire)",
+          "font": {
+            "family": "arial",
+            "size": 12,
+            "color": "grey"
+          },
+          "showlegend": true
+        },
+        "source": "A",
+        "config": {
+          "modeBarButtonsToAdd": [
+            "hoverclosest",
+            "hovercompare"
+          ],
+          "showSendToCloud": false
+        },
+        "data": [
+          {
+            "mode": "lines+markers",
+            "type": "scatter",
+            "marker": {
+              "color": "rgba(31,119,180,1)",
+              "line": {
+                "color": "rgba(31,119,180,1)"
+              }
+            },
+            "error_y": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "error_x": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "line": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "mode": "markers+lines",
+            "type": "scatter",
+            "x": [
+              "2021-01-04",
+              "2021-01-11",
+              "2021-01-18",
+              "2021-01-25",
+              "2021-02-01",
+              "2021-02-08",
+              "2021-02-15",
+              "2021-02-22",
+              "2021-03-01",
+              "2021-03-08",
+              "2021-03-15",
+              "2021-03-22",
+              "2021-03-29",
+              "2021-04-05",
+              "2021-04-12",
+              "2021-04-19"
+            ],
+            "y": [
+              8.60363515347631,
+              8.60363515347631,
+              8.60363515347631,
+              8.54106792191601,
+              8.5325710896913,
+              8.37068502923464,
+              8.38902255302504,
+              8.38422356410843,
+              8.29539311879107,
+              8.28269635228448,
+              8.40153227639068,
+              8.21858430068032,
+              8.16641029635434,
+              8.12794494382182,
+              7.90535280546223,
+              7.98155363305893
+            ],
+            "line": {
+              "color": "black"
+            },
+            "marker": {
+              "color": "black",
+              "line": {
+                "color": "rgba(255,127,14,1)"
+              }
+            },
+            "name": "Overall absence rate",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
+            "error_y": {
+              "color": "rgba(255,127,14,1)"
+            },
+            "error_x": {
+              "color": "rgba(255,127,14,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "mode": "markers+lines",
+            "type": "scatter",
+            "x": [
+              "2021-01-04",
+              "2021-01-11",
+              "2021-01-18",
+              "2021-01-25",
+              "2021-02-01",
+              "2021-02-08",
+              "2021-02-15",
+              "2021-02-22",
+              "2021-03-01",
+              "2021-03-08",
+              "2021-03-15",
+              "2021-03-22",
+              "2021-03-29",
+              "2021-04-05",
+              "2021-04-12",
+              "2021-04-19"
+            ],
+            "y": [
+              7.05075388692737,
+              7.05075388692737,
+              7.05075388692737,
+              6.99947949613225,
+              6.99251626817496,
+              6.85984923271345,
+              6.87487699305374,
+              6.8709441798703,
+              6.7981468568288,
+              6.7877417461749,
+              6.88512882022578,
+              6.73520136190903,
+              6.69244431128615,
+              6.66092162011635,
+              6.47850542547981,
+              6.54095266688188
+            ],
+            "line": {
+              "color": "steelblue"
+            },
+            "marker": {
+              "color": "steelblue",
+              "line": {
+                "color": "rgba(44,160,44,1)"
+              }
+            },
+            "name": "Authorised absence rate",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
+            "error_y": {
+              "color": "rgba(44,160,44,1)"
+            },
+            "error_x": {
+              "color": "rgba(44,160,44,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "mode": "markers+lines",
+            "type": "scatter",
+            "x": [
+              "2021-01-04",
+              "2021-01-11",
+              "2021-01-18",
+              "2021-01-25",
+              "2021-02-01",
+              "2021-02-08",
+              "2021-02-15",
+              "2021-02-22",
+              "2021-03-01",
+              "2021-03-08",
+              "2021-03-15",
+              "2021-03-22",
+              "2021-03-29",
+              "2021-04-05",
+              "2021-04-12",
+              "2021-04-19"
+            ],
+            "y": [
+              1.55288126654893,
+              1.55288126654893,
+              1.55288126654893,
+              1.54158842578377,
+              1.54005482151634,
+              1.51083579652119,
+              1.51414555997129,
+              1.51327938423813,
+              1.49724626196227,
+              1.49495460610959,
+              1.5164034561649,
+              1.48338293877129,
+              1.47396598506819,
+              1.46702332370547,
+              1.42684737998243,
+              1.44060096617705
+            ],
+            "line": {
+              "color": "orangered"
+            },
+            "marker": {
+              "color": "orangered",
+              "line": {
+                "color": "rgba(214,39,40,1)"
+              }
+            },
+            "name": "Unauthorised absence rate",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
+            "error_y": {
+              "color": "rgba(214,39,40,1)"
+            },
+            "error_x": {
+              "color": "rgba(214,39,40,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          }
+        ],
+        "highlight": {
+          "on": "plotly_click",
+          "persistent": false,
+          "dynamic": false,
+          "selectize": false,
+          "opacityDim": 0.2,
+          "selected": {
+            "opacity": 1
+          },
+          "debounce": 0
+        },
+        "shinyEvents": [
+          "plotly_hover",
+          "plotly_click",
+          "plotly_selected",
+          "plotly_relayout",
+          "plotly_brushed",
+          "plotly_brushing",
+          "plotly_clickannotation",
+          "plotly_doubleclick",
+          "plotly_deselect",
+          "plotly_afterplot",
+          "plotly_sunburstclick"
+        ],
+        "base_url": "https://plot.ly"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "setprototypeof",
+          "version": "0.1",
+          "src": {
+            "href": "setprototypeof-0.1"
+          },
+          "meta": null,
+          "script": "setprototypeof.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "typedarray",
+          "version": "0.1",
+          "src": {
+            "href": "typedarray-0.1"
+          },
+          "meta": null,
+          "script": "typedarray.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.2.0",
+          "src": {
+            "href": "crosstalk-1.2.0"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.min.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "plotly-htmlwidgets-css",
+          "version": "2.5.1",
+          "src": {
+            "href": "plotly-htmlwidgets-css-2.5.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "plotly-htmlwidgets.css",
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "plotly-main",
+          "version": "2.5.1",
+          "src": {
+            "href": "plotly-main-2.5.1"
+          },
+          "meta": null,
+          "script": "plotly-latest.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    },
+    "headline_bullet_title_la": "Headline figures for the year to date: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "ytd_absence_rate_la": "• 8.3% of sessions were recorded as absence in Lincolnshire (compared to 8.3% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 86.8% of sessions were recorded as present in Lincolnshire (compared to 89.5% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 5.8% of sessions were recorded as illness in Lincolnshire (compared to 5.3% of sessions in East Midlands)"
+  }
+}

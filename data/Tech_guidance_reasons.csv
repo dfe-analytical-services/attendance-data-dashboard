@@ -1,0 +1,18 @@
+﻿Indicator,Description
+Authorised absence rate,"Authorised absence is absence with permission from a teacher or other authorised school representative - including absences where a satisfactory explanation has been provided. For example, through illness. Authorised absence rate is calculated as the number of authorised absence sessions as a proportion of total sessions possible. "
+Unathorised absence rate,Unauthorised absence is absence without permission from the school. This includes all unexplained or unjustified absences and arrivals after registration has closed. Unauthorised absence rate is calculated as the number of unauthorised absence sessions a proportion of total sessions possible. 
+Absence rates by reason e.g. illness,Absence rates by reason are calculated as the number of absence sessions for the given reason as a proportion of total sessions possible.
+Authorised illness,Absence rate associated with pupil absence due to illness (excluding medical or dental appointments).
+Authorised medical and dental appointments,Absence rate associated with pupil absence due to medical or dental appointments. 
+Authorised religious observance,Absence rate associated with pupil absence due to religious observances.
+Authorised study leave,Absence rate associated with year 11 pupil absence during public examinations.
+Authorised traveller,"Absence rate associated with traveller families known to be travelling for 
+occupational purposes and who have agreed this with the school but it is not known whether 
+the pupil is attending educational provision."
+Authorised holiday,Absence rate associated with a leave of absence granted by school head teachers
+Authorised excluded,Absence rate associated with pupil absence where they have been excluded however no alternative provision has been made. Alternative provision must be arranged from the sixth consecutive day of any fixed period or permanent exclusion.
+Authorised other,"Absence rate associated with pupil absence for authorised reasons, but not included in the reasons above."
+Unauthorised holiday,"Absence rate associated with a leave of absence that has not been granted, or is in excess of the period granted."
+Unauthorised late after registers closed,Absence rate assocciated with pupil absence at the time the registers close.
+Unauthorised no reason yet,Absence rate associated with absence for an as yet undetermined reason. Absence denoted a no reason yet may change to another reason retrospectively.
+Unauthorised other,"Absence rate associated with pupil absence for unauthorised reasons, but not included in the reasons above."
