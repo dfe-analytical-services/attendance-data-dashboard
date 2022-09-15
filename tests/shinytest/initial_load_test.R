@@ -1,4 +1,4 @@
-app <- ShinyDriver$new("../../")
+app <- ShinyDriver$new("../../", loadTimeout = 1e8)
 app$snapshotInit("initial_load_test", screenshot = FALSE)
 
 app$snapshot(items = list(
