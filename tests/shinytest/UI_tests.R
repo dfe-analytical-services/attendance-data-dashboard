@@ -1,18 +1,20 @@
 app <- ShinyDriver$new("../../", loadTimeout = 1.e7)
 app$snapshotInit("UI_tests", screenshot = FALSE)
 
-listInputs <- c("navlistPanel", 
-                "dash", 
-                "ts_choice", 
-                "school_choice", 
-                "geography_choice", 
-                "region_choice", 
-                "la_choice",
-                "link_to_coverage",
-                "link_to_headlines_tab",
-                "link_to_la_tab",
-                "link_to_reasons_tab",
-                "link_to_technotes")
+listInputs <- c(
+  "navlistPanel",
+  "dash",
+  "ts_choice",
+  "school_choice",
+  "geography_choice",
+  "region_choice",
+  "la_choice",
+  "link_to_coverage",
+  "link_to_headlines_tab",
+  "link_to_la_tab",
+  "link_to_reasons_tab",
+  "link_to_technotes"
+)
 
 
 # Note - if timeout errors keep occurring, can include app$setInputs(argument 1, timeout_ = 1e+4)
