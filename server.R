@@ -55,7 +55,7 @@ server <- function(input, output, session) {
 
   t <- list(
     family = "arial",
-    size = 12,
+    size = 11,
     color = "grey"
   )
 
@@ -65,7 +65,7 @@ server <- function(input, output, session) {
   # Overarching geographic levels
   geog_levels <- reactive({
     geog_lookup %>%
-      select(geographic_level) %>%
+      dplyr::select(geographic_level) %>%
       unique() %>%
       as.data.table()
   })
@@ -84,7 +84,7 @@ server <- function(input, output, session) {
   reg_geog <- reactive({
     geog_lookup %>%
       dplyr::filter(geographic_level == input$geography_choice) %>%
-      select(region_name) %>%
+      dplyr::select(region_name) %>%
       unique() %>%
       as.data.table()
   })
@@ -93,7 +93,7 @@ server <- function(input, output, session) {
     if (input$geography_choice != "National") {
       reg_geog <- geog_lookup %>%
         dplyr::filter(geographic_level == input$geography_choice) %>%
-        select(region_name) %>%
+        dplyr::select(region_name) %>%
         unique() %>%
         as.data.table()
     }
@@ -116,7 +116,7 @@ server <- function(input, output, session) {
   la_geog <- reactive({
     geog_lookup %>%
       dplyr::filter(geographic_level == input$geography_choice, region_name == input$region_choice) %>%
-      select(la_name) %>%
+      dplyr::select(la_name) %>%
       unique() %>%
       as.data.table()
   })
@@ -125,7 +125,7 @@ server <- function(input, output, session) {
     if (input$geography_choice == "Local authority") {
       la_geog <- geog_lookup %>%
         dplyr::filter(geographic_level == input$geography_choice, region_name == input$region_choice) %>%
-        select(la_name) %>%
+        dplyr::select(la_name) %>%
         unique() %>%
         as.data.table()
     }
@@ -215,7 +215,7 @@ server <- function(input, output, session) {
       NA
     }
   })
-
+  
   # Weekly data for reasons tables
   live_attendance_data_weekly_reasons_tables <- reactive({
     if (input$geography_choice == "National") {
@@ -238,7 +238,7 @@ server <- function(input, output, session) {
         unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
         unauth_oth_perc = unauth_oth_perc / 100,
         unauth_not_yet_perc = unauth_not_yet_perc / 100
-      )
+      ) 
     } else if (input$geography_choice == "Regional") {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
@@ -412,16 +412,16 @@ server <- function(input, output, session) {
       NA
     }
   })
-
-
+  
+  
   # Full timeseries for most recent year response rates - non-reactive
   response_rates <- filter(
     attendance_data, geographic_level == "National",
     time_period == max(time_period),
-    school_type %in% c("Primary", "Secondary", "Special"),
+    school_type %in% c("Total"),
     breakdown == "Weekly"
   ) %>%
-    arrange(date)
+    arrange(attendance_date)
 
 
   # Creating reactive charts ------------------------------------------------------------
@@ -429,7 +429,7 @@ server <- function(input, output, session) {
   # Reporting schools number chart
   output$response_rates <- renderPlotly({
     response_rates_figs <- response_rates %>%
-      group_by(date) %>%
+      group_by(attendance_date) %>%
       mutate(overall_school_num = sum(num_schools))
 
     response_rate_plot <- plot_ly(
@@ -437,7 +437,7 @@ server <- function(input, output, session) {
       type = "scatter", mode = "lines+markers"
     ) %>%
       add_trace(
-        x = ~date,
+        x = ~attendance_date,
         y = ~overall_school_num,
         line = list(color = "black"),
         marker = list(color = "black"),
@@ -484,7 +484,7 @@ server <- function(input, output, session) {
       type = "scatter", mode = "lines+markers"
     ) %>%
       add_trace(
-        x = ~date,
+        x = ~attendance_date,
         y = ~overall_absence_perc,
         line = list(color = "black"),
         marker = list(color = "black"),
@@ -493,7 +493,7 @@ server <- function(input, output, session) {
         mode = "markers"
       ) %>%
       add_trace(
-        x = ~date,
+        x = ~attendance_date,
         y = ~authorised_absence_perc,
         line = list(color = "steelblue"),
         marker = list(color = "steelblue"),
@@ -502,7 +502,7 @@ server <- function(input, output, session) {
         mode = "markers"
       ) %>%
       add_trace(
-        x = ~date,
+        x = ~attendance_date,
         y = ~unauthorised_absence_perc,
         line = list(color = "orangered"),
         marker = list(color = "orangered"),
@@ -512,7 +512,7 @@ server <- function(input, output, session) {
       )
 
     ts_plot <- ts_plot %>% layout(
-      xaxis = list(title = "Week commencing", tickvals = ~date, zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
+      xaxis = list(title = "Week commencing", tickvals = ~attendance_date, zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
       yaxis = list(rangemode = "tozero", title = "Absence rate (%)", zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
       hovermode = "x unified",
       legend = list(
@@ -522,16 +522,15 @@ server <- function(input, output, session) {
         xanchor = "center",
         x = 0.5
       ),
+      margin=list(t = 80),
       title = newtitle_weekly(),
       font = t
     )
-
+    
     ts_plot <- ts_plot %>% layout(
-      xaxis = list(
-        tickmode = "linear",
-        tick0 = "2021-08-01",
-        dtick = "M1"
-      )
+      xaxis = list(tickmode = 'linear',
+                   tick0 = "2021-08-01",
+                   dtick = "M1")
     )
   })
 
@@ -550,14 +549,15 @@ server <- function(input, output, session) {
   output$absence_rates_daily_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_daily()) > 0, "There is no data available for this breakdown at present"))
 
-    absence_rates_weekly <- live_attendance_data_daily()
+    absence_rates_weekly <- live_attendance_data_daily() %>%
+      arrange(attendance_date)
 
     ts_plot <- plot_ly(
       absence_rates_weekly,
       type = "scatter", mode = "lines+markers"
     ) %>%
       add_trace(
-        x = ~date,
+        x = ~attendance_date,
         y = ~overall_absence_perc,
         line = list(color = "black"),
         marker = list(color = "black"),
@@ -566,7 +566,7 @@ server <- function(input, output, session) {
         mode = "markers"
       ) %>%
       add_trace(
-        x = ~date,
+        x = ~attendance_date,
         y = ~authorised_absence_perc,
         line = list(color = "steelblue"),
         marker = list(color = "steelblue"),
@@ -575,7 +575,7 @@ server <- function(input, output, session) {
         mode = "markers"
       ) %>%
       add_trace(
-        x = ~date,
+        x = ~attendance_date,
         y = ~unauthorised_absence_perc,
         line = list(color = "orangered"),
         marker = list(color = "orangered"),
@@ -585,7 +585,7 @@ server <- function(input, output, session) {
       )
 
     ts_plot <- ts_plot %>% layout(
-      xaxis = list(title = "Date", tickvals = ~date, zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
+      xaxis = list(title = "Date", tickvals = ~attendance_date, zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
       yaxis = list(rangemode = "tozero", title = "Absence rate (%)", zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
       hovermode = "x unified",
       legend = list(
@@ -595,6 +595,7 @@ server <- function(input, output, session) {
         xanchor = "center",
         x = 0.5
       ),
+      margin=list(t = 80),
       title = newtitle_daily(),
       font = t
     )
@@ -605,24 +606,24 @@ server <- function(input, output, session) {
 
   newtitle_reasonsweekly <- renderText({
     if (input$geography_choice == "National") {
-      paste0("Weekly summary of absence reasons for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level")
+      paste0("Weekly summary of absence reasons for ", "<br>", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level")
     } else if (input$geography_choice == "Regional") {
-      paste0("Weekly summary of absence reasons for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ")")
+      paste0("Weekly summary of absence reasons for ", "<br>", str_to_lower(input$school_choice), " state-funded schools", " at ", str_to_lower(input$geography_choice), " level", "<br>", "(", input$region_choice, ")")
     } else if (input$geography_choice == "Local authority") {
-      paste0("Weekly summary of absence reasons for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ", ", input$la_choice, ")")
+      paste0("Weekly summary of absence reasons for ", "<br>", str_to_lower(input$school_choice), " state-funded schools", " at ", str_to_lower(input$geography_choice), " level",  "<br>",  "(", input$region_choice, ", ", input$la_choice, ")")
     }
   })
   output$absence_reasons_timeseries_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_ts()) > 0, "There is no data available for this breakdown at present"))
 
-    absence_reasons_ytd <- live_attendance_data_ts()
+    absence_reasons_ytd <- live_attendance_data_ts() 
 
     reasons_ts_plot <- plot_ly(
       absence_reasons_ytd,
       type = "scatter", mode = "lines+markers"
     ) %>%
       add_trace(
-        x = ~date,
+        x = ~attendance_date,
         y = ~illness_perc,
         line = list(color = "#12436D"),
         marker = list(color = "#12436D"),
@@ -631,7 +632,7 @@ server <- function(input, output, session) {
         mode = "markers"
       ) %>%
       add_trace(
-        x = ~date,
+        x = ~attendance_date,
         y = ~appointments_perc,
         line = list(color = "#28A197"),
         marker = list(color = "#28A197"),
@@ -640,7 +641,7 @@ server <- function(input, output, session) {
         mode = "markers"
       ) %>%
       add_trace(
-        x = ~date,
+        x = ~attendance_date,
         y = ~unauth_hol_perc,
         line = list(color = "	#F46A25"),
         marker = list(color = "	#F46A25"),
@@ -649,7 +650,7 @@ server <- function(input, output, session) {
         mode = "markers"
       ) %>%
       add_trace(
-        x = ~date,
+        x = ~attendance_date,
         y = ~unauth_oth_perc,
         line = list(color = "	#3D3D3D"),
         marker = list(color = "	#3D3D3D"),
@@ -659,23 +660,19 @@ server <- function(input, output, session) {
       )
 
     reasons_ts_plot <- reasons_ts_plot %>% layout(
-      xaxis = list(
-        title = "Week commencing",
-        tickvals = ~date,
-        zeroline = T,
-        zerolinewidth = 2,
-        zerolinecolor = "Grey",
-        zerolinecolor = "#ffff",
-        zerolinewidth = 2
-      ),
-      yaxis = list(
-        rangemode = "tozero",
-        title = "Absence rate (%)",
-        zeroline = T, zerolinewidth = 2,
-        zerolinecolor = "Grey",
-        zerolinecolor = "#ffff",
-        zerolinewidth = 2
-      ),
+      xaxis = list(title = "Week commencing", 
+                   tickvals = ~attendance_date, 
+                   zeroline = T, 
+                   zerolinewidth = 2, 
+                   zerolinecolor = "Grey", 
+                   zerolinecolor = "#ffff", 
+                   zerolinewidth = 2),
+      yaxis = list(rangemode = "tozero", 
+                   title = "Absence rate (%)", 
+                   zeroline = T, zerolinewidth = 2, 
+                   zerolinecolor = "Grey", 
+                   zerolinecolor = "#ffff", 
+                   zerolinewidth = 2),
       hovermode = "x unified",
       legend = list(
         orientation = "h",
@@ -687,13 +684,12 @@ server <- function(input, output, session) {
       title = newtitle_reasonsweekly(),
       font = t
     )
-
+    
     reasons_ts_plot <- reasons_ts_plot %>% layout(
-      xaxis = list(
-        tickmode = "linear",
-        tick0 = "2021-08-01",
-        dtick = "M1"
-      )
+      xaxis = list(tickmode = 'linear',
+                   tick0 = "2021-08-01",
+                   dtick = "M1"),
+      margin=list(t = 80)
     )
   })
 
@@ -704,7 +700,7 @@ server <- function(input, output, session) {
   output$headline_ts_chart_title <- renderText({
     paste0("Overall, authorised and unauthorised absence rates across the ", str_to_lower(input$ts_choice))
   })
-
+  
   # headline bullet reactive titles
   output$headline_bullet_title_nat <- renderText({
     paste0("Headline figures for the ", str_to_lower(input$ts_choice), ": ", str_to_lower(input$school_choice), " state-funded school attendance at ", str_to_lower(input$geography_choice), " level")
@@ -721,20 +717,20 @@ server <- function(input, output, session) {
 
   # reasons bullet reactive titles
   output$reasons_chart_title_nat <- renderText({
-    paste0("Reasons for absence in state-funded ", str_to_lower(input$school_choice), " schools at ", str_to_lower(input$geography_choice), " level")
+    paste0(input$school_choice, " state-funded schools: absence at ", str_to_lower(input$geography_choice), " level")
   })
 
   output$reasons_chart_title_reg <- renderText({
-    paste0("Reasons for absence in state-funded ", str_to_lower(input$school_choice), " schools at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ")")
+    paste0(input$school_choice, " state-funded schools: absence at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ")")
   })
 
   output$reasons_chart_title_la <- renderText({
-    paste0("Reasons for absence in state-funded ", str_to_lower(input$school_choice), " schools at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ", ", input$la_choice, ")")
+    paste0(input$school_choice, " state-funded schools: absence at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ", ", input$la_choice, ")")
   })
 
   # la comparison table reactive title
   output$la_comparison_title <- renderText({
-    paste0("Overall, authorised and unauthorised absences by local authority for state-funded ", str_to_lower(input$school_choice), " schools")
+    paste0(input$school_choice, " state-funded schools: overall, authorised and unauthorised absence rates by local authority")
   })
 
 
@@ -760,7 +756,7 @@ server <- function(input, output, session) {
       time_identifier == max(time_identifier),
       day_number == "4"
     ) %>%
-    pull(date)
+    pull(attendance_date)
 
   output$daily_schools_count <- renderText({
     paste0(scales::comma(schools_count), " schools provided information on the most recent full day of data, i.e. ", schools_count_date)
@@ -781,11 +777,11 @@ server <- function(input, output, session) {
   # Proportion of schools in census figures are generated from - year to date
   output$school_count_proportion_ytd <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
-
+    
     count_prop_week <- live_attendance_data_ytd() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
-
+    
     paste0("For this breakdown, measures for the year to date are produced based on ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 1), "% of schools")
   })
 
@@ -809,7 +805,7 @@ server <- function(input, output, session) {
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(weekly_overall_attendance_perc = (sum(present_sessions) / sum(possible_sessions)) * 100)
 
-    paste0(
+   paste0(
       "• ", live_attendance_data_weekly() %>%
         pull(attendance_perc) %>%
         round(digits = 1),
@@ -1063,10 +1059,10 @@ server <- function(input, output, session) {
   # Most recent full week
   output$weekly_dates <- renderText({
     validate(need(input$geography_choice != "", ""))
-
+    
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
-      pull(date)
-
+      pull(attendance_date)
+    
     paste0("The most recent full week of data was the week commencing ", most_recent_fullweek_date)
   })
 
@@ -1077,11 +1073,11 @@ server <- function(input, output, session) {
 
 
   # weekly overall absence rate
-  output$headline_absence_rate_weekly <- renderValueBox({
+  output$headline_absence_rate_weekly <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
 
-    overall_absence_rate_weekly_headline <- live_attendance_data_weekly()
-    pull(overall_absence_perc) %>%
+    overall_absence_rate_weekly_headline <- live_attendance_data_weekly() 
+      pull(overall_absence_perc) %>%
       round(digits = 1)
 
     # Put value into box to plug into app
@@ -1093,7 +1089,7 @@ server <- function(input, output, session) {
   })
 
   # ytd overall absence rate
-  output$headline_absence_rate_ytd <- renderValueBox({
+  output$headline_absence_rate_ytd <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
 
     overall_absence_rate_ytd_headline <- live_attendance_data_ytd() %>%
@@ -1112,7 +1108,7 @@ server <- function(input, output, session) {
 
 
   # weekly auth absence rate
-  output$headline_auth_rate_weekly <- renderValueBox({
+  output$headline_auth_rate_weekly <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
 
     overall_auth_rate_weekly_headline <- live_attendance_data_weekly() %>%
@@ -1128,7 +1124,7 @@ server <- function(input, output, session) {
   })
 
   # ytd auth absence rate
-  output$headline_auth_rate_ytd <- renderValueBox({
+  output$headline_auth_rate_ytd <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
 
     overall_auth_rate_ytd_headline <- live_attendance_data_ytd() %>%
@@ -1147,7 +1143,7 @@ server <- function(input, output, session) {
 
 
   # weekly unauth absence rate
-  output$headline_unauth_rate_weekly <- renderValueBox({
+  output$headline_unauth_rate_weekly <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
 
     overall_unauth_rate_weekly_headline <- live_attendance_data_weekly() %>%
@@ -1163,7 +1159,7 @@ server <- function(input, output, session) {
   })
 
   # ytd unauth absence rate
-  output$headline_unauth_rate_ytd <- renderValueBox({
+  output$headline_unauth_rate_ytd <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
 
     overall_unauth_rate_ytd_headline <- live_attendance_data_ytd() %>%
@@ -1185,7 +1181,7 @@ server <- function(input, output, session) {
     validate(need(nrow(live_attendance_data_weekly_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
 
     absence_auth_reasons_dt <- live_attendance_data_weekly_reasons_tables() %>%
-      select(illness_perc, appointments_perc, auth_religious_perc, auth_study_perc, auth_grt_perc, auth_holiday_perc, auth_excluded_perc, auth_other_perc) %>%
+      dplyr::select(illness_perc, appointments_perc, auth_religious_perc, auth_study_perc, auth_grt_perc, auth_holiday_perc, auth_excluded_perc, auth_other_perc) %>%
       rename(
         "Illness" = illness_perc,
         "Medical or dental appointments" = appointments_perc,
@@ -1216,42 +1212,42 @@ server <- function(input, output, session) {
   # unauthorised reasons
   output$absence_unauth_reasons_table <- renderDT({
     validate(need(nrow(live_attendance_data_weekly_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
-
+    
     absence_unauth_reasons_dt <- live_attendance_data_weekly_reasons_tables() %>%
-      select(unauth_hol_perc, unauth_late_registers_closed_perc, unauth_oth_perc, unauth_not_yet_perc) %>%
+      dplyr::select(unauth_hol_perc, unauth_late_registers_closed_perc, unauth_oth_perc, unauth_not_yet_perc) %>%
       rename(
         "Holiday" = unauth_hol_perc,
         "Late after registers closed" = unauth_late_registers_closed_perc,
         "Other" = unauth_oth_perc,
         "No reason yet" = unauth_not_yet_perc
       )
-
+    
     absence_unauth_reasons_dt <- datatable(absence_unauth_reasons_dt,
-      selection = "none",
-      escape = FALSE,
-      rownames = FALSE,
-      class = "cell-border stripe",
-      options = list(
-        ordering = F,
-        searching = FALSE,
-        lengthChange = FALSE,
-        dom = "t",
-        columnDefs = list(list(className = "dt-center", targets = 0:3))
-      )
+                                           selection = "none",
+                                           escape = FALSE,
+                                           rownames = FALSE,
+                                           class = "cell-border stripe",
+                                           options = list(
+                                             ordering = F,
+                                             searching = FALSE,
+                                             lengthChange = FALSE,
+                                             dom = "t",
+                                             columnDefs = list(list(className = "dt-center", targets = 0:3))
+                                           )
     ) %>%
       formatPercentage(c(0:3), 1)
   })
-
+  
 
   # absence reasons by local authority
   output$absence_reasons_la_table <- renderDT({
     absence_reasons_la <- live_attendance_data_weekly_las() %>%
-      select(time_period, time_identifier, date, region_name, la_name, overall_absence_perc, authorised_absence_perc, unauthorised_absence_perc) %>%
+      dplyr::select(time_period, time_identifier, attendance_date, region_name, la_name, overall_absence_perc, authorised_absence_perc, unauthorised_absence_perc) %>%
       arrange(desc(overall_absence_perc)) %>%
       rename(
         "Year" = time_period,
         "Week number" = time_identifier,
-        "Week commencing" = date,
+        "Week commencing" = attendance_date,
         "Region name" = region_name,
         "Local authority name" = la_name,
         "Overall absence rate" = overall_absence_perc,
@@ -1296,7 +1292,7 @@ server <- function(input, output, session) {
       paste("Underlying_data", Sys.Date(), ".csv", sep = "")
     },
     content = function(con) {
-      underlying_data <- attendance_data_fordownload %>% filter(school_type %in% c("Primary", "Secondary", "Special"))
+      underlying_data <- attendance_data_fordownload %>% filter(school_type %in% c("Primary", "Secondary", "Special", "Total"))
       write.csv(underlying_data, con, row.names = FALSE)
     }
   )
@@ -1311,6 +1307,166 @@ server <- function(input, output, session) {
     }
   )
 
+  
+  # Map ---------------------------------------------------------------------------------
+  
+  ## Custom rounding function ################################################
+  
+  roundFiveUp <- function(value, dp) {
+    if (!is.numeric(value) && !is.numeric(dp)) stop("both inputs must be numeric")
+    if (!is.numeric(value)) stop("the value to be rounded must be numeric")
+    if (!is.numeric(dp)) stop("the decimal places value must be numeric")
+    
+    z <- abs(value) * 10^dp
+    z <- z + 0.5 + sqrt(.Machine$double.eps)
+    z <- trunc(z)
+    z <- z / 10^dp
+    return(z * sign(value))
+  }
+  
+  ## Reading in data ##########################################################
+  
+  
+  # Process the joined files to refine our 'mapdata', not pretty yet and mostly done just cos it's how its done in global...
+
+  mapdata0 <- attendance_data %>%
+    mutate(time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))) %>% 
+    filter(time_identifier == max(time_identifier) - 1) %>% 
+    filter(geographic_level == "Local authority") %>%
+    filter(breakdown == "Weekly")
+  
+  
+  mapdata <- mapdata0 %>% 
+    mutate(CTYUA21CD = new_la_code) %>% # renaming to match to shapefile later
+    filter(!is.na(region_name), !is.na(la_name)) 
+  
+  mapdata <- mapdata %>%
+    group_by(time_period, time_identifier, geographic_level, region_name, la_name, CTYUA21CD, school_type) %>%
+    mutate(overall_label_LA = paste(la_name),
+           overall_label_rate = paste(as.character(roundFiveUp(overall_absence_perc,1)), "%", sep = ""),
+           overall_label = paste0(overall_label_LA, " overall absence rate: ", overall_label_rate),
+           auth_label_LA = paste(la_name),
+           auth_label_rate = paste(as.character(roundFiveUp(authorised_absence_perc,1)), "%", sep = ""),
+           auth_label = paste0(auth_label_LA, " authorised absence rate: ", auth_label_rate),
+           unauth_label_LA = paste(la_name),
+           unauth_label_rate = paste(as.character(roundFiveUp(unauthorised_absence_perc,1)), "%", sep = ""),
+           unauth_label = paste0(unauth_label_LA, " unauthorised absence rate: ", unauth_label_rate))
+  
+  ## Combine shapefile and data into mapdata ###############################################
+  
+  # Merge the transformed shapefile with the processed source data ---------------
+  mapdata_shaped <- merge(mapshape, mapdata, by = "CTYUA21CD", duplicateGeoms = TRUE)
+  
+  # Create colour bins and palette labels --------------------------------------
+  
+  # Pull in the colours from another script
+  source("R/gov_colours.R")
+  
+  # Create bins
+  overall_abs_pal = colorQuantile(map_gov_colours, mapdata_shaped$overall_abs_perc, n = 5)
+  
+  auth_abs_pal = colorQuantile(map_gov_colours, mapdata_shaped$auth_abs_perc, n = 5)
+  
+  unauth_abs_pal = colorQuantile(map_gov_colours, mapdata_shaped$unauth_abs_perc, n = 5)
+  
+  ## Create the map function ###############################################
+  
+  mapdata_shaped_type <- reactive({
+    dplyr::filter(mapdata_shaped,
+                  school_type == input$school_choice)
+  })
+  
+  # Create map function
+  
+  output$rates_map <- renderLeaflet({
+    if(input$measure_choice == "Overall") {
+      rate_map <- mapdata_shaped_type() %>% leaflet() %>%
+        addProviderTiles(providers$CartoDB.Positron) %>%
+        addPolygons(fillColor = ~overall_abs_pal(overall_absence_perc),
+                    weight = 1,
+                    opacity = 1,
+                    color = "black",
+                    dashArray = "0",
+                    fillOpacity = 0.7,
+                    highlight = highlightOptions(
+                      weight = 5,
+                      color = "#666",
+                      dashArray = "",
+                      fillOpacity = 0.7,
+                      bringToFront = TRUE),
+                    label = ~overall_label,
+                    labelOptions = labelOptions(
+                      style = list("font-weight" = "normal", 
+                                   padding = "3px 8px",
+                                   "background-color" = "white"),
+                      textsize = "15px",
+                      direction = "auto"))
+    }
+    
+    else if(input$measure_choice == "Authorised"){
+      rate_map <- mapdata_shaped_type()%>% leaflet() %>%
+        addProviderTiles(providers$CartoDB.Positron) %>%
+        addPolygons(fillColor = ~auth_abs_pal(authorised_absence_perc),
+                    weight = 1,
+                    opacity = 1,
+                    color = "black",
+                    dashArray = "0",
+                    fillOpacity = 0.7,
+                    highlight = highlightOptions(
+                      weight = 5,
+                      color = "#666",
+                      dashArray = "",
+                      fillOpacity = 0.7,
+                      bringToFront = TRUE),
+                    label = ~auth_label,
+                    labelOptions = labelOptions(
+                      style = list("font-weight" = "normal", 
+                                   padding = "3px 8px",
+                                   "background-color" = "white"),
+                      textsize = "15px",
+                      direction = "auto"))
+    }
+    
+    else if(input$measure_choice == "Unauthorised"){
+      rate_map <- mapdata_shaped_type()%>% leaflet() %>%
+        addProviderTiles(providers$CartoDB.Positron) %>%
+        addPolygons(fillColor = ~unauth_abs_pal(unauthorised_absence_perc),
+                    weight = 1,
+                    opacity = 1,
+                    color = "black",
+                    dashArray = "0",
+                    fillOpacity = 0.7,
+                    highlight = highlightOptions(
+                      weight = 5,
+                      color = "#666",
+                      dashArray = "",
+                      fillOpacity = 0.7,
+                      bringToFront = TRUE),
+                    label = ~unauth_label,
+                    labelOptions = labelOptions(
+                      style = list("font-weight" = "normal", 
+                                   padding = "3px 8px",
+                                   "background-color" = "white"),
+                      textsize = "15px",
+                      direction = "auto")) 
+    }
+    
+    rate_map <- rate_map %>%
+      addLegend(colors = c("#FFBF47", "#EC933D", "#D86733", "#C53A28", "#B10E1E", "#808080"), 
+                opacity = 1, 
+                title = NULL,
+                position = "topright",
+                labels= c("Lowest absence rates", "","","","Highest absence rates", "Supressed data")) %>%
+      setMaxBounds(lat1 = 55.5, lng1 = -6.8, lat2 = 49.99, lng2 = 1.95)
+    
+  })
+
+  output$map_title <- renderText({
+    paste0(
+      input$school_choice, " state-funded schools: ", str_to_lower(input$measure_choice), " absence rates by local authority"
+    )
+  })
+  
   # Stop app ---------------------------------------------------------------------------------
 
   session$onSessionEnded(function() {

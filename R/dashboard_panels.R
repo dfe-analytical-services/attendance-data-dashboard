@@ -25,31 +25,31 @@ homepage_panel <- function() {
               ),
               div(
                 class = "panel-body",
-                p("The dashboard provides breakdowns of attendance and absence headline figures, and reasons for absence at National, Regional and Local Authority geographic levels. Data can also be broken down by school type. Drop-down menus on the left side of the page allow customisation of breakdowns. Users will need to select a geographic level prior to selecting further options below."),
+                p("The dashboard provides breakdowns of attendance and absence headline figures, and reasons for absence at National, Regional and Local Authority geographic levels. Data is available across primary, secondary and special schools and can also be broken down by individual school type. Drop-down menus at the top of the page allow customisation of breakdowns. Users will need to select a geographic level prior to selecting further options at Region or Local Authority level."),
                 p("Please note, attendance and absence rates will not add to 100%. This is due to some pupils participating in approved educational activities which mean they are not in attendance on site or absent. For further information on the measures presented, view the ", actionLink("link_to_technotes", "technical notes"), "."),
                 br(),
                 tags$div(
                   title = "Headline information on overall and persistent absence",
                   h3(actionLink("link_to_headlines_tab", "Headlines")),
-                  p("The headlines tab includes information on attendance, overall absence (including  authorised and unauthorised absence) in the most recent week and across the term and year to date."),
-                  p("• Charts on this tab display overall, authorised and unauthorised absence rates across all data collected in the year to date"),
-                  p("• Headline boxes show the overall absence rate in the most recent full week of data, as well as across the year to date"),
+                  p("The headlines tab includes information on attendance, overall absence (including  authorised and unauthorised absence) in the most recent week and across the year to date, depending on dropdown selected."),
+                  p("• Charts on this tab display overall, authorised and unauthorised absence rates"),
+                  p("• Headline bullets show the overall attendance and absence rates, in addition to illness absence rate"),
                   p("• Persistent absence will be added to the dashboard later in the autumn term"),
                 ),
                 br(),
                 tags$div(
                   title = "Reasons for absence including authorised and unauthorised, in addition to breakdowns of the above",
                   h3(actionLink("link_to_reasons_tab", "Reasons")),
-                  p("The reasons tab includes information on authorised and unauthorised absence rates, and breakdowns into individual reasons for absence."),
-                  p("• The chart on this tab displays absence rates associated with some of the most common absence reasons, including illness, holidays and appointments"),
-                  p("• Headline boxes show the authorised and unauthorised absence rates in the most recent full week of data, as well as across the full year to date")
+                  p("The reasons tab includes information on authorised and unauthorised absence rates, alongside the individual reasons for absence that comprise authorised and unauthorised absence."),
+                  p("• The chart on this tab displays absence rates across the year to date associated with some of the most common absence reasons, including illness, holidays and appointments"),
+                  p("• Headline boxes show the authorised and unauthorised absence rates in the most recent full week of data, as well as across the full year to date"),
+                  p("• Tables show absence rates associated with each of the individual reasons for absence"),
                 ),
                 br(),
                 tags$div(
                   title = "Breakdown of overall, authorised and unauthorised absence by local authority",
-                  h3(actionLink("link_to_la_tab", "Local authority comparisons")),
-                  p("The local authority comparisons tab includes information on the overall, authorised and unauthorised absence rates for each local authority in the most recent week."),
-                  p("Please note, only the school type dropdown menu will affect data being displayed for local authorities on this tab.")
+                  h3(actionLink("link_to_la_tab", "Local authority data")),
+                  p("The local authority data tab includes information on the overall, authorised and unauthorised absence rates for each local authority in the most recent week.")
                 ),
                 
                 
@@ -104,6 +104,8 @@ homepage_panel <- function() {
 
 # dashboard panel
 dashboard_panel <- function() {
+  #fluidPage(
+  
   tabPanel(
     value = "dashboard",
     "Dashboard",
@@ -111,273 +113,268 @@ dashboard_panel <- function() {
     # Define UI for application that draws a histogram
     
     # Sidebar with a slider input for number of bins
-    fluidPage(
+    
+    
+    
+    h1("Attendance and absence headlines and reasons"),
+    
+    
+    
+    div(
+      class = "well",
+      style = "min-height: 100%; height: 100%; overflow-y: visible",
       fluidRow(
         column(
-          width=12,
-          h1("Attendance and absence headlines and reasons")
+          width=3,
+          selectInput(inputId = "school_choice",
+                      label = "Choose school type:",
+                      choices = c("Total", "Primary", "Secondary", "Special"),
+                      selected = "Total"
+          )),
+        column(
+          width=3,
+          conditionalPanel(condition = "input.dash == 'headlines'|| input.dash == 'reasons'",
+                           selectInput(inputId = "geography_choice",
+                                       label = "Choose geographic level:",
+                                       choices = c("National","Regional","Local authority"),
+                                       selected = head(geog_levels,1)))
         ),
         column(
-          width=12,
-          div(
-            class = "well",
-            style = "min-height: 100%; height: 100%; overflow-y: visible",
+          width=3,
+          conditionalPanel(condition = "input.geography_choice == 'Regional' && input.dash != 'la comparisons' || input.geography_choice == 'Local authority' && input.dash != 'la comparisons'", 
+                           selectInput(inputId = "region_choice",
+                                       label = "Choose region:",
+                                       choices = geog_lookup %>% dplyr::filter(geographic_level == 'National') %>% dplyr::select(region_name) %>% unique() %>% as.data.table(),
+                                       #selected = head(reg_geog,1)
+                           ))
+        ),
+        column(
+          width=3,
+          conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.dash != 'la comparisons'", 
+                           selectInput(inputId = "la_choice",
+                                       label = "Choose local authority:",
+                                       choices = geog_lookup %>% dplyr::filter(region_name == "East Midlands") %>% dplyr::select(la_name) %>% unique() %>% as.data.table(),
+                                       #selected = la_geog()[2,1]
+                           ))
+        ),
+      ),
+      
+      conditionalPanel(condition = "input.dash == 'headlines'",
+                       fluidRow(
+                         column(
+                           width=3,
+                           conditionalPanel(condition = "input.dash == 'headlines'",
+                                            selectInput(inputId = "ts_choice",
+                                                        label = "Choose time period:",
+                                                        choices = c("Most recent week", "Year to date")
+                                            ))
+                         ),
+                         column(
+                           width=3,
+                           conditionalPanel(condition = "input.dash == 'headlines'",
+                                            p(strong("Download underlying data")),
+                                            downloadButton("downloadData", label = "Download data", style = "width:100%;white-space:normal;")
+                           )),
+                         column(
+                           width=3,
+                           conditionalPanel(condition = "input.dash == 'headlines'",
+                                            p(strong("For more tables and metadata")),
+                                            actionButton(inputId='ees', label="Visit Explore Education Statistics", 
+                                                         icon = icon("th"), 
+                                                         onclick ="window.open('https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools', '_blank')",
+                                                         style = "width:100%;white-space:normal;")
+                           )),
+                       )
+      ),
+      
+      conditionalPanel(condition = "input.dash != 'headlines'",
+                       fluidRow(
+                         column(
+                           width=3,
+                           conditionalPanel(condition = "input.dash != 'headlines'",
+                                            p(strong("Download underlying data")),
+                                            downloadButton("downloadData2", label = "Download data", style = "width:100%;white-space:normal;")
+                           )),
+                         column(
+                           width=3,
+                           conditionalPanel(condition = "input.dash != 'headlines'",
+                                            p(strong("For more tables and metadata")),
+                                            actionButton(inputId='ees', label="Visit Explore Education Statistics", 
+                                                         icon = icon("th"), 
+                                                         onclick ="window.open('https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england', '_blank')",
+                                                         style = "width:100%;white-space:normal;")
+                           )),
+                       )
+      ),
+      
+    ),
+    tabsetPanel(
+      id = 'dash',
+      tabPanel(
+        value = "headlines",
+        title = "Headlines",
+        fluidPage(
+          fluidRow(
+            br(),
+            conditionalPanel(condition = "input.geography_choice == 'National'", 
+                             h4(textOutput("headline_bullet_title_nat"
+                             ))),
+            conditionalPanel(condition = "input.geography_choice == 'Regional'", 
+                             h4(textOutput("headline_bullet_title_reg"
+                             ))),
+            conditionalPanel(condition = "input.geography_choice == 'Local authority'", 
+                             h4(textOutput("headline_bullet_title_la"
+                             ))),
+            conditionalPanel(condition = "input.ts_choice == 'Most recent week'",
+                             textOutput("school_count_proportion_weekly"),
+                             textOutput("weekly_dates")
+            ),
+            conditionalPanel(condition = "input.ts_choice == 'Year to date'",
+                             textOutput("school_count_proportion_ytd")),
+            br(),
+            conditionalPanel(condition = "input.ts_choice == 'Year to date'",
+                             p(strong(paste0("Attendance and absence across year to date")))),
+            conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Year to date'", 
+                             textOutput("ytd_attendance_rate_nat"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Year to date'", 
+                             textOutput("ytd_attendance_rate_reg"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Year to date'", 
+                             textOutput("ytd_attendance_rate_la"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Year to date'", 
+                             textOutput("ytd_absence_rate_nat"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Year to date'", 
+                             textOutput("ytd_absence_rate_reg"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Year to date'", 
+                             textOutput("ytd_absence_rate_la"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Year to date'", 
+                             textOutput("ytd_illness_rate_nat"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Year to date'", 
+                             textOutput("ytd_illness_rate_reg"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Year to date'", 
+                             textOutput("ytd_illness_rate_la"
+                             )),
+            conditionalPanel(condition = "input.ts_choice == 'Most recent week'",
+                             p(strong(paste0("Attendance and absence in the most recent week")))),
+            conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Most recent week'", 
+                             textOutput("weekly_attendance_rate_nat"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Most recent week'", 
+                             textOutput("weekly_attendance_rate_reg"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Most recent week'", 
+                             textOutput("weekly_attendance_rate_la"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Most recent week'", 
+                             textOutput("weekly_absence_rate_nat"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Most recent week'", 
+                             textOutput("weekly_absence_rate_reg"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Most recent week'", 
+                             textOutput("weekly_absence_rate_la"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Most recent week'", 
+                             textOutput("weekly_illness_rate_nat"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Most recent week'", 
+                             textOutput("weekly_illness_rate_reg"
+                             )),
+            conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Most recent week'", 
+                             textOutput("weekly_illness_rate_la"
+                             )),
+            br(),
+            h5(textOutput("headline_ts_chart_title")),
+            conditionalPanel(condition = "input.ts_choice == 'Year to date'", 
+                             plotlyOutput("absence_rates_timeseries_plot")),
+            conditionalPanel(condition = "input.ts_choice == 'Most recent week'", 
+                             plotlyOutput("absence_rates_daily_plot")),
+            
+          ),
+        )
+      ),
+      tabPanel(
+        value = "reasons",
+        title = "Reasons",
+        fluidRow(
+          br(),
+          br(),
+          conditionalPanel(condition = "input.geography_choice == 'National'", 
+                           h4(textOutput("reasons_chart_title_nat"
+                           ))),
+          conditionalPanel(condition = "input.geography_choice == 'Regional'", 
+                           h4(textOutput("reasons_chart_title_reg"
+                           ))),
+          conditionalPanel(condition = "input.geography_choice == 'Local authority'", 
+                           h4(textOutput("reasons_chart_title_la"
+                           )))
+        ),
+        fluidRow(
+          column(6,
+                 br(),
+                 plotlyOutput("absence_reasons_timeseries_plot")),
+          column(6,
+                 fluidRow(
+                   
+                   br(),
+                   p(strong(paste0("Authorised absence rate:"))),
+                   shinydashboard::valueBoxOutput("headline_auth_rate_weekly", width = 6),
+                   shinydashboard::valueBoxOutput("headline_auth_rate_ytd", width = 6)
+                 ),
+                 fluidRow(
+                   br(),
+                   p(strong(paste0("Unauthorised absence rate:"))),
+                   shinydashboard::valueBoxOutput("headline_unauth_rate_weekly", width = 6),
+                   shinydashboard::valueBoxOutput("headline_unauth_rate_ytd", width = 6)
+                 )
+          )
+        ),
+        br(),
+        p(strong("Reasons for absence in the most recent week")),
+        p("Authorised absence"),
+        DTOutput("absence_auth_reasons_table"),
+        br(),
+        br(),
+        p("Unauthorised absence"),
+        DTOutput("absence_unauth_reasons_table")
+      ),
+      tabPanel(
+        value = "la comparisons",
+        title = "Local Authority Data",
+        fluidPage(
+          fluidRow(
+            br(),
+            h4(textOutput("map_title")),
             fluidRow(
               column(
-                width=3,
-                selectInput(inputId = "school_choice",
-                            label = "Choose school type:",
-                            choices = c("Total", "Primary", "Secondary", "Special"),
-                            selected = "Total"
-                )),
-              column(
-                width=3,
-                conditionalPanel(condition = "input.dash == 'headlines'|| input.dash == 'reasons'",
-                                 selectInput(inputId = "geography_choice",
-                                             label = "Choose geographic breakdown level:",
-                                             choices = c("National","Regional","Local authority"),
-                                             selected = head(geog_levels,1)))
+                3,
+                br(),
+                p(strong("Select absence rate of interest from drop down menu to view on the map:")),
               ),
               column(
-                width=3,
-                conditionalPanel(condition = "input.geography_choice == 'Regional' && input.dash != 'la comparisons' || input.geography_choice == 'Local authority' && input.dash != 'la comparisons'", 
-                                 selectInput(inputId = "region_choice",
-                                             label = "Choose region:",
-                                             choices = geog_lookup %>% dplyr::filter(geographic_level == 'National') %>% select(region_name) %>% unique() %>% as.data.table(),
-                                             #selected = head(reg_geog,1)
-                                 ))
-              ),
-              column(
-                width=3,
-                conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.dash != 'la comparisons'", 
-                                 selectInput(inputId = "la_choice",
-                                             label = "Choose local authority:",
-                                             choices = geog_lookup %>% dplyr::filter(region_name == "East Midlands") %>% select(la_name) %>% unique() %>% as.data.table(),
-                                             #selected = la_geog()[2,1]
-                                 ))
-              ),
-            ),
-            
-            conditionalPanel(condition = "input.dash == 'headlines'",
-                             fluidRow(
-                               column(
-                                 width=3,
-                                 conditionalPanel(condition = "input.dash == 'headlines'",
-                                                  selectInput(inputId = "ts_choice",
-                                                              label = "Choose time period:",
-                                                              choices = c("Most recent week", "Year to date")
-                                                  ))
-                               ),
-                               column(
-                                 width=3,
-                                 conditionalPanel(condition = "input.dash == 'headlines'",
-                                                  p(strong("Download underlying data")),
-                                                  downloadButton("downloadData", label = "Download data", style = "width:100%;white-space:normal;")
-                                 )),
-                               column(
-                                 width=3,
-                                 conditionalPanel(condition = "input.dash == 'headlines'",
-                                                  p(strong("Access additional tables and metadata")),
-                                                  actionButton(inputId='ees', label="Visit Explore Education Statistics", 
-                                                               icon = icon("th"), 
-                                                               onclick ="window.open('https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools', '_blank')",
-                                                               style = "width:100%;white-space:normal;")
-                                 )),
-                             )
-            ),
-            
-            conditionalPanel(condition = "input.dash != 'headlines'",
-                             fluidRow(
-                               column(
-                                 width=3,
-                                 conditionalPanel(condition = "input.dash != 'headlines'",
-                                                  p(strong("Download underlying data")),
-                                                  downloadButton("downloadData2", label = "Download data", style = "width:100%;white-space:normal;")
-                                 )),
-                               column(
-                                 width=3,
-                                 conditionalPanel(condition = "input.dash != 'headlines'",
-                                                  p(strong("Access additional tables and metadata")),
-                                                  actionButton(inputId='ees', label="Visit Explore Education Statistics", 
-                                                               icon = icon("th"), 
-                                                               onclick ="window.open('https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england', '_blank')",
-                                                               style = "width:100%;white-space:normal;")
-                                 )),
-                             )
-            ),
-            
-          )
-        ),
-        
-        column(
-          width=12,
-          tabsetPanel(
-            id = 'dash',
-            tabPanel(
-              value = "headlines",
-              title = "Headlines",
-              fluidPage(
-                fluidRow(
-                  br(),
-                  conditionalPanel(condition = "input.geography_choice == 'National'", 
-                                   h4(textOutput("headline_bullet_title_nat"
-                                   ))),
-                  conditionalPanel(condition = "input.geography_choice == 'Regional'", 
-                                   h4(textOutput("headline_bullet_title_reg"
-                                   ))),
-                  conditionalPanel(condition = "input.geography_choice == 'Local authority'", 
-                                   h4(textOutput("headline_bullet_title_la"
-                                   ))),
-                  conditionalPanel(condition = "input.ts_choice == 'Most recent week'",
-                                   textOutput("school_count_proportion_weekly"),
-                                   textOutput("weekly_dates")
-                                   ),
-                  conditionalPanel(condition = "input.ts_choice == 'Year to date'",
-                                   textOutput("school_count_proportion_ytd")),
-                  br(),
-                  conditionalPanel(condition = "input.ts_choice == 'Year to date'",
-                                   p(strong(paste0("Attendance and absence across year to date")))),
-                  conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Year to date'", 
-                                   textOutput("ytd_attendance_rate_nat"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Year to date'", 
-                                   textOutput("ytd_attendance_rate_reg"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Year to date'", 
-                                   textOutput("ytd_attendance_rate_la"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Year to date'", 
-                                   textOutput("ytd_absence_rate_nat"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Year to date'", 
-                                   textOutput("ytd_absence_rate_reg"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Year to date'", 
-                                   textOutput("ytd_absence_rate_la"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Year to date'", 
-                                   textOutput("ytd_illness_rate_nat"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Year to date'", 
-                                   textOutput("ytd_illness_rate_reg"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Year to date'", 
-                                   textOutput("ytd_illness_rate_la"
-                                   )),
-                  conditionalPanel(condition = "input.ts_choice == 'Most recent week'",
-                                   p(strong(paste0("Attendance and absence in the most recent week")))),
-                  conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Most recent week'", 
-                                   textOutput("weekly_attendance_rate_nat"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Most recent week'", 
-                                   textOutput("weekly_attendance_rate_reg"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Most recent week'", 
-                                   textOutput("weekly_attendance_rate_la"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Most recent week'", 
-                                   textOutput("weekly_absence_rate_nat"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Most recent week'", 
-                                   textOutput("weekly_absence_rate_reg"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Most recent week'", 
-                                   textOutput("weekly_absence_rate_la"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Most recent week'", 
-                                   textOutput("weekly_illness_rate_nat"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Most recent week'", 
-                                   textOutput("weekly_illness_rate_reg"
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Most recent week'", 
-                                   textOutput("weekly_illness_rate_la"
-                                   )),
-                  br(),
-                  h5(textOutput("headline_ts_chart_title")),
-                  conditionalPanel(condition = "input.ts_choice == 'Year to date'", 
-                                   plotlyOutput("absence_rates_timeseries_plot")),
-                  conditionalPanel(condition = "input.ts_choice == 'Most recent week'", 
-                                   plotlyOutput("absence_rates_daily_plot")),
-                  
-                ),
-              )
-            ),
-            tabPanel(
-              value = "reasons",
-              title = "Reasons",
-              fluidPage(
-                fluidRow(
-                  column(width = 12, br()),
-                  br(),
-                  conditionalPanel(condition = "input.geography_choice == 'National'", 
-                                   h4(textOutput("reasons_chart_title_nat"
-                                   ))),
-                  conditionalPanel(condition = "input.geography_choice == 'Regional'", 
-                                   h4(textOutput("reasons_chart_title_reg"
-                                   ))),
-                  conditionalPanel(condition = "input.geography_choice == 'Local authority'", 
-                                   h4(textOutput("reasons_chart_title_la"
-                                   ))),
-                  column(
-                    6,
-                    br(),
-                    plotlyOutput("absence_reasons_timeseries_plot")),
-                  column(
-                    6,
-                    fluidRow(
-                      column(
-                        12,
-                        br(),
-                        p(strong(paste0("Authorised absence rate:"))),
-                        valueBoxOutput("headline_auth_rate_weekly", width = 6),
-                        valueBoxOutput("headline_auth_rate_ytd", width = 6)
-                      )
-                    ),
-                    
-                    fluidRow(
-                      column(
-                        12,
-                        br(),
-                        p(strong(paste0("Unauthorised absence rate:"))),
-                        valueBoxOutput("headline_unauth_rate_weekly", width = 6),
-                        valueBoxOutput("headline_unauth_rate_ytd", width = 6)
-                      )
-                    ),
-                  )
-                ),
-                fluidRow(
-                  column(
-                    12,
-                    br(),
-                    p(strong("Reasons for absence in the most recent week")),
-                    p("Authorised absence"),
-                    DTOutput("absence_auth_reasons_table"),
-                    br(),
-                    br(),
-                    p("Unauthorised absence"),
-                    DTOutput("absence_unauth_reasons_table")
-                  )
+                3,
+                selectInput(inputId = "measure_choice",
+                            label = "Choose measure of interest:",
+                            choices = c("Overall", "Authorised","Unauthorised")
                 )
-              )
+              ),
             ),
-            tabPanel(
-              value = "la comparisons",
-              title = "Local Authority Comparisons",
-              fluidPage(
-                fluidRow(
-                  br(),
-                  h4(textOutput("la_comparison_title")),
-                  DTOutput("absence_reasons_la_table")
-                  
-                )
-              )
-            )
+            leafletOutput("rates_map"),
+            br(),
+            h4(textOutput("la_comparison_title")),
+            DTOutput("absence_reasons_la_table")
           )
         )
-        # add box to show user input
       )
     )
+    # add box to show user input
   )
 }
 
@@ -441,8 +438,8 @@ notes_panel <- function(){
         ),
       ),
       tabPanel(
-        "Headlines and local authority comparisons",
-        h4("Indicators for attendance and absence headlines and local authority comparisons"),
+        "Headlines and local authority data",
+        h4("Indicators for attendance and absence headlines and local authority data"),
         tableOutput("notesTableHeadlines") # made in global.R file
       ), # end of tabPanel
       tabPanel(
