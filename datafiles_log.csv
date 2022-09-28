@@ -11,6 +11,6 @@ data/Weekly_dummy_data.csv,dummy
 data/Weekly_dummy_extended.csv,dummy
 data/enrolments_schools_denominator.csv,published
 data/export_2022_09_26.csv,unpublished
-data/EES_daily_data.csv,unpublished
-data/EES_weekly_data.csv,unpublished
-data/EES_ytd_data.csv,unpublished
+data/EES_daily_data.csv,dummy
+data/EES_weekly_data.csv,dummy
+data/EES_ytd_data.csv,dummy
