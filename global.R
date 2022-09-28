@@ -109,7 +109,6 @@ end_date <- as.Date("2022-09-16")
 
 school_freq_count <- fread("data/enrolments_schools_denominator.csv")
 
-
 list_attendance <- process_attendance_data(attendance_data_raw, start_date, end_date)
 attendance_data <- list_attendance$attendance_data
 attendance_data_daily_totals <- list_attendance$daily_totals

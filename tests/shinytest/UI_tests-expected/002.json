@@ -7,10 +7,9 @@
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
     "link_to_reasons_tab": 0,
-    "link_to_technotes": 0,
     "navlistPanel": "dashboard",
     "region_choice": "",
-    "school_choice": "Total",
+    "school_choice": "Primary",
     "ts_choice": "Most recent week"
   },
   "output": {
@@ -20,7 +19,7 @@
           "margin": {
             "b": 40,
             "l": 60,
-            "t": 25,
+            "t": 80,
             "r": 10
           },
           "xaxis": {
@@ -31,11 +30,11 @@
             "automargin": true,
             "title": "Date",
             "tickvals": [
-              "2021-04-12",
-              "2021-04-13",
-              "2021-04-14",
-              "2021-04-15",
-              "2021-04-16"
+              "2021-01-15",
+              "2021-01-16",
+              "2021-01-17",
+              "2021-01-18",
+              "2021-01-19"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -61,10 +60,10 @@
             "xanchor": "center",
             "x": 0.5
           },
-          "title": "Daily summary of absence rates for total state-funded schools<br>at national level",
+          "title": "Daily summary of absence rates for primary state-funded schools<br>at national level",
           "font": {
             "family": "arial",
-            "size": 12,
+            "size": 11,
             "color": "grey"
           },
           "showlegend": true
@@ -104,18 +103,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2021-04-12",
-              "2021-04-13",
-              "2021-04-14",
-              "2021-04-15",
-              "2021-04-16"
+              "2021-01-15",
+              "2021-01-16",
+              "2021-01-17",
+              "2021-01-18",
+              "2021-01-19"
             ],
             "y": [
-              7.45774492803168,
-              7.45901882498636,
-              7.45844400091535,
-              7.46549209672336,
-              7.45847486023272
+              6.79744363864789,
+              6.79744363864789,
+              6.79744363864789,
+              6.79744363864789,
+              6.79744363864789
             ],
             "line": {
               "color": "black"
@@ -148,18 +147,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2021-04-12",
-              "2021-04-13",
-              "2021-04-14",
-              "2021-04-15",
-              "2021-04-16"
+              "2021-01-15",
+              "2021-01-16",
+              "2021-01-17",
+              "2021-01-18",
+              "2021-01-19"
             ],
             "y": [
-              5.6458866686133,
-              5.64679772107313,
-              5.64645826192226,
-              5.65214912149181,
-              5.64663086163583
+              5.2192996003887,
+              5.2192996003887,
+              5.2192996003887,
+              5.2192996003887,
+              5.2192996003887
             ],
             "line": {
               "color": "steelblue"
@@ -192,18 +191,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2021-04-12",
-              "2021-04-13",
-              "2021-04-14",
-              "2021-04-15",
-              "2021-04-16"
+              "2021-01-15",
+              "2021-01-16",
+              "2021-01-17",
+              "2021-01-18",
+              "2021-01-19"
             ],
             "y": [
-              1.81185825941838,
-              1.81222110391323,
-              1.81198573899309,
-              1.81334297523155,
-              1.81184399859689
+              1.57814403825919,
+              1.57814403825919,
+              1.57814403825919,
+              1.57814403825919,
+              1.57814403825919
             ],
             "line": {
               "color": "orangered"
@@ -346,9 +345,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the most recent week: total state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 7.4% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 91% of sessions were recorded as present",
-    "weekly_illness_rate_nat": "• 4.6% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the most recent week: primary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "• 6.8% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "• 91.6% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "• 4.3% of sessions were recorded as illness"
   }
 }

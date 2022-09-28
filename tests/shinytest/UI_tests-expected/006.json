@@ -2,15 +2,14 @@
   "input": {
     "dash": "headlines",
     "geography_choice": "Local authority",
-    "la_choice": "Derbyshire",
+    "la_choice": "Derby",
     "link_to_coverage": 0,
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
     "link_to_reasons_tab": 0,
-    "link_to_technotes": 0,
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
-    "school_choice": "Secondary",
+    "school_choice": "Primary",
     "ts_choice": "Year to date"
   },
   "output": {
@@ -20,7 +19,7 @@
           "margin": {
             "b": 40,
             "l": 60,
-            "t": 25,
+            "t": 80,
             "r": 10
           },
           "xaxis": {
@@ -31,29 +30,13 @@
             "automargin": true,
             "title": "Week commencing",
             "tickvals": [
-              "2021-01-04",
-              "2021-01-11",
-              "2021-01-18",
-              "2021-01-25",
-              "2021-02-01",
-              "2021-02-08",
-              "2021-02-15",
-              "2021-02-22",
-              "2021-03-01",
-              "2021-03-08",
-              "2021-03-15",
-              "2021-03-22",
-              "2021-03-29",
-              "2021-04-05",
-              "2021-04-12",
-              "2021-04-19"
+              "2021-01-01",
+              "2021-01-08",
+              "2021-01-15"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
-            "zerolinecolor": "Grey",
-            "tickmode": "linear",
-            "tick0": "2021-08-01",
-            "dtick": "M1"
+            "zerolinecolor": "Grey"
           },
           "yaxis": {
             "domain": [
@@ -75,10 +58,10 @@
             "xanchor": "center",
             "x": 0.5
           },
-          "title": "Weekly summary of absence rates for secondary state-funded schools<br>at local authority level (East Midlands, Derbyshire)",
+          "title": "Weekly summary of absence rates for primary state-funded schools<br>at local authority level (East Midlands, Derby)",
           "font": {
             "family": "arial",
-            "size": 12,
+            "size": 11,
             "color": "grey"
           },
           "showlegend": true
@@ -118,40 +101,14 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2021-01-04",
-              "2021-01-11",
-              "2021-01-18",
-              "2021-01-25",
-              "2021-02-01",
-              "2021-02-08",
-              "2021-02-15",
-              "2021-02-22",
-              "2021-03-01",
-              "2021-03-08",
-              "2021-03-15",
-              "2021-03-22",
-              "2021-03-29",
-              "2021-04-05",
-              "2021-04-12",
-              "2021-04-19"
+              "2021-01-01",
+              "2021-01-08",
+              "2021-01-15"
             ],
             "y": [
-              8.8827342573427,
-              8.8827342573427,
-              8.8827342573427,
-              8.81835756229001,
-              8.7508711947883,
-              8.65509947719217,
-              8.69281549365191,
-              8.66759712076954,
-              8.32819194114628,
-              8.26651774944297,
-              8.51454907389058,
-              8.52685488133844,
-              8.3187051146484,
-              8.15393561944362,
-              8.25857116894064,
-              8.23314970219031
+              6.76140527754619,
+              6.76140527754619,
+              6.76140527754619
             ],
             "line": {
               "color": "black"
@@ -166,19 +123,6 @@
             "hovertemplate": [
               "%{y:.1f}%",
               "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -195,40 +139,14 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2021-01-04",
-              "2021-01-11",
-              "2021-01-18",
-              "2021-01-25",
-              "2021-02-01",
-              "2021-02-08",
-              "2021-02-15",
-              "2021-02-22",
-              "2021-03-01",
-              "2021-03-08",
-              "2021-03-15",
-              "2021-03-22",
-              "2021-03-29",
-              "2021-04-05",
-              "2021-04-12",
-              "2021-04-19"
+              "2021-01-01",
+              "2021-01-08",
+              "2021-01-15"
             ],
             "y": [
-              6.87717206663861,
-              6.87717206663861,
-              6.87717206663861,
-              6.82733047550997,
-              6.77508132023686,
-              6.70093313996437,
-              6.73013355588893,
-              6.71060903961633,
-              6.4478354664175,
-              6.40008620181872,
-              6.59211649865356,
-              6.60164387533579,
-              6.44049059531114,
-              6.31292309897185,
-              6.39393381676783,
-              6.37425206158261
+              4.93196579870873,
+              4.93196579870873,
+              4.93196579870873
             ],
             "line": {
               "color": "steelblue"
@@ -243,19 +161,6 @@
             "hovertemplate": [
               "%{y:.1f}%",
               "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -272,40 +177,14 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2021-01-04",
-              "2021-01-11",
-              "2021-01-18",
-              "2021-01-25",
-              "2021-02-01",
-              "2021-02-08",
-              "2021-02-15",
-              "2021-02-22",
-              "2021-03-01",
-              "2021-03-08",
-              "2021-03-15",
-              "2021-03-22",
-              "2021-03-29",
-              "2021-04-05",
-              "2021-04-12",
-              "2021-04-19"
+              "2021-01-01",
+              "2021-01-08",
+              "2021-01-15"
             ],
             "y": [
-              2.00556219070409,
-              2.00556219070409,
-              2.00556219070409,
-              1.99102708678004,
-              1.97578987455144,
-              1.9541663372278,
-              1.96268193776298,
-              1.95698808115321,
-              1.88035647472877,
-              1.86643154762425,
-              1.92243257523702,
-              1.92521100600265,
-              1.87821451933726,
-              1.84101252047177,
-              1.86463735217281,
-              1.85889764060769
+              1.82943947883747,
+              1.82943947883747,
+              1.82943947883747
             ],
             "line": {
               "color": "orangered"
@@ -318,19 +197,6 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%"
@@ -459,9 +325,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date: secondary state-funded school attendance at local authority level (East Midlands, Derbyshire)",
-    "ytd_absence_rate_la": "• 8.5% of sessions were recorded as absence in Derbyshire (compared to 8.3% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "• 86% of sessions were recorded as present in Derbyshire (compared to 89.5% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "• 5.5% of sessions were recorded as illness in Derbyshire (compared to 5.3% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date: primary state-funded school attendance at local authority level (East Midlands, Derby)",
+    "ytd_absence_rate_la": "• 6.8% of sessions were recorded as absence in Derby (compared to 6.9% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 91% of sessions were recorded as attending in Derby (compared to 91.5% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 4.2% of sessions were recorded as illness in Derby (compared to 4.6% of sessions in East Midlands)"
   }
 }
