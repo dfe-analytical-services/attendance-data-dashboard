@@ -96,21 +96,21 @@ appLoadingCSS <- "
 source("R/support_links.R")
 source("R/prerun_utils.R")
 
-site_a <- ' https://department-for-education.shinyapps.io/pupil-attendance-in-schools'
-site_b <- ' https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror'
-site_c <- ' https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror-2'
+site_a <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
+site_b <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror"
+site_c <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror-2"
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
 attendance_data_raw <- fread("data/export_2022_09_26.csv")
-#attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
-school_freq_count   <- fread("data/enrolments_schools_denominator.csv")
+# attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
+school_freq_count <- fread("data/enrolments_schools_denominator.csv")
 
 list_attendance <- process_attendance_data(attendance_data_raw)
-attendance_data               <- list_attendance$attendance_data
-attendance_data_daily_totals  <- list_attendance$daily_totals
+attendance_data <- list_attendance$attendance_data
+attendance_data_daily_totals <- list_attendance$daily_totals
 attendance_data_weekly_totals <- list_attendance$weekly_totals
-attendance_data_ytd_totals    <- list_attendance$ytd_totals
+attendance_data_ytd_totals <- list_attendance$ytd_totals
 
 EES_daily_data <- read_ees_daily()
 

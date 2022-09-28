@@ -30,11 +30,10 @@
 ui <- function(input, output, session) {
   fluidPage(
     shinyjs::useShinyjs(),
-    
+
     # Setting custom disconnect message --------------------------------------------------------------------------------
-    
+
     customDisconnectMessage(),
-    
     useShinydashboard(),
     tags$head(includeHTML(("google-analytics.html"))),
     tags$head(
