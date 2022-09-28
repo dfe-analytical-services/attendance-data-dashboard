@@ -1,5 +1,5 @@
 support_links <- function() {
-  div(
+  gov_main_layout(
     h2("Give us feedback"),
     "This dashboard is a new service that we are developing. If you have any feedback or suggestions for improvements, please submit them using our ",
     a(
@@ -13,6 +13,7 @@ support_links <- function() {
     p("The release associated with this dashboard can be found on ", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Explore Education Statistics "), 
        "alongside ", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/data-guidance", "data guidance"), 
        " and ", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools#explore-data-and-files", "underlying data.")),
+    p("Featured tables associated with this dashboard can also be found through the ", a(href = "https://explore-education-statistics.service.gov.uk/data-tables/pupil-attendance-in-schools", "Explore Education Statistics table tool.")),
     h2("Contact us"),
     "If you have questions about the dashboard or data within it, please contact us at ",
     a(href = "mailto:schools.statistics@education.gov.uk", "schools.statistics@education.gov.uk", .noWS = c("after")), br(),
