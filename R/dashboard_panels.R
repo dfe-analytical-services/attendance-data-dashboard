@@ -8,7 +8,6 @@ homepage_panel <- function() {
         column(
           12,
           h1("Pupil attendance and absence in schools in England"),
-          h2("Please note, the link to this dashboard should not be shared more widely.", style = "color:red"),
           br(),
         ),
         
