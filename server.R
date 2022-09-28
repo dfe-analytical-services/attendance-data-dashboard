@@ -738,11 +738,11 @@ server <- function(input, output, session) {
   # Reasons for absence - most recent week chart
   newtitle_reasonsdaily <- renderText({
     if (input$geography_choice == "National") {
-      paste0("Daily summary of absence reasons for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level")
+      paste0("Daily absence reasons for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level")
     } else if (input$geography_choice == "Regional") {
-      paste0("Daily summary of absence reasons for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ")")
+      paste0("Daily absence reasons for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "(", input$region_choice, ")")
     } else if (input$geography_choice == "Local authority") {
-      paste0("Daily summary of absence reasons for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ", ", input$la_choice, ")")
+      paste0("Daily absence reasons for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "(", input$region_choice, ", ", input$la_choice, ")")
     }
   })
 
