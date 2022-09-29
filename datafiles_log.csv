@@ -4,13 +4,11 @@ data/Tech_guidance_headlines.csv,reference
 data/Tech_guidance_la.csv,reference
 data/school_frequency_count_202208.csv,published
 data/Tech_guidance_reasons.csv,reference
-data/All_LAs_sixweeks_data.csv,unpublished          
-data/All_LAs_sixweeks_data_no22.csv,unpublished
 data/EES_autumn_202122.csv,unpublished
 data/Weekly_dummy_data.csv,dummy
 data/Weekly_dummy_extended.csv,dummy
 data/enrolments_schools_denominator.csv,published
-data/export_2022_09_26.csv,unpublished
-data/EES_daily_data.csv,dummy
-data/EES_weekly_data.csv,dummy
-data/EES_ytd_data.csv,dummy
+data/export_2022_09_26.csv,published
+data/EES_daily_data.csv,published
+data/EES_weekly_data.csv,published
+data/EES_ytd_data.csv,published
