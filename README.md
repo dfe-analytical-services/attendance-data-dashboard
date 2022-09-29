@@ -3,14 +3,6 @@
 DfE Attendance data dashboard  <br>
 </h1>
 
-This template repository is for making accessible apps for published statistics in DfE. It includes a basic accessible shiny app with DfE styling, as well as templates for additional best practice documents like this README script, pull request templates and codes of conduct for contributing.
-
-To use this template, click the green "use this template" button at the top of the repo. This will create a copy for you to work off of.
-
-Please delete this header section when you are writing up the README file for your own app.
-
-Please contact statistics.DEVELOPMENT@education.gov.uk if you have any questions, or raise an issue on here if you have spotted something specific that we should change.
-
 <p align="center">
   <a href="#introduction">Introduction</a> |
   <a href="#requirements">Requirements</a> |
@@ -23,21 +15,22 @@ Please contact statistics.DEVELOPMENT@education.gov.uk if you have any questions
 
 ## Introduction
 
-Give a brief overview of what your app is for here.
+The dashboard provides users with an opportunity to investigate pupil attendance and absence at National, Regional and Local Authority geographic levels. Data is available across state-funded primary, secondary and special schools and can also be broken down by individual school type.
 
-Add links to where each version of your app is deployed - e.g.
+Live version of the dashboard can be accessed at
+- https://department-for-education.shinyapps.io/pupil-attendance-in-schools/
 
-- Production - https://rsconnect/rsc/dfe-published-data-qa
-- Pre-production - https://rsconnect-pp/rsc/dfe-published-data-qa
-- Development - https://rsconnect-pp/rsc/dev-dfe-published-data-qa
+The dashboard is split across multiple tabs:
 
+- <b>Headlines</b> includes information on attendance, overall absence (including authorised and unauthorised absence) in the most recent week and across the year to date 
+- <b>Reasons</b> includes information on authorised and unauthorised absence including the individual reasons for absence
+- <b>Local authority data</b> includes information on the overall, authorised and unauthorised absence rates for each local authority in the most recent week
+
+The dashboard also includes further information on the data itself on the technical notes tab, alongside accessibility and information on where to find further support. 
 
 ---
 
 ## Requirements
-
-You should list out the software and programming skills needed, as well as any access requirements = e.g.
-
 
 ### i. Software requirements (for running locally)
 
@@ -53,15 +46,9 @@ You should list out the software and programming skills needed, as well as any a
 
 - Particularly [R Shiny](https://shiny.rstudio.com/)
 
-### iii. Access requirements
-
-- Access to the Stats Development Team SQL modelling area (MA_SDT_NS_DATA) in T1PRANMSQL\SQLPROD,60125. Request access from Cam Race and forward on your request to the PDR mailbox (PupilData.REPOSITORY@education.gov.uk)
-
 ---
 
 ## How to use
-
-You should clearly lay out the steps needed to run your code here - generally, they will be similar to the below for Shiny apps:
 
 
 ### Running the app locally
@@ -89,7 +76,9 @@ The function run_tests_locally() is created in the Rprofile script and is availa
 
 ### Deployment
 
-- The app is deployed to the department's shinyapps.io subscription using GitHub actions. The yaml file for this can be found in the .github/workflows folder.
+- The app is deployed to the department's shinyapps.io subscription using GitHub actions, to https://department-for-education.shinyapps.io/pupil-attendance-in-schools/. The yaml file for this can be found in the .github/workflows folder.
+
+If you have any questions about the shinyapps.io subscription and deployment in DfE please contact the Statistics Development Team at [statistics.development@education.gov.uk](mailto:statistics.development@education.gov.uk).
 
 ### Navigation
 
@@ -104,7 +93,7 @@ The function tidy_code() is created in the Rprofile script and therefore is alwa
 
 ## How to contribute
 
-Details on how to contribute to the app should go here, e.g.
+Our contributing guidelines can be found at [https://github.com/dfe-analytical-services/attendance-data-dashboard/blob/main/CONTRIBUTING.md](https://github.com/dfe-analytical-services/attendance-data-dashboard/blob/main/CONTRIBUTING.md).
 
 ### Flagging issues
 
@@ -112,10 +101,10 @@ If you spot any issues with the application, please flag it in the "Issues" tab 
 
 ### Merging pull requests
 
-Only members of the Statistics Development team can merge pull requests. Add lauraselby, cjrace and sarahmwong as requested reviewers, and the team will review before merging.
+Only members of the team can merge pull requests. Add GemmaSelby29 as a requested reviewer, and the team will review before merging.
 
 ---
 
 ## Contact
 
-Add contact details of how to get in touch with your team.
+If you have any questions about the dashboard please contact [schools.statistics@education.gov.uk](mailto:schools.statistics@education.gov.uk).
