@@ -55,7 +55,7 @@ server <- function(input, output, session) {
 
   t <- list(
     family = "arial",
-    size = 11,
+    size = 10,
     color = "grey"
   )
 
@@ -486,8 +486,9 @@ server <- function(input, output, session) {
       yaxis = list(rangemode = "tozero", title = "Number of schools reporting", zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
       hovermode = "x unified",
       legend = list(
+        font = list(size = 11),
         orientation = "h",
-        yanchor = "bottom",
+        yanchor = "top",
         y = -0.5,
         xanchor = "center",
         x = 0.5
@@ -501,11 +502,11 @@ server <- function(input, output, session) {
   # Headline absence rates - ytd chart
   newtitle_weekly <- renderText({
     if (input$geography_choice == "National") {
-      paste0("Weekly summary of absence rates for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level")
+      paste0("Weekly summary of absence rates for ", str_to_lower(input$school_choice), "<br>", " state-funded schools at ", str_to_lower(input$geography_choice), " level")
     } else if (input$geography_choice == "Regional") {
-      paste0("Weekly summary of absence rates for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ")")
+      paste0("Weekly summary of absence rates for ", "<br>", str_to_lower(input$school_choice), " state-funded schools ", "(", input$region_choice, ")")
     } else if (input$geography_choice == "Local authority") {
-      paste0("Weekly summary of absence rates for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ", ", input$la_choice, ")")
+      paste0("Weekly summary of absence rates for ", "<br>", str_to_lower(input$school_choice), " state-funded schools ", "<br>", "(", input$region_choice, ", ", input$la_choice, ")")
     }
   })
 
@@ -551,8 +552,9 @@ server <- function(input, output, session) {
       yaxis = list(rangemode = "tozero", title = "Absence rate (%)", zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
       hovermode = "x unified",
       legend = list(
+        font = list(size = 11),
         orientation = "h",
-        yanchor = "bottom",
+        yanchor = "top",
         y = -0.5,
         xanchor = "center",
         x = 0.5
@@ -573,11 +575,11 @@ server <- function(input, output, session) {
   # Headline absence rates - most recent week chart
   newtitle_daily <- renderText({
     if (input$geography_choice == "National") {
-      paste0("Daily summary of absence rates for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level")
+      paste0("Daily summary of absence rates for ", str_to_lower(input$school_choice), "<br>", " state-funded schools at ", str_to_lower(input$geography_choice), " level")
     } else if (input$geography_choice == "Regional") {
-      paste0("Daily summary of absence rates for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ")")
+      paste0("Daily summary of absence rates for ", "<br>", str_to_lower(input$school_choice), " state-funded schools ", "(", input$region_choice, ")")
     } else if (input$geography_choice == "Local authority") {
-      paste0("Daily summary of absence rates for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ", ", input$la_choice, ")")
+      paste0("Daily summary of absence rates for ", "<br>", str_to_lower(input$school_choice), " state-funded schools ", "<br>", "(", input$region_choice, ", ", input$la_choice, ")")
     }
   })
 
@@ -624,8 +626,9 @@ server <- function(input, output, session) {
       yaxis = list(rangemode = "tozero", title = "Absence rate (%)", zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
       hovermode = "x unified",
       legend = list(
+        font = list(size = 11),
         orientation = "h",
-        yanchor = "bottom",
+        yanchor = "top",
         y = -0.5,
         xanchor = "center",
         x = 0.5
@@ -714,8 +717,9 @@ server <- function(input, output, session) {
       ),
       hovermode = "x unified",
       legend = list(
+        font = list(size = 11),
         orientation = "h",
-        yanchor = "bottom",
+        yanchor = "top",
         y = -0.5,
         xanchor = "center",
         x = 0.5
@@ -798,8 +802,9 @@ server <- function(input, output, session) {
       yaxis = list(rangemode = "tozero", title = "Absence rate (%)", zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
       hovermode = "x unified",
       legend = list(
+        font = list(size = 11),
         orientation = "h",
-        yanchor = "bottom",
+        yanchor = "top",
         y = -0.5,
         xanchor = "center",
         x = 0.5
