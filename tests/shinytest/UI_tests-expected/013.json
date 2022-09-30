@@ -18,6 +18,7 @@
         "vertical": false,
         "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Year<\/th>\n      <th>Week number<\/th>\n      <th>Week commencing<\/th>\n      <th>Region name<\/th>\n      <th>Local authority name<\/th>\n      <th>Overall absence rate<\/th>\n      <th>Authorised absence rate<\/th>\n      <th>Unauthorised absence rate<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
         "options": {
+          "scrollX": true,
           "columnDefs": [
             {
               "targets": 5,

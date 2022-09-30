@@ -28,11 +28,7 @@
             ],
             "automargin": true,
             "title": "Week commencing",
-            "tickvals": [
-              "2021-01-01",
-              "2021-01-08",
-              "2021-01-15"
-            ],
+            "tickvals": "2022-09-12",
             "zeroline": true,
             "zerolinewidth": 2,
             "zerolinecolor": "Grey"
@@ -51,16 +47,19 @@
           },
           "hovermode": "x unified",
           "legend": {
+            "font": {
+              "size": 11
+            },
             "orientation": "h",
-            "yanchor": "bottom",
+            "yanchor": "top",
             "y": -0.5,
             "xanchor": "center",
             "x": 0.5
           },
-          "title": "Weekly summary of absence rates for primary state-funded schools<br>at regional level (East Midlands)",
+          "title": "Weekly summary of absence rates for <br>primary state-funded schools (East Midlands)",
           "font": {
             "family": "arial",
-            "size": 11,
+            "size": 10,
             "color": "grey"
           },
           "showlegend": true
@@ -99,16 +98,8 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": [
-              "2021-01-01",
-              "2021-01-08",
-              "2021-01-15"
-            ],
-            "y": [
-              6.93428553369067,
-              6.93428553369067,
-              6.93428553369067
-            ],
+            "x": "2022-09-12",
+            "y": 4.40649650066165,
             "line": {
               "color": "black"
             },
@@ -119,11 +110,7 @@
               }
             },
             "name": "Overall absence rate",
-            "hovertemplate": [
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%"
-            ],
+            "hovertemplate": "%{y:.1f}%",
             "error_y": {
               "color": "rgba(255,127,14,1)"
             },
@@ -137,16 +124,8 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": [
-              "2021-01-01",
-              "2021-01-08",
-              "2021-01-15"
-            ],
-            "y": [
-              5.44290236797974,
-              5.44290236797974,
-              5.44290236797974
-            ],
+            "x": "2022-09-12",
+            "y": 3.01850300823447,
             "line": {
               "color": "steelblue"
             },
@@ -157,11 +136,7 @@
               }
             },
             "name": "Authorised absence rate",
-            "hovertemplate": [
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%"
-            ],
+            "hovertemplate": "%{y:.1f}%",
             "error_y": {
               "color": "rgba(44,160,44,1)"
             },
@@ -175,16 +150,8 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": [
-              "2021-01-01",
-              "2021-01-08",
-              "2021-01-15"
-            ],
-            "y": [
-              1.49138316571094,
-              1.49138316571094,
-              1.49138316571094
-            ],
+            "x": "2022-09-12",
+            "y": 1.38799349242718,
             "line": {
               "color": "orangered"
             },
@@ -195,11 +162,7 @@
               }
             },
             "name": "Unauthorised absence rate",
-            "hovertemplate": [
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%"
-            ],
+            "hovertemplate": "%{y:.1f}%",
             "error_y": {
               "color": "rgba(214,39,40,1)"
             },
@@ -325,8 +288,8 @@
       ]
     },
     "headline_bullet_title_reg": "Headline figures for the year to date: primary state-funded school attendance at regional level (East Midlands)",
-    "ytd_absence_rate_reg": "• 6.9% of sessions were recorded as absence in East Midlands (compared to 6.8% of sessions at national level)",
-    "ytd_attendance_rate_reg": "• 91.5% of sessions were recorded as attending in East Midlands (compared to 91.6% of sessions at national level)",
-    "ytd_illness_rate_reg": "• 4.6% of sessions were recorded as illness in East Midlands (compared to 4.3% of sessions at national level)"
+    "ytd_absence_rate_reg": "• 4.4% of sessions were recorded as absence in East Midlands (compared to 4.5% of sessions at national level)",
+    "ytd_attendance_rate_reg": "• 95.6% of sessions were recorded as attending in East Midlands (compared to 95.5% of sessions at national level)",
+    "ytd_illness_rate_reg": "• 2.4% of sessions were recorded as illness in East Midlands (compared to 2.3% of sessions at national level)"
   }
 }
