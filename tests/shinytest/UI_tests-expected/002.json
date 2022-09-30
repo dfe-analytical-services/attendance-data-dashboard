@@ -29,11 +29,11 @@
             "automargin": true,
             "title": "Date",
             "tickvals": [
-              "2021-01-15",
-              "2021-01-16",
-              "2021-01-17",
-              "2021-01-18",
-              "2021-01-19"
+              "2022-09-12",
+              "2022-09-13",
+              "2022-09-14",
+              "2022-09-15",
+              "2022-09-16"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -53,16 +53,19 @@
           },
           "hovermode": "x unified",
           "legend": {
+            "font": {
+              "size": 11
+            },
             "orientation": "h",
-            "yanchor": "bottom",
+            "yanchor": "top",
             "y": -0.5,
             "xanchor": "center",
             "x": 0.5
           },
-          "title": "Daily summary of absence rates for primary state-funded schools<br>at national level",
+          "title": "Daily summary of absence rates for primary<br> state-funded schools at national level",
           "font": {
             "family": "arial",
-            "size": 11,
+            "size": 10,
             "color": "grey"
           },
           "showlegend": true
@@ -102,18 +105,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2021-01-15",
-              "2021-01-16",
-              "2021-01-17",
-              "2021-01-18",
-              "2021-01-19"
+              "2022-09-12",
+              "2022-09-13",
+              "2022-09-14",
+              "2022-09-15",
+              "2022-09-16"
             ],
             "y": [
-              6.79744363864789,
-              6.79744363864789,
-              6.79744363864789,
-              6.79744363864789,
-              6.79744363864789
+              4.43217425380046,
+              4.20333266267998,
+              4.05015438668567,
+              4.26119705470901,
+              5.34772680728863
             ],
             "line": {
               "color": "black"
@@ -146,18 +149,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2021-01-15",
-              "2021-01-16",
-              "2021-01-17",
-              "2021-01-18",
-              "2021-01-19"
+              "2022-09-12",
+              "2022-09-13",
+              "2022-09-14",
+              "2022-09-15",
+              "2022-09-16"
             ],
             "y": [
-              5.2192996003887,
-              5.2192996003887,
-              5.2192996003887,
-              5.2192996003887,
-              5.2192996003887
+              2.7839071328089,
+              2.77111161941366,
+              2.67403772250716,
+              2.89833585609168,
+              3.69731018692592
             ],
             "line": {
               "color": "steelblue"
@@ -190,18 +193,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2021-01-15",
-              "2021-01-16",
-              "2021-01-17",
-              "2021-01-18",
-              "2021-01-19"
+              "2022-09-12",
+              "2022-09-13",
+              "2022-09-14",
+              "2022-09-15",
+              "2022-09-16"
             ],
             "y": [
-              1.57814403825919,
-              1.57814403825919,
-              1.57814403825919,
-              1.57814403825919,
-              1.57814403825919
+              1.64826712099155,
+              1.43222104326632,
+              1.37611666417851,
+              1.36286119861734,
+              1.65041662036272
             ],
             "line": {
               "color": "orangered"
@@ -345,8 +348,8 @@
       ]
     },
     "headline_bullet_title_nat": "Headline figures for the most recent week: primary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 6.8% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 91.6% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "• 4.3% of sessions were recorded as illness"
+    "weekly_absence_rate_nat": "• 4.5% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "• 95.5% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "• 2.3% of sessions were recorded as illness"
   }
 }
