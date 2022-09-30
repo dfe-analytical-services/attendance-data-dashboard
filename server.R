@@ -1332,6 +1332,7 @@ server <- function(input, output, session) {
       rownames = FALSE,
       class = "cell-border stripe",
       options = list(
+        scrollX = TRUE,
         ordering = F,
         searching = FALSE,
         lengthChange = FALSE,
@@ -1361,6 +1362,7 @@ server <- function(input, output, session) {
       rownames = FALSE,
       class = "cell-border stripe",
       options = list(
+        scrollX = TRUE,
         ordering = F,
         searching = FALSE,
         lengthChange = FALSE,
@@ -1393,7 +1395,7 @@ server <- function(input, output, session) {
       selection = "none",
       escape = FALSE,
       rownames = FALSE,
-      options = list(columnDefs = list(list(className = "dt-center", targets = 0:7), list(targets = 1, searchable = FALSE, visible = FALSE)))
+      options = list(scrollX = TRUE, columnDefs = list(list(className = "dt-center", targets = 0:7), list(targets = 1, searchable = FALSE, visible = FALSE)))
     ) %>%
       formatPercentage(c(6:8), 1)
   })
