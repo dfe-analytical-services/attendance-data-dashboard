@@ -43,6 +43,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date){
            auth_holiday_perc = (reason_h_authorised_holiday / possible_sessions) * 100,
            auth_excluded_perc = (reason_e_authorised_excluded / possible_sessions) * 100,
            auth_other_perc = (reason_c_authorised_other / possible_sessions) * 100,
+           covid_non_compulsory_perc = (reason_x_not_attending_covid_non_compulsory / possible_sessions) * 100,
            breakdown = "Daily")
   
   attendance_data_weekly <- attendance_data %>%
@@ -99,6 +100,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date){
            auth_holiday_perc = (sum(reason_h_authorised_holiday) / sum(possible_sessions)) * 100,
            auth_excluded_perc = (sum(reason_e_authorised_excluded) / sum(possible_sessions)) * 100,
            auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
+           covid_non_compulsory_perc = (sum(reason_x_not_attending_covid_non_compulsory) / sum(possible_sessions)) * 100,
            breakdown = "Weekly") %>%
     distinct(time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all= TRUE)
   
@@ -156,6 +158,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date){
            auth_holiday_perc = (sum(reason_h_authorised_holiday) / sum(possible_sessions)) * 100,
            auth_excluded_perc = (sum(reason_e_authorised_excluded) / sum(possible_sessions)) * 100,
            auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
+           covid_non_compulsory_perc = (sum(reason_x_not_attending_covid_non_compulsory) / sum(possible_sessions)) * 100,
            breakdown = "YTD") %>%
     distinct(time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all= TRUE)
   
@@ -179,7 +182,8 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date){
            auth_grt_perc_scaled = auth_grt_perc * total_enrolments,
            auth_holiday_perc_scaled = auth_holiday_perc * total_enrolments,
            auth_excluded_perc_scaled = auth_excluded_perc * total_enrolments,
-           auth_other_perc_scaled = auth_other_perc * total_enrolments)
+           auth_other_perc_scaled = auth_other_perc * total_enrolments,
+           covid_non_compulsory_perc_scaled = covid_non_compulsory_perc * total_enrolments)
   
   #Calculate total as (Primary rate X primary census count) + (Secondary rate X secondary census count) + (Special rate X special census count) and divided all by total census count
   attendance_data_daily_totals <- attendance_data %>%
@@ -204,7 +208,8 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date){
            auth_grt_perc = (sum(auth_grt_perc_scaled) / sum(total_enrolments)),
            auth_holiday_perc = (sum(auth_holiday_perc_scaled) / sum(total_enrolments)),
            auth_excluded_perc = (sum(auth_excluded_perc_scaled) / sum(total_enrolments)),
-           auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments))
+           auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments)),
+           covid_non_compulsory_perc = (sum(covid_non_compulsory_perc_scaled) / sum(total_enrolments))
     )
   
   attendance_data_weekly_totals <- attendance_data %>%
@@ -231,7 +236,8 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date){
            auth_grt_perc = (sum(auth_grt_perc_scaled) / sum(total_enrolments)),
            auth_holiday_perc = (sum(auth_holiday_perc_scaled) / sum(total_enrolments)),
            auth_excluded_perc = (sum(auth_excluded_perc_scaled) / sum(total_enrolments)),
-           auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments))
+           auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments)),
+           covid_non_compulsory_perc = (sum(covid_non_compulsory_perc_scaled) / sum(total_enrolments))
     )
   
   attendance_data_ytd_totals <- attendance_data %>%
@@ -259,7 +265,8 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date){
            auth_grt_perc = (sum(auth_grt_perc_scaled) / sum(total_enrolments)),
            auth_holiday_perc = (sum(auth_holiday_perc_scaled) / sum(total_enrolments)),
            auth_excluded_perc = (sum(auth_excluded_perc_scaled) / sum(total_enrolments)),
-           auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments))
+           auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments)),
+           covid_non_compulsory_perc = (sum(covid_non_compulsory_perc_scaled) / sum(total_enrolments))
     )
   
   #Add total onto Primary, Secondary, Special data
@@ -272,7 +279,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date){
       daily_totals=attendance_data_daily_totals,
       weekly_totals=attendance_data_weekly_totals,
       ytd_totals=attendance_data_ytd_totals)
-    )
+  )
 }
 
 
@@ -345,7 +352,8 @@ create_ees_tables <- function(df_attendance){
       auth_grt_perc,
       auth_holiday_perc,
       auth_excluded_perc,
-      auth_other_perc
+      auth_other_perc,
+      covid_non_compulsory_perc
     ) %>%
     arrange(time_period, time_identifier, school_type) %>%
     mutate(time_identifier = paste("Week", time_identifier, sep = " "))
@@ -418,7 +426,8 @@ create_ees_tables <- function(df_attendance){
       auth_grt_perc,
       auth_holiday_perc,
       auth_excluded_perc,
-      auth_other_perc
+      auth_other_perc,
+      covid_non_compulsory_perc
     ) %>%
     arrange(time_period, time_identifier, school_type) %>%
     mutate(time_identifier = paste("Week", time_identifier, sep = " "))
@@ -490,7 +499,8 @@ create_ees_tables <- function(df_attendance){
       auth_grt_perc,
       auth_holiday_perc,
       auth_excluded_perc,
-      auth_other_perc
+      auth_other_perc,
+      covid_non_compulsory_perc
     ) %>%
     arrange(time_period, school_type) %>%
     mutate(time_identifier = paste("Academic year"),
@@ -498,13 +508,12 @@ create_ees_tables <- function(df_attendance){
   
   EES_ytd_data[is.na(EES_ytd_data)]<-"z"
   
-  write.csv(EES_daily_data, "data\\EES_daily_data.csv", row.names = FALSE)
-  write.csv(EES_weekly_data, "data\\EES_weekly_data.csv", row.names = FALSE)
-  write.csv(EES_ytd_data, "data\\EES_ytd_data.csv", row.names = FALSE)
+  write.csv(EES_daily_data, "data\\EES_daily_data.csv")
+  write.csv(EES_weekly_data, "data\\EES_weekly_data.csv")
+  write.csv(EES_ytd_data, "data\\EES_ytd_data.csv")
 }
 
 read_ees_daily <- function(){
   read.csv("data/EES_daily_data.csv", stringsAsFactors = FALSE)
 }
-
 
