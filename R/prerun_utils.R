@@ -508,9 +508,9 @@ create_ees_tables <- function(df_attendance){
   
   EES_ytd_data[is.na(EES_ytd_data)]<-"z"
   
-  write.csv(EES_daily_data, "data\\EES_daily_data.csv")
-  write.csv(EES_weekly_data, "data\\EES_weekly_data.csv")
-  write.csv(EES_ytd_data, "data\\EES_ytd_data.csv")
+  write.csv(EES_daily_data, "data\\EES_daily_data.csv", row.names = FALSE)
+  write.csv(EES_weekly_data, "data\\EES_weekly_data.csv", row.names = FALSE)
+  write.csv(EES_ytd_data, "data\\EES_ytd_data.csv", row.names = FALSE)
 }
 
 read_ees_daily <- function(){
