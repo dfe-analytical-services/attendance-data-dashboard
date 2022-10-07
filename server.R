@@ -1180,47 +1180,53 @@ server <- function(input, output, session) {
   # Most recent full week
   output$update_dates <- renderText({
     validate(need(input$geography_choice != "", ""))
-    
+
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
-    
+
     last_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>% as.Date(attendance_date) + 17
-    
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 17
+
     next_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>% as.Date(attendance_date) + 31
-    
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 31
+
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
   output$update_dates2 <- renderText({
     validate(need(input$geography_choice != "", ""))
-    
+
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
-    
+
     last_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>% as.Date(attendance_date) + 17
-    
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 17
+
     next_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>% as.Date(attendance_date) + 31
-    
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 31
+
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
-  
-  
+
+
   output$homepage_update_dates <- renderText({
     validate(need(input$geography_choice != "", ""))
-    
+
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
-    
+
     last_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>% as.Date(attendance_date) + 17
-    
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 17
+
     next_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>% as.Date(attendance_date) + 31
-    
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 31
+
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
