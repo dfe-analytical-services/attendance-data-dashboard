@@ -1180,15 +1180,15 @@ server <- function(input, output, session) {
   # Most recent full week
   output$headline_update_date <- renderText({
     validate(need(input$geography_choice != "", ""))
-    
+
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
       as.Date(attendance_date) + 17
-    
+
     paste0("Data was last updated on ", last_update_date, ".")
   })
-  
-  
+
+
   output$update_dates <- renderText({
     validate(need(input$geography_choice != "", ""))
 
