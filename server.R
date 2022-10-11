@@ -564,11 +564,12 @@ server <- function(input, output, session) {
       font = t
     )
 
-    # ts_plot <- ts_plot %>% layout(
-    #  xaxis = list(tickmode = 'linear',
-    #               tick0 = "2021-08-01",
-    #               dtick = "M1")
-    # )
+    ts_plot <- ts_plot %>% layout(
+     xaxis = list(tickmode = 'linear',
+                  tick0 = "2022-09-12",
+                  #dtick = "M1"
+                  dtick = 86400000*7)
+    )
   })
 
 
@@ -1188,6 +1189,14 @@ server <- function(input, output, session) {
     paste0("Data was last updated on ", last_update_date, ".")
   })
 
+  output$la_clarity_dates <- renderText({
+    validate(need(input$geography_choice != "", ""))
+    
+    most_recent_fullweek_date <- live_attendance_data_weekly() %>%
+      pull(attendance_date)
+    
+    paste0("Data on this tab relates to the week commencing ", most_recent_fullweek_date, ".")
+  })
 
   output$update_dates <- renderText({
     validate(need(input$geography_choice != "", ""))

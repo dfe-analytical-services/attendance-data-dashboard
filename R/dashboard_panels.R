@@ -350,6 +350,7 @@ dashboard_panel <- function() {
           fluidRow(
             br(),
             h4(textOutput("map_title")),
+            textOutput("la_clarity_dates"),
             fluidRow(
               column(
                 3,
