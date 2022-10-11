@@ -864,7 +864,7 @@ server <- function(input, output, session) {
       geographic_level == "National",
       school_type == "Total",
       time_identifier == max(time_identifier),
-      day_number == "4"
+      day_number == "5"
     ) %>%
     pull(num_schools) %>%
     sum()
