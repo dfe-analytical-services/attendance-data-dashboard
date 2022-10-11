@@ -1178,32 +1178,69 @@ server <- function(input, output, session) {
   # Creating reactive dates for text ------------------------------------------------------------
 
   # Most recent full week
-  output$weekly_dates <- renderText({
+  output$headline_update_date <- renderText({
+    validate(need(input$geography_choice != "", ""))
+
+    last_update_date <- live_attendance_data_weekly() %>%
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 17
+
+    paste0("Data was last updated on ", last_update_date, ".")
+  })
+
+
+  output$update_dates <- renderText({
     validate(need(input$geography_choice != "", ""))
 
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    paste0("The most recent full week of data was the week commencing ", most_recent_fullweek_date)
+    last_update_date <- live_attendance_data_weekly() %>%
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 17
+
+    next_update_date <- live_attendance_data_weekly() %>%
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 31
+
+    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
-  output$weekly_dates2 <- renderText({
+  output$update_dates2 <- renderText({
     validate(need(input$geography_choice != "", ""))
 
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    paste0("The most recent full week of data was the week commencing ", most_recent_fullweek_date)
+    last_update_date <- live_attendance_data_weekly() %>%
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 17
+
+    next_update_date <- live_attendance_data_weekly() %>%
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 31
+
+    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
-  output$homepage_weekly_dates <- renderText({
+
+  output$homepage_update_dates <- renderText({
     validate(need(input$geography_choice != "", ""))
 
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    paste0("The most recent full week of data was the week commencing ", most_recent_fullweek_date)
+    last_update_date <- live_attendance_data_weekly() %>%
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 17
+
+    next_update_date <- live_attendance_data_weekly() %>%
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 31
+
+    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
+
 
   # Creating reactive boxes ------------------------------------------------------------
 
