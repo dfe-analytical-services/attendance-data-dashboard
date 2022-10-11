@@ -31,7 +31,10 @@
             "tickvals": "2022-09-12",
             "zeroline": true,
             "zerolinewidth": 2,
-            "zerolinecolor": "Grey"
+            "zerolinecolor": "Grey",
+            "tickmode": "linear",
+            "tick0": "2022-09-12",
+            "dtick": 604800000
           },
           "yaxis": {
             "domain": [
