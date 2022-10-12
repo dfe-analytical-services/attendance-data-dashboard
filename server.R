@@ -564,11 +564,14 @@ server <- function(input, output, session) {
       font = t
     )
 
-    # ts_plot <- ts_plot %>% layout(
-    #  xaxis = list(tickmode = 'linear',
-    #               tick0 = "2021-08-01",
-    #               dtick = "M1")
-    # )
+    ts_plot <- ts_plot %>% layout(
+      xaxis = list(
+        tickmode = "linear",
+        tick0 = "2022-09-12",
+        # dtick = "M1"
+        dtick = 86400000 * 7
+      )
+    )
   })
 
 
@@ -892,7 +895,17 @@ server <- function(input, output, session) {
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    paste0("For this breakdown, measures for the most recent week are produced based on ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 1), "% of schools")
+    paste0("For this breakdown, in the latest week there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date.")
+  })
+
+  output$school_count_proportion_weekly2 <- renderText({
+    validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
+
+    count_prop_week <- live_attendance_data_weekly() %>%
+      group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
+      mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
+
+    paste0("For this breakdown, in the latest week there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date.")
   })
 
   # Proportion of schools in census figures are generated from - year to date
@@ -903,7 +916,7 @@ server <- function(input, output, session) {
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    paste0("For this breakdown, measures for the year to date are produced based on ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 1), "% of schools")
+    paste0("For this breakdown, measures for the year to date are produced based on ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools")
   })
 
   # Headline attendance most recent week
@@ -1188,6 +1201,14 @@ server <- function(input, output, session) {
     paste0("Data was last updated on ", last_update_date, ".")
   })
 
+  output$la_clarity_dates <- renderText({
+    validate(need(input$geography_choice != "", ""))
+
+    most_recent_fullweek_date <- live_attendance_data_weekly() %>%
+      pull(attendance_date)
+
+    paste0("Data on this tab relates to the week commencing ", most_recent_fullweek_date, ".")
+  })
 
   output$update_dates <- renderText({
     validate(need(input$geography_choice != "", ""))

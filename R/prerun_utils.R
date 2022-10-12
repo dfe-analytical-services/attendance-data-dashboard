@@ -5,7 +5,7 @@ run_data_update <- function(df_attendance=attendance_data){
   create_ees_tables(df_attendance)  
 }
 
-process_attendance_data <- function(df_attendance_raw, start_date, end_date){
+process_attendance_data <- function(df_attendance_raw, start_date, end_date, funeral_date){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   attendance_data <- attendance_data_raw %>%
@@ -20,6 +20,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date){
   attendance_data <- attendance_data %>% mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
   attendance_data <- arrange(attendance_data, time_identifier, attendance_date)
   attendance_data <- attendance_data %>% dplyr::filter(between(attendance_date, start_date, end_date))
+  attendance_data <- attendance_data %>% dplyr::filter(attendance_date != funeral_date)
   
   #Join school frequency count for proportion of schools reporting and pupil headcount for calculation of weighted totals
   attendance_data <- left_join(attendance_data, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "phase"))
