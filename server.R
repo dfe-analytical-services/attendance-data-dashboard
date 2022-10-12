@@ -900,14 +900,14 @@ server <- function(input, output, session) {
 
   output$school_count_proportion_weekly2 <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
-    
+
     count_prop_week <- live_attendance_data_weekly() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
-    
+
     paste0("For this breakdown, in the latest week there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date.")
   })
-  
+
   # Proportion of schools in census figures are generated from - year to date
   output$school_count_proportion_ytd <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
