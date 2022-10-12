@@ -895,7 +895,7 @@ server <- function(input, output, session) {
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    paste0("For this breakdown, measures for the most recent week are produced based on ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 1), "% of schools")
+    paste0("For this breakdown, measures for the most recent week are produced based on ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools")
   })
 
   # Proportion of schools in census figures are generated from - year to date
@@ -906,7 +906,7 @@ server <- function(input, output, session) {
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    paste0("For this breakdown, measures for the year to date are produced based on ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 1), "% of schools")
+    paste0("For this breakdown, measures for the year to date are produced based on ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools")
   })
 
   # Headline attendance most recent week
