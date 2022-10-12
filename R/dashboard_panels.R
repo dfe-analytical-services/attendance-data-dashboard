@@ -224,7 +224,7 @@ dashboard_panel <- function() {
                              p("Data for earlier weeks has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level data covering the week commencing 5th September is available on", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Explore Education Statistics")),
             ),
             conditionalPanel(condition = "input.ts_choice == 'Year to date'",
-                             textOutput("school_count_proportion_ytd"),
+                             textOutput("school_count_proportion_weekly2"),
                              textOutput("update_dates2"),
                              p("Data for earlier weeks has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level data covering the week commencing 5th September is available on", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Explore Education Statistics")),
             ),
