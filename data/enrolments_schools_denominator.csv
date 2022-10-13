@@ -6,69 +6,69 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,National,E92000001,England,,,,,,PRU/Academy/Free school AP,336,11615
 2022,August,National,E92000001,England,,,,,,Primary,16749,4615583
 2022,August,National,E92000001,England,,,,,,16 plus,65,15049
+2022,August,Regional,E92000001,England,E12000009,South West,,,,PRU/Academy/Free school AP,35,1102
 2022,August,Regional,E92000001,England,E12000004,East Midlands,,,,State-funded nursery,32,2609
 2022,August,Regional,E92000001,England,E12000005,West Midlands,,,,Secondary,415,398633
+2022,August,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,16 plus,10,3256
 2022,August,Regional,E92000001,England,E12000009,South West,,,,Special,92,11809
+2022,August,Regional,E92000001,England,E12000002,North West,,,,16 plus,9,919
 2022,August,Regional,E92000001,England,E12000006,East of England,,,,Independent school,226,67427
 2022,August,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,Secondary,322,345049
-2022,August,Regional,E92000001,England,E12000008,South East,,,,Independent school,561,159266
+2022,August,Regional,E92000001,England,E12000008,South East,,,,Independent school,529,150606
 2022,August,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,PRU/Academy/Free school AP,36,1504
 2022,August,Regional,E92000001,England,E12000004,East Midlands,,,,Special,87,11219
+2022,August,Regional,E92000001,England,E12000002,North West,,,,PRU/Academy/Free school AP,49,2257
+2022,August,Regional,E92000001,England,E12000007,London,,,,Independent school,540,148173
+2022,August,Regional,E92000001,England,E12000004,East Midlands,,,,PRU/Academy/Free school AP,22,741
 2022,August,Regional,E92000001,England,E12000004,East Midlands,,,,Independent school,167,29302
 2022,August,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,Independent school,145,29754
+2022,August,Regional,E92000001,England,E12000006,East of England,,,,16 plus,5,4036
 2022,August,Regional,E92000001,England,E12000002,North West,,,,Special,172,21939
-2022,August,Regional,E92000001,England,E12000008,South East,,,,Primary,2785,767690
+2022,August,Regional,E92000001,England,E12000007,London,,,,16 plus,14,4404
+2022,August,Regional,E92000001,England,E12000008,South East,,,,Primary,2600,723307
 2022,August,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,Primary,1769,477059
 2022,August,Regional,E92000001,England,E12000009,South West,,,,Independent school,223,53642
 2022,August,Regional,E92000001,England,E12000004,East Midlands,,,,Secondary,289,307078
-2022,August,Regional,E92000001,England,E12000001,North East,,,,Secondary,214,198099
+2022,August,Regional,E92000001,England,E12000009,South West,,,,State-funded nursery,18,2110
+2022,August,Regional,E92000001,England,E12000007,London,,,,Special,158,20536
+2022,August,Regional,E92000001,England,E12000001,North East,,,,Secondary,174,163982
 2022,August,Regional,E92000001,England,E12000005,West Midlands,,,,State-funded nursery,56,5998
 2022,August,Regional,E92000001,England,E12000006,East of England,,,,Primary,1983,517660
 2022,August,Regional,E92000001,England,E12000006,East of England,,,,State-funded nursery,38,4228
-2022,August,Regional,E92000001,England,E12000008,South East,,,,Special,192,26929
+2022,August,Regional,E92000001,England,E12000008,South East,,,,Special,182,25340
 2022,August,Regional,E92000001,England,E12000006,East of England,,,,Special,110,14517
 2022,August,Regional,E92000001,England,E12000009,South West,,,,Primary,1883,414864
-2022,August,Regional,E92000001,England,E12000001,North East,,,,Primary,1055,248921
+2022,August,Regional,E92000001,England,E12000006,East of England,,,,PRU/Academy/Free school AP,36,1037
+2022,August,Regional,E92000001,England,E12000001,North East,,,,Primary,861,212405
 2022,August,Regional,E92000001,England,E12000009,South West,,,,Secondary,340,332363
 2022,August,Regional,E92000001,England,E12000005,West Midlands,,,,Primary,1771,515601
 2022,August,Regional,E92000001,England,E12000002,North West,,,,Secondary,462,450185
-2022,August,Regional,E92000001,England,E12000008,South East,,,,Secondary,543,603889
+2022,August,Regional,E92000001,England,E12000008,South East,,,,Secondary,507,563449
+2022,August,Regional,E92000001,England,E12000008,South East,,,,PRU/Academy/Free school AP,44,935
 2022,August,Regional,E92000001,England,E12000006,East of England,,,,Secondary,389,407579
 2022,August,Regional,E92000001,England,E12000005,West Midlands,,,,Special,123,18149
-2022,August,Regional,E92000001,England,E12000008,South East,,,,State-funded nursery,44,4455
+2022,August,Regional,E92000001,England,E12000001,North East,,,,PRU/Academy/Free school AP,18,877
+2022,August,Regional,E92000001,England,E12000008,South East,,,,State-funded nursery,42,4188
 2022,August,Regional,E92000001,England,E12000005,West Midlands,,,,Independent school,244,42304
+2022,August,Regional,E92000001,England,E12000007,London,,,,State-funded nursery,78,8283
+2022,August,Regional,E92000001,England,E12000002,North West,,,,State-funded nursery,64,5425
 2022,August,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,Special,84,12326
 2022,August,Regional,E92000001,England,E12000002,North West,,,,Primary,2440,647618
+2022,August,Regional,E92000001,England,E12000007,London,,,,Secondary,503,563754
 2022,August,Regional,E92000001,England,E12000002,North West,,,,Independent school,288,49019
 2022,August,Regional,E92000001,England,E12000004,East Midlands,,,,Primary,1646,399821
 2022,August,Regional,E92000001,England,E12000007,London,,,,Primary,1796,707248
-2022,August,Regional,E92000001,England,E12000001,North East,,,,Special,80,10950
-2022,August,Regional,E92000001,England,E12000001,North East,,,,Independent school,74,12936
-2022,August,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,State-funded nursery,27,2637
+2022,August,Regional,E92000001,England,E12000001,North East,,,,Special,64,9087
+2022,August,Regional,E92000001,England,E12000001,North East,,,,Independent school,58,10832
 2022,August,Regional,E92000001,England,E12000005,West Midlands,,,,PRU/Academy/Free school AP,40,1156
-2022,August,Regional,E92000001,England,E12000002,North West,,,,PRU/Academy/Free school AP,49,2257
-2022,August,Regional,E92000001,England,E12000007,London,,,,Independent school,540,148173
-2022,August,Regional,E92000001,England,E12000007,London,,,,Special,158,20536
-2022,August,Regional,E92000001,England,E12000008,South East,,,,PRU/Academy/Free school AP,47,1010
-2022,August,Regional,E92000001,England,E12000007,London,,,,State-funded nursery,78,8283
-2022,August,Regional,E92000001,England,E12000002,North West,,,,State-funded nursery,64,5425
-2022,August,Regional,E92000001,England,E12000007,London,,,,Secondary,503,563754
 2022,August,Regional,E92000001,England,E12000007,London,,,,PRU/Academy/Free school AP,56,2006
-2022,August,Regional,E92000001,England,E12000009,South West,,,,State-funded nursery,18,2110
-2022,August,Regional,E92000001,England,E12000001,North East,,,,State-funded nursery,31,2609
-2022,August,Regional,E92000001,England,E12000001,North East,,,,PRU/Academy/Free school AP,20,954
-2022,August,Regional,E92000001,England,E12000009,South West,,,,PRU/Academy/Free school AP,35,1102
-2022,August,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,16 plus,10,3256
-2022,August,Regional,E92000001,England,E12000002,North West,,,,16 plus,9,919
-2022,August,Regional,E92000001,England,E12000004,East Midlands,,,,PRU/Academy/Free school AP,22,741
-2022,August,Regional,E92000001,England,E12000006,East of England,,,,16 plus,5,4036
-2022,August,Regional,E92000001,England,E12000007,London,,,,16 plus,14,4404
-2022,August,Regional,E92000001,England,E12000006,East of England,,,,PRU/Academy/Free school AP,36,1037
 2022,August,Regional,E92000001,England,E12000005,West Midlands,,,,16 plus,8,413
 2022,August,Regional,E92000001,England,E12000009,South West,,,,16 plus,4,456
 2022,August,Regional,E92000001,England,E12000008,South East,,,,16 plus,8,0
 2022,August,Regional,E92000001,England,E12000001,North East,,,,16 plus,2,0
 2022,August,Regional,E92000001,England,E12000004,East Midlands,,,,16 plus,5,1565
+2022,August,Regional,E92000001,England,E12000001,North East,,,,State-funded nursery,30,2558
+2022,August,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,State-funded nursery,27,2637
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000004,353,Oldham,Primary,86,26400
 2022,August,Local authority,E92000001,England,E12000008,South East,E10000030,936,Surrey,Special,30,3341
 2022,August,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000016,370,Barnsley,Independent school,3,152
@@ -246,7 +246,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000002,North West,E06000050,896,Cheshire West and Chester,Primary,129,28331
 2022,August,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000034,382,Kirklees,Primary,142,37361
 2022,August,Local authority,E92000001,England,E12000007,London,E09000023,209,Lewisham,Secondary,14,14281
-2022,August,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,Special,20,3178
+2022,August,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,Special,10,1589
 2022,August,Local authority,E92000001,England,E12000009,South West,E10000027,933,Somerset,Independent school,34,8255
 2022,August,Local authority,E92000001,England,E12000005,West Midlands,E08000031,336,Wolverhampton,PRU/Academy/Free school AP,4,129
 2022,August,Local authority,E92000001,England,E12000005,West Midlands,E08000025,330,Birmingham,Primary,295,111358
@@ -254,7 +254,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000015,344,Wirral,Secondary,20,22445
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000002,351,Bury,Independent school,9,1866
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000007,356,Stockport,Independent school,16,4421
-2022,August,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,Primary,254,43734
+2022,August,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,Primary,127,21867
 2022,August,Local authority,E92000001,England,E12000007,London,E09000006,305,Bromley,Secondary,19,24395
 2022,August,Local authority,E92000001,England,E12000001,North East,E08000024,394,Sunderland,Secondary,18,16511
 2022,August,Local authority,E92000001,England,E12000007,London,E09000023,209,Lewisham,Special,5,788
@@ -267,7 +267,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000007,356,Stockport,Special,8,880
 2022,August,Local authority,E92000001,England,E12000006,East of England,E10000015,919,Hertfordshire,Independent school,52,23637
 2022,August,Local authority,E92000001,England,E12000001,North East,E06000005,841,Darlington,Independent school,4,105
-2022,August,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,Primary,134,29298
+2022,August,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,Primary,67,14649
 2022,August,Local authority,E92000001,England,E12000007,London,E09000014,309,Haringey,16 plus,2,554
 2022,August,Local authority,E92000001,England,E12000007,London,E09000022,208,Lambeth,Primary,60,20305
 2022,August,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000019,373,Sheffield,Primary,133,46962
@@ -302,7 +302,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000005,West Midlands,E10000034,885,Worcestershire,Independent school,25,7509
 2022,August,Local authority,E92000001,England,E12000007,London,E09000025,316,Newham,Secondary,21,27431
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000006,355,Salford,PRU/Academy/Free school AP,4,115
-2022,August,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,Secondary,60,44164
+2022,August,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,Secondary,30,22082
 2022,August,Local authority,E92000001,England,E12000005,West Midlands,E10000028,860,Staffordshire,PRU/Academy/Free school AP,6,114
 2022,August,Local authority,E92000001,England,E12000008,South East,E10000011,845,East Sussex,Special,15,1407
 2022,August,Local authority,E92000001,England,E12000004,East Midlands,E10000007,830,Derbyshire,Primary,353,60952
@@ -384,7 +384,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000008,South East,E06000035,887,Medway,Secondary,19,21391
 2022,August,Local authority,E92000001,England,E12000004,East Midlands,E06000016,856,Leicester,Special,8,1231
 2022,August,Local authority,E92000001,England,E12000008,South East,E06000040,868,Windsor and Maidenhead,Secondary,14,11535
-2022,August,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,Secondary,72,80880
+2022,August,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,Secondary,36,40440
 2022,August,Local authority,E92000001,England,E12000008,South East,E10000025,931,Oxfordshire,Independent school,54,17864
 2022,August,Local authority,E92000001,England,E12000008,South East,E06000035,887,Medway,Primary,75,26440
 2022,August,Local authority,E92000001,England,E12000004,East Midlands,E06000015,831,Derby,Secondary,16,18408
@@ -448,14 +448,14 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000007,London,E09000024,315,Merton,Primary,44,17231
 2022,August,Local authority,E92000001,England,E12000005,West Midlands,E08000028,333,Sandwell,Secondary,20,24531
 2022,August,Local authority,E92000001,England,E12000009,South West,E06000058,839,"Bournemouth, Christchurch and Poole",Secondary,25,24393
-2022,August,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,PRU/Academy/Free school AP,6,150
+2022,August,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,PRU/Academy/Free school AP,3,75
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000014,343,Sefton,Secondary,18,15451
 2022,August,Local authority,E92000001,England,E12000006,East of England,E06000055,822,Bedford,Special,3,399
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000010,359,Wigan,Primary,99,27195
 2022,August,Local authority,E92000001,England,E12000007,London,E09000020,207,Kensington and Chelsea,Secondary,6,6192
 2022,August,Local authority,E92000001,England,E12000009,South West,E06000025,803,South Gloucestershire,Primary,93,23152
 2022,August,Local authority,E92000001,England,E12000002,North West,E06000049,895,Cheshire East,Secondary,23,24547
-2022,August,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,Secondary,20,24070
+2022,August,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,Secondary,10,12035
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000001,350,Bolton,Primary,97,30293
 2022,August,Local authority,E92000001,England,E12000007,London,E09000003,302,Barnet,Independent school,38,7921
 2022,August,Local authority,E92000001,England,E12000009,South West,E06000026,879,Plymouth,Independent school,4,992
@@ -522,7 +522,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000005,West Midlands,E10000028,860,Staffordshire,Independent school,35,4370
 2022,August,Local authority,E92000001,England,E12000004,East Midlands,E06000062,941,West Northamptonshire,Independent school,17,2812
 2022,August,Local authority,E92000001,England,E12000009,South West,E10000027,933,Somerset,Primary,216,38804
-2022,August,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,Primary,370,88766
+2022,August,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,Primary,185,44383
 2022,August,Local authority,E92000001,England,E12000007,London,E09000009,307,Ealing,Secondary,17,22491
 2022,August,Local authority,E92000001,England,E12000007,London,E09000013,205,Hammersmith and Fulham,Special,5,603
 2022,August,Local authority,E92000001,England,E12000005,West Midlands,E10000034,885,Worcestershire,PRU/Academy/Free school AP,6,108
@@ -573,12 +573,12 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000004,East Midlands,E06000018,892,Nottingham,PRU/Academy/Free school AP,5,274
 2022,August,Local authority,E92000001,England,E12000007,London,E09000011,203,Greenwich,Special,4,562
 2022,August,Local authority,E92000001,England,E12000005,West Midlands,E06000021,861,Stoke-on-Trent,Independent school,13,542
-2022,August,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,Special,12,1422
+2022,August,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,Special,6,711
 2022,August,Local authority,E92000001,England,E12000001,North East,E06000004,808,Stockton-on-Tees,Independent school,7,1985
 2022,August,Local authority,E92000001,England,E12000007,London,E09000019,206,Islington,Secondary,10,8519
 2022,August,Local authority,E92000001,England,E12000006,East of England,E10000029,935,Suffolk,Independent school,34,7993
 2022,August,Local authority,E92000001,England,E12000007,London,E09000022,208,Lambeth,Secondary,19,15338
-2022,August,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,Independent school,20,3014
+2022,August,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,Independent school,10,1507
 2022,August,Local authority,E92000001,England,E12000007,London,E09000012,204,Hackney,Independent school,32,10708
 2022,August,Local authority,E92000001,England,E12000007,London,E09000006,305,Bromley,Primary,76,27907
 2022,August,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000012,812,North East Lincolnshire,Primary,47,14528
@@ -613,7 +613,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000007,London,E09000012,204,Hackney,Secondary,16,14747
 2022,August,Local authority,E92000001,England,E12000001,North East,E08000023,393,South Tyneside,Secondary,8,9066
 2022,August,Local authority,E92000001,England,E12000009,South West,E10000013,916,Gloucestershire,Primary,244,47633
-2022,August,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,Independent school,12,1194
+2022,August,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,Independent school,6,597
 2022,August,Local authority,E92000001,England,E12000007,London,E09000025,316,Newham,16 plus,2,1127
 2022,August,Local authority,E92000001,England,E12000001,North East,E06000002,806,Middlesbrough,Secondary,8,8858
 2022,August,Local authority,E92000001,England,E12000007,London,E09000012,204,Hackney,Primary,58,18971
@@ -626,7 +626,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000005,West Midlands,E06000019,884,"Herefordshire, County of",Secondary,15,9574
 2022,August,Local authority,E92000001,England,E12000007,London,E09000025,316,Newham,Independent school,10,1084
 2022,August,Local authority,E92000001,England,E12000006,East of England,E10000003,873,Cambridgeshire,Special,12,1590
-2022,August,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,Independent school,64,17320
+2022,August,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,Independent school,32,8660
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000008,357,Tameside,PRU/Academy/Free school AP,1,126
 2022,August,Local authority,E92000001,England,E12000007,London,E09000027,318,Richmond upon Thames,Independent school,22,10489
 2022,August,Local authority,E92000001,England,E12000005,West Midlands,E08000028,333,Sandwell,Primary,94,36569
@@ -679,7 +679,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000010,359,Wigan,PRU/Academy/Free school AP,1,89
 2022,August,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000032,380,Bradford,16 plus,2,960
 2022,August,Local authority,E92000001,England,E12000005,West Midlands,E06000051,893,Shropshire,Special,2,454
-2022,August,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,Special,20,2304
+2022,August,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,Special,10,1152
 2022,August,Local authority,E92000001,England,E12000007,London,E09000022,208,Lambeth,PRU/Academy/Free school AP,2,47
 2022,August,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000035,383,Leeds,16 plus,1,1064
 2022,August,Local authority,E92000001,England,E12000004,East Midlands,E10000018,855,Leicestershire,16 plus,1,480
@@ -745,7 +745,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000018,372,Rotherham,Special,6,948
 2022,August,Local authority,E92000001,England,E12000001,North East,E06000003,807,Redcar and Cleveland,16 plus,1,0
 2022,August,Local authority,E92000001,England,E12000007,London,E09000033,213,Westminster,PRU/Academy/Free school AP,1,47
-2022,August,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,PRU/Academy/Free school AP,2,150
+2022,August,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,PRU/Academy/Free school AP,1,75
 2022,August,Local authority,E92000001,England,E12000002,North West,E06000006,876,Halton,Special,4,416
 2022,August,Local authority,E92000001,England,E12000002,North West,E10000006,909,Cumbria,Special,6,678
 2022,August,Local authority,E92000001,England,E12000002,North West,E06000007,877,Warrington,PRU/Academy/Free school AP,1,9
@@ -830,7 +830,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000009,South West,E06000025,803,South Gloucestershire,PRU/Academy/Free school AP,1,59
 2022,August,Local authority,E92000001,England,E12000008,South East,E06000037,869,West Berkshire,PRU/Academy/Free school AP,1,52
 2022,August,Local authority,E92000001,England,E12000007,London,E09000033,213,Westminster,State-funded nursery,4,259
-2022,August,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,PRU/Academy/Free school AP,2,4
+2022,August,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,PRU/Academy/Free school AP,1,2
 2022,August,Local authority,E92000001,England,E12000008,South East,E10000032,938,West Sussex,PRU/Academy/Free school AP,2,124
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000013,342,St. Helens,State-funded nursery,1,60
 2022,August,Local authority,E92000001,England,E12000007,London,E09000032,212,Wandsworth,PRU/Academy/Free school AP,3,57
@@ -860,18 +860,6 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000011,811,East Riding of Yorkshire,Special,3,430
 2022,August,Local authority,E92000001,England,E12000008,South East,E06000046,921,Isle of Wight,Independent school,2,970
 2022,August,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000010,810,"Kingston upon Hull, City of",State-funded nursery,1,132
-2022,August,Local authority,E92000001,England,E12000006,East of England,E06000032,821,Luton,Special,4,725
-2022,August,Local authority,E92000001,England,E12000005,West Midlands,E08000025,330,Birmingham,16 plus,1,85
-2022,August,Local authority,E92000001,England,E12000006,East of England,E06000031,874,Peterborough,PRU/Academy/Free school AP,1,102
-2022,August,Local authority,E92000001,England,E12000001,North East,E06000003,807,Redcar and Cleveland,PRU/Academy/Free school AP,1,69
-2022,August,Local authority,E92000001,England,E12000009,South West,E06000024,802,North Somerset,Independent school,5,1043
-2022,August,Local authority,E92000001,England,E12000004,East Midlands,E06000016,856,Leicester,16 plus,2,794
-2022,August,Local authority,E92000001,England,E12000002,North West,E08000013,342,St. Helens,Independent school,4,467
-2022,August,Local authority,E92000001,England,E12000007,London,E09000003,302,Barnet,16 plus,1,0
-2022,August,Local authority,E92000001,England,E12000008,South East,E06000041,872,Wokingham,Special,3,383
-2022,August,Local authority,E92000001,England,E12000009,South West,E10000027,933,Somerset,16 plus,1,0
-2022,August,Local authority,E92000001,England,E12000005,West Midlands,E08000027,332,Dudley,16 plus,1,0
-2022,August,Local authority,E92000001,England,E12000001,North East,E06000004,808,Stockton-on-Tees,PRU/Academy/Free school AP,1,46
 2022,August,Local authority,E92000001,England,E12000008,South East,E10000032,938,West Sussex,State-funded nursery,4,477
 2022,August,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E10000023,815,North Yorkshire,State-funded nursery,3,227
 2022,August,Local authority,E92000001,England,E12000004,East Midlands,E06000017,857,Rutland,Special,1,8
@@ -896,6 +884,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000007,London,E09000010,308,Enfield,PRU/Academy/Free school AP,1,48
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000001,350,Bolton,State-funded nursery,3,284
 2022,August,Local authority,E92000001,England,E12000007,London,E09000003,302,Barnet,State-funded nursery,4,439
+2022,August,Local authority,E92000001,England,E12000002,North West,E08000013,342,St. Helens,Independent school,4,467
 2022,August,Local authority,E92000001,England,E12000007,London,E09000007,202,Camden,State-funded nursery,1,128
 2022,August,Local authority,E92000001,England,E12000007,London,E09000031,320,Waltham Forest,State-funded nursery,3,272
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000012,341,Liverpool,State-funded nursery,5,513
@@ -931,6 +920,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000002,North West,E08000005,354,Rochdale,State-funded nursery,2,133
 2022,August,Local authority,E92000001,England,E12000008,South East,E06000036,867,Bracknell Forest,Independent school,8,3220
 2022,August,Local authority,E92000001,England,E12000001,North East,E08000024,394,Sunderland,State-funded nursery,7,739
+2022,August,Local authority,E92000001,England,E12000006,East of England,E06000032,821,Luton,Special,4,725
 2022,August,Local authority,E92000001,England,E12000008,South East,E06000038,870,Reading,State-funded nursery,5,428
 2022,August,Local authority,E92000001,England,E12000001,North East,E08000023,393,South Tyneside,PRU/Academy/Free school AP,1,48
 2022,August,Local authority,E92000001,England,E12000008,South East,E06000036,867,Bracknell Forest,Special,1,198
@@ -941,8 +931,9 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000009,South West,E06000052,908,Cornwall,State-funded nursery,2,148
 2022,August,Local authority,E92000001,England,E12000006,East of England,E06000056,823,Central Bedfordshire,State-funded nursery,2,228
 2022,August,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000018,372,Rotherham,State-funded nursery,3,396
+2022,August,Local authority,E92000001,England,E12000009,South West,E06000024,802,North Somerset,Independent school,5,1043
 2022,August,Local authority,E92000001,England,E12000002,North West,E10000006,909,Cumbria,PRU/Academy/Free school AP,3,140
-2022,August,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,State-funded nursery,2,102
+2022,August,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,State-funded nursery,1,51
 2022,August,Local authority,E92000001,England,E12000008,South East,E06000037,869,West Berkshire,State-funded nursery,2,232
 2022,August,Local authority,E92000001,England,E12000002,North West,E06000007,877,Warrington,Special,4,429
 2022,August,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000034,382,Kirklees,State-funded nursery,1,81
@@ -953,6 +944,7 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000006,East of England,E06000031,874,Peterborough,State-funded nursery,1,122
 2022,August,Local authority,E92000001,England,E12000008,South East,E06000040,868,Windsor and Maidenhead,State-funded nursery,3,298
 2022,August,Local authority,E92000001,England,E12000008,South East,E06000039,871,Slough,State-funded nursery,5,509
+2022,August,Local authority,E92000001,England,E12000008,South East,E06000041,872,Wokingham,Special,3,383
 2022,August,Local authority,E92000001,England,E12000009,South West,E06000026,879,Plymouth,State-funded nursery,2,141
 2022,August,Local authority,E92000001,England,E12000001,North East,E08000021,391,Newcastle upon Tyne,State-funded nursery,4,358
 2022,August,Local authority,E92000001,England,E12000008,South East,E06000041,872,Wokingham,State-funded nursery,1,119
@@ -960,5 +952,13 @@ time_period,time_identifier,geographic_level,country_code,country_name,region_co
 2022,August,Local authority,E92000001,England,E12000008,South East,E06000037,869,West Berkshire,Special,3,636
 2022,August,Local authority,E92000001,England,E12000006,East of England,E06000055,822,Bedford,State-funded nursery,2,261
 2022,August,Local authority,E92000001,England,E12000002,North West,E06000007,877,Warrington,State-funded nursery,1,100
-2022,August,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,State-funded nursery,4,534
+2022,August,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,State-funded nursery,2,267
 2022,August,Local authority,E92000001,England,E12000002,North West,E06000006,876,Halton,State-funded nursery,3,202
+2022,August,Local authority,E92000001,England,E12000005,West Midlands,E08000025,330,Birmingham,16 plus,1,85
+2022,August,Local authority,E92000001,England,E12000006,East of England,E06000031,874,Peterborough,PRU/Academy/Free school AP,1,102
+2022,August,Local authority,E92000001,England,E12000001,North East,E06000003,807,Redcar and Cleveland,PRU/Academy/Free school AP,1,69
+2022,August,Local authority,E92000001,England,E12000004,East Midlands,E06000016,856,Leicester,16 plus,2,794
+2022,August,Local authority,E92000001,England,E12000007,London,E09000003,302,Barnet,16 plus,1,0
+2022,August,Local authority,E92000001,England,E12000009,South West,E10000027,933,Somerset,16 plus,1,0
+2022,August,Local authority,E92000001,England,E12000005,West Midlands,E08000027,332,Dudley,16 plus,1,0
+2022,August,Local authority,E92000001,England,E12000001,North East,E06000004,808,Stockton-on-Tees,PRU/Academy/Free school AP,1,46
