@@ -520,7 +520,7 @@ server <- function(input, output, session) {
       type = "scatter", mode = "lines+markers"
     ) %>%
       add_trace(
-        x = ~attendance_date,
+        x = ~week_commencing,
         y = ~overall_absence_perc,
         line = list(color = "black"),
         marker = list(color = "black"),
@@ -529,7 +529,7 @@ server <- function(input, output, session) {
         mode = "markers"
       ) %>%
       add_trace(
-        x = ~attendance_date,
+        x = ~week_commencing,
         y = ~authorised_absence_perc,
         line = list(color = "steelblue"),
         marker = list(color = "steelblue"),
@@ -538,7 +538,7 @@ server <- function(input, output, session) {
         mode = "markers"
       ) %>%
       add_trace(
-        x = ~attendance_date,
+        x = ~week_commencing,
         y = ~unauthorised_absence_perc,
         line = list(color = "orangered"),
         marker = list(color = "orangered"),
@@ -548,7 +548,7 @@ server <- function(input, output, session) {
       )
 
     ts_plot <- ts_plot %>% layout(
-      xaxis = list(title = "Week commencing", tickvals = ~attendance_date, zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
+      xaxis = list(title = "Week commencing", tickvals = ~week_commencing, zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
       yaxis = list(rangemode = "tozero", title = "Absence rate (%)", zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
       hovermode = "x unified",
       legend = list(
