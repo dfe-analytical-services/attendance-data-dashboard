@@ -9,7 +9,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   attendance_data <- attendance_data_raw %>%
-    mutate(across(.cols = 14:50, .fns = as.numeric)) %>%
+    mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
     mutate(across(.cols = 1:2, .fns = as.numeric)) %>%
     mutate(across(.cols = 12:12, .fns = as.numeric)) %>%
@@ -21,6 +21,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
   attendance_data <- arrange(attendance_data, time_identifier, attendance_date)
   attendance_data <- attendance_data %>% dplyr::filter(between(attendance_date, start_date, end_date))
   attendance_data <- attendance_data %>% dplyr::filter(attendance_date != funeral_date)
+  attendance_data <- attendance_data %>% mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
   
   #Join school frequency count for proportion of schools reporting and pupil headcount for calculation of weighted totals
   attendance_data <- left_join(attendance_data, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "phase"))
@@ -226,6 +227,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
     group_by(breakdown, time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
     summarise(across(matches("attendance_date"), min, na.rm = T),
               across(matches("day_number"), min, na.rm = T),
+              across(matches("week_commencing"), min, na.rm = T),
               across(where(is.numeric)& !c(attendance_date, day_number), sum), na.rm = T) %>%
     mutate(school_type = "Total",
            enrolments_pa_10_exact = "z",
@@ -255,6 +257,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
     summarise(across(matches("time_identifier"), min, na.rm = T),
               across(matches("attendance_date"), min, na.rm = T),
               across(matches("day_number"), min, na.rm = T),
+              across(matches("week_commencing"), min, na.rm = T),
               across(where(is.numeric)& !c(time_identifier, attendance_date, day_number), sum), na.rm = T) %>%
     mutate(school_type = "Total",
            enrolments_pa_10_exact = "z",

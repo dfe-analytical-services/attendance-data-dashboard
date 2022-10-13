@@ -28,7 +28,11 @@
             ],
             "automargin": true,
             "title": "Week commencing",
-            "tickvals": "2022-09-12",
+            "tickvals": [
+              "2022-09-12",
+              "2022-09-19",
+              "2022-09-26"
+            ],
             "zeroline": true,
             "zerolinewidth": 2,
             "zerolinecolor": "Grey",
@@ -101,8 +105,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2022-09-12",
-            "y": 6.51010569070939,
+            "x": [
+              "2022-09-12",
+              "2022-09-19",
+              "2022-09-26"
+            ],
+            "y": [
+              6.45499193257536,
+              8.01029776795153,
+              8.40511875269365
+            ],
             "line": {
               "color": "black"
             },
@@ -113,7 +125,11 @@
               }
             },
             "name": "Overall absence rate",
-            "hovertemplate": "%{y:.1f}%",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
             "error_y": {
               "color": "rgba(255,127,14,1)"
             },
@@ -127,8 +143,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2022-09-12",
-            "y": 3.90741045585074,
+            "x": [
+              "2022-09-12",
+              "2022-09-19",
+              "2022-09-26"
+            ],
+            "y": [
+              3.93024080826179,
+              5.32890050724873,
+              5.65028298358451
+            ],
             "line": {
               "color": "steelblue"
             },
@@ -139,7 +163,11 @@
               }
             },
             "name": "Authorised absence rate",
-            "hovertemplate": "%{y:.1f}%",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
             "error_y": {
               "color": "rgba(44,160,44,1)"
             },
@@ -153,8 +181,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2022-09-12",
-            "y": 2.60269523485864,
+            "x": [
+              "2022-09-12",
+              "2022-09-19",
+              "2022-09-26"
+            ],
+            "y": [
+              2.52475112431357,
+              2.68139726070279,
+              2.75483576910914
+            ],
             "line": {
               "color": "orangered"
             },
@@ -165,7 +201,11 @@
               }
             },
             "name": "Unauthorised absence rate",
-            "hovertemplate": "%{y:.1f}%",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
             "error_y": {
               "color": "rgba(214,39,40,1)"
             },
@@ -291,8 +331,8 @@
       ]
     },
     "headline_bullet_title_nat": "Headline figures for the year to date: secondary state-funded school attendance at national level",
-    "ytd_absence_rate_nat": "• 6.5% of sessions were recorded as absence",
-    "ytd_attendance_rate_nat": "• 93.5% of sessions were recorded as attending",
-    "ytd_illness_rate_nat": "• 2.8% of sessions were recorded as illness"
+    "ytd_absence_rate_nat": "• 7.6% of sessions were recorded as absence",
+    "ytd_attendance_rate_nat": "• 92.4% of sessions were recorded as attending",
+    "ytd_illness_rate_nat": "• 3.8% of sessions were recorded as illness"
   }
 }
