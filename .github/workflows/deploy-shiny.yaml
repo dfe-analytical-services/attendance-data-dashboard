@@ -67,4 +67,3 @@ jobs:
           -e "rsconnect::setAccountInfo(name = 'department-for-education', token = '${{secrets.SHINYAPPS_TOKEN}}', secret = '${{secrets.SHINYAPPS_SECRET}}')"
           -e "rsconnect::deployApp(appName= 'pupil-attendance-in-schools')"
           -e "rsconnect::deployApp(appName= 'pupil-attendance-in-schools-mirror')"
-          -e "rsconnect::deployApp(appName= 'pupil-attendance-in-schools-mirror-2')"
