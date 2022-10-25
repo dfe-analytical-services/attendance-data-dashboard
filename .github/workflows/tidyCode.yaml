@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - main
-      - development
   pull_request:
 
 name: tidyCode
