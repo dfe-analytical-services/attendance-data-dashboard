@@ -26,9 +26,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-r@v2
         with:
-          r-version: ${{ matrix.config.r }}
+          use-public-rspm: true
 
       - name: Cache R packages
         if: runner.os != 'Windows'
@@ -67,4 +67,3 @@ jobs:
           -e "rsconnect::setAccountInfo(name = 'department-for-education', token = '${{secrets.SHINYAPPS_TOKEN}}', secret = '${{secrets.SHINYAPPS_SECRET}}')"
           -e "rsconnect::deployApp(appName= 'pupil-attendance-in-schools')"
           -e "rsconnect::deployApp(appName= 'pupil-attendance-in-schools-mirror')"
-          -e "rsconnect::deployApp(appName= 'pupil-attendance-in-schools-mirror-2')"
