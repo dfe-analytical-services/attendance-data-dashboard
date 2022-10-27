@@ -96,9 +96,9 @@ appLoadingCSS <- "
 source("R/support_links.R")
 source("R/prerun_utils.R")
 
-site_a <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
-site_b <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror"
-site_c <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror-2"
+site_a <- "https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
+site_b <- "https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror"
+site_c <- ""
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
