@@ -31,7 +31,9 @@
             "tickvals": [
               "2022-09-12",
               "2022-09-19",
-              "2022-09-26"
+              "2022-09-26",
+              "2022-10-03",
+              "2022-10-10"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -108,12 +110,16 @@
             "x": [
               "2022-09-12",
               "2022-09-19",
-              "2022-09-26"
+              "2022-09-26",
+              "2022-10-03",
+              "2022-10-10"
             ],
             "y": [
-              4.72715329848644,
-              5.45019743062121,
-              4.93722778775928
+              4.7372053159992,
+              5.44586075703296,
+              4.94388518001768,
+              4.80047512655901,
+              5.22526343989998
             ],
             "line": {
               "color": "black"
@@ -128,6 +134,8 @@
             "hovertemplate": [
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -146,12 +154,16 @@
             "x": [
               "2022-09-12",
               "2022-09-19",
-              "2022-09-26"
+              "2022-09-26",
+              "2022-10-03",
+              "2022-10-10"
             ],
             "y": [
-              3.07220431633852,
-              3.77273232856905,
-              3.43314217057799
+              3.0804078270742,
+              3.767808047988,
+              3.43637263130979,
+              3.32305777878334,
+              3.57039203429184
             ],
             "line": {
               "color": "steelblue"
@@ -166,6 +178,8 @@
             "hovertemplate": [
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -184,12 +198,16 @@
             "x": [
               "2022-09-12",
               "2022-09-19",
-              "2022-09-26"
+              "2022-09-26",
+              "2022-10-03",
+              "2022-10-10"
             ],
             "y": [
-              1.65494898214793,
-              1.67746510205217,
-              1.50408561718129
+              1.656797488925,
+              1.67805270904496,
+              1.50751254870789,
+              1.47741734777567,
+              1.65487140560814
             ],
             "line": {
               "color": "orangered"
@@ -202,6 +220,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%"
@@ -331,8 +351,8 @@
       ]
     },
     "headline_bullet_title_la": "Headline figures for the year to date: primary state-funded school attendance at local authority level (East Midlands, Derby)",
-    "ytd_absence_rate_la": "• 5% of sessions were recorded as absence in Derby (compared to 4.6% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "• 95% of sessions were recorded as attending in Derby (compared to 95.4% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "• 2.8% of sessions were recorded as illness in Derby (compared to 2.7% of sessions in East Midlands)"
+    "ytd_absence_rate_la": "• 5% of sessions were recorded as absence in Derby (compared to 4.9% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 95% of sessions were recorded as attending in Derby (compared to 95.1% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 2.8% of sessions were recorded as illness in Derby (compared to 2.9% of sessions in East Midlands)"
   }
 }
