@@ -102,10 +102,10 @@ site_c <- " https://department-for-education.shinyapps.io/pupil-attendance-in-sc
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
-attendance_data_raw <- fread("data/workaround_151_data_v5.csv")
+attendance_data_raw <- fread("data/export_2022_10_25.csv")
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 start_date <- as.Date("2022-09-12")
-end_date <- as.Date("2022-09-30")
+end_date <- as.Date("2022-10-14")
 funeral_date <- as.Date("2022-09-19")
 
 school_freq_count <- fread("data/enrolments_schools_denominator.csv")
