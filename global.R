@@ -102,10 +102,10 @@ site_c <- ""
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
-attendance_data_raw <- fread("data/export_2022_10_25.csv")
+attendance_data_raw <- fread("data/export_2022_11_08_ht_dates_fix_cut.csv")
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 start_date <- as.Date("2022-09-12")
-end_date <- as.Date("2022-10-14")
+end_date <- as.Date("2022-10-21")
 funeral_date <- as.Date("2022-09-19")
 
 school_freq_count <- fread("data/enrolments_schools_denominator.csv")

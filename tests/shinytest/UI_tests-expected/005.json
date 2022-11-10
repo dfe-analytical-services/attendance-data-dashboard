@@ -33,7 +33,8 @@
               "2022-09-19",
               "2022-09-26",
               "2022-10-03",
-              "2022-10-10"
+              "2022-10-10",
+              "2022-10-17"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -112,14 +113,16 @@
               "2022-09-19",
               "2022-09-26",
               "2022-10-03",
-              "2022-10-10"
+              "2022-10-10",
+              "2022-10-17"
             ],
             "y": [
-              4.38565180144729,
-              4.73109394197223,
-              4.75892859056548,
-              4.93218270249988,
-              5.80757487474348
+              4.38769349121996,
+              4.74032169049307,
+              4.76349733273877,
+              4.95609624533651,
+              5.80207388584015,
+              6.29699573023717
             ],
             "line": {
               "color": "black"
@@ -136,6 +139,7 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -156,14 +160,16 @@
               "2022-09-19",
               "2022-09-26",
               "2022-10-03",
-              "2022-10-10"
+              "2022-10-10",
+              "2022-10-17"
             ],
             "y": [
-              3.02934273117935,
-              3.42076311759771,
-              3.47395742911461,
-              3.66109940741167,
-              4.0513113969855
+              3.0405089736182,
+              3.43881461064224,
+              3.48251003319625,
+              3.6840931776374,
+              4.0547352054869,
+              4.56223876745269
             ],
             "line": {
               "color": "steelblue"
@@ -180,6 +186,7 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -200,14 +207,16 @@
               "2022-09-19",
               "2022-09-26",
               "2022-10-03",
-              "2022-10-10"
+              "2022-10-10",
+              "2022-10-17"
             ],
             "y": [
-              1.35630907026794,
-              1.31033082437452,
-              1.28497116145087,
-              1.27108329508821,
-              1.75626347775798
+              1.34718451760177,
+              1.30150707985083,
+              1.28098729954252,
+              1.27200306769911,
+              1.74733868035325,
+              1.73475696278449
             ],
             "line": {
               "color": "orangered"
@@ -220,6 +229,7 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
@@ -351,8 +361,8 @@
       ]
     },
     "headline_bullet_title_reg": "Headline figures for the year to date: primary state-funded school attendance at regional level (East Midlands)",
-    "ytd_absence_rate_reg": "• 4.9% of sessions were recorded as absence in East Midlands (compared to 4.9% of sessions at national level)",
-    "ytd_attendance_rate_reg": "• 95.1% of sessions were recorded as attending in East Midlands (compared to 95.1% of sessions at national level)",
-    "ytd_illness_rate_reg": "• 2.9% of sessions were recorded as illness in East Midlands (compared to 2.9% of sessions at national level)"
+    "ytd_absence_rate_reg": "• 5.1% of sessions were recorded as absence in East Midlands (compared to 5.1% of sessions at national level)",
+    "ytd_attendance_rate_reg": "• 94.9% of sessions were recorded as attending in East Midlands (compared to 94.9% of sessions at national level)",
+    "ytd_illness_rate_reg": "• 3% of sessions were recorded as illness in East Midlands (compared to 3% of sessions at national level)"
   }
 }
