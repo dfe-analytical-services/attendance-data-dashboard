@@ -36,7 +36,9 @@
               "2022-10-10",
               "2022-10-17",
               "2022-10-31",
-              "2022-11-07"
+              "2022-11-07",
+              "2022-11-14",
+              "2022-11-21"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -118,17 +120,21 @@
               "2022-10-10",
               "2022-10-17",
               "2022-10-31",
-              "2022-11-07"
+              "2022-11-07",
+              "2022-11-14",
+              "2022-11-21"
             ],
             "y": [
-              4.15560011337749,
-              4.81332811174205,
-              5.01024640598566,
-              4.98169388451634,
-              5.06035247387297,
-              6.35744276321001,
-              4.60822794010757,
-              5.16376129410605
+              4.1425664234635,
+              4.82174016625136,
+              4.99176984183783,
+              4.99310021145748,
+              5.05733950770698,
+              6.35009519543062,
+              4.64267358190823,
+              5.15059361992966,
+              5.72222491066585,
+              7.29983361404063
             ],
             "line": {
               "color": "black"
@@ -148,6 +154,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -171,17 +179,21 @@
               "2022-10-10",
               "2022-10-17",
               "2022-10-31",
-              "2022-11-07"
+              "2022-11-07",
+              "2022-11-14",
+              "2022-11-21"
             ],
             "y": [
-              3.04439568745604,
-              3.71907838913909,
-              3.89803854513989,
-              3.85591949446162,
-              4.00807270577044,
-              4.84512398003644,
-              3.41708423447879,
-              4.2776183383587
+              3.0429739484354,
+              3.73872394676351,
+              3.88299884471072,
+              3.85775977512556,
+              4.00767908135059,
+              4.84311636762366,
+              3.45061209232782,
+              4.27488263271335,
+              4.84098138946124,
+              6.36088681423122
             ],
             "line": {
               "color": "steelblue"
@@ -201,6 +213,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -224,17 +238,21 @@
               "2022-10-10",
               "2022-10-17",
               "2022-10-31",
-              "2022-11-07"
+              "2022-11-07",
+              "2022-11-14",
+              "2022-11-21"
             ],
             "y": [
-              1.11120442592145,
-              1.09424972260296,
-              1.11220786084578,
-              1.12577439005471,
-              1.05227976810253,
-              1.51231878317357,
-              1.19114370562878,
-              0.886142955747344
+              1.09959247502809,
+              1.08301621948785,
+              1.10877099712711,
+              1.13534043633191,
+              1.04966042635639,
+              1.50697882780696,
+              1.19206148958041,
+              0.875710987216309,
+              0.881243521204604,
+              0.938946799809408
             ],
             "line": {
               "color": "orangered"
@@ -247,6 +265,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
@@ -381,8 +401,8 @@
       ]
     },
     "headline_bullet_title_la": "Headline figures for the year to date: primary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
-    "ytd_absence_rate_la": "• 5% of sessions were recorded as absence in Lincolnshire (compared to 5% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "• 95% of sessions were recorded as attending in Lincolnshire (compared to 95% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "• 3.2% of sessions were recorded as illness in Lincolnshire (compared to 3% of sessions in East Midlands)"
+    "ytd_absence_rate_la": "• 5.3% of sessions were recorded as absence in Lincolnshire (compared to 5.4% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 94.7% of sessions were recorded as attending in Lincolnshire (compared to 94.6% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 3.6% of sessions were recorded as illness in Lincolnshire (compared to 3.4% of sessions in East Midlands)"
   }
 }
