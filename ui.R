@@ -29,6 +29,15 @@
 
 ui <- function(input, output, session) {
   fluidPage(
+    title = tags$head(
+      tags$link(
+        rel = "shortcut icon",
+        href = "dfefavicon.png"
+      ),
+      # Add title for browser tabs
+      tags$title("Pupil attendance and absence in schools in England")
+    ),
+    
     shinyjs::useShinyjs(),
 
     # Setting custom disconnect message --------------------------------------------------------------------------------
@@ -44,9 +53,11 @@ ui <- function(input, output, session) {
       )
     ),
     shinyGovstyle::header(
-      main_text = "DfE",
+      main_text = "",
       secondary_text = "Pupil attendance and absence in schools in England: data dashboard",
-      logo = "images/DfE_logo.png"
+      logo = "images/DfE_logo_landscape.png",
+      logo_width = 150,
+      logo_height = 32
     ),
     shiny::navlistPanel(
       "",

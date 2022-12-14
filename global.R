@@ -10,6 +10,7 @@
 
 # Library calls ---------------------------------------------------------------------------------
 
+library(shinyGovstyle)
 library(shiny)
 library(shinyjs)
 library(tools)
@@ -17,7 +18,6 @@ library(testthat)
 library(shinytest)
 library(shinydashboard)
 library(shinyWidgets)
-library(shinyGovstyle)
 library(data.table)
 library(ggplot2)
 library(plotly)
