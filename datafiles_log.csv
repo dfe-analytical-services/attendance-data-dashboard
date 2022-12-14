@@ -9,7 +9,11 @@ data/Weekly_dummy_data.csv,dummy
 data/Weekly_dummy_extended.csv,dummy
 data/enrolments_schools_denominator.csv,published
 data/export_2022_09_26.csv,published
+data/export_2022_10_25.csv,published
 data/EES_daily_data.csv,published
 data/EES_weekly_data.csv,published
 data/EES_ytd_data.csv,published
 data/workaround_151_data_v5.csv,published
+data/export_2022_11_08_ht_dates_fix_cut.csv,published
+data/export_2022_11_22.csv,published
+data/export_2022_12_06.csv,published

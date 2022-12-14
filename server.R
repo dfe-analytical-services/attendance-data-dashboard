@@ -325,6 +325,76 @@ server <- function(input, output, session) {
   })
 
 
+  # YTD data for reasons tables
+  live_attendance_data_ytd_reasons_tables <- reactive({
+    if (input$geography_choice == "National") {
+      dplyr::filter(
+        attendance_data, geographic_level == "National",
+        school_type == input$school_choice,
+        time_period == max(time_period),
+        breakdown == "YTD"
+      ) %>% mutate(
+        illness_perc = illness_perc / 100,
+        appointments_perc = appointments_perc / 100,
+        auth_religious_perc = auth_religious_perc / 100,
+        auth_study_perc = auth_study_perc / 100,
+        auth_grt_perc = auth_grt_perc / 100,
+        auth_holiday_perc = auth_holiday_perc / 100,
+        auth_excluded_perc = auth_excluded_perc / 100,
+        auth_other_perc = auth_other_perc / 100,
+        unauth_hol_perc = unauth_hol_perc / 100,
+        unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
+        unauth_oth_perc = unauth_oth_perc / 100,
+        unauth_not_yet_perc = unauth_not_yet_perc / 100
+      )
+    } else if (input$geography_choice == "Regional") {
+      dplyr::filter(
+        attendance_data, geographic_level == "Regional",
+        region_name == input$region_choice,
+        school_type == input$school_choice,
+        time_period == max(time_period),
+        breakdown == "YTD"
+      ) %>% mutate(
+        illness_perc = illness_perc / 100,
+        appointments_perc = appointments_perc / 100,
+        auth_religious_perc = auth_religious_perc / 100,
+        auth_study_perc = auth_study_perc / 100,
+        auth_grt_perc = auth_grt_perc / 100,
+        auth_holiday_perc = auth_holiday_perc / 100,
+        auth_excluded_perc = auth_excluded_perc / 100,
+        auth_other_perc = auth_other_perc / 100,
+        unauth_hol_perc = unauth_hol_perc / 100,
+        unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
+        unauth_oth_perc = unauth_oth_perc / 100,
+        unauth_not_yet_perc = unauth_not_yet_perc / 100
+      )
+    } else if (input$geography_choice == "Local authority") {
+      dplyr::filter(
+        attendance_data, geographic_level == "Local authority",
+        region_name == input$region_choice,
+        la_name == input$la_choice,
+        school_type == input$school_choice,
+        time_period == max(time_period),
+        breakdown == "YTD"
+      ) %>% mutate(
+        illness_perc = illness_perc / 100,
+        appointments_perc = appointments_perc / 100,
+        auth_religious_perc = auth_religious_perc / 100,
+        auth_study_perc = auth_study_perc / 100,
+        auth_grt_perc = auth_grt_perc / 100,
+        auth_holiday_perc = auth_holiday_perc / 100,
+        auth_excluded_perc = auth_excluded_perc / 100,
+        auth_other_perc = auth_other_perc / 100,
+        unauth_hol_perc = unauth_hol_perc / 100,
+        unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
+        unauth_oth_perc = unauth_oth_perc / 100,
+        unauth_not_yet_perc = unauth_not_yet_perc / 100
+      )
+    } else {
+      NA
+    }
+  })
+
   # Weekly data for local authority comparisons table
   live_attendance_data_weekly_las <- reactive({
     filter(
@@ -664,7 +734,7 @@ server <- function(input, output, session) {
       type = "scatter", mode = "lines+markers"
     ) %>%
       add_trace(
-        x = ~attendance_date,
+        x = ~week_commencing,
         y = ~illness_perc,
         line = list(color = "#12436D"),
         marker = list(color = "#12436D"),
@@ -673,7 +743,7 @@ server <- function(input, output, session) {
         mode = "markers"
       ) %>%
       add_trace(
-        x = ~attendance_date,
+        x = ~week_commencing,
         y = ~appointments_perc,
         line = list(color = "#28A197"),
         marker = list(color = "#28A197"),
@@ -682,7 +752,7 @@ server <- function(input, output, session) {
         mode = "markers"
       ) %>%
       add_trace(
-        x = ~attendance_date,
+        x = ~week_commencing,
         y = ~unauth_hol_perc,
         line = list(color = "	#F46A25"),
         marker = list(color = "	#F46A25"),
@@ -691,7 +761,7 @@ server <- function(input, output, session) {
         mode = "markers"
       ) %>%
       add_trace(
-        x = ~attendance_date,
+        x = ~week_commencing,
         y = ~unauth_oth_perc,
         line = list(color = "	#3D3D3D"),
         marker = list(color = "	#3D3D3D"),
@@ -703,7 +773,7 @@ server <- function(input, output, session) {
     reasons_ts_plot <- reasons_ts_plot %>% layout(
       xaxis = list(
         title = "Week commencing",
-        tickvals = ~attendance_date,
+        tickvals = ~week_commencing,
         zeroline = T,
         zerolinewidth = 2,
         zerolinecolor = "Grey",
@@ -734,8 +804,9 @@ server <- function(input, output, session) {
     reasons_ts_plot <- reasons_ts_plot %>% layout(
       xaxis = list(
         tickmode = "linear",
-        tick0 = "2021-08-01",
-        dtick = "M1"
+        tick0 = "2022-09-12",
+        # dtick = "M1"
+        dtick = 86400000 * 7
       ),
       margin = list(t = 80)
     )
@@ -1372,7 +1443,7 @@ server <- function(input, output, session) {
 
   # Creating reactive reasons and la comparison table ------------------------------------------------------------
 
-  # authorised reasons
+  # authorised reasons weekly
   output$absence_auth_reasons_table <- renderDT({
     validate(need(nrow(live_attendance_data_weekly_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
 
@@ -1406,7 +1477,41 @@ server <- function(input, output, session) {
       formatPercentage(c(0:7), 1)
   })
 
-  # unauthorised reasons
+  # authorised reasons ytd
+  output$absence_auth_reasons_table_ytd <- renderDT({
+    validate(need(nrow(live_attendance_data_ytd_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
+
+    absence_auth_reasons_ytd_dt <- live_attendance_data_ytd_reasons_tables() %>%
+      dplyr::select(illness_perc, appointments_perc, auth_religious_perc, auth_study_perc, auth_grt_perc, auth_holiday_perc, auth_excluded_perc, auth_other_perc) %>%
+      rename(
+        "Illness" = illness_perc,
+        "Medical or dental appointments" = appointments_perc,
+        "Religious observance" = auth_religious_perc,
+        "Study leave" = auth_study_perc,
+        "Traveller" = auth_grt_perc,
+        "Holiday" = auth_holiday_perc,
+        "Excluded" = auth_excluded_perc,
+        "Other" = auth_other_perc
+      )
+
+    absence_auth_reasons_ytd_dt <- datatable(absence_auth_reasons_ytd_dt,
+      selection = "none",
+      escape = FALSE,
+      rownames = FALSE,
+      class = "cell-border stripe",
+      options = list(
+        scrollX = TRUE,
+        ordering = F,
+        searching = FALSE,
+        lengthChange = FALSE,
+        dom = "t",
+        columnDefs = list(list(className = "dt-center", targets = 0:7))
+      )
+    ) %>%
+      formatPercentage(c(0:7), 1)
+  })
+
+  # unauthorised reasons weekly
   output$absence_unauth_reasons_table <- renderDT({
     validate(need(nrow(live_attendance_data_weekly_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
 
@@ -1436,6 +1541,35 @@ server <- function(input, output, session) {
       formatPercentage(c(0:3), 1)
   })
 
+  # unauthorised reasons ytd
+  output$absence_unauth_reasons_table_ytd <- renderDT({
+    validate(need(nrow(live_attendance_data_ytd_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
+
+    absence_unauth_reasons_ytd_dt <- live_attendance_data_ytd_reasons_tables() %>%
+      dplyr::select(unauth_hol_perc, unauth_late_registers_closed_perc, unauth_oth_perc, unauth_not_yet_perc) %>%
+      rename(
+        "Holiday" = unauth_hol_perc,
+        "Late after registers closed" = unauth_late_registers_closed_perc,
+        "Other" = unauth_oth_perc,
+        "No reason yet" = unauth_not_yet_perc
+      )
+
+    absence_unauth_reasons_ytd_dt <- datatable(absence_unauth_reasons_ytd_dt,
+      selection = "none",
+      escape = FALSE,
+      rownames = FALSE,
+      class = "cell-border stripe",
+      options = list(
+        scrollX = TRUE,
+        ordering = F,
+        searching = FALSE,
+        lengthChange = FALSE,
+        dom = "t",
+        columnDefs = list(list(className = "dt-center", targets = 0:3))
+      )
+    ) %>%
+      formatPercentage(c(0:3), 1)
+  })
 
   # absence reasons by local authority
   output$absence_reasons_la_table <- renderDT({
