@@ -44,9 +44,11 @@ ui <- function(input, output, session) {
       )
     ),
     shinyGovstyle::header(
-      main_text = "DfE",
-      secondary_text = "Pupil attendance and absence in schools in England: data dashboard",
-      logo = "images/DfE_logo.png"
+      main_text = "",
+      secondary_text = "DfE pupil attendance and absence in schools in England: data dashboard",
+      logo = "images/DfE_logo_primary.png",
+      logo_width = 96,
+      logo_height = 56
     ),
     shiny::navlistPanel(
       "",
