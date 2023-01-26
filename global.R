@@ -96,16 +96,16 @@ appLoadingCSS <- "
 source("R/support_links.R")
 source("R/prerun_utils.R")
 
-site_a <- "https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
-site_b <- "https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror"
+site_a <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
+site_b <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror"
 site_c <- ""
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
-attendance_data_raw <- fread("data/export_2023_01_10.csv")
+attendance_data_raw <- fread("data/export_2023_01_24.csv")
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 start_date <- as.Date("2022-09-12")
-end_date <- as.Date("2022-12-23")
+end_date <- as.Date("2023-01-13")
 funeral_date <- as.Date("2022-09-19")
 
 school_freq_count <- fread("data/enrolments_schools_denominator.csv")
