@@ -1,6 +1,8 @@
 app <- ShinyDriver$new("../../", loadTimeout = 1.e7)
 app$snapshotInit("UI_tests", screenshot = FALSE)
 
+
+
 listInputs <- c(
   "navlistPanel",
   "dash",

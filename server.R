@@ -189,20 +189,16 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "National",
         school_type == input$school_choice,
         time_period == max(time_period),
-        #time_identifier == (max(time_identifier)),
-        time_identifier == (max(time_identifier))-1,
         breakdown == "Daily"
-      )
+      ) %>% filter(time_identifier == max(time_identifier))
     } else if (input$geography_choice == "Regional") {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
         school_type == input$school_choice,
         time_period == max(time_period),
-        #time_identifier == (max(time_identifier)),
-        time_identifier == (max(time_identifier))-1,
         breakdown == "Daily"
-      )
+      ) %>% filter(time_identifier == max(time_identifier))
     } else if (input$geography_choice == "Local authority") {
       dplyr::filter(
         attendance_data, geographic_level == "Local authority",
@@ -210,10 +206,8 @@ server <- function(input, output, session) {
         la_name == input$la_choice,
         school_type == input$school_choice,
         time_period == max(time_period),
-        #time_identifier == (max(time_identifier)),
-        time_identifier == (max(time_identifier))-1,
         breakdown == "Daily"
-      )
+      ) %>% filter(time_identifier == max(time_identifier))
     } else {
       NA
     }
@@ -227,20 +221,16 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "National",
         school_type == input$school_choice,
         time_period == max(time_period),
-        #time_identifier == (max(time_identifier)),
-        time_identifier == (max(time_identifier))-1,
         breakdown == "Weekly"
-      )
+      ) %>% filter(time_identifier == max(time_identifier))
     } else if (input$geography_choice == "Regional") {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
         school_type == input$school_choice,
         time_period == max(time_period),
-        #time_identifier == (max(time_identifier)),
-        time_identifier == (max(time_identifier))-1,
         breakdown == "Weekly"
-      )
+      ) %>% filter(time_identifier == max(time_identifier))
     } else if (input$geography_choice == "Local authority") {
       dplyr::filter(
         attendance_data, geographic_level == "Local authority",
@@ -248,10 +238,8 @@ server <- function(input, output, session) {
         la_name == input$la_choice,
         school_type == input$school_choice,
         time_period == max(time_period),
-        #time_identifier == (max(time_identifier)),
-        time_identifier == (max(time_identifier))-1,
         breakdown == "Weekly"
-      )
+      ) %>% filter(time_identifier == max(time_identifier))
     } else {
       NA
     }
@@ -264,46 +252,46 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "National",
         school_type == input$school_choice,
         time_period == max(time_period),
-        #time_identifier == (max(time_identifier)),
-        time_identifier == (max(time_identifier))-1,
         breakdown == "Weekly"
-      ) %>% mutate(
-        illness_perc = illness_perc / 100,
-        appointments_perc = appointments_perc / 100,
-        auth_religious_perc = auth_religious_perc / 100,
-        auth_study_perc = auth_study_perc / 100,
-        auth_grt_perc = auth_grt_perc / 100,
-        auth_holiday_perc = auth_holiday_perc / 100,
-        auth_excluded_perc = auth_excluded_perc / 100,
-        auth_other_perc = auth_other_perc / 100,
-        unauth_hol_perc = unauth_hol_perc / 100,
-        unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
-        unauth_oth_perc = unauth_oth_perc / 100,
-        unauth_not_yet_perc = unauth_not_yet_perc / 100
-      )
+      ) %>%
+        filter(time_identifier == max(time_identifier)) %>%
+        mutate(
+          illness_perc = illness_perc / 100,
+          appointments_perc = appointments_perc / 100,
+          auth_religious_perc = auth_religious_perc / 100,
+          auth_study_perc = auth_study_perc / 100,
+          auth_grt_perc = auth_grt_perc / 100,
+          auth_holiday_perc = auth_holiday_perc / 100,
+          auth_excluded_perc = auth_excluded_perc / 100,
+          auth_other_perc = auth_other_perc / 100,
+          unauth_hol_perc = unauth_hol_perc / 100,
+          unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
+          unauth_oth_perc = unauth_oth_perc / 100,
+          unauth_not_yet_perc = unauth_not_yet_perc / 100
+        )
     } else if (input$geography_choice == "Regional") {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
         school_type == input$school_choice,
         time_period == max(time_period),
-        #time_identifier == (max(time_identifier)),
-        time_identifier == (max(time_identifier))-1,
         breakdown == "Weekly"
-      ) %>% mutate(
-        illness_perc = illness_perc / 100,
-        appointments_perc = appointments_perc / 100,
-        auth_religious_perc = auth_religious_perc / 100,
-        auth_study_perc = auth_study_perc / 100,
-        auth_grt_perc = auth_grt_perc / 100,
-        auth_holiday_perc = auth_holiday_perc / 100,
-        auth_excluded_perc = auth_excluded_perc / 100,
-        auth_other_perc = auth_other_perc / 100,
-        unauth_hol_perc = unauth_hol_perc / 100,
-        unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
-        unauth_oth_perc = unauth_oth_perc / 100,
-        unauth_not_yet_perc = unauth_not_yet_perc / 100
-      )
+      ) %>%
+        filter(time_identifier == max(time_identifier)) %>%
+        mutate(
+          illness_perc = illness_perc / 100,
+          appointments_perc = appointments_perc / 100,
+          auth_religious_perc = auth_religious_perc / 100,
+          auth_study_perc = auth_study_perc / 100,
+          auth_grt_perc = auth_grt_perc / 100,
+          auth_holiday_perc = auth_holiday_perc / 100,
+          auth_excluded_perc = auth_excluded_perc / 100,
+          auth_other_perc = auth_other_perc / 100,
+          unauth_hol_perc = unauth_hol_perc / 100,
+          unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
+          unauth_oth_perc = unauth_oth_perc / 100,
+          unauth_not_yet_perc = unauth_not_yet_perc / 100
+        )
     } else if (input$geography_choice == "Local authority") {
       dplyr::filter(
         attendance_data, geographic_level == "Local authority",
@@ -311,28 +299,27 @@ server <- function(input, output, session) {
         la_name == input$la_choice,
         school_type == input$school_choice,
         time_period == max(time_period),
-        #time_identifier == (max(time_identifier)),
-        time_identifier == (max(time_identifier))-1,
         breakdown == "Weekly"
-      ) %>% mutate(
-        illness_perc = illness_perc / 100,
-        appointments_perc = appointments_perc / 100,
-        auth_religious_perc = auth_religious_perc / 100,
-        auth_study_perc = auth_study_perc / 100,
-        auth_grt_perc = auth_grt_perc / 100,
-        auth_holiday_perc = auth_holiday_perc / 100,
-        auth_excluded_perc = auth_excluded_perc / 100,
-        auth_other_perc = auth_other_perc / 100,
-        unauth_hol_perc = unauth_hol_perc / 100,
-        unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
-        unauth_oth_perc = unauth_oth_perc / 100,
-        unauth_not_yet_perc = unauth_not_yet_perc / 100
-      )
+      ) %>%
+        filter(time_identifier == max(time_identifier)) %>%
+        mutate(
+          illness_perc = illness_perc / 100,
+          appointments_perc = appointments_perc / 100,
+          auth_religious_perc = auth_religious_perc / 100,
+          auth_study_perc = auth_study_perc / 100,
+          auth_grt_perc = auth_grt_perc / 100,
+          auth_holiday_perc = auth_holiday_perc / 100,
+          auth_excluded_perc = auth_excluded_perc / 100,
+          auth_other_perc = auth_other_perc / 100,
+          unauth_hol_perc = unauth_hol_perc / 100,
+          unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
+          unauth_oth_perc = unauth_oth_perc / 100,
+          unauth_not_yet_perc = unauth_not_yet_perc / 100
+        )
     } else {
       NA
     }
   })
-
 
   # YTD data for reasons tables
   live_attendance_data_ytd_reasons_tables <- reactive({
@@ -340,7 +327,7 @@ server <- function(input, output, session) {
       dplyr::filter(
         attendance_data, geographic_level == "National",
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "YTD"
       ) %>% mutate(
         illness_perc = illness_perc / 100,
@@ -361,7 +348,7 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "YTD"
       ) %>% mutate(
         illness_perc = illness_perc / 100,
@@ -383,7 +370,7 @@ server <- function(input, output, session) {
         region_name == input$region_choice,
         la_name == input$la_choice,
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "YTD"
       ) %>% mutate(
         illness_perc = illness_perc / 100,
@@ -410,10 +397,9 @@ server <- function(input, output, session) {
       attendance_data, geographic_level == "Local authority",
       school_type == input$school_choice,
       time_period == max(time_period),
-      #time_identifier == (max(time_identifier)),
-      time_identifier == (max(time_identifier))-1,
       breakdown == "Weekly"
     ) %>%
+      filter(time_identifier == max(time_identifier)) %>%
       mutate(
         overall_absence_perc = overall_absence_perc / 100,
         authorised_absence_perc = authorised_absence_perc / 100,
@@ -428,10 +414,8 @@ server <- function(input, output, session) {
       attendance_data, geographic_level == "National",
       school_type == input$school_choice,
       time_period == max(time_period),
-      #time_identifier == (max(time_identifier)),
-      time_identifier == (max(time_identifier))-1,
       breakdown == "Weekly"
-    )
+    ) %>% filter(time_identifier == max(time_identifier))
   })
 
   live_attendance_data_weekly_regcomp <- reactive({
@@ -440,10 +424,8 @@ server <- function(input, output, session) {
       region_name == input$region_choice,
       school_type == input$school_choice,
       time_period == max(time_period),
-      #time_identifier == (max(time_identifier)),
-      time_identifier == (max(time_identifier))-1,
       breakdown == "Weekly"
-    )
+    ) %>% filter(time_identifier == max(time_identifier))
   })
 
 
@@ -452,7 +434,7 @@ server <- function(input, output, session) {
     filter(
       attendance_data, geographic_level == "National",
       school_type == input$school_choice,
-      time_period == max(time_period),
+      # time_period == max(time_period),
       breakdown == "YTD"
     )
   })
@@ -462,7 +444,7 @@ server <- function(input, output, session) {
       attendance_data, geographic_level == "Regional",
       region_name == input$region_choice,
       school_type == input$school_choice,
-      time_period == max(time_period),
+      # time_period == max(time_period),
       breakdown == "YTD"
     )
   })
@@ -474,7 +456,7 @@ server <- function(input, output, session) {
       dplyr::filter(
         attendance_data, geographic_level == "National",
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "Weekly"
       )
     } else if (input$geography_choice == "Regional") {
@@ -482,7 +464,7 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "Weekly"
       )
     } else if (input$geography_choice == "Local authority") {
@@ -491,7 +473,7 @@ server <- function(input, output, session) {
         region_name == input$region_choice,
         la_name == input$la_choice,
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "Weekly"
       )
     } else {
@@ -505,7 +487,7 @@ server <- function(input, output, session) {
       dplyr::filter(
         attendance_data, geographic_level == "National",
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "YTD"
       )
     } else if (input$geography_choice == "Regional") {
@@ -513,7 +495,7 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "YTD"
       )
     } else if (input$geography_choice == "Local authority") {
@@ -522,7 +504,7 @@ server <- function(input, output, session) {
         region_name == input$region_choice,
         la_name == input$la_choice,
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "YTD"
       )
     } else {
@@ -651,7 +633,7 @@ server <- function(input, output, session) {
         tickmode = "linear",
         tick0 = "2022-09-12",
         # dtick = "M1"
-        dtick = 86400000 * 7
+        dtick = 86400000 * 14
       )
     )
   })
@@ -818,7 +800,7 @@ server <- function(input, output, session) {
         tickmode = "linear",
         tick0 = "2022-09-12",
         # dtick = "M1"
-        dtick = 86400000 * 7
+        dtick = 86400000 * 14
       ),
       margin = list(t = 80)
     )
@@ -949,10 +931,9 @@ server <- function(input, output, session) {
       time_period == max(time_period),
       geographic_level == "National",
       school_type == "Total",
-      #time_identifier == max(time_identifier),
-      time_identifier == (max(time_identifier))-1,
       day_number == "5"
     ) %>%
+    filter(time_identifier == max(time_identifier)) %>%
     pull(num_schools) %>%
     sum()
 
@@ -961,10 +942,9 @@ server <- function(input, output, session) {
       time_period == max(time_period),
       geographic_level == "National",
       school_type == "Total",
-      #time_identifier == max(time_identifier),
-      time_identifier == (max(time_identifier))-1,
       day_number == "5"
     ) %>%
+    filter(time_identifier == max(time_identifier)) %>%
     pull(attendance_date)
 
   output$daily_schools_count <- renderText({
@@ -1001,7 +981,7 @@ server <- function(input, output, session) {
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    paste0("For this breakdown, measures for the year to date are produced based on ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools")
+    paste0("For this breakdown, across the year-to-date there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in.")
   })
 
   # Headline attendance most recent week
@@ -1281,8 +1261,8 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      #as.Date(attendance_date) + 17
-      as.Date(attendance_date) + 31
+      as.Date(attendance_date) + 17
+    # as.Date(attendance_date) + 31
 
     paste0("Data was last updated on ", last_update_date, ".")
   })
@@ -1304,13 +1284,13 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      #as.Date(attendance_date) + 17
-      as.Date(attendance_date) + 31
+      as.Date(attendance_date) + 17
+    # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      #as.Date(attendance_date) + 38
-      as.Date(attendance_date) + 45
+      as.Date(attendance_date) + 31
+    # as.Date(attendance_date) + 45
 
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
@@ -1323,13 +1303,13 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      #as.Date(attendance_date) + 17
-      as.Date(attendance_date) + 31
+      as.Date(attendance_date) + 17
+    # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      #as.Date(attendance_date) + 38
-      as.Date(attendance_date) + 45
+      as.Date(attendance_date) + 31
+    # as.Date(attendance_date) + 45
 
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
@@ -1343,13 +1323,13 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      #as.Date(attendance_date) + 17
-      as.Date(attendance_date) + 31
+      as.Date(attendance_date) + 17
+    # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      #as.Date(attendance_date) + 38
-      as.Date(attendance_date) + 45
+      as.Date(attendance_date) + 31
+    # as.Date(attendance_date) + 45
 
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
@@ -1686,8 +1666,8 @@ server <- function(input, output, session) {
 
   mapdata0 <- attendance_data %>%
     mutate(time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))) %>%
-    #filter(time_identifier == max(time_identifier)) %>%
-    filter(time_identifier == (max(time_identifier))-1) %>%
+    filter(time_period == max(time_period)) %>%
+    filter(time_identifier == max(time_identifier)) %>%
     filter(geographic_level == "Local authority") %>%
     filter(breakdown == "Weekly")
 

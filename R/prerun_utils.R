@@ -111,8 +111,11 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
     distinct(time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all= TRUE)
   
   attendance_data_ytd <- attendance_data %>%
-    group_by(time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type) %>%
-    mutate(num_schools = mean(num_schools),
+    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type) %>%
+    mutate(academic_year = min(academic_year),
+           time_period = min(time_period),
+           time_identifier = 37,
+           num_schools = mean(num_schools),
            enrolments = mean(enrolments),
            present_sessions = sum(present_sessions),
            overall_attendance = sum(overall_attendance),
@@ -170,7 +173,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
            auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
            covid_non_compulsory_perc = (sum(reason_x_not_attending_covid_non_compulsory) / sum(possible_sessions)) * 100,
            breakdown = "YTD") %>%
-    distinct(time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all= TRUE)
+    distinct(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all= TRUE)
   
   attendance_data <- rbind(attendance_data_daily, attendance_data_weekly, attendance_data_ytd)
   
@@ -253,11 +256,12 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
   
   attendance_data_ytd_totals <- attendance_data %>%
     filter(breakdown == "YTD") %>%
-    group_by(breakdown, time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
-    summarise(across(matches("time_identifier"), min, na.rm = T),
+    group_by(breakdown, academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
+    summarise(across(matches("time_period"), min, na.rm = T),
+              across(matches("time_identifier"), min, na.rm = T),
               across(matches("attendance_date"), min, na.rm = T),
-              across(matches("day_number"), min, na.rm = T),
               across(matches("week_commencing"), min, na.rm = T),
+              across(matches("day_number"), min, na.rm = T),
               across(where(is.numeric)& !c(time_identifier, attendance_date, day_number), sum), na.rm = T) %>%
     mutate(school_type = "Total",
            enrolments_pa_10_exact = "z",
@@ -283,7 +287,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
   
   #Add total onto Primary, Secondary, Special data
   attendance_data <- rbind(attendance_data, attendance_data_daily_totals, attendance_data_weekly_totals, attendance_data_ytd_totals, fill = TRUE)
-  attendance_data <- attendance_data %>% dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total"))
+  attendance_data <- attendance_data %>% dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>% arrange(time_period, time_identifier)
   
   return(
     list(

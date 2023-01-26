@@ -1,0 +1,458 @@
+{
+  "input": {
+    "dash": "headlines",
+    "geography_choice": "National",
+    "la_choice": "",
+    "link_to_headlines_tab": 0,
+    "link_to_la_tab": 0,
+    "link_to_reasons_tab": 0,
+    "navlistPanel": "dashboard",
+    "region_choice": "",
+    "school_choice": "Secondary",
+    "ts_choice": "Year to date"
+  },
+  "output": {
+    "absence_rates_timeseries_plot": {
+      "x": {
+        "layout": {
+          "margin": {
+            "b": 40,
+            "l": 60,
+            "t": 80,
+            "r": 10
+          },
+          "xaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "title": "Week commencing",
+            "tickvals": [
+              "2022-09-12",
+              "2022-09-19",
+              "2022-09-26",
+              "2022-10-03",
+              "2022-10-10",
+              "2022-10-17",
+              "2022-10-31",
+              "2022-11-07",
+              "2022-11-14",
+              "2022-11-21",
+              "2022-11-28",
+              "2022-12-05",
+              "2022-12-12",
+              "2023-01-02",
+              "2023-01-09"
+            ],
+            "zeroline": true,
+            "zerolinewidth": 2,
+            "zerolinecolor": "Grey",
+            "tickmode": "linear",
+            "tick0": "2022-09-12",
+            "dtick": 1209600000
+          },
+          "yaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "rangemode": "tozero",
+            "title": "Absence rate (%)",
+            "zeroline": true,
+            "zerolinewidth": 2,
+            "zerolinecolor": "Grey"
+          },
+          "hovermode": "x unified",
+          "legend": {
+            "font": {
+              "size": 11
+            },
+            "orientation": "h",
+            "yanchor": "top",
+            "y": -0.5,
+            "xanchor": "center",
+            "x": 0.5
+          },
+          "title": "Weekly summary of absence rates for secondary<br> state-funded schools at national level",
+          "font": {
+            "family": "arial",
+            "size": 10,
+            "color": "grey"
+          },
+          "showlegend": true
+        },
+        "source": "A",
+        "config": {
+          "modeBarButtonsToAdd": [
+            "hoverclosest",
+            "hovercompare"
+          ],
+          "showSendToCloud": false
+        },
+        "data": [
+          {
+            "mode": "lines+markers",
+            "type": "scatter",
+            "marker": {
+              "color": "rgba(31,119,180,1)",
+              "line": {
+                "color": "rgba(31,119,180,1)"
+              }
+            },
+            "error_y": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "error_x": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "line": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "mode": "markers+lines",
+            "type": "scatter",
+            "x": [
+              "2022-09-12",
+              "2022-09-19",
+              "2022-09-26",
+              "2022-10-03",
+              "2022-10-10",
+              "2022-10-17",
+              "2022-10-31",
+              "2022-11-07",
+              "2022-11-14",
+              "2022-11-21",
+              "2022-11-28",
+              "2022-12-05",
+              "2022-12-12",
+              "2023-01-02",
+              "2023-01-09"
+            ],
+            "y": [
+              6.38924712300023,
+              7.96203363506684,
+              8.34310320785603,
+              7.66940624630634,
+              7.45185724450361,
+              8.62518112529394,
+              7.6085338848415,
+              7.7600417517366,
+              8.60103964152213,
+              10.2933082684603,
+              11.0604227603206,
+              12.8533840587219,
+              16.4821491242064,
+              8.43917201999441,
+              7.84077417513977
+            ],
+            "line": {
+              "color": "black"
+            },
+            "marker": {
+              "color": "black",
+              "line": {
+                "color": "rgba(255,127,14,1)"
+              }
+            },
+            "name": "Overall absence rate",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
+            "error_y": {
+              "color": "rgba(255,127,14,1)"
+            },
+            "error_x": {
+              "color": "rgba(255,127,14,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "mode": "markers+lines",
+            "type": "scatter",
+            "x": [
+              "2022-09-12",
+              "2022-09-19",
+              "2022-09-26",
+              "2022-10-03",
+              "2022-10-10",
+              "2022-10-17",
+              "2022-10-31",
+              "2022-11-07",
+              "2022-11-14",
+              "2022-11-21",
+              "2022-11-28",
+              "2022-12-05",
+              "2022-12-12",
+              "2023-01-02",
+              "2023-01-09"
+            ],
+            "y": [
+              3.93448401222563,
+              5.35895066601637,
+              5.70984330159834,
+              5.05378053174975,
+              4.76981024398988,
+              5.40684775120176,
+              4.64252552477829,
+              5.07023630016694,
+              5.80445536930736,
+              7.22520120493481,
+              7.81420899177483,
+              9.23197719218033,
+              11.2461147959003,
+              4.67039989270789,
+              4.64068374469146
+            ],
+            "line": {
+              "color": "steelblue"
+            },
+            "marker": {
+              "color": "steelblue",
+              "line": {
+                "color": "rgba(44,160,44,1)"
+              }
+            },
+            "name": "Authorised absence rate",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
+            "error_y": {
+              "color": "rgba(44,160,44,1)"
+            },
+            "error_x": {
+              "color": "rgba(44,160,44,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "mode": "markers+lines",
+            "type": "scatter",
+            "x": [
+              "2022-09-12",
+              "2022-09-19",
+              "2022-09-26",
+              "2022-10-03",
+              "2022-10-10",
+              "2022-10-17",
+              "2022-10-31",
+              "2022-11-07",
+              "2022-11-14",
+              "2022-11-21",
+              "2022-11-28",
+              "2022-12-05",
+              "2022-12-12",
+              "2023-01-02",
+              "2023-01-09"
+            ],
+            "y": [
+              2.45476311077459,
+              2.60308296905047,
+              2.63325990625769,
+              2.6156257145566,
+              2.68204700051373,
+              3.21833337409217,
+              2.9660083600632,
+              2.68980545156966,
+              2.79658427221478,
+              3.0681070635255,
+              3.24621376854577,
+              3.6214068665416,
+              5.23603432830603,
+              3.76877212728651,
+              3.20009043044831
+            ],
+            "line": {
+              "color": "orangered"
+            },
+            "marker": {
+              "color": "orangered",
+              "line": {
+                "color": "rgba(214,39,40,1)"
+              }
+            },
+            "name": "Unauthorised absence rate",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
+            "error_y": {
+              "color": "rgba(214,39,40,1)"
+            },
+            "error_x": {
+              "color": "rgba(214,39,40,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          }
+        ],
+        "highlight": {
+          "on": "plotly_click",
+          "persistent": false,
+          "dynamic": false,
+          "selectize": false,
+          "opacityDim": 0.2,
+          "selected": {
+            "opacity": 1
+          },
+          "debounce": 0
+        },
+        "shinyEvents": [
+          "plotly_hover",
+          "plotly_click",
+          "plotly_selected",
+          "plotly_relayout",
+          "plotly_brushed",
+          "plotly_brushing",
+          "plotly_clickannotation",
+          "plotly_doubleclick",
+          "plotly_deselect",
+          "plotly_afterplot",
+          "plotly_sunburstclick"
+        ],
+        "base_url": "https://plot.ly"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "setprototypeof",
+          "version": "0.1",
+          "src": {
+            "href": "setprototypeof-0.1"
+          },
+          "meta": null,
+          "script": "setprototypeof.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "typedarray",
+          "version": "0.1",
+          "src": {
+            "href": "typedarray-0.1"
+          },
+          "meta": null,
+          "script": "typedarray.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.2.0",
+          "src": {
+            "href": "crosstalk-1.2.0"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.min.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "plotly-htmlwidgets-css",
+          "version": "2.5.1",
+          "src": {
+            "href": "plotly-htmlwidgets-css-2.5.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "plotly-htmlwidgets.css",
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "plotly-main",
+          "version": "2.5.1",
+          "src": {
+            "href": "plotly-main-2.5.1"
+          },
+          "meta": null,
+          "script": "plotly-latest.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    },
+    "headline_bullet_title_nat": "Headline figures for the year to date: secondary state-funded school attendance at national level",
+    "ytd_absence_rate_nat": "• 9.2% of sessions were recorded as absence",
+    "ytd_attendance_rate_nat": "• 90.8% of sessions were recorded as attending",
+    "ytd_illness_rate_nat": "• 4.8% of sessions were recorded as illness"
+  }
+}
