@@ -209,7 +209,7 @@ app$snapshot(list(
 # Checking la comparisons tab
 # 13. Does the la comparisons tab load?  --------------------------------------------
 message("Test 13")
-app$setInputs(navlistPanel = "dashboard", dash = "la comparisons", school_choice = "Primary", timeout_=1.2e4)
+app$setInputs(navlistPanel = "dashboard", dash = "la comparisons", school_choice = "Primary", timeout_ = 1.2e4)
 app$snapshot(list(
   input = listInputs,
   output = c(
@@ -219,7 +219,7 @@ app$snapshot(list(
 
 # 14. If phase is changed do outputs change?  --------------------------------------------
 message("Test 14")
-app$setInputs(navlistPanel = "dashboard", school_choice = "Secondary", timeout_=1.2e4)
+app$setInputs(navlistPanel = "dashboard", school_choice = "Secondary", timeout_ = 1.2e4)
 app$snapshot(list(
   input = listInputs,
   output = c(
