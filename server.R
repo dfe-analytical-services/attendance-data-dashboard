@@ -62,121 +62,35 @@ server <- function(input, output, session) {
 
   # Setting up reactive levels for dropdown ------------------------------------------------------------
 
-  # Overarching geographic levels
-  geog_levels <- reactive({
-    geog_lookup %>%
-      dplyr::select(geographic_level) %>%
-      unique() %>%
-      as.data.table()
-  })
-
-  output$levels_filtered <- renderUI({
-    selectInput(
-      inputId = "geography_choice",
-      label = "Choose geographic breakdown level:",
-      choices = geog_levels(),
-      selected = head(geog_levels, 1)
-    )
-  })
-
-
-  # Regional geographies
-  reg_geog <- reactive({
-    geog_lookup %>%
-      dplyr::filter(geographic_level == input$geography_choice) %>%
-      dplyr::select(region_name) %>%
-      unique() %>%
-      as.data.table()
-  })
-
-  observe({
-    if (input$geography_choice != "National") {
-      reg_geog <- geog_lookup %>%
-        dplyr::filter(geographic_level == input$geography_choice) %>%
-        dplyr::select(region_name) %>%
-        unique() %>%
-        as.data.table()
-    }
-    updateSelectInput(session, "region_choice",
-      choices = reg_geog()
-    )
-  })
-
-  output$reg_filtered <- renderUI({
-    selectInput(
-      inputId = "region_choice",
-      label = "Choose region:",
-      choices = reg_geog(),
-      selected = head(reg_geog, 1)
-    )
-  })
-
-
   # Local authority geographies
-  la_geog <- reactive({
-    geog_lookup %>%
-      dplyr::filter(geographic_level == input$geography_choice, region_name == input$region_choice) %>%
-      dplyr::select(la_name) %>%
-      unique() %>%
-      as.data.table()
+  observe({
+    la_geog <- geog_lookup %>%
+      filter(
+        geographic_level == "Local authority",
+        region_name == input$region_choice
+      ) %>%
+      pull(la_name) %>%
+      unique()
+    updateSelectInput(session, "la_choice",
+      choices = la_geog
+    )
   })
 
   observe({
-    if (input$geography_choice == "Local authority") {
-      la_geog <- geog_lookup %>%
-        dplyr::filter(geographic_level == input$geography_choice, region_name == input$region_choice) %>%
-        dplyr::select(la_name) %>%
-        unique() %>%
-        as.data.table()
-    }
-    updateSelectInput(session, "la_choice",
-      choices = la_geog()
-    )
-  })
-
-  output$la_filtered <- renderUI({
-    selectInput(
-      inputId = "la_choice",
-      label = "Choose local authority:",
-      choices = la_geog(),
-      selected = head(la_geog, 1)
-    )
-  })
-
-
-
-
-  # School types
-  schools <- reactive({
     if (input$dash == "la comparisons") {
-      (school_type_lookup %>%
+      choicesSchools <- (school_type_lookup %>%
         dplyr::filter(geographic_level == "Local authority"))$school_type %>%
         unique()
     } else {
-      (school_type_lookup %>%
+      choicesSchools <- (school_type_lookup %>%
         dplyr::filter(geographic_level == input$geography_choice))$school_type %>%
         unique()
     }
-  })
-
-  observe({
-    choicesSchools <- schools()
     updateSelectInput(session, "school_choice",
-      choices = schools()
+      choices = choicesSchools,
+      selected = input$school_choice
     )
   })
-
-  output$schools_filtered <- renderUI({
-    selectInput(
-      inputId = "school_choice",
-      label = "Choose school type:",
-      choices = schools(),
-      selected = head(schools, 1)
-    )
-  })
-
-
-
 
 
   # Defining reactive data ------------------------------------------------------------
@@ -718,6 +632,7 @@ server <- function(input, output, session) {
       paste0("Weekly summary of absence reasons for ", "<br>", str_to_lower(input$school_choice), " state-funded schools", " at ", str_to_lower(input$geography_choice), " level", "<br>", "(", input$region_choice, ", ", input$la_choice, ")")
     }
   })
+
   output$absence_reasons_timeseries_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_ts()) > 0, "There is no data available for this breakdown at present"))
 

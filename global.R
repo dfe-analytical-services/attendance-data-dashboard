@@ -140,3 +140,6 @@ geog_levels <- geog_lookup %>%
   dplyr::select(geographic_level) %>%
   unique() %>%
   as.data.table()
+
+regions <- geog_lookup %>% filter(geographic_level=='Regional') %>% arrange(region_name) %>% pull(region_name) %>% unique()
+las <- geog_lookup %>% filter(geographic_level=='Local authority') %>% arrange(region_name, la_name) %>% pull(la_name) %>% unique()

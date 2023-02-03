@@ -154,7 +154,7 @@ app$snapshot(list(
 
 # 10. If the geography is changed to regional, does this autofill with East Midlands and do outputs change?  --------------------------------------------
 message("Test 10")
-app$setInputs(geography_choice = "Regional")
+app$setInputs(geography_choice = "Regional", timeout_ = 1.2e4)
 Sys.sleep(4)
 app$snapshot(list(
   input = listInputs,
@@ -190,7 +190,7 @@ app$snapshot(list(
 
 # 12. If the LA is changed, do outputs change?  --------------------------------------------
 message("Test 12")
-app$setInputs(la_choice = "Lincolnshire")
+app$setInputs(la_choice = "Rutland")
 Sys.sleep(4)
 app$snapshot(list(
   input = listInputs,
