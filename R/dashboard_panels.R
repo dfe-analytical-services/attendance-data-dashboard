@@ -187,14 +187,14 @@ dashboard_panel <- function() {
             conditionalPanel(condition = "input.geography_choice == 'Regional' && input.dash != 'la comparisons' || input.geography_choice == 'Local authority' && input.dash != 'la comparisons'", 
                              selectInput(inputId = "region_choice",
                                          label = "Choose region:",
-                                         choices = geog_lookup %>% dplyr::filter(geographic_level == 'National') %>% dplyr::select(region_name) %>% unique() %>% as.data.table(),
-                                         #selected = head(reg_geog,1)
+                                         choices = regions,
+                                         selected = regions[1]
                              )),
             conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.dash != 'la comparisons'", 
                              selectInput(inputId = "la_choice",
                                          label = "Choose local authority:",
-                                         choices = geog_lookup %>% dplyr::filter(region_name == "East Midlands") %>% dplyr::select(la_name) %>% unique() %>% as.data.table(),
-                                         #selected = la_geog()[2,1]
+                                         choices = las,
+                                         selected = las[1]
                              ))
           )
         )

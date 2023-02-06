@@ -2,13 +2,13 @@
   "input": {
     "dash": "headlines",
     "geography_choice": "Regional",
-    "la_choice": "",
+    "la_choice": "Derby",
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
     "link_to_reasons_tab": 0,
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
-    "school_choice": "Primary",
+    "school_choice": "Secondary",
     "ts_choice": "Year to date"
   },
   "output": {
@@ -75,7 +75,7 @@
             "xanchor": "center",
             "x": 0.5
           },
-          "title": "Weekly summary of absence rates for <br>primary state-funded schools (East Midlands)",
+          "title": "Weekly summary of absence rates for <br>secondary state-funded schools (East Midlands)",
           "font": {
             "family": "arial",
             "size": 10,
@@ -135,21 +135,21 @@
               "2023-01-09"
             ],
             "y": [
-              4.34539212934547,
-              4.70796253931047,
-              4.75974913010747,
-              4.96288433061247,
-              5.78309135521824,
-              6.2347135556918,
-              4.5709639661264,
-              5.13925065117211,
-              5.92065263080633,
-              7.37385495792702,
-              7.37693916308838,
-              8.97013962704979,
-              10.669868554095,
-              5.29155739843203,
-              4.32573634281188
+              6.81228440057332,
+              8.14647337855211,
+              8.5171874075889,
+              7.95412508529118,
+              8.41434045313563,
+              9.09570938177264,
+              7.48221441284202,
+              7.87470779469874,
+              8.4860127680629,
+              10.3416787236172,
+              11.2277101855979,
+              12.8815842693295,
+              15.32225851047,
+              8.14068714763849,
+              7.80869605971999
             ],
             "line": {
               "color": "black"
@@ -209,21 +209,21 @@
               "2023-01-09"
             ],
             "y": [
-              3.03485011581749,
-              3.4384710244966,
-              3.49874256925189,
-              3.71160505497312,
-              4.0722593626523,
-              4.56954615108616,
-              3.26465941071034,
-              4.13059296206857,
-              4.85897740028989,
-              6.18138936697656,
-              6.10577146657462,
-              7.49550087276303,
-              8.67844800265608,
-              3.35085663334574,
-              3.04318883840293
+              4.40962466523189,
+              5.65705341340399,
+              5.95745287562206,
+              5.37457143324543,
+              5.44156693428299,
+              6.0235332505826,
+              4.75963569259555,
+              5.34996004766097,
+              5.85624788829043,
+              7.42338818242206,
+              8.07789995067954,
+              9.46665785198307,
+              11.0117225795495,
+              4.7421488732313,
+              4.74604162381301
             ],
             "line": {
               "color": "steelblue"
@@ -283,21 +283,21 @@
               "2023-01-09"
             ],
             "y": [
-              1.31054201352798,
-              1.26949151481386,
-              1.26100656085558,
-              1.25127927563935,
-              1.71083199256594,
-              1.66516740460565,
-              1.30630455541606,
-              1.00865768910354,
-              1.06167523051644,
-              1.19246559095046,
-              1.27116769651377,
-              1.47463875428676,
-              1.99142055143896,
-              1.94070076508629,
-              1.28254750440895
+              2.40265973534143,
+              2.48941996514812,
+              2.55973453196685,
+              2.57955365204575,
+              2.97277351885264,
+              3.07217613119005,
+              2.72257872024647,
+              2.52474774703776,
+              2.62976487977246,
+              2.91829054119516,
+              3.14981023491836,
+              3.41492641734646,
+              4.31053593092053,
+              3.39853827440719,
+              3.06265443590698
             ],
             "line": {
               "color": "orangered"
@@ -450,9 +450,9 @@
         }
       ]
     },
-    "headline_bullet_title_reg": "Headline figures for the year to date: primary state-funded school attendance at regional level (East Midlands)",
-    "ytd_absence_rate_reg": "• 6.1% of sessions were recorded as absence in East Midlands (compared to 6.3% of sessions at national level)",
-    "ytd_attendance_rate_reg": "• 93.9% of sessions were recorded as attending in East Midlands (compared to 93.7% of sessions at national level)",
-    "ytd_illness_rate_reg": "• 4.1% of sessions were recorded as illness in East Midlands (compared to 4.2% of sessions at national level)"
+    "headline_bullet_title_reg": "Headline figures for the year to date: secondary state-funded school attendance at regional level (East Midlands)",
+    "ytd_absence_rate_reg": "• 9.3% of sessions were recorded as absence in East Midlands (compared to 9.2% of sessions at national level)",
+    "ytd_attendance_rate_reg": "• 90.7% of sessions were recorded as attending in East Midlands (compared to 90.8% of sessions at national level)",
+    "ytd_illness_rate_reg": "• 5% of sessions were recorded as illness in East Midlands (compared to 4.8% of sessions at national level)"
   }
 }

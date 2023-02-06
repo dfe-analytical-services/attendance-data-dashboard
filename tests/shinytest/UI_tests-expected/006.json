@@ -8,7 +8,7 @@
     "link_to_reasons_tab": 0,
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
-    "school_choice": "Primary",
+    "school_choice": "Secondary",
     "ts_choice": "Year to date"
   },
   "output": {
@@ -75,7 +75,7 @@
             "xanchor": "center",
             "x": 0.5
           },
-          "title": "Weekly summary of absence rates for <br>primary state-funded schools <br>(East Midlands, Derby)",
+          "title": "Weekly summary of absence rates for <br>secondary state-funded schools <br>(East Midlands, Derby)",
           "font": {
             "family": "arial",
             "size": 10,
@@ -134,20 +134,20 @@
               "2023-01-09"
             ],
             "y": [
-              4.64660404284348,
-              5.3442684987636,
-              4.88899336572115,
-              4.77240527095118,
-              5.11881084476081,
-              6.14249675101292,
-              4.83544221519262,
-              4.92466691570166,
-              6.51407351931598,
-              8.05637678343564,
-              8.13919135646155,
-              9.80372822950615,
-              10.8103229533053,
-              4.59313953306215
+              6.56725427290714,
+              7.28806848436028,
+              8.60292060650143,
+              8.14266873100522,
+              7.57886958128213,
+              8.42028021738632,
+              7.31406336853808,
+              7.63227041952436,
+              7.98879223275665,
+              9.49250220523376,
+              10.3503745626189,
+              13.8001713498682,
+              14.4411998938147,
+              7.01777926870178
             ],
             "line": {
               "color": "black"
@@ -205,20 +205,20 @@
               "2023-01-09"
             ],
             "y": [
-              3.05121248712762,
-              3.70007894719672,
-              3.41848195162723,
-              3.30552981155391,
-              3.51198576363446,
-              4.07734227396333,
-              3.13786454045153,
-              3.77132362096875,
-              5.21801992968441,
-              6.59339505232812,
-              6.5992445344813,
-              7.91418429410666,
-              8.72778471154937,
-              2.65739962298241
+              3.88222537698834,
+              4.97658479308603,
+              5.95870866670397,
+              5.46246917827857,
+              4.94463100011954,
+              5.22827856635098,
+              4.31906614785992,
+              4.91226507526499,
+              5.29871088956222,
+              6.42046456924434,
+              7.13899913110866,
+              10.1660358533332,
+              10.7269268206353,
+              3.72693726937269
             ],
             "line": {
               "color": "steelblue"
@@ -276,20 +276,20 @@
               "2023-01-09"
             ],
             "y": [
-              1.59539155571586,
-              1.64418955156687,
-              1.47051141409392,
-              1.46687545939727,
-              1.60682508112635,
-              2.06515447704959,
-              1.69757767474108,
-              1.15334329473291,
-              1.29605358963157,
-              1.46298173110753,
-              1.53994682198025,
-              1.8895439353995,
-              2.08253824175597,
-              1.93573991007974
+              2.6850288959188,
+              2.31148369127425,
+              2.64421193979746,
+              2.68019955272665,
+              2.63423858116259,
+              3.19200165103534,
+              2.99499722067815,
+              2.72000534425937,
+              2.69008134319443,
+              3.07203763598941,
+              3.21137543151023,
+              3.63413549653505,
+              3.71427307317936,
+              3.29084199932908
             ],
             "line": {
               "color": "orangered"
@@ -441,9 +441,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date: primary state-funded school attendance at local authority level (East Midlands, Derby)",
-    "ytd_absence_rate_la": "• 6.4% of sessions were recorded as absence in Derby (compared to 6.1% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "• 93.6% of sessions were recorded as attending in Derby (compared to 93.9% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "• 4.2% of sessions were recorded as illness in Derby (compared to 4.1% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date: secondary state-funded school attendance at local authority level (East Midlands, Derby)",
+    "ytd_absence_rate_la": "• 8.9% of sessions were recorded as absence in Derby (compared to 9.3% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 91.1% of sessions were recorded as attending in Derby (compared to 90.7% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 4.9% of sessions were recorded as illness in Derby (compared to 5% of sessions in East Midlands)"
   }
 }

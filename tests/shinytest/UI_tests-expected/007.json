@@ -8,7 +8,7 @@
     "link_to_reasons_tab": 0,
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
-    "school_choice": "Primary",
+    "school_choice": "Secondary",
     "ts_choice": "Year to date"
   },
   "output": {
@@ -75,7 +75,7 @@
             "xanchor": "center",
             "x": 0.5
           },
-          "title": "Weekly summary of absence rates for <br>primary state-funded schools <br>(East Midlands, Lincolnshire)",
+          "title": "Weekly summary of absence rates for <br>secondary state-funded schools <br>(East Midlands, Lincolnshire)",
           "font": {
             "family": "arial",
             "size": 10,
@@ -135,21 +135,21 @@
               "2023-01-09"
             ],
             "y": [
-              4.13745648624699,
-              4.82547238303272,
-              4.99058545672444,
-              4.99168178122459,
-              5.05414893008282,
-              6.34519254544389,
-              4.61722064558863,
-              5.14145313794027,
-              5.71454102718763,
-              7.27420153164648,
-              7.59929582199336,
-              9.11109841437028,
-              11.2978482897364,
-              4.80931835063929,
-              4.6156411207139
+              6.50931576373637,
+              8.71522316828461,
+              9.21832132824711,
+              8.46002829422738,
+              8.00862404778393,
+              9.42422717704888,
+              7.59365989948911,
+              8.1320938276943,
+              8.64128339789873,
+              10.7637892868161,
+              12.4403913745607,
+              13.6083336047509,
+              17.037457403615,
+              8.06709894206285,
+              8.43517502134407
             ],
             "line": {
               "color": "black"
@@ -209,21 +209,21 @@
               "2023-01-09"
             ],
             "y": [
-              3.04462968558378,
-              3.75475855276864,
-              3.89142812729566,
-              3.865407467634,
-              4.00624958016853,
-              4.85423034078772,
-              3.45492128569552,
-              4.27924828547337,
-              4.85892366463374,
-              6.36859502898886,
-              6.54701284601958,
-              8.0699932679672,
-              9.70709651075357,
-              3.33515085423482,
-              3.63965748498822
+              4.62793369155404,
+              6.67281305927653,
+              7.19157494343582,
+              6.31732437621004,
+              5.88399194944598,
+              6.5999958318323,
+              5.41116331382426,
+              6.08258566641444,
+              6.64308229832768,
+              8.47572295318868,
+              9.80879100001357,
+              10.9174999185747,
+              13.2144061453938,
+              5.15886558335302,
+              5.71018145844344
             ],
             "line": {
               "color": "steelblue"
@@ -283,21 +283,21 @@
               "2023-01-09"
             ],
             "y": [
-              1.09282680066321,
-              1.07071383026408,
-              1.09915732942878,
-              1.12627431359059,
-              1.04789934991429,
-              1.49096220465617,
-              1.16229935989311,
-              0.862204852466892,
-              0.855617362553895,
-              0.905606502657623,
-              1.05228297597379,
-              1.04110514640308,
-              1.59075177898285,
-              1.47416749640447,
-              0.975983635725679
+              1.88138207218234,
+              2.04241010900808,
+              2.02674638481129,
+              2.14270391801734,
+              2.12463209833795,
+              2.82423134521658,
+              2.18249658566485,
+              2.04950816127986,
+              1.99820109957105,
+              2.2880663336274,
+              2.63160037454708,
+              2.69083368617616,
+              3.82305125822114,
+              2.90823335870982,
+              2.72499356290062
             ],
             "line": {
               "color": "orangered"
@@ -450,9 +450,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date: primary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
-    "ytd_absence_rate_la": "• 6.1% of sessions were recorded as absence in Lincolnshire (compared to 6.1% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "• 93.9% of sessions were recorded as attending in Lincolnshire (compared to 93.9% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "• 4.3% of sessions were recorded as illness in Lincolnshire (compared to 4.1% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "ytd_absence_rate_la": "• 9.8% of sessions were recorded as absence in Lincolnshire (compared to 9.3% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 90.2% of sessions were recorded as attending in Lincolnshire (compared to 90.7% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 5.9% of sessions were recorded as illness in Lincolnshire (compared to 5% of sessions in East Midlands)"
   }
 }

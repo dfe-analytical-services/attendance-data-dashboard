@@ -21,14 +21,15 @@ listInputs <- c(
 
 # Note - if timeout errors keep occurring, can include app$setInputs(argument 1, timeout_ = 1e+4)
 # 1. Does it load  -------------------------------------------------------------------------------------------------------------------
+message("Test 1")
 Sys.sleep(1)
 app$snapshot()
 
 
 # Checking headlines tab
 # 2. Is the default setting National, Total?  --------------------------------------------
-app$setInputs(navlistPanel = "dashboard")
-app$setInputs(dash = "headlines")
+message("Test 2")
+app$setInputs(navlistPanel = "dashboard", dash = "headlines")
 app$snapshot(list(
   input = listInputs,
   output = c(
@@ -42,9 +43,8 @@ app$snapshot(list(
 ))
 
 # 3. If phase is changed do outputs change?  --------------------------------------------
-app$setInputs(navlistPanel = "dashboard")
-app$setInputs(dash = "headlines")
-app$setInputs(school_choice = "Secondary")
+message("Test 3")
+app$setInputs(navlistPanel = "dashboard", dash = "headlines", school_choice = "Secondary")
 app$snapshot(list(
   input = listInputs,
   output = c(
@@ -58,6 +58,7 @@ app$snapshot(list(
 ))
 
 # 4. If the time series is changed from default most recent week to year to date, are outputs produced?  --------------------------------------------
+message("Test 4")
 app$setInputs(ts_choice = "Year to date")
 app$snapshot(list(
   input = listInputs,
@@ -72,6 +73,7 @@ app$snapshot(list(
 ))
 
 # 5. If the geography is changed to regional, does this autofill with East Midlands and do outputs change?  --------------------------------------------
+message("Test 5")
 app$setInputs(geography_choice = "Regional")
 app$snapshot(list(
   input = listInputs,
@@ -86,6 +88,7 @@ app$snapshot(list(
 ))
 
 # 6. If the geography is changed to local authority, does this autofill and do outputs change?  --------------------------------------------
+message("Test 6")
 app$setInputs(geography_choice = "Local authority")
 app$snapshot(list(
   input = listInputs,
@@ -100,6 +103,7 @@ app$snapshot(list(
 ))
 
 # 7. If the LA is changed, do outputs change?  --------------------------------------------
+message("Test 7")
 app$setInputs(la_choice = "Lincolnshire")
 app$snapshot(list(
   input = listInputs,
@@ -115,10 +119,8 @@ app$snapshot(list(
 
 # Checking reasons tab
 # 8. Does the reasons tab load?  --------------------------------------------
-app$setInputs(navlistPanel = "dashboard")
-app$setInputs(dash = "reasons")
-app$setInputs(school_choice = "Total")
-app$setInputs(geography_choice = "National")
+message("Test 8")
+app$setInputs(navlistPanel = "dashboard", dash = "reasons", school_choice = "Primary", geography_choice = "National")
 app$snapshot(list(
   input = listInputs,
   output = c(
@@ -134,6 +136,7 @@ app$snapshot(list(
 ))
 
 # 9. If phase is changed do outputs change?  --------------------------------------------
+message("Test 9")
 app$setInputs(school_choice = "Secondary")
 app$snapshot(list(
   input = listInputs,
@@ -150,7 +153,9 @@ app$snapshot(list(
 ))
 
 # 10. If the geography is changed to regional, does this autofill with East Midlands and do outputs change?  --------------------------------------------
-app$setInputs(geography_choice = "Regional")
+message("Test 10")
+app$setInputs(geography_choice = "Regional", timeout_ = 1.2e4)
+Sys.sleep(4)
 app$snapshot(list(
   input = listInputs,
   output = c(
@@ -166,7 +171,9 @@ app$snapshot(list(
 ))
 
 # 11. If the geography is changed to local authority, does this autofill and do outputs change?  --------------------------------------------
+message("Test 11")
 app$setInputs(geography_choice = "Local authority")
+Sys.sleep(4)
 app$snapshot(list(
   input = listInputs,
   output = c(
@@ -182,7 +189,9 @@ app$snapshot(list(
 ))
 
 # 12. If the LA is changed, do outputs change?  --------------------------------------------
-app$setInputs(la_choice = "Lincolnshire")
+message("Test 12")
+app$setInputs(la_choice = "Rutland")
+Sys.sleep(4)
 app$snapshot(list(
   input = listInputs,
   output = c(
@@ -199,9 +208,8 @@ app$snapshot(list(
 
 # Checking la comparisons tab
 # 13. Does the la comparisons tab load?  --------------------------------------------
-app$setInputs(navlistPanel = "dashboard")
-app$setInputs(dash = "la comparisons")
-app$setInputs(school_choice = "Total")
+message("Test 13")
+app$setInputs(navlistPanel = "dashboard", dash = "la comparisons", school_choice = "Primary", timeout_ = 1.2e4)
 app$snapshot(list(
   input = listInputs,
   output = c(
@@ -210,9 +218,8 @@ app$snapshot(list(
 ))
 
 # 14. If phase is changed do outputs change?  --------------------------------------------
-app$setInputs(navlistPanel = "dashboard")
-app$setInputs(dash = "la comparisons")
-app$setInputs(school_choice = "Secondary")
+message("Test 14")
+app$setInputs(navlistPanel = "dashboard", school_choice = "Secondary", timeout_ = 1.2e4)
 app$snapshot(list(
   input = listInputs,
   output = c(

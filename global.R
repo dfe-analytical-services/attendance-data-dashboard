@@ -96,8 +96,8 @@ appLoadingCSS <- "
 source("R/support_links.R")
 source("R/prerun_utils.R")
 
-site_a <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
-site_b <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror"
+site_primary <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
+site_overflow <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror"
 site_c <- ""
 
 # Data manipulation ----------------------------------------------------------------------------
@@ -140,3 +140,14 @@ geog_levels <- geog_lookup %>%
   dplyr::select(geographic_level) %>%
   unique() %>%
   as.data.table()
+
+regions <- geog_lookup %>%
+  filter(geographic_level == "Regional") %>%
+  arrange(region_name) %>%
+  pull(region_name) %>%
+  unique()
+las <- geog_lookup %>%
+  filter(geographic_level == "Local authority") %>%
+  arrange(region_name, la_name) %>%
+  pull(la_name) %>%
+  unique()
