@@ -34,7 +34,7 @@ homepage_panel <- function() {
                   p("The headlines tab includes information on attendance, overall absence (including  authorised and unauthorised absence) in the most recent week and across the year to date, depending on dropdown selected."),
                   p("• Charts on this tab display overall, authorised and unauthorised absence rates"),
                   p("• Headline bullets show the overall attendance and absence rates, in addition to illness absence rate"),
-                  p("• Persistent absence will be added to the dashboard later in the autumn term"),
+                  p("• Persistent absence will be added to the dashboard on 23rd February 2023"),
                 ),
                 br(),
                 tags$div(
