@@ -102,11 +102,16 @@ site_c <- ""
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
-attendance_data_raw <- fread("data/export_2023_02_07.csv")
+attendance_data_raw <- fread("data/sql_export_2023_02_21.csv")
+pa_data_raw <- fread("data/export_pa_output_2023_02_21.csv")
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 start_date <- as.Date("2022-09-12")
-end_date <- as.Date("2023-01-27")
+end_date <- as.Date("2023-02-10")
 funeral_date <- as.Date("2022-09-19")
+strike_date_1 <- as.Date("2023-02-01")
+autumn_only_pa_data_raw <- fread("data/export_autumn_pa_output_2023_02_21.csv")
+autumn_start <- as.Date("2022-09-12")
+autumn_end <- as.Date("2022-12-16")
 
 school_freq_count <- fread("data/enrolments_schools_denominator.csv")
 
@@ -115,6 +120,10 @@ attendance_data <- list_attendance$attendance_data
 attendance_data_daily_totals <- list_attendance$daily_totals
 attendance_data_weekly_totals <- list_attendance$weekly_totals
 attendance_data_ytd_totals <- list_attendance$ytd_totals
+
+list_attendance_autumn <- process_attendance_data_autumn(attendance_data_raw, autumn_start, autumn_end)
+attendance_data_autumn <- list_attendance_autumn$attendance_data_autumn
+attendance_data_autumn_totals <- list_attendance_autumn$autumn_totals
 
 EES_daily_data <- read_ees_daily()
 
