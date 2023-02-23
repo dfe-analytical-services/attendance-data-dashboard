@@ -5,6 +5,13 @@ run_data_update <- function(df_attendance=attendance_data){
   create_ees_tables(df_attendance)  
 }
 
+run_data_update_autumn <- function(df_attendance_autumn=attendance_data_autumn){
+  # Run this to udpate the comparison EES data files for QA checks.
+  # The input is the attendance_data df produced in global.R, so you'll need to
+  # source global.R before running this script.
+  create_ees_tables_autumn(df_attendance_autumn)  
+}
+
 process_attendance_data <- function(df_attendance_raw, start_date, end_date, funeral_date){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
@@ -175,7 +182,12 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
            breakdown = "YTD") %>%
     distinct(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all= TRUE)
   
-  attendance_data <- rbind(attendance_data_daily, attendance_data_weekly, attendance_data_ytd)
+  attendance_data_ytd <- left_join(attendance_data_ytd, dplyr::select(pa_data_raw, c(geographic_level, region_name, la_name, school_type, pa_flag, pa_flag_illness, ytd_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "school_type"))
+  
+  attendance_data <- rbind(attendance_data_daily, attendance_data_weekly, attendance_data_ytd, fill = TRUE)
+  
+  attendance_data <- attendance_data %>% mutate(pa_perc = (pa_flag/ytd_enrolments)*100,
+                                                pa_illness_perc = (pa_flag_illness/ytd_enrolments)*100)
   
   #Prep for calculation of totals by doing rates X census counts
   attendance_data <- attendance_data %>% 
@@ -196,7 +208,9 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
            auth_holiday_perc_scaled = auth_holiday_perc * total_enrolments,
            auth_excluded_perc_scaled = auth_excluded_perc * total_enrolments,
            auth_other_perc_scaled = auth_other_perc * total_enrolments,
-           covid_non_compulsory_perc_scaled = covid_non_compulsory_perc * total_enrolments)
+           covid_non_compulsory_perc_scaled = covid_non_compulsory_perc * total_enrolments,
+           pa_perc_scaled = pa_perc * total_enrolments,
+           pa_illness_perc_scaled = pa_illness_perc * total_enrolments)
   
   #Calculate total as (Primary rate X primary census count) + (Secondary rate X secondary census count) + (Special rate X special census count) and divided all by total census count
   attendance_data_daily_totals <- attendance_data %>%
@@ -204,7 +218,6 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
     group_by(breakdown, time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, attendance_date, day_number) %>%
     summarise(across(where(is.numeric), sum)) %>%
     mutate(school_type = "Total",
-           enrolments_pa_10_exact = "z",
            attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
            overall_absence_perc = (sum(overall_absence_perc_scaled) / sum(total_enrolments)),
            authorised_absence_perc = (sum(authorised_absence_perc_scaled) / sum(total_enrolments)),
@@ -223,6 +236,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
            auth_excluded_perc = (sum(auth_excluded_perc_scaled) / sum(total_enrolments)),
            auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments)),
            covid_non_compulsory_perc = (sum(covid_non_compulsory_perc_scaled) / sum(total_enrolments))
+           #pa_perc = (sum(pa_perc_scaled) / sum(total_enrolments))
     )
   
   attendance_data_weekly_totals <- attendance_data %>%
@@ -233,7 +247,6 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
               across(matches("week_commencing"), min, na.rm = T),
               across(where(is.numeric)& !c(attendance_date, day_number), sum), na.rm = T) %>%
     mutate(school_type = "Total",
-           enrolments_pa_10_exact = "z",
            attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
            overall_absence_perc = (sum(overall_absence_perc_scaled) / sum(total_enrolments)),
            authorised_absence_perc = (sum(authorised_absence_perc_scaled) / sum(total_enrolments)),
@@ -252,11 +265,259 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
            auth_excluded_perc = (sum(auth_excluded_perc_scaled) / sum(total_enrolments)),
            auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments)),
            covid_non_compulsory_perc = (sum(covid_non_compulsory_perc_scaled) / sum(total_enrolments))
+           #pa_perc = (sum(pa_perc_scaled) / sum(total_enrolments))
     )
   
   attendance_data_ytd_totals <- attendance_data %>%
     filter(breakdown == "YTD") %>%
     group_by(breakdown, academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
+    summarise(across(matches("time_period"), min, na.rm = T),
+              across(matches("time_identifier"), min, na.rm = T),
+              across(matches("attendance_date"), min, na.rm = T),
+              across(matches("week_commencing"), min, na.rm = T),
+              across(matches("day_number"), min, na.rm = T),
+              across(where(is.numeric)& !c(time_identifier, attendance_date, day_number), sum), na.rm = T) %>%
+    mutate(school_type = "Total",
+           attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
+           overall_absence_perc = (sum(overall_absence_perc_scaled) / sum(total_enrolments)),
+           authorised_absence_perc = (sum(authorised_absence_perc_scaled) / sum(total_enrolments)),
+           unauthorised_absence_perc = (sum(unauthorised_absence_perc_scaled) / sum(total_enrolments)),
+           illness_perc = (sum(illness_perc_scaled) / sum(total_enrolments)),
+           appointments_perc = (sum(appointments_perc_scaled) / sum(total_enrolments)),
+           excluded_perc = (sum(excluded_perc_scaled) / sum(total_enrolments)),
+           unauth_hol_perc = (sum(unauth_hol_perc_scaled) / sum(total_enrolments)),
+           unauth_oth_perc = (sum(unauth_oth_perc_scaled) / sum(total_enrolments)),
+           unauth_late_registers_closed_perc = (sum(unauth_late_registers_closed_perc_scaled) / sum(total_enrolments)),
+           unauth_not_yet_perc = (sum(unauth_not_yet_perc_scaled) / sum(total_enrolments)),
+           auth_religious_perc = (sum(auth_religious_perc_scaled) / sum(total_enrolments)),
+           auth_study_perc = (sum(auth_study_perc_scaled) / sum(total_enrolments)),
+           auth_grt_perc = (sum(auth_grt_perc_scaled) / sum(total_enrolments)),
+           auth_holiday_perc = (sum(auth_holiday_perc_scaled) / sum(total_enrolments)),
+           auth_excluded_perc = (sum(auth_excluded_perc_scaled) / sum(total_enrolments)),
+           auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments)),
+           covid_non_compulsory_perc = (sum(covid_non_compulsory_perc_scaled) / sum(total_enrolments)),
+           pa_perc = (sum(pa_perc_scaled) / sum(total_enrolments)),
+           pa_illness_perc = (sum(pa_illness_perc_scaled) / sum(total_enrolments))
+    )
+  
+  #Add total onto Primary, Secondary, Special data
+  attendance_data <- rbind(attendance_data, attendance_data_daily_totals, attendance_data_weekly_totals, attendance_data_ytd_totals, fill = TRUE)
+  attendance_data <- attendance_data %>% dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>% arrange(time_period, time_identifier)
+  
+  #Handle strike days
+  attendance_data <- attendance_data %>% dplyr::filter(!(breakdown == "Daily" & attendance_date == strike_date_1))
+  
+  #Data suppression
+  attendance_data <- attendance_data %>% 
+    mutate_at(vars(enrolments, 
+                   present_sessions, 
+                   overall_attendance,
+                   approved_educational_activity,
+                   overall_absence,
+                   authorised_absence,
+                   unauthorised_absence,
+                   late_sessions,
+                   possible_sessions,
+                   reason_present_am,
+                   reason_present_pm,
+                   reason_present,
+                   reason_l_present_late_before_registers_closed,
+                   reason_i_authorised_illness,
+                   reason_m_authorised_medical_dental,
+                   reason_r_authorised_religious_observance,
+                   reason_s_authorised_study_leave,
+                   reason_t_authorised_grt_absence,
+                   reason_h_authorised_holiday,
+                   reason_e_authorised_excluded,
+                   reason_c_authorised_other,
+                   reason_b_aea_education_off_site,
+                   reason_d_aea_dual_registration,
+                   reason_j_aea_interview,
+                   reason_p_aea_approved_sporting_activity,
+                   reason_v_aea_educational_visit_trip,
+                   reason_w_aea_work_experience,
+                   reason_g_unauthorised_holiday,
+                   reason_u_unauthorised_late_after_registers_closed,
+                   reason_o_other_unauthorised,
+                   reason_n_no_reason_yet,
+                   reason_not_attending_planned_closed,
+                   reason_y_not_attending_enforced_closure,
+                   reason_x_not_attending_covid_non_compulsory,
+                   reason_z_not_attending_not_on_roll,
+                   reason_f_legacy_family_holiday,
+                   total_num_schools,
+                   total_enrolments,
+                   attendance_perc,
+                   overall_absence_perc,
+                   authorised_absence_perc,
+                   unauthorised_absence_perc,
+                   illness_perc,
+                   appointments_perc,
+                   excluded_perc,
+                   unauth_hol_perc,
+                   unauth_oth_perc,
+                   unauth_late_registers_closed_perc,
+                   unauth_not_yet_perc,
+                   auth_religious_perc,
+                   auth_study_perc,
+                   auth_grt_perc,
+                   auth_holiday_perc,
+                   auth_excluded_perc,
+                   auth_other_perc,
+                   covid_non_compulsory_perc,
+                   pa_flag,
+                   pa_flag_illness,
+                   ytd_enrolments,
+                   pa_perc,
+                   pa_illness_perc,
+                   attendance_perc_scaled,
+                   overall_absence_perc_scaled,
+                   authorised_absence_perc_scaled,
+                   unauthorised_absence_perc_scaled,
+                   illness_perc_scaled,
+                   appointments_perc_scaled,
+                   excluded_perc_scaled,
+                   unauth_hol_perc_scaled,
+                   unauth_oth_perc_scaled,
+                   unauth_late_registers_closed_perc_scaled,
+                   unauth_not_yet_perc_scaled,
+                   auth_religious_perc_scaled,
+                   auth_study_perc_scaled,
+                   auth_grt_perc_scaled,
+                   auth_holiday_perc_scaled,
+                   auth_excluded_perc_scaled,
+                   auth_other_perc_scaled,
+                   covid_non_compulsory_perc_scaled,
+                   pa_perc_scaled,
+                   pa_illness_perc_scaled), ~ 
+                replace(., geographic_level == "Local authority" & num_schools == 1, NA))
+  
+  return(
+    list(
+      attendance_data=attendance_data, 
+      daily_totals=attendance_data_daily_totals,
+      weekly_totals=attendance_data_weekly_totals,
+      ytd_totals=attendance_data_ytd_totals)
+  )
+}
+
+process_attendance_data_autumn <- function(df_attendance_raw, autumn_start, autumn_end){
+  #Set up data for use across the app
+  #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
+  attendance_data_autumn <- attendance_data_raw %>%
+    mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
+    mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
+    mutate(across(.cols = 1:2, .fns = as.numeric)) %>%
+    mutate(across(.cols = 12:12, .fns = as.numeric)) %>%
+    arrange(time_period, time_identifier) %>%
+    filter(school_type %in% c("Primary", "Secondary", "Special"))
+  
+  #Calculate date
+  attendance_data_autumn <- attendance_data_autumn %>% mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
+  attendance_data_autumn <- arrange(attendance_data_autumn, time_identifier, attendance_date)
+  attendance_data_autumn <- attendance_data_autumn %>% dplyr::filter(between(attendance_date, autumn_start, autumn_end))
+  attendance_data_autumn <- attendance_data_autumn %>% mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
+  
+  #Join school frequency count for proportion of schools reporting and pupil headcount for calculation of weighted totals
+  attendance_data_autumn <- left_join(attendance_data_autumn, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "phase"))
+  
+  #Calculate measures for use across app, grouping appropriately at each level then binding back together
+  attendance_data_autumn <- attendance_data_autumn %>%
+    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type) %>%
+    mutate(academic_year = min(academic_year),
+           time_period = min(time_period),
+           time_identifier = 37,
+           week_commencing = as.Date("2022-09-12"),
+           num_schools = mean(num_schools),
+           enrolments = mean(enrolments),
+           present_sessions = sum(present_sessions),
+           overall_attendance = sum(overall_attendance),
+           approved_educational_activity = sum(approved_educational_activity),
+           overall_absence = sum(overall_absence),
+           authorised_absence = sum(authorised_absence),
+           unauthorised_absence = sum(unauthorised_absence),
+           late_sessions = sum(late_sessions),
+           possible_sessions = sum(possible_sessions),
+           reason_present_am = sum(reason_present_am),
+           reason_present_pm = sum(reason_present_pm),
+           reason_present = sum(reason_present),
+           reason_l_present_late_before_registers_closed = sum(reason_l_present_late_before_registers_closed),
+           reason_i_authorised_illness = sum(reason_i_authorised_illness),
+           reason_m_authorised_medical_dental = sum(reason_m_authorised_medical_dental),
+           reason_r_authorised_religious_observance = sum(reason_r_authorised_religious_observance),
+           reason_s_authorised_study_leave = sum(reason_s_authorised_study_leave),
+           reason_t_authorised_grt_absence = sum(reason_t_authorised_grt_absence),
+           reason_h_authorised_holiday = sum(reason_h_authorised_holiday),
+           reason_e_authorised_excluded = sum(reason_e_authorised_excluded),
+           reason_c_authorised_other = sum(reason_c_authorised_other),
+           reason_b_aea_education_off_site = sum(reason_b_aea_education_off_site),
+           reason_d_aea_dual_registration = sum(reason_d_aea_dual_registration),
+           reason_j_aea_interview = sum(reason_j_aea_interview),
+           reason_p_aea_approved_sporting_activity = sum(reason_p_aea_approved_sporting_activity),
+           reason_v_aea_educational_visit_trip = sum(reason_v_aea_educational_visit_trip),
+           reason_w_aea_work_experience = sum(reason_w_aea_work_experience),
+           reason_g_unauthorised_holiday = sum(reason_g_unauthorised_holiday),
+           reason_u_unauthorised_late_after_registers_closed = sum(reason_u_unauthorised_late_after_registers_closed),
+           reason_o_other_unauthorised = sum(reason_o_other_unauthorised),
+           reason_n_no_reason_yet = sum(reason_n_no_reason_yet),
+           reason_not_attending_planned_closed = sum(reason_not_attending_planned_closed),
+           reason_y_not_attending_enforced_closure = sum(reason_y_not_attending_enforced_closure),
+           reason_x_not_attending_covid_non_compulsory = sum(reason_x_not_attending_covid_non_compulsory),
+           reason_z_not_attending_not_on_roll = sum(reason_z_not_attending_not_on_roll),
+           reason_f_legacy_family_holiday = sum(reason_f_legacy_family_holiday),
+           total_num_schools = mean(total_num_schools),
+           total_enrolments = mean(total_enrolments),
+           attendance_perc = (sum(overall_attendance) / sum(possible_sessions)) * 100,
+           overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) * 100,
+           authorised_absence_perc = (sum(authorised_absence) / sum(possible_sessions)) * 100,
+           unauthorised_absence_perc = (sum(unauthorised_absence) / sum(possible_sessions)) * 100,
+           illness_perc = (sum(reason_i_authorised_illness) / sum(possible_sessions)) * 100,
+           appointments_perc = (sum(reason_m_authorised_medical_dental) / sum(possible_sessions)) * 100,
+           excluded_perc = (sum(reason_e_authorised_excluded) / sum(possible_sessions)) * 100,
+           unauth_hol_perc = (sum(reason_g_unauthorised_holiday) / sum(possible_sessions)) * 100,
+           unauth_oth_perc = (sum(reason_o_other_unauthorised) / sum(possible_sessions)) * 100,
+           unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed) / sum(possible_sessions)) * 100,
+           unauth_not_yet_perc = (sum(reason_n_no_reason_yet) / sum(possible_sessions)) * 100,
+           auth_religious_perc = (sum(reason_r_authorised_religious_observance) / sum(possible_sessions)) * 100,
+           auth_study_perc = (sum(reason_s_authorised_study_leave) / sum(possible_sessions)) * 100,
+           auth_grt_perc = (sum(reason_t_authorised_grt_absence) / sum(possible_sessions)) * 100,
+           auth_holiday_perc = (sum(reason_h_authorised_holiday) / sum(possible_sessions)) * 100,
+           auth_excluded_perc = (sum(reason_e_authorised_excluded) / sum(possible_sessions)) * 100,
+           auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
+           covid_non_compulsory_perc = (sum(reason_x_not_attending_covid_non_compulsory) / sum(possible_sessions)) * 100,
+           breakdown = "AUT") %>%
+    distinct(time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all= TRUE)
+  
+  attendance_data_autumn <- left_join(attendance_data_autumn, dplyr::select(autumn_only_pa_data_raw, c(geographic_level, region_name, la_name, school_type, pa_flag, pa_flag_illness, autumn_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "school_type"))
+  attendance_data_autumn <- attendance_data_autumn %>% mutate(pa_perc = (pa_flag/autumn_enrolments)*100,
+                                                              pa_illness_perc = (pa_flag_illness/autumn_enrolments)*100)
+  
+  #Prep for calculation of totals by doing rates X census counts
+  attendance_data_autumn <- attendance_data_autumn %>% 
+    mutate(attendance_perc_scaled = attendance_perc * total_enrolments,
+           overall_absence_perc_scaled = overall_absence_perc * total_enrolments,
+           authorised_absence_perc_scaled = authorised_absence_perc * total_enrolments,
+           unauthorised_absence_perc_scaled = unauthorised_absence_perc * total_enrolments,
+           illness_perc_scaled = illness_perc * total_enrolments,
+           appointments_perc_scaled = appointments_perc * total_enrolments,
+           excluded_perc_scaled = excluded_perc * total_enrolments,
+           unauth_hol_perc_scaled = unauth_hol_perc * total_enrolments,
+           unauth_oth_perc_scaled = unauth_oth_perc * total_enrolments,
+           unauth_late_registers_closed_perc_scaled = unauth_late_registers_closed_perc * total_enrolments,
+           unauth_not_yet_perc_scaled = unauth_not_yet_perc * total_enrolments,
+           auth_religious_perc_scaled = auth_religious_perc * total_enrolments,
+           auth_study_perc_scaled = auth_study_perc * total_enrolments,
+           auth_grt_perc_scaled = auth_grt_perc * total_enrolments,
+           auth_holiday_perc_scaled = auth_holiday_perc * total_enrolments,
+           auth_excluded_perc_scaled = auth_excluded_perc * total_enrolments,
+           auth_other_perc_scaled = auth_other_perc * total_enrolments,
+           covid_non_compulsory_perc_scaled = covid_non_compulsory_perc * total_enrolments,
+           pa_perc_scaled = pa_perc * total_enrolments,
+           pa_illness_perc_scaled = pa_illness_perc * total_enrolments)
+  
+  attendance_data_autumn_totals <- attendance_data_autumn %>%
+    filter(breakdown == "AUT") %>%
+    group_by(breakdown, time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
     summarise(across(matches("time_period"), min, na.rm = T),
               across(matches("time_identifier"), min, na.rm = T),
               across(matches("attendance_date"), min, na.rm = T),
@@ -282,22 +543,106 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
            auth_holiday_perc = (sum(auth_holiday_perc_scaled) / sum(total_enrolments)),
            auth_excluded_perc = (sum(auth_excluded_perc_scaled) / sum(total_enrolments)),
            auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments)),
-           covid_non_compulsory_perc = (sum(covid_non_compulsory_perc_scaled) / sum(total_enrolments))
+           covid_non_compulsory_perc = (sum(covid_non_compulsory_perc_scaled) / sum(total_enrolments)),
+           pa_perc = (sum(pa_perc_scaled) / sum(total_enrolments)),
+           pa_illness_perc = (sum(pa_illness_perc_scaled) / sum(total_enrolments))
     )
   
   #Add total onto Primary, Secondary, Special data
-  attendance_data <- rbind(attendance_data, attendance_data_daily_totals, attendance_data_weekly_totals, attendance_data_ytd_totals, fill = TRUE)
-  attendance_data <- attendance_data %>% dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>% arrange(time_period, time_identifier)
+  attendance_data_autumn <- rbind(attendance_data_autumn, attendance_data_autumn_totals)
+  attendance_data_autumn <- attendance_data_autumn %>% dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>% arrange(time_period, time_identifier)
+  
+  #Data suppression
+  attendance_data_autumn <- attendance_data_autumn %>% 
+    mutate_at(vars(enrolments, 
+                   present_sessions, 
+                   overall_attendance,
+                   approved_educational_activity,
+                   overall_absence,
+                   authorised_absence,
+                   unauthorised_absence,
+                   late_sessions,
+                   possible_sessions,
+                   reason_present_am,
+                   reason_present_pm,
+                   reason_present,
+                   reason_l_present_late_before_registers_closed,
+                   reason_i_authorised_illness,
+                   reason_m_authorised_medical_dental,
+                   reason_r_authorised_religious_observance,
+                   reason_s_authorised_study_leave,
+                   reason_t_authorised_grt_absence,
+                   reason_h_authorised_holiday,
+                   reason_e_authorised_excluded,
+                   reason_c_authorised_other,
+                   reason_b_aea_education_off_site,
+                   reason_d_aea_dual_registration,
+                   reason_j_aea_interview,
+                   reason_p_aea_approved_sporting_activity,
+                   reason_v_aea_educational_visit_trip,
+                   reason_w_aea_work_experience,
+                   reason_g_unauthorised_holiday,
+                   reason_u_unauthorised_late_after_registers_closed,
+                   reason_o_other_unauthorised,
+                   reason_n_no_reason_yet,
+                   reason_not_attending_planned_closed,
+                   reason_y_not_attending_enforced_closure,
+                   reason_x_not_attending_covid_non_compulsory,
+                   reason_z_not_attending_not_on_roll,
+                   reason_f_legacy_family_holiday,
+                   total_num_schools,
+                   total_enrolments,
+                   attendance_perc,
+                   overall_absence_perc,
+                   authorised_absence_perc,
+                   unauthorised_absence_perc,
+                   illness_perc,
+                   appointments_perc,
+                   excluded_perc,
+                   unauth_hol_perc,
+                   unauth_oth_perc,
+                   unauth_late_registers_closed_perc,
+                   unauth_not_yet_perc,
+                   auth_religious_perc,
+                   auth_study_perc,
+                   auth_grt_perc,
+                   auth_holiday_perc,
+                   auth_excluded_perc,
+                   auth_other_perc,
+                   covid_non_compulsory_perc,
+                   pa_flag,
+                   pa_flag_illness,
+                   autumn_enrolments,
+                   pa_perc,
+                   pa_illness_perc,
+                   attendance_perc_scaled,
+                   overall_absence_perc_scaled,
+                   authorised_absence_perc_scaled,
+                   unauthorised_absence_perc_scaled,
+                   illness_perc_scaled,
+                   appointments_perc_scaled,
+                   excluded_perc_scaled,
+                   unauth_hol_perc_scaled,
+                   unauth_oth_perc_scaled,
+                   unauth_late_registers_closed_perc_scaled,
+                   unauth_not_yet_perc_scaled,
+                   auth_religious_perc_scaled,
+                   auth_study_perc_scaled,
+                   auth_grt_perc_scaled,
+                   auth_holiday_perc_scaled,
+                   auth_excluded_perc_scaled,
+                   auth_other_perc_scaled,
+                   covid_non_compulsory_perc_scaled,
+                   pa_perc_scaled,
+                   pa_illness_perc_scaled), ~ 
+                replace(., geographic_level == "Local authority" & num_schools == 1, NA))
   
   return(
     list(
-      attendance_data=attendance_data, 
-      daily_totals=attendance_data_daily_totals,
-      weekly_totals=attendance_data_weekly_totals,
-      ytd_totals=attendance_data_ytd_totals)
+      attendance_data_autumn=attendance_data_autumn, 
+      autumn_totals=attendance_data_autumn_totals)
   )
 }
-
 
 create_ees_tables <- function(df_attendance){
   #Set up data for download
@@ -372,9 +717,62 @@ create_ees_tables <- function(df_attendance){
       covid_non_compulsory_perc
     ) %>%
     arrange(time_period, time_identifier, school_type) %>%
-    mutate(time_identifier = paste("Week", time_identifier, sep = " "))
+    mutate(time_identifier = paste("Week", time_identifier, sep = " ")) %>%
+    mutate_at(vars(enrolments,
+                   present_sessions,
+                   overall_attendance,
+                   approved_educational_activity,
+                   overall_absence,
+                   authorised_absence,
+                   unauthorised_absence,
+                   late_sessions,
+                   possible_sessions,
+                   reason_present_am,
+                   reason_present_pm,
+                   reason_present,
+                   reason_l_present_late_before_registers_closed,
+                   reason_i_authorised_illness,
+                   reason_m_authorised_medical_dental,
+                   reason_r_authorised_religious_observance,
+                   reason_s_authorised_study_leave,
+                   reason_t_authorised_grt_absence,
+                   reason_h_authorised_holiday,
+                   reason_e_authorised_excluded,
+                   reason_c_authorised_other,
+                   reason_b_aea_education_off_site,
+                   reason_d_aea_dual_registration,
+                   reason_j_aea_interview,
+                   reason_p_aea_approved_sporting_activity,
+                   reason_v_aea_educational_visit_trip,
+                   reason_w_aea_work_experience,
+                   reason_g_unauthorised_holiday,
+                   reason_u_unauthorised_late_after_registers_closed,
+                   reason_o_other_unauthorised,
+                   reason_n_no_reason_yet,
+                   reason_x_not_attending_covid_non_compulsory,
+                   total_num_schools,
+                   total_enrolments,
+                   attendance_perc,
+                   overall_absence_perc,
+                   authorised_absence_perc,
+                   unauthorised_absence_perc,
+                   illness_perc,
+                   appointments_perc,
+                   #excluded_perc,
+                   unauth_hol_perc,
+                   unauth_oth_perc,
+                   unauth_late_registers_closed_perc,
+                   unauth_not_yet_perc,
+                   auth_religious_perc,
+                   auth_study_perc,
+                   auth_grt_perc,
+                   auth_holiday_perc,
+                   auth_excluded_perc,
+                   auth_other_perc,
+                   covid_non_compulsory_perc), ~ 
+                replace(., geographic_level == "Local authority" & num_schools == 1, "c"))
   
-  EES_daily_data[is.na(EES_daily_data)]<-"z"
+  #EES_daily_data[is.na(EES_daily_data)]<-"c"
   
   #EES weekly data
   EES_weekly_data <- df_attendance %>%
@@ -446,9 +844,62 @@ create_ees_tables <- function(df_attendance){
       covid_non_compulsory_perc
     ) %>%
     arrange(time_period, time_identifier, school_type) %>%
-    mutate(time_identifier = paste("Week", time_identifier, sep = " "))
+    mutate(time_identifier = paste("Week", time_identifier, sep = " ")) %>%
+    mutate_at(vars(enrolments,
+                   present_sessions,
+                   overall_attendance,
+                   approved_educational_activity,
+                   overall_absence,
+                   authorised_absence,
+                   unauthorised_absence,
+                   late_sessions,
+                   possible_sessions,
+                   reason_present_am,
+                   reason_present_pm,
+                   reason_present,
+                   reason_l_present_late_before_registers_closed,
+                   reason_i_authorised_illness,
+                   reason_m_authorised_medical_dental,
+                   reason_r_authorised_religious_observance,
+                   reason_s_authorised_study_leave,
+                   reason_t_authorised_grt_absence,
+                   reason_h_authorised_holiday,
+                   reason_e_authorised_excluded,
+                   reason_c_authorised_other,
+                   reason_b_aea_education_off_site,
+                   reason_d_aea_dual_registration,
+                   reason_j_aea_interview,
+                   reason_p_aea_approved_sporting_activity,
+                   reason_v_aea_educational_visit_trip,
+                   reason_w_aea_work_experience,
+                   reason_g_unauthorised_holiday,
+                   reason_u_unauthorised_late_after_registers_closed,
+                   reason_o_other_unauthorised,
+                   reason_n_no_reason_yet,
+                   reason_x_not_attending_covid_non_compulsory,
+                   total_num_schools,
+                   total_enrolments,
+                   attendance_perc,
+                   overall_absence_perc,
+                   authorised_absence_perc,
+                   unauthorised_absence_perc,
+                   illness_perc,
+                   appointments_perc,
+                   #excluded_perc,
+                   unauth_hol_perc,
+                   unauth_oth_perc,
+                   unauth_late_registers_closed_perc,
+                   unauth_not_yet_perc,
+                   auth_religious_perc,
+                   auth_study_perc,
+                   auth_grt_perc,
+                   auth_holiday_perc,
+                   auth_excluded_perc,
+                   auth_other_perc,
+                   covid_non_compulsory_perc), ~ 
+                replace(., geographic_level == "Local authority" & num_schools == 1, "c"))
   
-  EES_weekly_data[is.na(EES_weekly_data)]<-"z"
+  #EES_weekly_data[is.na(EES_weekly_data)]<-"c"
   
   #EES ytd data
   EES_ytd_data <- df_attendance %>%
@@ -516,17 +967,210 @@ create_ees_tables <- function(df_attendance){
       auth_holiday_perc,
       auth_excluded_perc,
       auth_other_perc,
-      covid_non_compulsory_perc
+      covid_non_compulsory_perc,
+      pa_perc
+      #,pa_illness_perc
     ) %>%
     arrange(time_period, school_type) %>%
     mutate(time_identifier = paste("Academic year"),
-           time_period = paste("202223"))
+           time_period = paste("202223")) %>%
+    mutate_at(vars(enrolments,
+                   present_sessions,
+                   overall_attendance,
+                   approved_educational_activity,
+                   overall_absence,
+                   authorised_absence,
+                   unauthorised_absence,
+                   late_sessions,
+                   possible_sessions,
+                   reason_present_am,
+                   reason_present_pm,
+                   reason_present,
+                   reason_l_present_late_before_registers_closed,
+                   reason_i_authorised_illness,
+                   reason_m_authorised_medical_dental,
+                   reason_r_authorised_religious_observance,
+                   reason_s_authorised_study_leave,
+                   reason_t_authorised_grt_absence,
+                   reason_h_authorised_holiday,
+                   reason_e_authorised_excluded,
+                   reason_c_authorised_other,
+                   reason_b_aea_education_off_site,
+                   reason_d_aea_dual_registration,
+                   reason_j_aea_interview,
+                   reason_p_aea_approved_sporting_activity,
+                   reason_v_aea_educational_visit_trip,
+                   reason_w_aea_work_experience,
+                   reason_g_unauthorised_holiday,
+                   reason_u_unauthorised_late_after_registers_closed,
+                   reason_o_other_unauthorised,
+                   reason_n_no_reason_yet,
+                   reason_x_not_attending_covid_non_compulsory,
+                   total_num_schools,
+                   total_enrolments,
+                   attendance_perc,
+                   overall_absence_perc,
+                   authorised_absence_perc,
+                   unauthorised_absence_perc,
+                   illness_perc,
+                   appointments_perc,
+                   #excluded_perc,
+                   unauth_hol_perc,
+                   unauth_oth_perc,
+                   unauth_late_registers_closed_perc,
+                   unauth_not_yet_perc,
+                   auth_religious_perc,
+                   auth_study_perc,
+                   auth_grt_perc,
+                   auth_holiday_perc,
+                   auth_excluded_perc,
+                   auth_other_perc,
+                   covid_non_compulsory_perc,
+                   pa_perc), ~ 
+                replace(., geographic_level == "Local authority" & num_schools == 1, "c"))
   
-  EES_ytd_data[is.na(EES_ytd_data)]<-"z"
+  #EES_ytd_data[is.na(EES_ytd_data)]<-"c"
   
   write.csv(EES_daily_data, "data\\EES_daily_data.csv", row.names = FALSE)
   write.csv(EES_weekly_data, "data\\EES_weekly_data.csv", row.names = FALSE)
   write.csv(EES_ytd_data, "data\\EES_ytd_data.csv", row.names = FALSE)
+}
+
+create_ees_tables_autumn <- function(df_attendance_autumn){
+  #Set up data for download
+  #EES ytd data
+  EES_aut_data <- df_attendance_autumn %>%
+    dplyr::filter(breakdown == "AUT") %>%
+    dplyr::select(
+      time_period,
+      time_identifier,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code,
+      school_type,
+      num_schools,
+      enrolments,
+      present_sessions,
+      overall_attendance,
+      approved_educational_activity,
+      overall_absence,
+      authorised_absence,
+      unauthorised_absence,
+      late_sessions,
+      possible_sessions,
+      reason_present_am,
+      reason_present_pm,
+      reason_present,
+      reason_l_present_late_before_registers_closed,
+      reason_i_authorised_illness,
+      reason_m_authorised_medical_dental,
+      reason_r_authorised_religious_observance,
+      reason_s_authorised_study_leave,
+      reason_t_authorised_grt_absence,
+      reason_h_authorised_holiday,
+      reason_e_authorised_excluded,
+      reason_c_authorised_other,
+      reason_b_aea_education_off_site,
+      reason_d_aea_dual_registration,
+      reason_j_aea_interview,
+      reason_p_aea_approved_sporting_activity,
+      reason_v_aea_educational_visit_trip,
+      reason_w_aea_work_experience,
+      reason_g_unauthorised_holiday,
+      reason_u_unauthorised_late_after_registers_closed,
+      reason_o_other_unauthorised,
+      reason_n_no_reason_yet,
+      reason_x_not_attending_covid_non_compulsory,
+      total_num_schools,
+      total_enrolments,
+      attendance_perc,
+      overall_absence_perc,
+      authorised_absence_perc,
+      unauthorised_absence_perc,
+      illness_perc,
+      appointments_perc,
+      #excluded_perc,
+      unauth_hol_perc,
+      unauth_oth_perc,
+      unauth_late_registers_closed_perc,
+      unauth_not_yet_perc,
+      auth_religious_perc,
+      auth_study_perc,
+      auth_grt_perc,
+      auth_holiday_perc,
+      auth_excluded_perc,
+      auth_other_perc,
+      covid_non_compulsory_perc,
+      pa_perc
+      #,pa_illness_perc
+    ) %>%
+    arrange(time_period, school_type) %>%
+    mutate(time_identifier = paste("Autumn term"),
+           time_period = paste("202223")) %>%
+    mutate_at(vars(enrolments,
+                   present_sessions,
+                   overall_attendance,
+                   approved_educational_activity,
+                   overall_absence,
+                   authorised_absence,
+                   unauthorised_absence,
+                   late_sessions,
+                   possible_sessions,
+                   reason_present_am,
+                   reason_present_pm,
+                   reason_present,
+                   reason_l_present_late_before_registers_closed,
+                   reason_i_authorised_illness,
+                   reason_m_authorised_medical_dental,
+                   reason_r_authorised_religious_observance,
+                   reason_s_authorised_study_leave,
+                   reason_t_authorised_grt_absence,
+                   reason_h_authorised_holiday,
+                   reason_e_authorised_excluded,
+                   reason_c_authorised_other,
+                   reason_b_aea_education_off_site,
+                   reason_d_aea_dual_registration,
+                   reason_j_aea_interview,
+                   reason_p_aea_approved_sporting_activity,
+                   reason_v_aea_educational_visit_trip,
+                   reason_w_aea_work_experience,
+                   reason_g_unauthorised_holiday,
+                   reason_u_unauthorised_late_after_registers_closed,
+                   reason_o_other_unauthorised,
+                   reason_n_no_reason_yet,
+                   reason_x_not_attending_covid_non_compulsory,
+                   total_num_schools,
+                   total_enrolments,
+                   attendance_perc,
+                   overall_absence_perc,
+                   authorised_absence_perc,
+                   unauthorised_absence_perc,
+                   illness_perc,
+                   appointments_perc,
+                   #excluded_perc,
+                   unauth_hol_perc,
+                   unauth_oth_perc,
+                   unauth_late_registers_closed_perc,
+                   unauth_not_yet_perc,
+                   auth_religious_perc,
+                   auth_study_perc,
+                   auth_grt_perc,
+                   auth_holiday_perc,
+                   auth_excluded_perc,
+                   auth_other_perc,
+                   covid_non_compulsory_perc,
+                   pa_perc), ~ 
+                replace(., geographic_level == "Local authority" & num_schools == 1, "c"))
+  
+  #EES_aut_data[is.na(EES_aut_data)]<-"c"
+  
+  write.csv(EES_aut_data, "data\\EES_aut_data.csv", row.names = FALSE)
+  
 }
 
 read_ees_daily <- function(){

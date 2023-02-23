@@ -255,7 +255,8 @@ server <- function(input, output, session) {
         unauth_hol_perc = unauth_hol_perc / 100,
         unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
         unauth_oth_perc = unauth_oth_perc / 100,
-        unauth_not_yet_perc = unauth_not_yet_perc / 100
+        unauth_not_yet_perc = unauth_not_yet_perc / 100,
+        pa_perc = pa_perc / 100
       )
     } else if (input$geography_choice == "Regional") {
       dplyr::filter(
@@ -276,7 +277,8 @@ server <- function(input, output, session) {
         unauth_hol_perc = unauth_hol_perc / 100,
         unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
         unauth_oth_perc = unauth_oth_perc / 100,
-        unauth_not_yet_perc = unauth_not_yet_perc / 100
+        unauth_not_yet_perc = unauth_not_yet_perc / 100,
+        pa_perc = pa_perc / 100
       )
     } else if (input$geography_choice == "Local authority") {
       dplyr::filter(
@@ -298,7 +300,8 @@ server <- function(input, output, session) {
         unauth_hol_perc = unauth_hol_perc / 100,
         unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
         unauth_oth_perc = unauth_oth_perc / 100,
-        unauth_not_yet_perc = unauth_not_yet_perc / 100
+        unauth_not_yet_perc = unauth_not_yet_perc / 100,
+        pa_perc = pa_perc / 100
       )
     } else {
       NA
@@ -490,6 +493,7 @@ server <- function(input, output, session) {
 
   output$absence_rates_timeseries_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_ts()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ts()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_rates_ytd <- live_attendance_data_ts()
 
@@ -566,6 +570,7 @@ server <- function(input, output, session) {
 
   output$absence_rates_daily_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_daily()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_daily()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_rates_weekly <- live_attendance_data_daily() %>%
       arrange(attendance_date)
@@ -635,6 +640,7 @@ server <- function(input, output, session) {
 
   output$absence_reasons_timeseries_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_ts()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ts()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_reasons_ytd <- live_attendance_data_ts()
 
@@ -735,6 +741,7 @@ server <- function(input, output, session) {
 
   output$absence_reasons_daily_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_daily()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_daily()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_rates_weekly <- live_attendance_data_daily() %>%
       arrange(attendance_date)
@@ -870,6 +877,7 @@ server <- function(input, output, session) {
   # Proportion of schools in census figures are generated from - most recent week
   output$school_count_proportion_weekly <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     count_prop_week <- live_attendance_data_weekly() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
@@ -880,6 +888,7 @@ server <- function(input, output, session) {
 
   output$school_count_proportion_weekly2 <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     count_prop_week <- live_attendance_data_weekly() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
@@ -891,6 +900,7 @@ server <- function(input, output, session) {
   # Proportion of schools in census figures are generated from - year to date
   output$school_count_proportion_ytd <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     count_prop_week <- live_attendance_data_ytd() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
@@ -904,6 +914,7 @@ server <- function(input, output, session) {
   # Bullet for national level
   output$weekly_attendance_rate_nat <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
       "• ", live_attendance_data_weekly() %>% pull(attendance_perc) %>% round(digits = 1),
@@ -914,6 +925,7 @@ server <- function(input, output, session) {
   # Bullet for regional level
   output$weekly_attendance_rate_reg <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     weekly_headline_att <- live_attendance_data_weekly() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
@@ -933,6 +945,7 @@ server <- function(input, output, session) {
   # Bullet for LA level
   output$weekly_attendance_rate_la <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
       "• ", live_attendance_data_weekly() %>%
@@ -950,6 +963,7 @@ server <- function(input, output, session) {
   # Bullet for national level
   output$ytd_attendance_rate_nat <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
       "• ", live_attendance_data_ytd() %>% pull(attendance_perc) %>% round(digits = 1),
@@ -960,6 +974,7 @@ server <- function(input, output, session) {
   # Bullet for regional level
   output$ytd_attendance_rate_reg <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
       "• ", live_attendance_data_ytd() %>%
@@ -975,6 +990,7 @@ server <- function(input, output, session) {
   # Bullet for LA level
   output$ytd_attendance_rate_la <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
       "• ", live_attendance_data_ytd() %>%
@@ -993,6 +1009,7 @@ server <- function(input, output, session) {
   # Bullet for national level
   output$weekly_absence_rate_nat <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_weekly() %>% pull(overall_absence_perc) %>% round(digits = 1),
@@ -1003,6 +1020,7 @@ server <- function(input, output, session) {
   # Bullet for regional level
   output$weekly_absence_rate_reg <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     weekly_headline_abs <- live_attendance_data_weekly() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
@@ -1026,6 +1044,7 @@ server <- function(input, output, session) {
   # Bullet for LA level
   output$weekly_absence_rate_la <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_weekly() %>%
@@ -1043,6 +1062,7 @@ server <- function(input, output, session) {
   # Bullet for national level
   output$ytd_absence_rate_nat <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_ytd() %>% pull(overall_absence_perc) %>% round(digits = 1),
@@ -1053,6 +1073,7 @@ server <- function(input, output, session) {
   # Bullet for regional level
   output$ytd_absence_rate_reg <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_ytd() %>%
@@ -1068,6 +1089,7 @@ server <- function(input, output, session) {
   # Bullet for LA level
   output$ytd_absence_rate_la <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_ytd() %>%
@@ -1085,6 +1107,7 @@ server <- function(input, output, session) {
   # Bullet for national level
   output$weekly_illness_rate_nat <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_weekly() %>% pull(illness_perc) %>% round(digits = 1),
@@ -1095,6 +1118,7 @@ server <- function(input, output, session) {
   # Bullet for regional level
   output$weekly_illness_rate_reg <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_weekly() %>%
@@ -1110,6 +1134,7 @@ server <- function(input, output, session) {
   # Bullet for LA level
   output$weekly_illness_rate_la <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_weekly() %>%
@@ -1127,6 +1152,7 @@ server <- function(input, output, session) {
   # Bullet for national level
   output$ytd_illness_rate_nat <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_ytd() %>% pull(illness_perc) %>% round(digits = 1),
@@ -1137,6 +1163,7 @@ server <- function(input, output, session) {
   # Bullet for regional level
   output$ytd_illness_rate_reg <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_ytd() %>%
@@ -1152,6 +1179,7 @@ server <- function(input, output, session) {
   # Bullet for LA level
   output$ytd_illness_rate_la <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_ytd() %>%
@@ -1165,7 +1193,49 @@ server <- function(input, output, session) {
   })
 
 
+  # Headline persistent absence ytd
+  # Bullet for national level
+  output$ytd_pa_rate_nat <- renderText({
+    validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
+    paste0(
+      "• ", live_attendance_data_ytd() %>% pull(pa_perc) %>% round(digits = 1),
+      "% of pupils were recorded as persistently absent"
+    )
+  })
+
+  # Bullet for regional level
+  output$ytd_pa_rate_reg <- renderText({
+    validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
+
+    paste0(
+      "• ", live_attendance_data_ytd() %>%
+        pull(pa_perc) %>%
+        round(digits = 1),
+      "% of pupils were recorded as persistently absent in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
+        pull(pa_perc) %>%
+        round(digits = 1),
+      "% of pupils at national level)"
+    )
+  })
+
+  # Bullet for LA level
+  output$ytd_pa_rate_la <- renderText({
+    validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
+
+    paste0(
+      "• ", live_attendance_data_ytd() %>%
+        pull(pa_perc) %>%
+        round(digits = 1),
+      "% of pupils were recorded as persistently absent in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
+        pull(pa_perc) %>%
+        round(digits = 1),
+      "% of pupils in ", input$region_choice, ")"
+    )
+  })
 
 
   # Creating reactive dates for text ------------------------------------------------------------
@@ -1173,6 +1243,8 @@ server <- function(input, output, session) {
   # Most recent full week
   output$headline_update_date <- renderText({
     validate(need(input$geography_choice != "", ""))
+    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
@@ -1184,6 +1256,7 @@ server <- function(input, output, session) {
 
   output$la_clarity_dates <- renderText({
     validate(need(input$geography_choice != "", ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
@@ -1193,6 +1266,8 @@ server <- function(input, output, session) {
 
   output$update_dates <- renderText({
     validate(need(input$geography_choice != "", ""))
+    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
@@ -1212,6 +1287,8 @@ server <- function(input, output, session) {
 
   output$update_dates2 <- renderText({
     validate(need(input$geography_choice != "", ""))
+    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
@@ -1232,6 +1309,7 @@ server <- function(input, output, session) {
 
   output$homepage_update_dates <- renderText({
     validate(need(input$geography_choice != "", ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
@@ -1258,6 +1336,7 @@ server <- function(input, output, session) {
   # weekly overall absence rate
   output$headline_absence_rate_weekly <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     overall_absence_rate_weekly_headline <- live_attendance_data_weekly()
     pull(overall_absence_perc) %>%
@@ -1274,6 +1353,7 @@ server <- function(input, output, session) {
   # ytd overall absence rate
   output$headline_absence_rate_ytd <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     overall_absence_rate_ytd_headline <- live_attendance_data_ytd() %>%
       pull(overall_absence_perc) %>%
@@ -1293,6 +1373,7 @@ server <- function(input, output, session) {
   # weekly auth absence rate
   output$headline_auth_rate_weekly <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     overall_auth_rate_weekly_headline <- live_attendance_data_weekly() %>%
       pull(authorised_absence_perc) %>%
@@ -1309,6 +1390,7 @@ server <- function(input, output, session) {
   # ytd auth absence rate
   output$headline_auth_rate_ytd <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     overall_auth_rate_ytd_headline <- live_attendance_data_ytd() %>%
       pull(authorised_absence_perc) %>%
@@ -1328,6 +1410,7 @@ server <- function(input, output, session) {
   # weekly unauth absence rate
   output$headline_unauth_rate_weekly <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     overall_unauth_rate_weekly_headline <- live_attendance_data_weekly() %>%
       pull(unauthorised_absence_perc) %>%
@@ -1344,6 +1427,7 @@ server <- function(input, output, session) {
   # ytd unauth absence rate
   output$headline_unauth_rate_ytd <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     overall_unauth_rate_ytd_headline <- live_attendance_data_ytd() %>%
       pull(unauthorised_absence_perc) %>%
@@ -1362,6 +1446,7 @@ server <- function(input, output, session) {
   # authorised reasons weekly
   output$absence_auth_reasons_table <- renderDT({
     validate(need(nrow(live_attendance_data_weekly_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_auth_reasons_dt <- live_attendance_data_weekly_reasons_tables() %>%
       dplyr::select(illness_perc, appointments_perc, auth_religious_perc, auth_study_perc, auth_grt_perc, auth_holiday_perc, auth_excluded_perc, auth_other_perc) %>%
@@ -1396,6 +1481,7 @@ server <- function(input, output, session) {
   # authorised reasons ytd
   output$absence_auth_reasons_table_ytd <- renderDT({
     validate(need(nrow(live_attendance_data_ytd_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_auth_reasons_ytd_dt <- live_attendance_data_ytd_reasons_tables() %>%
       dplyr::select(illness_perc, appointments_perc, auth_religious_perc, auth_study_perc, auth_grt_perc, auth_holiday_perc, auth_excluded_perc, auth_other_perc) %>%
@@ -1430,6 +1516,7 @@ server <- function(input, output, session) {
   # unauthorised reasons weekly
   output$absence_unauth_reasons_table <- renderDT({
     validate(need(nrow(live_attendance_data_weekly_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_unauth_reasons_dt <- live_attendance_data_weekly_reasons_tables() %>%
       dplyr::select(unauth_hol_perc, unauth_late_registers_closed_perc, unauth_oth_perc, unauth_not_yet_perc) %>%
@@ -1460,6 +1547,7 @@ server <- function(input, output, session) {
   # unauthorised reasons ytd
   output$absence_unauth_reasons_table_ytd <- renderDT({
     validate(need(nrow(live_attendance_data_ytd_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_unauth_reasons_ytd_dt <- live_attendance_data_ytd_reasons_tables() %>%
       dplyr::select(unauth_hol_perc, unauth_late_registers_closed_perc, unauth_oth_perc, unauth_not_yet_perc) %>%
