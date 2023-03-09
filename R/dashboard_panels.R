@@ -83,7 +83,7 @@ homepage_panel <- function() {
                   br(),
                   h3("Coverage"),
                   h4(textOutput("daily_schools_count")),
-                  p("This number is approximately 78% of the number of schools participating in the School Census. As schools opt in to sharing of data, the number of schools reporting may change over time."),
+                  p("This number is approximately 79% of the number of schools participating in the School Census. As schools opt in to sharing of data, the number of schools reporting may change over time."),
                   p("Absence rates are provided broken down by state-funded primary, secondary and special schools. At national and regional level, absence figures are also provided across all schools. In recognition that response rates are not equal across school types and, therefore, not representative of the total school population, the total absence figure for all schools has been weighted based on the Spring 2022 school census. Weighted total figures are not included at local authority level due to the low number of schools involved."),
                   br(),
                   h3("National statistics"),
@@ -313,7 +313,7 @@ dashboard_panel <- function() {
               conditionalPanel(condition = "input.ts_choice == 'Most recent week'",
                                br(),
                                p(strong(paste0("To view persistent absence figures, select “year to date” in the drop-down menu. Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods. Underlying data relating to the Autumn term and year to date is available at the link below:"))),
-                               a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england-autumn-term", "Pupil absence in schools in England: autumn term")),
+                               a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools")),
               
               br(),
               h5(textOutput("headline_ts_chart_title")),

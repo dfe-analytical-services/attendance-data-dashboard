@@ -159,6 +159,36 @@ server <- function(input, output, session) {
     }
   })
 
+  live_attendance_data_weekly_pre_ht <- reactive({
+    if (input$geography_choice == "National") {
+      dplyr::filter(
+        attendance_data, geographic_level == "National",
+        school_type == input$school_choice,
+        time_period == max(time_period),
+        breakdown == "Weekly"
+      ) %>% filter(time_identifier == "6")
+    } else if (input$geography_choice == "Regional") {
+      dplyr::filter(
+        attendance_data, geographic_level == "Regional",
+        region_name == input$region_choice,
+        school_type == input$school_choice,
+        time_period == max(time_period),
+        breakdown == "Weekly"
+      ) %>% filter(time_identifier == "6")
+    } else if (input$geography_choice == "Local authority") {
+      dplyr::filter(
+        attendance_data, geographic_level == "Local authority",
+        region_name == input$region_choice,
+        la_name == input$la_choice,
+        school_type == input$school_choice,
+        time_period == max(time_period),
+        breakdown == "Weekly"
+      ) %>% filter(time_identifier == "6")
+    } else {
+      NA
+    }
+  })
+
   # Weekly data for reasons tables
   live_attendance_data_weekly_reasons_tables <- reactive({
     if (input$geography_choice == "National") {
@@ -869,8 +899,30 @@ server <- function(input, output, session) {
     filter(time_identifier == max(time_identifier)) %>%
     pull(attendance_date)
 
+  schools_count_pre_ht <- attendance_data %>%
+    filter(
+      time_period == max(time_period),
+      geographic_level == "National",
+      school_type == "Total",
+      day_number == "5"
+    ) %>%
+    filter(time_identifier == "6") %>%
+    pull(num_schools) %>%
+    sum()
+
+  schools_count_date_pre_ht <- attendance_data %>%
+    filter(
+      time_period == max(time_period),
+      geographic_level == "National",
+      school_type == "Total",
+      day_number == "5"
+    ) %>%
+    filter(time_identifier == "6") %>%
+    pull(attendance_date)
+
   output$daily_schools_count <- renderText({
-    paste0(scales::comma(schools_count), " schools provided information on the most recent full day of data, i.e. ", schools_count_date)
+    # paste0(scales::comma(schools_count), " schools provided information on the most recent full day of data, i.e. ", schools_count_date)
+    paste0(scales::comma(schools_count_pre_ht), " schools provided information on the last full day of data prior to half-term, i.e. ", schools_count_date_pre_ht)
   })
 
 
@@ -879,22 +931,26 @@ server <- function(input, output, session) {
     validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
     validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
-    count_prop_week <- live_attendance_data_weekly() %>%
+    # count_prop_week <- live_attendance_data_weekly() %>%
+    count_prop_week <- live_attendance_data_weekly_pre_ht() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    paste0("For this breakdown, in the latest week there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date.")
+    paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the most recent week due to half-term impacting upon number of schools reporting.")
+    # paste0("For this breakdown, in the latest week there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date.")
   })
 
   output$school_count_proportion_weekly2 <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
     validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
-    count_prop_week <- live_attendance_data_weekly() %>%
+    # count_prop_week <- live_attendance_data_weekly() %>%
+    count_prop_week <- live_attendance_data_weekly_pre_ht() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    paste0("For this breakdown, in the latest week there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date.")
+    paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the most recent week due to half-term impacting upon number of schools reporting.")
+    # paste0("For this breakdown, in the latest week there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date.")
   })
 
   # Proportion of schools in census figures are generated from - year to date
@@ -1261,7 +1317,8 @@ server <- function(input, output, session) {
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    paste0("Data on this tab relates to the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data on this tab relates to the week commencing 2023-02-20")
+    # paste0("Data on this tab relates to the week commencing ", most_recent_fullweek_date, ".")
   })
 
   output$update_dates <- renderText({
@@ -1282,7 +1339,8 @@ server <- function(input, output, session) {
       as.Date(attendance_date) + 31
     # as.Date(attendance_date) + 45
 
-    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on 2023-03-09 and is next expected to be updated on 2023-03-23. The most recent full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
   output$update_dates2 <- renderText({
@@ -1303,7 +1361,8 @@ server <- function(input, output, session) {
       as.Date(attendance_date) + 31
     # as.Date(attendance_date) + 45
 
-    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on 2023-03-09 and is next expected to be updated on 2023-03-23. The most recent full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
 
