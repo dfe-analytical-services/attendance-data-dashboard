@@ -54,10 +54,6 @@ ui <- function(input, output, session) {
       "beta banner",
       "beta",
       paste0(
-        "<b>We're looking for volunteers! We've developed several new dashboards ",
-        "in the last 12 months and we'd really like to know what you think of them. ",
-        "If you're interested in helping us improve our products, please sign up ",
-        "using our <a href='https://forms.office.com/e/ZjNxf10uuN'>user-testing volunteer form</a>.</b><br>",
         "This Dashboard is in beta phase and we are still reviewing performance and reliability. ",
         "In case of slowdown or connection issues due to high demand, we have produced two instances of this site which can be accessed at the following links: ",
         "<a href=", site_primary, " id='link_site_1'>Site 1</a> and ",
