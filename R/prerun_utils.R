@@ -305,7 +305,15 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
   attendance_data <- attendance_data %>% dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>% arrange(time_period, time_identifier)
   
   #Handle strike days
-  attendance_data <- attendance_data %>% dplyr::filter(!(breakdown == "Daily" & attendance_date == strike_date_1))
+  attendance_data <- attendance_data %>% 
+    dplyr::filter(!(breakdown == "Daily" & attendance_date == strike_date_1)) %>%
+    dplyr::filter(!(breakdown == "Daily" & attendance_date == regional_strike_1 & region_name %in% c("North East", "North West", "Yorkshire and The Humber"))) %>%
+    dplyr::filter(!(breakdown == "Daily" & attendance_date == regional_strike_2 & region_name %in% c("East Midlands", "West Midlands", "East of England"))) %>%
+    dplyr::filter(!(breakdown == "Daily" & attendance_date == regional_strike_2 & la_name %in% c("Buckinghamshire", "Milton Keynes"))) %>%
+    dplyr::filter(!(breakdown == "Daily" & attendance_date == regional_strike_3 & region_name %in% c("London", "South East", "South West"))) %>%
+    dplyr::filter(!(breakdown == "Daily" & attendance_date == regional_strike_1 & geographic_level =="National")) %>%
+    dplyr::filter(!(breakdown == "Daily" & attendance_date == regional_strike_2 & geographic_level =="National")) %>%
+    dplyr::filter(!(breakdown == "Daily" & attendance_date == regional_strike_3 & geographic_level =="National"))
   
   #Data suppression
   attendance_data <- attendance_data %>% 
