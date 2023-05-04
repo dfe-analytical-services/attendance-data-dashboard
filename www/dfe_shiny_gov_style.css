@@ -45,7 +45,7 @@ a:active {
 
 /* This line sets the main area width. Originally set to 66.667% in the GDS 
 template. 80% works well here to reduce white space on the right hand side.*/
-.col-sm-8{ width: 67%}
+.col-sm-8{ width: 80%}
 
 .container-fluid {
   padding: 0px;
@@ -220,32 +220,6 @@ template. 80% works well here to reduce white space on the right hand side.*/
              border-radius: 3px !important;
              box-shadow: rgba(0, 0, 0, 0.3) 3px 3px 10px !important;
           }
-
-.govuk-width-container {
-    width: 100% !important;
-    max-width: 100% !important;
-}
-
-.govuk-header__content,
-.govuk-header__logo {
-    box-sizing: border-box
-}
-
-.govuk-header__logo {
-    margin-bottom: 10px;
-    padding-right: 50px
-}
-
-@media (min-width:40.0625em) {
-    .govuk-header__logo {
-        margin-bottom: 10px
-    }
-}
-
-.govuk-details{
-  font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
-  font-size: 14px;
-}
 
 .govuk-width-container {
     width: 100% !important;
