@@ -4,7 +4,7 @@ homepage_panel <- function() {
   tabPanel(
     "Homepage",
     gov_main_layout(
-      fluidRow(
+      gov_row(
         column(
           12,
           h1("Pupil attendance and absence in schools in England"), 
@@ -132,7 +132,7 @@ dashboard_panel <- function() {
     # Sidebar with a slider input for number of bins
     
     gov_main_layout(
-      
+      gov_row(
       h1("Attendance and absence headlines and reasons"),
       
       
@@ -430,7 +430,8 @@ dashboard_panel <- function() {
       # add box to show user input
     )
   )
-}
+  )
+  }
 
 # technical notes panel
 notes_panel <- function(){
@@ -447,6 +448,7 @@ notes_panel <- function(){
       referrer = "no-referrer"
     ),
     gov_main_layout(
+      gov_row(
       h2("Technical notes"),
       br("The dashboard provides data on attendance and absence at National, Regional and Local Authority geographic levels. Data is available across state-funded primary, secondary and special schools and can also be broken down by individual school type. Drop-down menus at the top of the page allow customisation of breakdowns."),
       br(),
@@ -461,6 +463,7 @@ notes_panel <- function(){
       br()
     )
   )
+  )
 }
 
 # accessibility panel
@@ -468,6 +471,7 @@ accessibility_panel <- function(){
   tabPanel(
     "Accessibility",
     gov_main_layout(
+      gov_row(
       h2("Accessibility statement"),
       br("This accessibility statement applies to the Pupil attendance in schools in England data dashboard.
             This application is run by the Department for Education. We want as many people as possible to be able to use this application,
@@ -489,7 +493,7 @@ accessibility_panel <- function(){
         a(href = "mailto:schools.statistics@education.gov.uk", "schools.statistics@education.gov.uk")
       )
     )
-  )
+  ))
 }
 
 # support panel

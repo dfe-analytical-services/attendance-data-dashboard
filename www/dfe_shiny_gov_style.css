@@ -1,35 +1,120 @@
-
-.skin-blue .main-header .navbar {
-    background-color: #0b0c0c;
+@font-face {
+  font-family:"GDS Transport";
+  src:url("/fonts/light-94a07e06a1-v2.woff2")
+  format("woff2"),
+  url("/assets/fonts/light-f591b13f7d-v2.woff")
+  format("woff");
+  font-weight:normal;
+  font-style:normal;
+  font-display:fallback
 }
 
-.navbar-default {
-    background-color: #0b0c0c;
-    border-color: #0b0c0c;
+@font-face {
+  font-family:"GDS Transport";
+  src:url("/fonts/bold-b542beb274-v2.woff2")
+  format("woff2"),url("/assets/fonts/bold-affa96571d-v2.woff")
+  format("woff");
+  font-weight:bold;
+  font-style:normal;
+  font-display:fallback
 }
 
-.navbar-default .navbar-brand {
-    color: #ffffff;
-    font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
-    font-weight: bold;
-    font-size: 24px;
+html {
+  background-color: #f3f2f1;
 }
 
-.navbar-default .navbar-nav>li>a {
-    color: 	#ffffff;
-    font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
-    font-weight: bold;
-     font-size: 18px;
+a {
+  color: 	#1d70b8;
+  text-decoration: underline
 }
 
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>li>a:hover {
-    color: #ffffff;
-    background-color:	#505a5f;
-     font-size: 18px;
+a:hover {
+  color: 	#003078;
+  text-decoration: underline
+}
+
+a:visited {
+  color: 	#4c2c92;
+  text-decoration: underline
+}
+
+a:active {
+  color: 	#0b0c0c;
+  text-decoration: underline
+}
+
+/* This line sets the main area width. Originally set to 66.667% in the GDS 
+template. 80% works well here to reduce white space on the right hand side.*/
+.col-sm-8{ width: 67%}
+
+.container-fluid {
+  padding: 0px;
+}
+
+.row {
+  margin-right: 0px;
+}
+
+.nav-pills > li.active > a {
+  font-family: "GDS Transport", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 700;
+  line-height: 1.1428571429;
+  background-color: #f3f2f1 !important;
+  color: #1d70b8;
+  font-size: 15px;
+  border-color: #1d70b8;
+  text-decoration: none
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover {
+  color: #1d70b8 !important;
+}
+
+.nav-pills > li > a:focus,
+.nav-pills > li > a:hover {
+   border-color: #1d70b8;
+}
+
+.nav-pills > li > a {
+  font-family: "GDS Transport", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 700;
+  line-height: 1.1428571429;
+  font-size: 15px;
+  padding: 10px;
+  border-left: 4px solid transparent;
+  text-decoration: none
+}
+
+/* Tabs layout styling */
+
+.nav-tabs > li > a {
+  text-decoration: none
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  position: relative;
+  margin-top: -5px;
+  margin-bottom: -1px;
+  padding-top: 14px;
+  padding-right: 19px;
+  padding-bottom: 16px;
+  padding-left: 19px;
+  border: 1px solid #b1b4b6;
+  border-bottom: 0;
+  background-color: #fff;
+  text-decoration: none
 }
 
 .well {
-    height: 90vh; 
+    min-height: 90vh;
     padding: 19px;
     margin-bottom: 20px;
     background-color: #1d70b8;
@@ -37,25 +122,30 @@
     border-radius: 4px;
     -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%);
     box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%);
-    color: #ffffff;
-}
-
-body {
-   font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
-   font-size: 14px;
-   background-color: #ffffff
+    color: #fff;
 }
 
 
-.control-label{
-  color: #fff;
+/* Full screen plots */
+/* Adapted from https://stackoverflow.com/questions/69042546/is-there-a-way-to-create-a-full-screen-popup-window-of-a-plotly-chart-in-r */
+.plot-zoom {
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    bottom: 0;
+    right: 0;
+
 }
 
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-    font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
-    font-weight: bold;
+.full-screen {
+    position: fixed;
+    height: 99vh !important;
+    width: 99vw !important;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    overflow: hidden;
 }
-
 
 
 .small-box.bg-purple {
@@ -63,9 +153,17 @@ body {
     color: #ffffff;
 }
 
+.small-box.bg-white {
+    background-color: 	#ffffff !important;
+    color: #000000;
+}
+
+
 .small-box.bg-blue{
      background-color: #1d70b8 !important; 
      color: #ffffff;
+     padding: 120px
+     margin:10px;
 }
 
 .small-box.bg-orange{
@@ -83,21 +181,65 @@ body {
      color: #ffffff;
 }
 
-.nav-tabs-custom>.nav-tabs>li.active {
-    border-top-color: #5694ca;
+.small-box.bg-dark-blue{
+     background-color: 	#12436D !important; 
+     color: #ffffff;
 }
 
-a {
-    color: #1d70b8;
+#ss-connect-dialog { display: none !important; }
+#shiny-disconnected-overlay { display: none !important; }
+        
+#ss-overlay {
+             background-color: #000000 !important;
+             opacity: 0.6 !important;
+             position: fixed !important;
+             top: 0 !important;
+             left: 0 !important;
+             bottom: 0 !important;
+             right: 0 !important;
+             z-index: 99998 !important;
+             overflow: hidden !important;
+             cursor: not-allowed !important;
+          }
+          
+#custom-disconnect-dialog {
+             background: #000000 !important;
+             color: #FFFFFF !important;
+             width: full !important;
+             transform: translateX(-50%) translateY(-50%) !important;
+             font-size: 16px !important;
+             top: 50% !important;
+             position: fixed !important;
+             bottom: auto !important;
+             left: 50% !important;
+             padding: 0.8em 1.5em !important;
+             text-align: center !important;
+             height: auto !important;
+             opacity: 1 !important;
+             z-index: 99999 !important;
+             border-radius: 3px !important;
+             box-shadow: rgba(0, 0, 0, 0.3) 3px 3px 10px !important;
+          }
+
+.govuk-width-container {
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
-.help-block{
-  color: #ffffff;
+.govuk-header__content,
+.govuk-header__logo {
+    box-sizing: border-box
 }
 
-.govuk-inset-text{
-  font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
-  font-size: 14px;
+.govuk-header__logo {
+    margin-bottom: 10px;
+    padding-right: 50px
+}
+
+@media (min-width:40.0625em) {
+    .govuk-header__logo {
+        margin-bottom: 10px
+    }
 }
 
 .govuk-details{
@@ -144,4 +286,40 @@ a {
         float: left !important;
         vertical-align: top !important;
     }
+}
+
+#vboxhead-small {
+  text-align: left;
+  font-weight: bold;
+  font-size: 36px;
+}
+
+#vboxdetail-small {
+  text-align: left;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+#vboxhead-medium {
+  text-align: left;
+  font-weight: bold;
+  font-size: 42px;
+}
+
+#vboxdetail-medium {
+  text-align: left;
+  font-weight: bold;
+  font-size: 26px;
+}
+
+#vboxhead-large {
+  text-align: left;
+  font-weight: bold;
+  font-size: 56px;
+}
+
+#vboxdetail-large {
+  text-align: left;
+  font-weight: bold;
+  font-size: 28px;
 }
