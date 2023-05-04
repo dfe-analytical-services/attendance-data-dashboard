@@ -793,7 +793,7 @@ process_attendance_data_spring <- function(df_attendance_raw, spring_start, spri
               across(matches("week_commencing"), ~ min(.x, na.rm = T)),
               across(matches("day_number"), ~ min(.x, na.rm = T)),
               across(where(is.numeric)& !c(time_identifier, attendance_date, day_number), ~ sum(.x, na.rm = T)),
-                     .groups="kept") %>%
+                     .groups="keep") %>%
     mutate(school_type = "Total",
            enrolments_pa_10_exact = "z",
            attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
