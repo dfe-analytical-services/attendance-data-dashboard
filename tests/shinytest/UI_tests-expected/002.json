@@ -2,12 +2,12 @@
   "input": {
     "dash": "headlines",
     "geography_choice": "National",
-    "la_choice": "",
+    "la_choice": "Derby",
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
     "link_to_reasons_tab": 0,
     "navlistPanel": "dashboard",
-    "region_choice": "",
+    "region_choice": "East Midlands",
     "school_choice": "Primary",
     "ts_choice": "Most recent week"
   },
@@ -29,11 +29,11 @@
             "automargin": true,
             "title": "Date",
             "tickvals": [
-              "2022-11-21",
-              "2022-11-22",
-              "2022-11-23",
-              "2022-11-24",
-              "2022-11-25"
+              "2023-04-17",
+              "2023-04-18",
+              "2023-04-19",
+              "2023-04-20",
+              "2023-04-21"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -105,18 +105,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2022-11-21",
-              "2022-11-22",
-              "2022-11-23",
-              "2022-11-24",
-              "2022-11-25"
+              "2023-04-17",
+              "2023-04-18",
+              "2023-04-19",
+              "2023-04-20",
+              "2023-04-21"
             ],
             "y": [
-              7.59052338430877,
-              7.13818453005922,
-              7.1244416099318,
-              7.06432828305296,
-              8.39072929013934
+              5.98758493001249,
+              4.7744036252807,
+              4.39809811611089,
+              4.37142003203711,
+              13.7281874274048
             ],
             "line": {
               "color": "black"
@@ -149,18 +149,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2022-11-21",
-              "2022-11-22",
-              "2022-11-23",
-              "2022-11-24",
-              "2022-11-25"
+              "2023-04-17",
+              "2023-04-18",
+              "2023-04-19",
+              "2023-04-20",
+              "2023-04-21"
             ],
             "y": [
-              6.20596827349704,
-              6.00686658042394,
-              5.9244480342131,
-              5.8950787765151,
-              6.83031314245181
+              3.17569875985072,
+              2.80287491356482,
+              2.70581821118498,
+              2.75018777865961,
+              11.5693737611737
             ],
             "line": {
               "color": "steelblue"
@@ -193,18 +193,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2022-11-21",
-              "2022-11-22",
-              "2022-11-23",
-              "2022-11-24",
-              "2022-11-25"
+              "2023-04-17",
+              "2023-04-18",
+              "2023-04-19",
+              "2023-04-20",
+              "2023-04-21"
             ],
             "y": [
-              1.38455511081173,
-              1.13131794963528,
-              1.1999935757187,
-              1.16924950653786,
-              1.56041614768753
+              2.81188617016177,
+              1.97152871171588,
+              1.69227990492591,
+              1.6212322533775,
+              2.15881366623111
             ],
             "line": {
               "color": "orangered"
@@ -348,8 +348,8 @@
       ]
     },
     "headline_bullet_title_nat": "Headline figures for the most recent week: primary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 7.5% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 92.5% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "• 5.6% of sessions were recorded as illness"
+    "weekly_absence_rate_nat": "• 6.6% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "• 93.4% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "• 2.2% of sessions were recorded as illness"
   }
 }

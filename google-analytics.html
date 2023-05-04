@@ -8,8 +8,15 @@
     gtag('config', 'G-DG7P4WLB0Y');
   
     $(document).on('change', '#bins', function(e) {
-    ga('send', 'event', 'widget', 'select_bins', $(e.currentTarget).val());
-  });
+      ga('send', 'event', 'widget', 'select_bins', $(e.currentTarget).val());
+    });
+
+    $(document).on('shiny:disconnected', function(e) {
+      gtag('event', 'disconnect', { 
+        'event_label' : 'Disconnect',
+        'event_category' : 'Disconnect'
+      });
+    });
   
   </script>
       

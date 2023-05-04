@@ -62,121 +62,35 @@ server <- function(input, output, session) {
 
   # Setting up reactive levels for dropdown ------------------------------------------------------------
 
-  # Overarching geographic levels
-  geog_levels <- reactive({
-    geog_lookup %>%
-      dplyr::select(geographic_level) %>%
-      unique() %>%
-      as.data.table()
-  })
-
-  output$levels_filtered <- renderUI({
-    selectInput(
-      inputId = "geography_choice",
-      label = "Choose geographic breakdown level:",
-      choices = geog_levels(),
-      selected = head(geog_levels, 1)
-    )
-  })
-
-
-  # Regional geographies
-  reg_geog <- reactive({
-    geog_lookup %>%
-      dplyr::filter(geographic_level == input$geography_choice) %>%
-      dplyr::select(region_name) %>%
-      unique() %>%
-      as.data.table()
-  })
-
-  observe({
-    if (input$geography_choice != "National") {
-      reg_geog <- geog_lookup %>%
-        dplyr::filter(geographic_level == input$geography_choice) %>%
-        dplyr::select(region_name) %>%
-        unique() %>%
-        as.data.table()
-    }
-    updateSelectInput(session, "region_choice",
-      choices = reg_geog()
-    )
-  })
-
-  output$reg_filtered <- renderUI({
-    selectInput(
-      inputId = "region_choice",
-      label = "Choose region:",
-      choices = reg_geog(),
-      selected = head(reg_geog, 1)
-    )
-  })
-
-
   # Local authority geographies
-  la_geog <- reactive({
-    geog_lookup %>%
-      dplyr::filter(geographic_level == input$geography_choice, region_name == input$region_choice) %>%
-      dplyr::select(la_name) %>%
-      unique() %>%
-      as.data.table()
+  observe({
+    la_geog <- geog_lookup %>%
+      filter(
+        geographic_level == "Local authority",
+        region_name == input$region_choice
+      ) %>%
+      pull(la_name) %>%
+      unique()
+    updateSelectInput(session, "la_choice",
+      choices = la_geog
+    )
   })
 
   observe({
-    if (input$geography_choice == "Local authority") {
-      la_geog <- geog_lookup %>%
-        dplyr::filter(geographic_level == input$geography_choice, region_name == input$region_choice) %>%
-        dplyr::select(la_name) %>%
-        unique() %>%
-        as.data.table()
-    }
-    updateSelectInput(session, "la_choice",
-      choices = la_geog()
-    )
-  })
-
-  output$la_filtered <- renderUI({
-    selectInput(
-      inputId = "la_choice",
-      label = "Choose local authority:",
-      choices = la_geog(),
-      selected = head(la_geog, 1)
-    )
-  })
-
-
-
-
-  # School types
-  schools <- reactive({
     if (input$dash == "la comparisons") {
-      (school_type_lookup %>%
+      choicesSchools <- (school_type_lookup %>%
         dplyr::filter(geographic_level == "Local authority"))$school_type %>%
         unique()
     } else {
-      (school_type_lookup %>%
+      choicesSchools <- (school_type_lookup %>%
         dplyr::filter(geographic_level == input$geography_choice))$school_type %>%
         unique()
     }
-  })
-
-  observe({
-    choicesSchools <- schools()
     updateSelectInput(session, "school_choice",
-      choices = schools()
+      choices = choicesSchools,
+      selected = input$school_choice
     )
   })
-
-  output$schools_filtered <- renderUI({
-    selectInput(
-      inputId = "school_choice",
-      label = "Choose school type:",
-      choices = schools(),
-      selected = head(schools, 1)
-    )
-  })
-
-
-
 
 
   # Defining reactive data ------------------------------------------------------------
@@ -189,18 +103,16 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "National",
         school_type == input$school_choice,
         time_period == max(time_period),
-        time_identifier == (max(time_identifier)),
         breakdown == "Daily"
-      )
+      ) %>% filter(time_identifier == max(time_identifier))
     } else if (input$geography_choice == "Regional") {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
         school_type == input$school_choice,
         time_period == max(time_period),
-        time_identifier == (max(time_identifier)),
         breakdown == "Daily"
-      )
+      ) %>% filter(time_identifier == max(time_identifier))
     } else if (input$geography_choice == "Local authority") {
       dplyr::filter(
         attendance_data, geographic_level == "Local authority",
@@ -208,9 +120,8 @@ server <- function(input, output, session) {
         la_name == input$la_choice,
         school_type == input$school_choice,
         time_period == max(time_period),
-        time_identifier == (max(time_identifier)),
         breakdown == "Daily"
-      )
+      ) %>% filter(time_identifier == max(time_identifier))
     } else {
       NA
     }
@@ -224,18 +135,16 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "National",
         school_type == input$school_choice,
         time_period == max(time_period),
-        time_identifier == (max(time_identifier)),
         breakdown == "Weekly"
-      )
+      ) %>% filter(time_identifier == max(time_identifier))
     } else if (input$geography_choice == "Regional") {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
         school_type == input$school_choice,
         time_period == max(time_period),
-        time_identifier == (max(time_identifier)),
         breakdown == "Weekly"
-      )
+      ) %>% filter(time_identifier == max(time_identifier))
     } else if (input$geography_choice == "Local authority") {
       dplyr::filter(
         attendance_data, geographic_level == "Local authority",
@@ -243,9 +152,38 @@ server <- function(input, output, session) {
         la_name == input$la_choice,
         school_type == input$school_choice,
         time_period == max(time_period),
-        time_identifier == (max(time_identifier)),
         breakdown == "Weekly"
-      )
+      ) %>% filter(time_identifier == max(time_identifier))
+    } else {
+      NA
+    }
+  })
+
+  live_attendance_data_weekly_pre_ht <- reactive({
+    if (input$geography_choice == "National") {
+      dplyr::filter(
+        attendance_data, geographic_level == "National",
+        school_type == input$school_choice,
+        time_period == max(time_period),
+        breakdown == "Weekly"
+      ) %>% filter(time_identifier == "6")
+    } else if (input$geography_choice == "Regional") {
+      dplyr::filter(
+        attendance_data, geographic_level == "Regional",
+        region_name == input$region_choice,
+        school_type == input$school_choice,
+        time_period == max(time_period),
+        breakdown == "Weekly"
+      ) %>% filter(time_identifier == "6")
+    } else if (input$geography_choice == "Local authority") {
+      dplyr::filter(
+        attendance_data, geographic_level == "Local authority",
+        region_name == input$region_choice,
+        la_name == input$la_choice,
+        school_type == input$school_choice,
+        time_period == max(time_period),
+        breakdown == "Weekly"
+      ) %>% filter(time_identifier == "6")
     } else {
       NA
     }
@@ -258,44 +196,46 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "National",
         school_type == input$school_choice,
         time_period == max(time_period),
-        time_identifier == (max(time_identifier)),
         breakdown == "Weekly"
-      ) %>% mutate(
-        illness_perc = illness_perc / 100,
-        appointments_perc = appointments_perc / 100,
-        auth_religious_perc = auth_religious_perc / 100,
-        auth_study_perc = auth_study_perc / 100,
-        auth_grt_perc = auth_grt_perc / 100,
-        auth_holiday_perc = auth_holiday_perc / 100,
-        auth_excluded_perc = auth_excluded_perc / 100,
-        auth_other_perc = auth_other_perc / 100,
-        unauth_hol_perc = unauth_hol_perc / 100,
-        unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
-        unauth_oth_perc = unauth_oth_perc / 100,
-        unauth_not_yet_perc = unauth_not_yet_perc / 100
-      )
+      ) %>%
+        filter(time_identifier == max(time_identifier)) %>%
+        mutate(
+          illness_perc = illness_perc / 100,
+          appointments_perc = appointments_perc / 100,
+          auth_religious_perc = auth_religious_perc / 100,
+          auth_study_perc = auth_study_perc / 100,
+          auth_grt_perc = auth_grt_perc / 100,
+          auth_holiday_perc = auth_holiday_perc / 100,
+          auth_excluded_perc = auth_excluded_perc / 100,
+          auth_other_perc = auth_other_perc / 100,
+          unauth_hol_perc = unauth_hol_perc / 100,
+          unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
+          unauth_oth_perc = unauth_oth_perc / 100,
+          unauth_not_yet_perc = unauth_not_yet_perc / 100
+        )
     } else if (input$geography_choice == "Regional") {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
         school_type == input$school_choice,
         time_period == max(time_period),
-        time_identifier == (max(time_identifier)),
         breakdown == "Weekly"
-      ) %>% mutate(
-        illness_perc = illness_perc / 100,
-        appointments_perc = appointments_perc / 100,
-        auth_religious_perc = auth_religious_perc / 100,
-        auth_study_perc = auth_study_perc / 100,
-        auth_grt_perc = auth_grt_perc / 100,
-        auth_holiday_perc = auth_holiday_perc / 100,
-        auth_excluded_perc = auth_excluded_perc / 100,
-        auth_other_perc = auth_other_perc / 100,
-        unauth_hol_perc = unauth_hol_perc / 100,
-        unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
-        unauth_oth_perc = unauth_oth_perc / 100,
-        unauth_not_yet_perc = unauth_not_yet_perc / 100
-      )
+      ) %>%
+        filter(time_identifier == max(time_identifier)) %>%
+        mutate(
+          illness_perc = illness_perc / 100,
+          appointments_perc = appointments_perc / 100,
+          auth_religious_perc = auth_religious_perc / 100,
+          auth_study_perc = auth_study_perc / 100,
+          auth_grt_perc = auth_grt_perc / 100,
+          auth_holiday_perc = auth_holiday_perc / 100,
+          auth_excluded_perc = auth_excluded_perc / 100,
+          auth_other_perc = auth_other_perc / 100,
+          unauth_hol_perc = unauth_hol_perc / 100,
+          unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
+          unauth_oth_perc = unauth_oth_perc / 100,
+          unauth_not_yet_perc = unauth_not_yet_perc / 100
+        )
     } else if (input$geography_choice == "Local authority") {
       dplyr::filter(
         attendance_data, geographic_level == "Local authority",
@@ -303,27 +243,27 @@ server <- function(input, output, session) {
         la_name == input$la_choice,
         school_type == input$school_choice,
         time_period == max(time_period),
-        time_identifier == (max(time_identifier)),
         breakdown == "Weekly"
-      ) %>% mutate(
-        illness_perc = illness_perc / 100,
-        appointments_perc = appointments_perc / 100,
-        auth_religious_perc = auth_religious_perc / 100,
-        auth_study_perc = auth_study_perc / 100,
-        auth_grt_perc = auth_grt_perc / 100,
-        auth_holiday_perc = auth_holiday_perc / 100,
-        auth_excluded_perc = auth_excluded_perc / 100,
-        auth_other_perc = auth_other_perc / 100,
-        unauth_hol_perc = unauth_hol_perc / 100,
-        unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
-        unauth_oth_perc = unauth_oth_perc / 100,
-        unauth_not_yet_perc = unauth_not_yet_perc / 100
-      )
+      ) %>%
+        filter(time_identifier == max(time_identifier)) %>%
+        mutate(
+          illness_perc = illness_perc / 100,
+          appointments_perc = appointments_perc / 100,
+          auth_religious_perc = auth_religious_perc / 100,
+          auth_study_perc = auth_study_perc / 100,
+          auth_grt_perc = auth_grt_perc / 100,
+          auth_holiday_perc = auth_holiday_perc / 100,
+          auth_excluded_perc = auth_excluded_perc / 100,
+          auth_other_perc = auth_other_perc / 100,
+          unauth_hol_perc = unauth_hol_perc / 100,
+          unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
+          unauth_oth_perc = unauth_oth_perc / 100,
+          unauth_not_yet_perc = unauth_not_yet_perc / 100
+        )
     } else {
       NA
     }
   })
-
 
   # YTD data for reasons tables
   live_attendance_data_ytd_reasons_tables <- reactive({
@@ -331,7 +271,7 @@ server <- function(input, output, session) {
       dplyr::filter(
         attendance_data, geographic_level == "National",
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "YTD"
       ) %>% mutate(
         illness_perc = illness_perc / 100,
@@ -345,14 +285,15 @@ server <- function(input, output, session) {
         unauth_hol_perc = unauth_hol_perc / 100,
         unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
         unauth_oth_perc = unauth_oth_perc / 100,
-        unauth_not_yet_perc = unauth_not_yet_perc / 100
+        unauth_not_yet_perc = unauth_not_yet_perc / 100,
+        pa_perc = pa_perc / 100
       )
     } else if (input$geography_choice == "Regional") {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "YTD"
       ) %>% mutate(
         illness_perc = illness_perc / 100,
@@ -366,7 +307,8 @@ server <- function(input, output, session) {
         unauth_hol_perc = unauth_hol_perc / 100,
         unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
         unauth_oth_perc = unauth_oth_perc / 100,
-        unauth_not_yet_perc = unauth_not_yet_perc / 100
+        unauth_not_yet_perc = unauth_not_yet_perc / 100,
+        pa_perc = pa_perc / 100
       )
     } else if (input$geography_choice == "Local authority") {
       dplyr::filter(
@@ -374,7 +316,7 @@ server <- function(input, output, session) {
         region_name == input$region_choice,
         la_name == input$la_choice,
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "YTD"
       ) %>% mutate(
         illness_perc = illness_perc / 100,
@@ -388,7 +330,8 @@ server <- function(input, output, session) {
         unauth_hol_perc = unauth_hol_perc / 100,
         unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
         unauth_oth_perc = unauth_oth_perc / 100,
-        unauth_not_yet_perc = unauth_not_yet_perc / 100
+        unauth_not_yet_perc = unauth_not_yet_perc / 100,
+        pa_perc = pa_perc / 100
       )
     } else {
       NA
@@ -401,9 +344,9 @@ server <- function(input, output, session) {
       attendance_data, geographic_level == "Local authority",
       school_type == input$school_choice,
       time_period == max(time_period),
-      time_identifier == (max(time_identifier)),
       breakdown == "Weekly"
     ) %>%
+      filter(time_identifier == max(time_identifier)) %>%
       mutate(
         overall_absence_perc = overall_absence_perc / 100,
         authorised_absence_perc = authorised_absence_perc / 100,
@@ -418,9 +361,8 @@ server <- function(input, output, session) {
       attendance_data, geographic_level == "National",
       school_type == input$school_choice,
       time_period == max(time_period),
-      time_identifier == (max(time_identifier)),
       breakdown == "Weekly"
-    )
+    ) %>% filter(time_identifier == max(time_identifier))
   })
 
   live_attendance_data_weekly_regcomp <- reactive({
@@ -429,9 +371,8 @@ server <- function(input, output, session) {
       region_name == input$region_choice,
       school_type == input$school_choice,
       time_period == max(time_period),
-      time_identifier == (max(time_identifier)),
       breakdown == "Weekly"
-    )
+    ) %>% filter(time_identifier == max(time_identifier))
   })
 
 
@@ -440,7 +381,7 @@ server <- function(input, output, session) {
     filter(
       attendance_data, geographic_level == "National",
       school_type == input$school_choice,
-      time_period == max(time_period),
+      # time_period == max(time_period),
       breakdown == "YTD"
     )
   })
@@ -450,7 +391,7 @@ server <- function(input, output, session) {
       attendance_data, geographic_level == "Regional",
       region_name == input$region_choice,
       school_type == input$school_choice,
-      time_period == max(time_period),
+      # time_period == max(time_period),
       breakdown == "YTD"
     )
   })
@@ -462,7 +403,7 @@ server <- function(input, output, session) {
       dplyr::filter(
         attendance_data, geographic_level == "National",
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "Weekly"
       )
     } else if (input$geography_choice == "Regional") {
@@ -470,7 +411,7 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "Weekly"
       )
     } else if (input$geography_choice == "Local authority") {
@@ -479,7 +420,7 @@ server <- function(input, output, session) {
         region_name == input$region_choice,
         la_name == input$la_choice,
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "Weekly"
       )
     } else {
@@ -493,7 +434,7 @@ server <- function(input, output, session) {
       dplyr::filter(
         attendance_data, geographic_level == "National",
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "YTD"
       )
     } else if (input$geography_choice == "Regional") {
@@ -501,7 +442,7 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "YTD"
       )
     } else if (input$geography_choice == "Local authority") {
@@ -510,7 +451,7 @@ server <- function(input, output, session) {
         region_name == input$region_choice,
         la_name == input$la_choice,
         school_type == input$school_choice,
-        time_period == max(time_period),
+        # time_period == max(time_period),
         breakdown == "YTD"
       )
     } else {
@@ -582,6 +523,7 @@ server <- function(input, output, session) {
 
   output$absence_rates_timeseries_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_ts()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ts()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_rates_ytd <- live_attendance_data_ts()
 
@@ -639,7 +581,7 @@ server <- function(input, output, session) {
         tickmode = "linear",
         tick0 = "2022-09-12",
         # dtick = "M1"
-        dtick = 86400000 * 7
+        dtick = 86400000 * 14
       )
     )
   })
@@ -658,6 +600,7 @@ server <- function(input, output, session) {
 
   output$absence_rates_daily_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_daily()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_daily()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_rates_weekly <- live_attendance_data_daily() %>%
       arrange(attendance_date)
@@ -724,8 +667,10 @@ server <- function(input, output, session) {
       paste0("Weekly summary of absence reasons for ", "<br>", str_to_lower(input$school_choice), " state-funded schools", " at ", str_to_lower(input$geography_choice), " level", "<br>", "(", input$region_choice, ", ", input$la_choice, ")")
     }
   })
+
   output$absence_reasons_timeseries_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_ts()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ts()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_reasons_ytd <- live_attendance_data_ts()
 
@@ -806,7 +751,7 @@ server <- function(input, output, session) {
         tickmode = "linear",
         tick0 = "2022-09-12",
         # dtick = "M1"
-        dtick = 86400000 * 7
+        dtick = 86400000 * 14
       ),
       margin = list(t = 80)
     )
@@ -826,6 +771,7 @@ server <- function(input, output, session) {
 
   output$absence_reasons_daily_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_daily()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_daily()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_rates_weekly <- live_attendance_data_daily() %>%
       arrange(attendance_date)
@@ -937,9 +883,9 @@ server <- function(input, output, session) {
       time_period == max(time_period),
       geographic_level == "National",
       school_type == "Total",
-      time_identifier == max(time_identifier),
       day_number == "5"
     ) %>%
+    filter(time_identifier == max(time_identifier)) %>%
     pull(num_schools) %>%
     sum()
 
@@ -948,46 +894,75 @@ server <- function(input, output, session) {
       time_period == max(time_period),
       geographic_level == "National",
       school_type == "Total",
-      time_identifier == max(time_identifier),
       day_number == "5"
     ) %>%
+    filter(time_identifier == max(time_identifier)) %>%
+    pull(attendance_date)
+
+  schools_count_pre_ht <- attendance_data %>%
+    filter(
+      time_period == max(time_period),
+      geographic_level == "National",
+      school_type == "Total",
+      day_number == "5"
+    ) %>%
+    filter(time_identifier == "6") %>%
+    pull(num_schools) %>%
+    sum()
+
+  schools_count_date_pre_ht <- attendance_data %>%
+    filter(
+      time_period == max(time_period),
+      geographic_level == "National",
+      school_type == "Total",
+      day_number == "5"
+    ) %>%
+    filter(time_identifier == "6") %>%
     pull(attendance_date)
 
   output$daily_schools_count <- renderText({
     paste0(scales::comma(schools_count), " schools provided information on the most recent full day of data, i.e. ", schools_count_date)
+    # paste0(scales::comma(schools_count_pre_ht), " schools provided information on the last full day of data prior to half-term, i.e. ", schools_count_date_pre_ht)
   })
 
 
   # Proportion of schools in census figures are generated from - most recent week
   output$school_count_proportion_weekly <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     count_prop_week <- live_attendance_data_weekly() %>%
+      # count_prop_week <- live_attendance_data_weekly_pre_ht() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
+    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the most recent week due to half-term impacting upon number of schools reporting.")
     paste0("For this breakdown, in the latest week there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date.")
   })
 
   output$school_count_proportion_weekly2 <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     count_prop_week <- live_attendance_data_weekly() %>%
+      # count_prop_week <- live_attendance_data_weekly_pre_ht() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
+    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the most recent week due to half-term impacting upon number of schools reporting.")
     paste0("For this breakdown, in the latest week there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date.")
   })
 
   # Proportion of schools in census figures are generated from - year to date
   output$school_count_proportion_ytd <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     count_prop_week <- live_attendance_data_ytd() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    paste0("For this breakdown, measures for the year to date are produced based on ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools")
+    paste0("For this breakdown, across the year-to-date there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in.")
   })
 
   # Headline attendance most recent week
@@ -995,6 +970,7 @@ server <- function(input, output, session) {
   # Bullet for national level
   output$weekly_attendance_rate_nat <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
       "• ", live_attendance_data_weekly() %>% pull(attendance_perc) %>% round(digits = 1),
@@ -1005,6 +981,7 @@ server <- function(input, output, session) {
   # Bullet for regional level
   output$weekly_attendance_rate_reg <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     weekly_headline_att <- live_attendance_data_weekly() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
@@ -1024,6 +1001,7 @@ server <- function(input, output, session) {
   # Bullet for LA level
   output$weekly_attendance_rate_la <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
       "• ", live_attendance_data_weekly() %>%
@@ -1041,6 +1019,7 @@ server <- function(input, output, session) {
   # Bullet for national level
   output$ytd_attendance_rate_nat <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
       "• ", live_attendance_data_ytd() %>% pull(attendance_perc) %>% round(digits = 1),
@@ -1051,6 +1030,7 @@ server <- function(input, output, session) {
   # Bullet for regional level
   output$ytd_attendance_rate_reg <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
       "• ", live_attendance_data_ytd() %>%
@@ -1066,6 +1046,7 @@ server <- function(input, output, session) {
   # Bullet for LA level
   output$ytd_attendance_rate_la <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
       "• ", live_attendance_data_ytd() %>%
@@ -1084,6 +1065,7 @@ server <- function(input, output, session) {
   # Bullet for national level
   output$weekly_absence_rate_nat <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_weekly() %>% pull(overall_absence_perc) %>% round(digits = 1),
@@ -1094,6 +1076,7 @@ server <- function(input, output, session) {
   # Bullet for regional level
   output$weekly_absence_rate_reg <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     weekly_headline_abs <- live_attendance_data_weekly() %>%
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
@@ -1117,6 +1100,7 @@ server <- function(input, output, session) {
   # Bullet for LA level
   output$weekly_absence_rate_la <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_weekly() %>%
@@ -1134,6 +1118,7 @@ server <- function(input, output, session) {
   # Bullet for national level
   output$ytd_absence_rate_nat <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_ytd() %>% pull(overall_absence_perc) %>% round(digits = 1),
@@ -1144,6 +1129,7 @@ server <- function(input, output, session) {
   # Bullet for regional level
   output$ytd_absence_rate_reg <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_ytd() %>%
@@ -1159,6 +1145,7 @@ server <- function(input, output, session) {
   # Bullet for LA level
   output$ytd_absence_rate_la <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_ytd() %>%
@@ -1176,6 +1163,7 @@ server <- function(input, output, session) {
   # Bullet for national level
   output$weekly_illness_rate_nat <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_weekly() %>% pull(illness_perc) %>% round(digits = 1),
@@ -1186,6 +1174,7 @@ server <- function(input, output, session) {
   # Bullet for regional level
   output$weekly_illness_rate_reg <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_weekly() %>%
@@ -1201,6 +1190,7 @@ server <- function(input, output, session) {
   # Bullet for LA level
   output$weekly_illness_rate_la <- renderText({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_weekly() %>%
@@ -1218,6 +1208,7 @@ server <- function(input, output, session) {
   # Bullet for national level
   output$ytd_illness_rate_nat <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_ytd() %>% pull(illness_perc) %>% round(digits = 1),
@@ -1228,6 +1219,7 @@ server <- function(input, output, session) {
   # Bullet for regional level
   output$ytd_illness_rate_reg <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_ytd() %>%
@@ -1243,6 +1235,7 @@ server <- function(input, output, session) {
   # Bullet for LA level
   output$ytd_illness_rate_la <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
       "• ", live_attendance_data_ytd() %>%
@@ -1256,7 +1249,49 @@ server <- function(input, output, session) {
   })
 
 
+  # Headline persistent absence ytd
+  # Bullet for national level
+  output$ytd_pa_rate_nat <- renderText({
+    validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
+    paste0(
+      "• ", live_attendance_data_ytd() %>% pull(pa_perc) %>% round(digits = 1),
+      "% of pupils were recorded as persistently absent"
+    )
+  })
+
+  # Bullet for regional level
+  output$ytd_pa_rate_reg <- renderText({
+    validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
+
+    paste0(
+      "• ", live_attendance_data_ytd() %>%
+        pull(pa_perc) %>%
+        round(digits = 1),
+      "% of pupils were recorded as persistently absent in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
+        pull(pa_perc) %>%
+        round(digits = 1),
+      "% of pupils at national level)"
+    )
+  })
+
+  # Bullet for LA level
+  output$ytd_pa_rate_la <- renderText({
+    validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
+
+    paste0(
+      "• ", live_attendance_data_ytd() %>%
+        pull(pa_perc) %>%
+        round(digits = 1),
+      "% of pupils were recorded as persistently absent in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
+        pull(pa_perc) %>%
+        round(digits = 1),
+      "% of pupils in ", input$region_choice, ")"
+    )
+  })
 
 
   # Creating reactive dates for text ------------------------------------------------------------
@@ -1264,25 +1299,32 @@ server <- function(input, output, session) {
   # Most recent full week
   output$headline_update_date <- renderText({
     validate(need(input$geography_choice != "", ""))
+    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
       as.Date(attendance_date) + 17
+    # as.Date(attendance_date) + 24
 
     paste0("Data was last updated on ", last_update_date, ".")
   })
 
   output$la_clarity_dates <- renderText({
     validate(need(input$geography_choice != "", ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
+    # paste0("Data on this tab relates to the week commencing 2023-02-20")
     paste0("Data on this tab relates to the week commencing ", most_recent_fullweek_date, ".")
   })
 
   output$update_dates <- renderText({
     validate(need(input$geography_choice != "", ""))
+    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
@@ -1290,16 +1332,21 @@ server <- function(input, output, session) {
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
       as.Date(attendance_date) + 17
+    # as.Date(attendance_date) + 24
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
       as.Date(attendance_date) + 31
+    # as.Date(attendance_date) + 38
 
+    # paste0("Data was last updated on 2023-03-09 and is next expected to be updated on 2023-03-23. The most recent full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
   output$update_dates2 <- renderText({
     validate(need(input$geography_choice != "", ""))
+    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
@@ -1307,17 +1354,21 @@ server <- function(input, output, session) {
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
       as.Date(attendance_date) + 17
+    # as.Date(attendance_date) + 24
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
       as.Date(attendance_date) + 31
+    # as.Date(attendance_date) + 38
 
+    # paste0("Data was last updated on 2023-03-09 and is next expected to be updated on 2023-03-23. The most recent full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
 
   output$homepage_update_dates <- renderText({
     validate(need(input$geography_choice != "", ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
@@ -1325,10 +1376,12 @@ server <- function(input, output, session) {
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
       as.Date(attendance_date) + 17
+    # as.Date(attendance_date) + 24
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
       as.Date(attendance_date) + 31
+    # as.Date(attendance_date) + 38
 
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
@@ -1342,6 +1395,7 @@ server <- function(input, output, session) {
   # weekly overall absence rate
   output$headline_absence_rate_weekly <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     overall_absence_rate_weekly_headline <- live_attendance_data_weekly()
     pull(overall_absence_perc) %>%
@@ -1358,6 +1412,7 @@ server <- function(input, output, session) {
   # ytd overall absence rate
   output$headline_absence_rate_ytd <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     overall_absence_rate_ytd_headline <- live_attendance_data_ytd() %>%
       pull(overall_absence_perc) %>%
@@ -1377,6 +1432,7 @@ server <- function(input, output, session) {
   # weekly auth absence rate
   output$headline_auth_rate_weekly <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     overall_auth_rate_weekly_headline <- live_attendance_data_weekly() %>%
       pull(authorised_absence_perc) %>%
@@ -1393,6 +1449,7 @@ server <- function(input, output, session) {
   # ytd auth absence rate
   output$headline_auth_rate_ytd <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     overall_auth_rate_ytd_headline <- live_attendance_data_ytd() %>%
       pull(authorised_absence_perc) %>%
@@ -1412,6 +1469,7 @@ server <- function(input, output, session) {
   # weekly unauth absence rate
   output$headline_unauth_rate_weekly <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     overall_unauth_rate_weekly_headline <- live_attendance_data_weekly() %>%
       pull(unauthorised_absence_perc) %>%
@@ -1428,6 +1486,7 @@ server <- function(input, output, session) {
   # ytd unauth absence rate
   output$headline_unauth_rate_ytd <- shinydashboard::renderValueBox({
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     overall_unauth_rate_ytd_headline <- live_attendance_data_ytd() %>%
       pull(unauthorised_absence_perc) %>%
@@ -1446,6 +1505,7 @@ server <- function(input, output, session) {
   # authorised reasons weekly
   output$absence_auth_reasons_table <- renderDT({
     validate(need(nrow(live_attendance_data_weekly_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_auth_reasons_dt <- live_attendance_data_weekly_reasons_tables() %>%
       dplyr::select(illness_perc, appointments_perc, auth_religious_perc, auth_study_perc, auth_grt_perc, auth_holiday_perc, auth_excluded_perc, auth_other_perc) %>%
@@ -1480,6 +1540,7 @@ server <- function(input, output, session) {
   # authorised reasons ytd
   output$absence_auth_reasons_table_ytd <- renderDT({
     validate(need(nrow(live_attendance_data_ytd_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_auth_reasons_ytd_dt <- live_attendance_data_ytd_reasons_tables() %>%
       dplyr::select(illness_perc, appointments_perc, auth_religious_perc, auth_study_perc, auth_grt_perc, auth_holiday_perc, auth_excluded_perc, auth_other_perc) %>%
@@ -1514,6 +1575,7 @@ server <- function(input, output, session) {
   # unauthorised reasons weekly
   output$absence_unauth_reasons_table <- renderDT({
     validate(need(nrow(live_attendance_data_weekly_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_unauth_reasons_dt <- live_attendance_data_weekly_reasons_tables() %>%
       dplyr::select(unauth_hol_perc, unauth_late_registers_closed_perc, unauth_oth_perc, unauth_not_yet_perc) %>%
@@ -1544,6 +1606,7 @@ server <- function(input, output, session) {
   # unauthorised reasons ytd
   output$absence_unauth_reasons_table_ytd <- renderDT({
     validate(need(nrow(live_attendance_data_ytd_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_ytd_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_unauth_reasons_ytd_dt <- live_attendance_data_ytd_reasons_tables() %>%
       dplyr::select(unauth_hol_perc, unauth_late_registers_closed_perc, unauth_oth_perc, unauth_not_yet_perc) %>%
@@ -1665,6 +1728,7 @@ server <- function(input, output, session) {
 
   mapdata0 <- attendance_data %>%
     mutate(time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))) %>%
+    filter(time_period == max(time_period)) %>%
     filter(time_identifier == max(time_identifier)) %>%
     filter(geographic_level == "Local authority") %>%
     filter(breakdown == "Weekly")

@@ -96,17 +96,30 @@ appLoadingCSS <- "
 source("R/support_links.R")
 source("R/prerun_utils.R")
 
-site_a <- "https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
-site_b <- "https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror"
+site_primary <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
+site_overflow <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror"
 site_c <- ""
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
-attendance_data_raw <- fread("data/export_2022_12_06.csv")
+attendance_data_raw <- fread("data/sql_export_2023_05_02_v2.csv")
+pa_data_raw <- fread("data/export_pa_output_2023_05_02_v2.csv")
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 start_date <- as.Date("2022-09-12")
-end_date <- as.Date("2022-11-25")
+end_date <- as.Date("2023-04-21")
 funeral_date <- as.Date("2022-09-19")
+strike_date_1 <- as.Date("2023-02-01")
+strike_date_2 <- as.Date("2023-03-15")
+strike_date_3 <- as.Date("2023-03-16")
+regional_strike_1 <- as.Date("2023-02-28")
+regional_strike_2 <- as.Date("2023-03-01")
+regional_strike_3 <- as.Date("2023-03-02")
+autumn_only_pa_data_raw <- fread("data/export_autumn_pa_output_2023_05_02_v2.csv")
+autumn_start <- as.Date("2022-09-12")
+autumn_end <- as.Date("2022-12-16")
+spring_only_pa_data_raw <- fread("data/export_spring_pa_output_2023_05_02_v2.csv")
+spring_start <- as.Date("2023-01-03")
+spring_end <- as.Date("2023-03-31")
 
 school_freq_count <- fread("data/enrolments_schools_denominator.csv")
 
@@ -115,6 +128,14 @@ attendance_data <- list_attendance$attendance_data
 attendance_data_daily_totals <- list_attendance$daily_totals
 attendance_data_weekly_totals <- list_attendance$weekly_totals
 attendance_data_ytd_totals <- list_attendance$ytd_totals
+
+list_attendance_autumn <- process_attendance_data_autumn(attendance_data_raw, autumn_start, autumn_end)
+attendance_data_autumn <- list_attendance_autumn$attendance_data_autumn
+attendance_data_autumn_totals <- list_attendance_autumn$autumn_totals
+
+list_attendance_spring <- process_attendance_data_spring(attendance_data_raw, spring_start, spring_end)
+attendance_data_spring <- list_attendance_spring$attendance_data_spring
+attendance_data_spring_totals <- list_attendance_spring$spring_totals
 
 EES_daily_data <- read_ees_daily()
 
@@ -140,3 +161,14 @@ geog_levels <- geog_lookup %>%
   dplyr::select(geographic_level) %>%
   unique() %>%
   as.data.table()
+
+regions <- geog_lookup %>%
+  filter(geographic_level == "Regional") %>%
+  arrange(region_name) %>%
+  pull(region_name) %>%
+  unique()
+las <- geog_lookup %>%
+  filter(geographic_level == "Local authority") %>%
+  arrange(region_name, la_name) %>%
+  pull(la_name) %>%
+  unique()
