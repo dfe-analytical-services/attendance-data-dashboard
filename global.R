@@ -102,11 +102,11 @@ site_c <- ""
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
-attendance_data_raw <- fread("data/sql_export_2023_04_18.csv")
-pa_data_raw <- fread("data/export_pa_output_2023_04_18.csv")
+attendance_data_raw <- fread("data/sql_export_2023_05_02_v2.csv")
+pa_data_raw <- fread("data/export_pa_output_2023_05_02_v2.csv")
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 start_date <- as.Date("2022-09-12")
-end_date <- as.Date("2023-04-07")
+end_date <- as.Date("2023-04-21")
 funeral_date <- as.Date("2022-09-19")
 strike_date_1 <- as.Date("2023-02-01")
 strike_date_2 <- as.Date("2023-03-15")
@@ -114,10 +114,10 @@ strike_date_3 <- as.Date("2023-03-16")
 regional_strike_1 <- as.Date("2023-02-28")
 regional_strike_2 <- as.Date("2023-03-01")
 regional_strike_3 <- as.Date("2023-03-02")
-autumn_only_pa_data_raw <- fread("data/export_autumn_pa_output_2023_04_18.csv")
+autumn_only_pa_data_raw <- fread("data/export_autumn_pa_output_2023_05_02_v2.csv")
 autumn_start <- as.Date("2022-09-12")
 autumn_end <- as.Date("2022-12-16")
-spring_only_pa_data_raw <- fread("data/export_spring_pa_output_2023_04_18.csv")
+spring_only_pa_data_raw <- fread("data/export_spring_pa_output_2023_05_02_v2.csv")
 spring_start <- as.Date("2023-01-03")
 spring_end <- as.Date("2023-03-31")
 
