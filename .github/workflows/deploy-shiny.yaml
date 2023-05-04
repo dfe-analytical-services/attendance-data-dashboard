@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - main
+      - development
 
 name: deploy-shiny
 
@@ -30,6 +31,17 @@ jobs:
         with:
           r-version: 4.2.1
           use-public-rspm: true
+
+      - name: Set env vars (dev)
+        if: endsWith(github.ref, '/development')
+        run: |
+          echo "SHINYAPP_NAME='dev-pupil-attendance-in-schools-template'" >> $GITHUB_ENV
+          echo "SHINYAPP_OVERFLOW_NAME='dev-pupil-attendance-in-schools-overflow'">> $GITHUB_ENV
+      - name: Set env vars (prod)
+        if: endsWith(github.ref, '/main')
+        run: |
+          echo "SHINYAPP_NAME='pupil-attendance-in-schools'">> $GITHUB_ENV
+          echo "SHINYAPP_OVERFLOW_NAME='pupil-attendance-in-schools-overflow'">> $GITHUB_ENV
 
       - name: Cache R packages
         if: runner.os != 'Windows'
@@ -66,5 +78,6 @@ jobs:
         run: >
           Rscript
           -e "rsconnect::setAccountInfo(name = 'department-for-education', token = '${{secrets.SHINYAPPS_TOKEN}}', secret = '${{secrets.SHINYAPPS_SECRET}}')"
-          -e "rsconnect::deployApp(appName= 'pupil-attendance-in-schools')"
-          -e "rsconnect::deployApp(appName= 'pupil-attendance-in-schools-mirror')"
+          -e "rsconnect::deployApp(appName=${{env.SHINYAPP_NAME}})"
+          -e "rsconnect::deployApp(appName=${{env.SHINYAPP_OVERFLOW_NAME}})"
+          
