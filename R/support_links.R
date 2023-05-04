@@ -1,5 +1,6 @@
 support_links <- function() {
   gov_main_layout(
+    gov_row(
     h2("Give us feedback"),
     "This dashboard is a new service that we are developing. If you have any feedback or suggestions for improvements, please submit them using our ",
     a(
@@ -27,5 +28,5 @@ support_links <- function() {
     br(),
     br(),
     br()
-  )
+  ))
 }

@@ -4,7 +4,7 @@ homepage_panel <- function() {
   tabPanel(
     "Homepage",
     gov_main_layout(
-      fluidRow(
+      gov_row(
         column(
           12,
           h1("Pupil attendance and absence in schools in England"), 
@@ -83,7 +83,7 @@ homepage_panel <- function() {
                   br(),
                   h3("Coverage"),
                   h4(textOutput("daily_schools_count")),
-                  p("This number is approximately 80% of the number of schools participating in the School Census. As schools opt in to sharing of data, the number of schools reporting may change over time."),
+                  p("This number is approximately 79% of the number of schools participating in the School Census. As schools opt in to sharing of data, the number of schools reporting may change over time."),
                   p("Absence rates are provided broken down by state-funded primary, secondary and special schools. At national and regional level, absence figures are also provided across all schools. In recognition that response rates are not equal across school types and, therefore, not representative of the total school population, the total absence figure for all schools has been weighted based on the Spring 2022 school census. Weighted total figures are not included at local authority level due to the low number of schools involved."),
                   br(),
                   h3("National statistics"),
@@ -132,7 +132,7 @@ dashboard_panel <- function() {
     # Sidebar with a slider input for number of bins
     
     gov_main_layout(
-      
+      gov_row(
       h1("Attendance and absence headlines and reasons"),
       
       
@@ -312,7 +312,7 @@ dashboard_panel <- function() {
                                )),
               conditionalPanel(condition = "input.ts_choice == 'Most recent week'",
                                br(),
-                               p(strong(paste0("To view persistent absence figures, select “year to date” in the drop-down menu. Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods. Underlying data relating to the Autumn term and year to date is available at the link below:"))),
+                               p(strong(paste0("To view persistent absence figures, select “year to date” in the drop-down menu. Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods. Underlying data relating to the Spring and Autumn terms and year to date is available at the link below:"))),
                                a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools")),
               
               br(),
@@ -430,7 +430,8 @@ dashboard_panel <- function() {
       # add box to show user input
     )
   )
-}
+  )
+  }
 
 # technical notes panel
 notes_panel <- function(){
@@ -447,6 +448,7 @@ notes_panel <- function(){
       referrer = "no-referrer"
     ),
     gov_main_layout(
+      gov_row(
       h2("Technical notes"),
       br("The dashboard provides data on attendance and absence at National, Regional and Local Authority geographic levels. Data is available across state-funded primary, secondary and special schools and can also be broken down by individual school type. Drop-down menus at the top of the page allow customisation of breakdowns."),
       br(),
@@ -461,6 +463,7 @@ notes_panel <- function(){
       br()
     )
   )
+  )
 }
 
 # accessibility panel
@@ -468,6 +471,7 @@ accessibility_panel <- function(){
   tabPanel(
     "Accessibility",
     gov_main_layout(
+      gov_row(
       h2("Accessibility statement"),
       br("This accessibility statement applies to the Pupil attendance in schools in England data dashboard.
             This application is run by the Department for Education. We want as many people as possible to be able to use this application,
@@ -489,7 +493,7 @@ accessibility_panel <- function(){
         a(href = "mailto:schools.statistics@education.gov.uk", "schools.statistics@education.gov.uk")
       )
     )
-  )
+  ))
 }
 
 # support panel
