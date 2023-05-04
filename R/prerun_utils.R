@@ -22,7 +22,7 @@ run_data_update_spring <- function(df_attendance_spring=attendance_data_spring){
 process_attendance_data <- function(df_attendance_raw, start_date, end_date, funeral_date){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
-  message("Processing attendance data")
+  message(paste("Processing attendance data,",Sys.time()))
   attendance_data <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -425,7 +425,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
 process_attendance_data_autumn <- function(df_attendance_raw, autumn_start, autumn_end){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
-  message("Processing Autumn attendance data")
+  message(paste("Processing Autumn attendance data,",Sys.time()))
   attendance_data_autumn <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -672,7 +672,7 @@ process_attendance_data_autumn <- function(df_attendance_raw, autumn_start, autu
 process_attendance_data_spring <- function(df_attendance_raw, spring_start, spring_end){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
-  message("Processing Spring attendance data")
+  message(paste("Processing Spring attendance data,",Sys.time()))
   attendance_data_spring <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
