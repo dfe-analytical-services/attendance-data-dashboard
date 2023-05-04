@@ -22,6 +22,7 @@ run_data_update_spring <- function(df_attendance_spring=attendance_data_spring){
 process_attendance_data <- function(df_attendance_raw, start_date, end_date, funeral_date){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
+  message("Processing attendance data")
   attendance_data <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -223,7 +224,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
   attendance_data_daily_totals <- attendance_data %>%
     filter(breakdown == "Daily") %>%
     group_by(breakdown, time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, attendance_date, day_number) %>%
-    summarise(across(where(is.numeric), sum)) %>%
+    summarise(across(where(is.numeric), sum), .groups='keep') %>%
     mutate(school_type = "Total",
            attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
            overall_absence_perc = (sum(overall_absence_perc_scaled) / sum(total_enrolments)),
@@ -249,10 +250,11 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
   attendance_data_weekly_totals <- attendance_data %>%
     filter(breakdown == "Weekly") %>%
     group_by(breakdown, time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
-    summarise(across(matches("attendance_date"), min, na.rm = T),
-              across(matches("day_number"), min, na.rm = T),
-              across(matches("week_commencing"), min, na.rm = T),
-              across(where(is.numeric)& !c(attendance_date, day_number), sum), na.rm = T) %>%
+    summarise(across(matches("attendance_date"), ~ min(.x, na.rm = T)),
+              across(matches("day_number"), ~ min(.x, na.rm = T)),
+              across(matches("week_commencing"), ~ min(.x, na.rm = T)),
+              across(where(is.numeric)& !c(attendance_date, day_number), ~ sum(.x, na.rm = T)),
+                     .groups='keep') %>%
     mutate(school_type = "Total",
            attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
            overall_absence_perc = (sum(overall_absence_perc_scaled) / sum(total_enrolments)),
@@ -278,12 +280,13 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
   attendance_data_ytd_totals <- attendance_data %>%
     filter(breakdown == "YTD") %>%
     group_by(breakdown, academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
-    summarise(across(matches("time_period"), min, na.rm = T),
-              across(matches("time_identifier"), min, na.rm = T),
-              across(matches("attendance_date"), min, na.rm = T),
-              across(matches("week_commencing"), min, na.rm = T),
-              across(matches("day_number"), min, na.rm = T),
-              across(where(is.numeric)& !c(time_identifier, attendance_date, day_number), sum), na.rm = T) %>%
+    summarise(across(matches("time_period"), ~ min(.x, na.rm = T)),
+              across(matches("time_identifier"), ~ min(.x, na.rm = T)),
+              across(matches("attendance_date"), ~ min(.x, na.rm = T)),
+              across(matches("week_commencing"), ~ min(.x, na.rm = T)),
+              across(matches("day_number"), ~ min(.x, na.rm = T)),
+              across(where(is.numeric)& !c(time_identifier, attendance_date, day_number), ~ sum(.x, na.rm = T)),
+                     .groups='keep') %>%
     mutate(school_type = "Total",
            attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
            overall_absence_perc = (sum(overall_absence_perc_scaled) / sum(total_enrolments)),
@@ -422,6 +425,7 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
 process_attendance_data_autumn <- function(df_attendance_raw, autumn_start, autumn_end){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
+  message("Processing Autumn attendance data")
   attendance_data_autumn <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -536,12 +540,14 @@ process_attendance_data_autumn <- function(df_attendance_raw, autumn_start, autu
   attendance_data_autumn_totals <- attendance_data_autumn %>%
     filter(breakdown == "AUT") %>%
     group_by(breakdown, time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
-    summarise(across(matches("time_period"), min, na.rm = T),
-              across(matches("time_identifier"), min, na.rm = T),
-              across(matches("attendance_date"), min, na.rm = T),
-              across(matches("week_commencing"), min, na.rm = T),
-              across(matches("day_number"), min, na.rm = T),
-              across(where(is.numeric)& !c(time_identifier, attendance_date, day_number), sum), na.rm = T) %>%
+    summarise(across(matches("time_period"), ~ min(.x, na.rm = T)),
+              across(matches("time_identifier"), ~ min(.x, na.rm = T)),
+              across(matches("attendance_date"), ~ min(.x, na.rm = T)),
+              across(matches("week_commencing"), ~ min(.x, na.rm = T)),
+              across(matches("day_number"), ~ min(.x, na.rm = T)),
+              across(where(is.numeric)& !c(time_identifier, attendance_date, day_number), ~ sum(.x , na.rm = T)),
+              .groups='keep'
+              ) %>%
     mutate(school_type = "Total",
            enrolments_pa_10_exact = "z",
            attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
@@ -666,6 +672,7 @@ process_attendance_data_autumn <- function(df_attendance_raw, autumn_start, autu
 process_attendance_data_spring <- function(df_attendance_raw, spring_start, spring_end){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
+  message("Processing Spring attendance data")
   attendance_data_spring <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -780,12 +787,13 @@ process_attendance_data_spring <- function(df_attendance_raw, spring_start, spri
   attendance_data_spring_totals <- attendance_data_spring %>%
     filter(breakdown == "SPR") %>%
     group_by(breakdown, time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
-    summarise(across(matches("time_period"), min, na.rm = T),
-              across(matches("time_identifier"), min, na.rm = T),
-              across(matches("attendance_date"), min, na.rm = T),
-              across(matches("week_commencing"), min, na.rm = T),
-              across(matches("day_number"), min, na.rm = T),
-              across(where(is.numeric)& !c(time_identifier, attendance_date, day_number), sum), na.rm = T) %>%
+    summarise(across(matches("time_period"), ~ min(.x, na.rm = T)),
+              across(matches("time_identifier"), ~ min(.x, na.rm = T)),
+              across(matches("attendance_date"), ~ min(.x, na.rm = T)),
+              across(matches("week_commencing"), ~ min(.x, na.rm = T)),
+              across(matches("day_number"), ~ min(.x, na.rm = T)),
+              across(where(is.numeric)& !c(time_identifier, attendance_date, day_number), ~ sum(.x, na.rm = T)),
+                     .groups="drop") %>%
     mutate(school_type = "Total",
            enrolments_pa_10_exact = "z",
            attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
