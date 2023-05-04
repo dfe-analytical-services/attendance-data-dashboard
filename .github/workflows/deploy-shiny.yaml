@@ -35,7 +35,7 @@ jobs:
       - name: Set env vars (dev)
         if: endsWith(github.ref, '/development')
         run: |
-          echo "SHINYAPP_NAME='dev-pupil-attendance-in-schools-template'" >> $GITHUB_ENV
+          echo "SHINYAPP_NAME='dev-pupil-attendance-in-schools'" >> $GITHUB_ENV
           echo "SHINYAPP_OVERFLOW_NAME='dev-pupil-attendance-in-schools-overflow'">> $GITHUB_ENV
       - name: Set env vars (prod)
         if: endsWith(github.ref, '/main')

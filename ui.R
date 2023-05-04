@@ -37,7 +37,6 @@ ui <- function(input, output, session) {
       # Add title for browser tabs
       tags$title("Pupil attendance and absence in schools in England")
     ),
-    
     shinyjs::useShinyjs(),
 
     # Setting custom disconnect message --------------------------------------------------------------------------------
