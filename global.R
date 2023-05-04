@@ -137,7 +137,7 @@ list_attendance_spring <- process_attendance_data_spring(attendance_data_raw, sp
 attendance_data_spring <- list_attendance_spring$attendance_data_spring
 attendance_data_spring_totals <- list_attendance_spring$spring_totals
 
-message(paste("Finished processing steps, ",Sys.time()))
+message(paste("Finished processing steps, ", Sys.time()))
 
 EES_daily_data <- read_ees_daily()
 
