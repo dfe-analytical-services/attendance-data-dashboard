@@ -53,6 +53,7 @@ template. 80% works well here to reduce white space on the right hand side.*/
 
 .row {
   margin-right: 0px;
+  margin-left: 0px;
 }
 
 .nav-pills > li.active > a {
