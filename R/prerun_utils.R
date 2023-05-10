@@ -2,21 +2,33 @@ run_data_update <- function(df_attendance=attendance_data){
   # Run this to udpate the comparison EES data files for QA checks.
   # The input is the attendance_data df produced in global.R, so you'll need to
   # source global.R before running this script.
+  process_data(attendance_raw, term_dates, strike_dates)
   create_ees_tables(df_attendance)  
+  create_ees_tables_autumn(df_attendance_autumn)  
+  create_ees_tables_spring(df_attendance_spring)  
 }
 
-run_data_update_autumn <- function(df_attendance_autumn=attendance_data_autumn){
+process_data <- function(...){
+  list1 <- process_attainment_data(...)
+  list2 <- process_attainment_data_autumn(...)
+  list3 <- process_attainment_data_spring(...)
+  write_out(list1, list2, list3)
+}
+
+read_in_data <- function(){
+  
+}
+
+run_data_update_autumn <- function(){
   # Run this to udpate the comparison EES data files for QA checks.
   # The input is the attendance_data df produced in global.R, so you'll need to
   # source global.R before running this script.
-  create_ees_tables_autumn(df_attendance_autumn)  
 }
 
 run_data_update_spring <- function(df_attendance_spring=attendance_data_spring){
   # Run this to udpate the comparison EES data files for QA checks.
   # The input is the attendance_data df produced in global.R, so you'll need to
   # source global.R before running this script.
-  create_ees_tables_spring(df_attendance_spring)  
 }
 
 process_attendance_data <- function(df_attendance_raw, start_date, end_date, funeral_date){
