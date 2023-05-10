@@ -1,40 +1,39 @@
-run_data_update <- function(df_attendance=attendance_data){
+run_data_update <- function(){
   # Run this to udpate the comparison EES data files for QA checks.
   # The input is the attendance_data df produced in global.R, so you'll need to
   # source global.R before running this script.
-  process_data(attendance_raw, term_dates, strike_dates)
-  create_ees_tables(df_attendance)  
-  create_ees_tables_autumn(df_attendance_autumn)  
-  create_ees_tables_spring(df_attendance_spring)  
+  pa_fullyear_file <- "data/export_pa_output_2023_05_02_v2.csv"
+  pa_autumn_file <- "data/export_autumn_pa_output_2023_05_02_v2.csv"
+  pa_spring_file <- "data/export_spring_pa_output_2023_05_02_v2.csv"
+  attendance_data_raw <- fread("data/sql_export_2023_05_02_v2.csv")
+  attendance_data <- process_attendance_data(
+    attendance_data_raw, 
+    start_date, end_date, funeral_date, 
+    pa_fullyear_file
+    )
+  # Write out dashboard data for the dashboard to use
+  write.csv()
+  # Process and write out further data for EES tables
+  attendance_data <- process_attendance_data_autumn(
+    attendance_data_raw, 
+    autumn_start, autumn_end, funeral_date, 
+    pa_autumn_file
+  )
+  attendance_data_spring <- process_attendance_data_spring(
+    attendance_data_raw, 
+    start_date, end_date, funeral_date, 
+    pa_spring_file
+  )
+  create_ees_tables(attendance_data)  
+  create_ees_tables_autumn(attendance_data_autumn)  
+  create_ees_tables_spring(attendance_data_spring)  
 }
 
-process_data <- function(...){
-  list1 <- process_attainment_data(...)
-  list2 <- process_attainment_data_autumn(...)
-  list3 <- process_attainment_data_spring(...)
-  write_out(list1, list2, list3)
-}
-
-read_in_data <- function(){
-  
-}
-
-run_data_update_autumn <- function(){
-  # Run this to udpate the comparison EES data files for QA checks.
-  # The input is the attendance_data df produced in global.R, so you'll need to
-  # source global.R before running this script.
-}
-
-run_data_update_spring <- function(df_attendance_spring=attendance_data_spring){
-  # Run this to udpate the comparison EES data files for QA checks.
-  # The input is the attendance_data df produced in global.R, so you'll need to
-  # source global.R before running this script.
-}
-
-process_attendance_data <- function(df_attendance_raw, start_date, end_date, funeral_date){
+process_attendance_data <- function(df_attendance_raw, start_date, end_date, funeral_date, pa_file){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   message(paste("Processing attendance data,",Sys.time()))
+  pa_data_raw <- fread(pa_file)
   attendance_data <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -434,10 +433,11 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
 }
 
 ## Processing autumn
-process_attendance_data_autumn <- function(df_attendance_raw, autumn_start, autumn_end){
+process_attendance_data_autumn <- function(df_attendance_raw, autumn_start, autumn_end, pa_file){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   message(paste("Processing Autumn attendance data,",Sys.time()))
+  autumn_only_pa_data_raw <- fread(pa_file)
   attendance_data_autumn <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -681,10 +681,11 @@ process_attendance_data_autumn <- function(df_attendance_raw, autumn_start, autu
 }
 
 ## Processing Spring
-process_attendance_data_spring <- function(df_attendance_raw, spring_start, spring_end){
+process_attendance_data_spring <- function(df_attendance_raw, spring_start, spring_end, pa_file){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   message(paste("Processing Spring attendance data,",Sys.time()))
+  spring_only_pa_data_raw <- fread(pa_file)
   attendance_data_spring <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
