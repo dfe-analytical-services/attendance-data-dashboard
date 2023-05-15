@@ -130,7 +130,7 @@ message(paste("Finished processing steps, ", Sys.time()))
 EES_daily_data <- read_ees_daily()
 
 # Add geog lookup
-geog_lookup <- attendance_data_raw %>%
+geog_lookup <- attendance_data %>%
   dplyr::select(geographic_level, region_name, la_name) %>%
   unique() %>%
   arrange(region_name, la_name)
