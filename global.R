@@ -119,15 +119,13 @@ autumn_end <- as.Date("2022-12-16")
 spring_start <- as.Date("2023-01-03")
 spring_end <- as.Date("2023-03-31")
 
-term_dates <- list(autumn_start=as.Date("2022-09-12")) 
-
+# term_dates <- list(autumn_start=as.Date("2022-09-12"))
 
 school_freq_count <- fread("data/enrolments_schools_denominator.csv")
 
 attendance_data <- read.csv("data/attendance_data_dashboard.csv")
 
-
-message(paste("Finished processing steps, ",Sys.time()))
+message(paste("Finished processing steps, ", Sys.time()))
 
 EES_daily_data <- read_ees_daily()
 
