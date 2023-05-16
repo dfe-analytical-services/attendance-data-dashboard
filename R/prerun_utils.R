@@ -1,28 +1,44 @@
-run_data_update <- function(df_attendance=attendance_data){
-  # Run this to udpate the comparison EES data files for QA checks.
+run_data_update <- function(){
+  # Run this to update the comparison EES data files for QA checks.
   # The input is the attendance_data df produced in global.R, so you'll need to
   # source global.R before running this script.
-  create_ees_tables(df_attendance)  
+  pa_fullyear_file <- "data/export_pa_output_2023_05_02_v2.csv"
+  pa_autumn_file <- "data/export_autumn_pa_output_2023_05_02_v2.csv"
+  pa_spring_file <- "data/export_spring_pa_output_2023_05_02_v2.csv"
+  attendance_data_raw <- fread("data/sql_export_2023_05_02_v2.csv")
+  
+  attendance_data <- process_attendance_data(
+    attendance_data_raw, 
+    start_date, end_date, funeral_date, 
+    pa_fullyear_file
+    )
+  
+  # Write out dashboard data for the dashboard to use
+  write.csv(attendance_data, "data/attendance_data_dashboard.csv", row.names = FALSE)
+  
+  # Process and write out further data for EES tables
+  attendance_data_autumn <- process_attendance_data_autumn(
+    attendance_data_raw, 
+    autumn_start, autumn_end, 
+    pa_autumn_file
+  )
+  
+  attendance_data_spring <- process_attendance_data_spring(
+    attendance_data_raw, 
+    spring_start, spring_end,
+    pa_spring_file
+  )
+  
+  create_ees_tables(attendance_data)
+  create_ees_tables_autumn(attendance_data_autumn)
+  create_ees_tables_spring(attendance_data_spring)
 }
 
-run_data_update_autumn <- function(df_attendance_autumn=attendance_data_autumn){
-  # Run this to udpate the comparison EES data files for QA checks.
-  # The input is the attendance_data df produced in global.R, so you'll need to
-  # source global.R before running this script.
-  create_ees_tables_autumn(df_attendance_autumn)  
-}
-
-run_data_update_spring <- function(df_attendance_spring=attendance_data_spring){
-  # Run this to udpate the comparison EES data files for QA checks.
-  # The input is the attendance_data df produced in global.R, so you'll need to
-  # source global.R before running this script.
-  create_ees_tables_spring(df_attendance_spring)  
-}
-
-process_attendance_data <- function(df_attendance_raw, start_date, end_date, funeral_date){
+process_attendance_data <- function(attendance_data_raw, start_date, end_date, funeral_date, pa_fullyear_file){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   message(paste("Processing attendance data,",Sys.time()))
+  pa_data_raw <- fread(pa_fullyear_file)
   attendance_data <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -412,20 +428,21 @@ process_attendance_data <- function(df_attendance_raw, start_date, end_date, fun
                    pa_illness_perc_scaled), ~ 
                 replace(., geographic_level == "Local authority" & num_schools == 1, NA))
   
-  return(
-    list(
-      attendance_data=attendance_data, 
-      daily_totals=attendance_data_daily_totals,
-      weekly_totals=attendance_data_weekly_totals,
-      ytd_totals=attendance_data_ytd_totals)
-  )
+  # return(
+  #   list(
+  #     attendance_data=attendance_data, 
+  #     daily_totals=attendance_data_daily_totals,
+  #     weekly_totals=attendance_data_weekly_totals,
+  #     ytd_totals=attendance_data_ytd_totals)
+  # )
 }
 
 ## Processing autumn
-process_attendance_data_autumn <- function(df_attendance_raw, autumn_start, autumn_end){
+process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, autumn_end, pa_autumn_file){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   message(paste("Processing Autumn attendance data,",Sys.time()))
+  autumn_only_pa_data_raw <- fread(pa_autumn_file)
   attendance_data_autumn <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -661,18 +678,19 @@ process_attendance_data_autumn <- function(df_attendance_raw, autumn_start, autu
                    pa_illness_perc_scaled), ~ 
                 replace(., geographic_level == "Local authority" & num_schools == 1, NA))
   
-  return(
-    list(
-      attendance_data_autumn=attendance_data_autumn, 
-      autumn_totals=attendance_data_autumn_totals)
-  )
+  # return(
+  #   list(
+  #     attendance_data_autumn=attendance_data_autumn, 
+  #     autumn_totals=attendance_data_autumn_totals)
+  # )
 }
 
 ## Processing Spring
-process_attendance_data_spring <- function(df_attendance_raw, spring_start, spring_end){
+process_attendance_data_spring <- function(attendance_data_raw, spring_start, spring_end, pa_spring_file){
   #Set up data for use across the app
   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   message(paste("Processing Spring attendance data,",Sys.time()))
+  spring_only_pa_data_raw <- fread(pa_spring_file)
   attendance_data_spring <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -907,18 +925,18 @@ process_attendance_data_spring <- function(df_attendance_raw, spring_start, spri
                    pa_illness_perc_scaled), ~ 
                 replace(., geographic_level == "Local authority" & num_schools == 1, NA))
   
-  return(
-    list(
-      attendance_data_spring=attendance_data_spring, 
-      spring_totals=attendance_data_spring_totals)
-  )
+  # return(
+  #   list(
+  #     attendance_data_spring=attendance_data_spring, 
+  #     spring_totals=attendance_data_spring_totals)
+  # )
 }
 
 
-create_ees_tables <- function(df_attendance){
+create_ees_tables <- function(attendance_data){
   #Set up data for download
   # EES daily data/download data
-  EES_daily_data <- df_attendance %>%
+  EES_daily_data <- attendance_data %>%
     dplyr::filter(breakdown == "Daily") %>%
     dplyr::select(
       time_period,
@@ -1046,7 +1064,7 @@ create_ees_tables <- function(df_attendance){
   #EES_daily_data[is.na(EES_daily_data)]<-"c"
   
   #EES weekly data
-  EES_weekly_data <- df_attendance %>%
+  EES_weekly_data <- attendance_data %>%
     dplyr::filter(breakdown == "Weekly") %>%
     dplyr::select(
       time_period,
@@ -1173,7 +1191,7 @@ create_ees_tables <- function(df_attendance){
   #EES_weekly_data[is.na(EES_weekly_data)]<-"c"
   
   #EES ytd data
-  EES_ytd_data <- df_attendance %>%
+  EES_ytd_data <- attendance_data %>%
     dplyr::filter(breakdown == "YTD") %>%
     dplyr::select(
       time_period,
