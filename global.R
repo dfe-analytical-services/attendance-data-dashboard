@@ -104,12 +104,13 @@ site_c <- ""
 # Read in data
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 start_date <- as.Date("2022-09-12")
-end_date <- as.Date("2023-04-21")
+end_date <- as.Date("2023-05-05")
 funeral_date <- as.Date("2022-09-19")
 strike_date_1 <- as.Date("2023-02-01")
 strike_date_2 <- as.Date("2023-03-15")
 strike_date_3 <- as.Date("2023-03-16")
-strike_dates <- c(as.Date("2023-03-16"), as.Date("2023-03-15"), as.Date("2023-02-01"))
+strike_date_4 <- as.Date("2023-04-27")
+strike_date_5 <- as.Date("2023-05-02")
 
 regional_strike_1 <- as.Date("2023-02-28")
 regional_strike_2 <- as.Date("2023-03-01")
@@ -119,7 +120,6 @@ autumn_end <- as.Date("2022-12-16")
 spring_start <- as.Date("2023-01-03")
 spring_end <- as.Date("2023-03-31")
 
-# term_dates <- list(autumn_start=as.Date("2022-09-12"))
 
 school_freq_count <- fread("data/enrolments_schools_denominator.csv")
 
