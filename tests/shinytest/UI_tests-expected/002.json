@@ -29,9 +29,11 @@
             "automargin": true,
             "title": "Date",
             "tickvals": [
-              "2023-05-03",
-              "2023-05-04",
-              "2023-05-05"
+              "2023-05-15",
+              "2023-05-16",
+              "2023-05-17",
+              "2023-05-18",
+              "2023-05-19"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -103,14 +105,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2023-05-03",
-              "2023-05-04",
-              "2023-05-05"
+              "2023-05-15",
+              "2023-05-16",
+              "2023-05-17",
+              "2023-05-18",
+              "2023-05-19"
             ],
             "y": [
-              4.51930255953914,
-              4.46042656955571,
-              5.03306394392166
+              5.37666472132647,
+              4.60115114115243,
+              4.44963379182764,
+              4.62674657289242,
+              5.78364359986736
             ],
             "line": {
               "color": "black"
@@ -125,6 +131,8 @@
             "hovertemplate": [
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -141,14 +149,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2023-05-03",
-              "2023-05-04",
-              "2023-05-05"
+              "2023-05-15",
+              "2023-05-16",
+              "2023-05-17",
+              "2023-05-18",
+              "2023-05-19"
             ],
             "y": [
-              3.05204776133885,
-              2.99340975980107,
-              3.18014128524201
+              3.62024182487741,
+              3.1704988225893,
+              3.00374073468155,
+              3.1111540883544,
+              3.79130588932653
             ],
             "line": {
               "color": "steelblue"
@@ -163,6 +175,8 @@
             "hovertemplate": [
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -179,14 +193,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2023-05-03",
-              "2023-05-04",
-              "2023-05-05"
+              "2023-05-15",
+              "2023-05-16",
+              "2023-05-17",
+              "2023-05-18",
+              "2023-05-19"
             ],
             "y": [
-              1.46725479820029,
-              1.46701680975464,
-              1.85292265867964
+              1.75642289644905,
+              1.43065231856313,
+              1.44589305714609,
+              1.51559248453802,
+              1.99233771054083
             ],
             "line": {
               "color": "orangered"
@@ -199,6 +217,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%"
@@ -328,8 +348,8 @@
       ]
     },
     "headline_bullet_title_nat": "Headline figures for the most recent week: primary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 5.2% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 94.8% of sessions were recorded as attending",
+    "weekly_absence_rate_nat": "• 5% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "• 95% of sessions were recorded as attending",
     "weekly_illness_rate_nat": "• 2.6% of sessions were recorded as illness"
   }
 }
