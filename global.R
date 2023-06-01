@@ -38,7 +38,7 @@ library(bit64)
 library(DT)
 library(raster)
 library(leaflet)
-library(rgdal)
+#library(rgdal)
 library(sf)
 library(checkmate)
 
