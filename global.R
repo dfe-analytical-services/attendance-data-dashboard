@@ -104,7 +104,7 @@ site_c <- ""
 # Read in data
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 start_date <- as.Date("2022-09-12")
-end_date <- as.Date("2023-06-02")
+end_date <- as.Date("2023-06-15")
 funeral_date <- as.Date("2022-09-19")
 strike_date_1 <- as.Date("2023-02-01")
 strike_date_2 <- as.Date("2023-03-15")
@@ -162,3 +162,18 @@ las <- geog_lookup %>%
   arrange(region_name, la_name) %>%
   pull(la_name) %>%
   unique()
+
+# Expandable dropdown function----------------------------------
+expandable <- function(inputId, label, contents) {
+  govDetails <- shiny::tags$details(
+    class = "govuk-details", id = inputId,
+    shiny::tags$summary(
+      class = "govuk-details__summary",
+      shiny::tags$span(
+        class = "govuk-details__summary-text",
+        label
+      )
+    ),
+    shiny::tags$div(contents)
+  )
+}

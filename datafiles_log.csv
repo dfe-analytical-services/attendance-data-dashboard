@@ -57,3 +57,7 @@ data/sql_export_2023_06_12_full_v2.csv,published
 data/export_pa_output_2023_06_12.csv,published
 data/export_autumn_pa_output_2023_06_12.csv,published
 data/export_spring_pa_output_2023_06_12.csv,published
+data/sql_export_2023_06_26_full_v2.csv,published
+data/export_pa_output_2023_06_26_v2.csv,published
+data/export_autumn_pa_output_2023_06_26.csv,published
+data/export_spring_pa_output_2023_06_26.csv,published

@@ -90,6 +90,20 @@ server <- function(input, output, session) {
     )
   })
 
+  # Dropdown expandable label ------------------------------------------------------------
+  observeEvent(input$go, {
+    toggle(id = "div_a", anim = T)
+  })
+
+  output$dropdown_label <- renderText({
+    if (input$geography_choice == "National") {
+      paste0("Current selections: ", input$ts_choice, ", ", input$school_choice, ", ", input$geography_choice)
+    } else if (input$geography_choice == "Regional") {
+      paste0("Current selections: ", input$ts_choice, ", ", input$school_choice, ", ", input$geography_choice, ", ", input$region_choice)
+    } else if (input$geography_choice == "Local authority") {
+      paste0("Current selections: ", input$ts_choice, ", ", input$school_choice, ", ", input$geography_choice, ", ", input$region_choice, ", ", input$la_choice)
+    }
+  })
 
   # Defining reactive data ------------------------------------------------------------
   # Creates data all measures are derived from
@@ -876,12 +890,33 @@ server <- function(input, output, session) {
   # Creating reactive embedded stats ------------------------------------------------------------
 
   # No. schools reporting on most recent day
+  # schools_count <- attendance_data %>%
+  #   filter(
+  #     time_period == max(time_period),
+  #     geographic_level == "National",
+  #     school_type == "Total",
+  #     day_number == "5"
+  #   ) %>%
+  #   filter(time_identifier == max(time_identifier)) %>%
+  #   pull(num_schools) %>%
+  #   sum()
+  #
+  # schools_count_date <- attendance_data %>%
+  #   filter(
+  #     time_period == max(time_period),
+  #     geographic_level == "National",
+  #     school_type == "Total",
+  #     day_number == "5"
+  #   ) %>%
+  #   filter(time_identifier == max(time_identifier)) %>%
+  #   pull(attendance_date)
+
   schools_count <- attendance_data %>%
     filter(
       time_period == max(time_period),
       geographic_level == "National",
       school_type == "Total",
-      day_number == "5"
+      day_number == "4"
     ) %>%
     filter(time_identifier == max(time_identifier)) %>%
     pull(num_schools) %>%
@@ -892,7 +927,7 @@ server <- function(input, output, session) {
       time_period == max(time_period),
       geographic_level == "National",
       school_type == "Total",
-      day_number == "5"
+      day_number == "4"
     ) %>%
     filter(time_identifier == max(time_identifier)) %>%
     pull(attendance_date)
@@ -1303,8 +1338,8 @@ server <- function(input, output, session) {
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    # last_update_date <- as.Date(last_update_date) + 17
-     last_update_date <- as.Date(last_update_date) + 24
+    last_update_date <- as.Date(last_update_date) + 17
+    # last_update_date <- as.Date(last_update_date) + 24
 
     paste0("Data was last updated on ", last_update_date, ".")
   })
@@ -1331,14 +1366,14 @@ server <- function(input, output, session) {
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    # last_update_date <- as.Date(last_update_date) + 17
-     last_update_date <- as.Date(last_update_date) + 24
+    last_update_date <- as.Date(last_update_date) + 17
+    # last_update_date <- as.Date(last_update_date) + 24
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    # next_update_date <- as.Date(next_update_date) + 31
-     next_update_date <- as.Date(next_update_date) + 38
+    next_update_date <- as.Date(next_update_date) + 31
+    # next_update_date <- as.Date(next_update_date) + 38
 
     # paste0("Data was last updated on 2023-03-09 and is next expected to be updated on 2023-03-23. The most recent full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
@@ -1355,14 +1390,14 @@ server <- function(input, output, session) {
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    # last_update_date <- as.Date(last_update_date) + 17
-     last_update_date <- as.Date(last_update_date) + 24
+    last_update_date <- as.Date(last_update_date) + 17
+    # last_update_date <- as.Date(last_update_date) + 24
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    # next_update_date <- as.Date(next_update_date) + 31
-     next_update_date <- as.Date(next_update_date) + 38
+    next_update_date <- as.Date(next_update_date) + 31
+    # next_update_date <- as.Date(next_update_date) + 38
 
     # paste0("Data was last updated on 2023-03-09 and is next expected to be updated on 2023-03-23. The most recent full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
@@ -1378,13 +1413,13 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-    # as.Date() + 17
-     as.Date() + 24
+      as.Date() + 17
+    # as.Date() + 24
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-    # as.Date() + 31
-     as.Date() + 38
+      as.Date() + 31
+    # as.Date() + 38
 
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
