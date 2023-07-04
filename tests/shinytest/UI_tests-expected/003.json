@@ -32,7 +32,8 @@
               "2023-06-12",
               "2023-06-13",
               "2023-06-14",
-              "2023-06-15"
+              "2023-06-15",
+              "2023-06-16"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -107,13 +108,15 @@
               "2023-06-12",
               "2023-06-13",
               "2023-06-14",
-              "2023-06-15"
+              "2023-06-15",
+              "2023-06-16"
             ],
             "y": [
-              8.9917754002189998,
-              8.2715511420738999,
-              8.0847239913746805,
-              8.4863090236033702
+              8.95895868098245,
+              8.2406927142260606,
+              8.0538896193643001,
+              8.4580138610669806,
+              9.6168649147400291
             ],
             "line": {
               "color": "black"
@@ -129,6 +132,7 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -148,13 +152,15 @@
               "2023-06-12",
               "2023-06-13",
               "2023-06-14",
-              "2023-06-15"
+              "2023-06-15",
+              "2023-06-16"
             ],
             "y": [
-              4.9617775820267997,
-              4.5370247698021497,
-              4.3587038940296798,
-              4.35299922996255
+              4.9666383077556198,
+              4.5358768175508102,
+              4.3630407473821098,
+              4.3603263413997704,
+              5.2416296057682397
             ],
             "line": {
               "color": "steelblue"
@@ -170,6 +176,7 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -189,13 +196,15 @@
               "2023-06-12",
               "2023-06-13",
               "2023-06-14",
-              "2023-06-15"
+              "2023-06-15",
+              "2023-06-16"
             ],
             "y": [
-              4.0299978181922,
-              3.7345263722717501,
-              3.7260200973450002,
-              4.1333097936408203
+              3.9923203732268302,
+              3.70481589667525,
+              3.6908488719822001,
+              4.0976875196672102,
+              4.3752353089717904
             ],
             "line": {
               "color": "orangered"
@@ -208,6 +217,7 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
@@ -338,8 +348,8 @@
       ]
     },
     "headline_bullet_title_nat": "Headline figures for the most recent week: secondary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 8.5% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 91.5% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "• 3% of sessions were recorded as illness"
+    "weekly_absence_rate_nat": "• 8.7% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "• 91.3% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "• 3.1% of sessions were recorded as illness"
   }
 }
