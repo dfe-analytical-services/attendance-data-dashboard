@@ -2,10 +2,10 @@ run_data_update <- function(){
   # Run this to update the comparison EES data files for QA checks.
   # The input is the attendance_data df produced in global.R, so you'll need to
   # source global.R before running this script.
-  pa_fullyear_file <- "data/export_pa_output_2023_06_26_v2.csv"
+  pa_fullyear_file <- "data/export_pa_output_2023_06_26_v3.csv"
   pa_autumn_file <- "data/export_autumn_pa_output_2023_06_26.csv"
   pa_spring_file <- "data/export_spring_pa_output_2023_06_26.csv"
-  attendance_data_raw <- fread("data/sql_export_2023_06_26_full_v2.csv")
+  attendance_data_raw <- fread("data/sql_export_2023_06_26_full_v3.csv")
   
   attendance_data <- process_attendance_data(
     attendance_data_raw, 
