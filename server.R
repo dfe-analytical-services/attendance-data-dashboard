@@ -90,13 +90,24 @@ server <- function(input, output, session) {
     )
   })
 
+  # observe({
+  #   if (input$dash == "la comparisons") {
+  #     updateSelectInput(session, "geography_choice",
+  #                       choices = c("National","Regional","Local authority"),
+  #                       selected = "National"
+  #     )
+  #   }
+  # })
+
   # Dropdown expandable label ------------------------------------------------------------
   observeEvent(input$go, {
     toggle(id = "div_a", anim = T)
   })
 
   output$dropdown_label <- renderText({
-    if (input$geography_choice == "National") {
+    if (input$dash == "la comparisons") {
+      paste0("Current selections: Most recent week ", input$school_choice, ", National")
+    } else if (input$geography_choice == "National") {
       paste0("Current selections: ", input$ts_choice, ", ", input$school_choice, ", ", input$geography_choice)
     } else if (input$geography_choice == "Regional") {
       paste0("Current selections: ", input$ts_choice, ", ", input$school_choice, ", ", input$geography_choice, ", ", input$region_choice)
@@ -889,34 +900,13 @@ server <- function(input, output, session) {
 
   # Creating reactive embedded stats ------------------------------------------------------------
 
-  # No. schools reporting on most recent day
-  # schools_count <- attendance_data %>%
-  #   filter(
-  #     time_period == max(time_period),
-  #     geographic_level == "National",
-  #     school_type == "Total",
-  #     day_number == "5"
-  #   ) %>%
-  #   filter(time_identifier == max(time_identifier)) %>%
-  #   pull(num_schools) %>%
-  #   sum()
-  #
-  # schools_count_date <- attendance_data %>%
-  #   filter(
-  #     time_period == max(time_period),
-  #     geographic_level == "National",
-  #     school_type == "Total",
-  #     day_number == "5"
-  #   ) %>%
-  #   filter(time_identifier == max(time_identifier)) %>%
-  #   pull(attendance_date)
 
   schools_count <- attendance_data %>%
     filter(
       time_period == max(time_period),
       geographic_level == "National",
       school_type == "Total",
-      day_number == "4"
+      day_number == "5"
     ) %>%
     filter(time_identifier == max(time_identifier)) %>%
     pull(num_schools) %>%
@@ -927,7 +917,7 @@ server <- function(input, output, session) {
       time_period == max(time_period),
       geographic_level == "National",
       school_type == "Total",
-      day_number == "4"
+      day_number == "5"
     ) %>%
     filter(time_identifier == max(time_identifier)) %>%
     pull(attendance_date)
