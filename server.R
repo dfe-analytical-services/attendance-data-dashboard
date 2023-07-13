@@ -106,7 +106,7 @@ server <- function(input, output, session) {
 
   output$dropdown_label <- renderText({
     if (input$dash == "la comparisons") {
-      paste0("Current selections: Most recent week ", input$school_choice, ", National")
+      paste0("Current selections: Most recent week, ", input$school_choice, ", National")
     } else if (input$geography_choice == "National") {
       paste0("Current selections: ", input$ts_choice, ", ", input$school_choice, ", ", input$geography_choice)
     } else if (input$geography_choice == "Regional") {
