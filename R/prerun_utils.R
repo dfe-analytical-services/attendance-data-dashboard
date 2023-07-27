@@ -2,10 +2,10 @@ run_data_update <- function(){
   # Run this to update the comparison EES data files for QA checks.
   # The input is the attendance_data df produced in global.R, so you'll need to
   # source global.R before running this script.
-  pa_fullyear_file <- "data/export_pa_output_2023_07_10.csv"
-  pa_autumn_file <- "data/export_autumn_pa_output_2023_07_10.csv"
-  pa_spring_file <- "data/export_spring_pa_output_2023_07_10.csv"
-  attendance_data_raw <- fread("data/sql_export_2023_07_10_full.csv")
+  pa_fullyear_file <- "data/export_pa_output_2023_07_23.csv"
+  pa_autumn_file <- "data/export_autumn_pa_output_2023_07_23.csv"
+  pa_spring_file <- "data/export_spring_pa_output_2023_07_23.csv"
+  attendance_data_raw <- fread("data/sql_export_2023_07_23_full.csv")
   
   attendance_data <- process_attendance_data(
     attendance_data_raw, 
@@ -337,6 +337,8 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, f
     dplyr::filter(!(breakdown == "Daily" & attendance_date == strike_date_3)) %>%
     dplyr::filter(!(breakdown == "Daily" & attendance_date == strike_date_4)) %>%
     dplyr::filter(!(breakdown == "Daily" & attendance_date == strike_date_5)) %>%
+    dplyr::filter(!(breakdown == "Daily" & attendance_date == strike_date_6)) %>%
+    dplyr::filter(!(breakdown == "Daily" & attendance_date == strike_date_7)) %>%
     dplyr::filter(!(breakdown == "Daily" & attendance_date == regional_strike_1 & region_name %in% c("North East", "North West", "Yorkshire and The Humber"))) %>%
     dplyr::filter(!(breakdown == "Daily" & attendance_date == regional_strike_2 & region_name %in% c("East Midlands", "West Midlands", "East of England"))) %>%
     dplyr::filter(!(breakdown == "Daily" & attendance_date == regional_strike_2 & la_name %in% c("Buckinghamshire", "Milton Keynes"))) %>%

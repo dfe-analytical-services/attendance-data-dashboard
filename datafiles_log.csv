@@ -9,6 +9,7 @@ data/Weekly_dummy_data.csv,dummy
 data/Weekly_dummy_extended.csv,dummy
 data/enrolments_schools_denominator.csv,published
 data/enrolments_schools_denominator_060623.csv,published
+data/enrolments_schools_denominator_100723.csv,published
 data/export_2022_09_26.csv,published
 data/export_2022_10_25.csv,published
 data/EES_daily_data.csv,published
@@ -68,3 +69,7 @@ data/sql_export_2023_07_10_full.csv,published
 data/export_pa_output_2023_07_10.csv,published
 data/export_autumn_pa_output_2023_07_10.csv,published
 data/export_spring_pa_output_2023_07_10.csv,published
+data/sql_export_2023_07_23_full.csv,published
+data/export_pa_output_2023_07_23.csv,published
+data/export_autumn_pa_output_2023_07_23.csv,published
+data/export_spring_pa_output_2023_07_23.csv,published
