@@ -369,7 +369,8 @@ server <- function(input, output, session) {
       time_period == max(time_period),
       breakdown == "Weekly"
     ) %>%
-      filter(time_identifier == max(time_identifier)) %>%
+      # filter(time_identifier == max(time_identifier)) %>%
+      filter(time_identifier == "29") %>%
       mutate(
         overall_absence_perc = overall_absence_perc / 100,
         authorised_absence_perc = authorised_absence_perc / 100,
@@ -1328,8 +1329,8 @@ server <- function(input, output, session) {
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    last_update_date <- as.Date(last_update_date) + 17
-    # last_update_date <- as.Date(last_update_date) + 24
+    # last_update_date <- as.Date(last_update_date) + 17
+    last_update_date <- as.Date(last_update_date) + 24
 
     paste0("Data was last updated on ", last_update_date, ".")
   })
@@ -1356,17 +1357,18 @@ server <- function(input, output, session) {
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    last_update_date <- as.Date(last_update_date) + 17
-    # last_update_date <- as.Date(last_update_date) + 24
+    # last_update_date <- as.Date(last_update_date) + 17
+    last_update_date <- as.Date(last_update_date) + 24
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    next_update_date <- as.Date(next_update_date) + 31
-    # next_update_date <- as.Date(next_update_date) + 38
+    # next_update_date <- as.Date(next_update_date) + 31
+    next_update_date <- as.Date(next_update_date) + 38
 
     # paste0("Data was last updated on 2023-03-09 and is next expected to be updated on 2023-03-23. The most recent full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on ", last_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
   output$update_dates2 <- renderText({
@@ -1380,17 +1382,18 @@ server <- function(input, output, session) {
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    last_update_date <- as.Date(last_update_date) + 17
-    # last_update_date <- as.Date(last_update_date) + 24
+    # last_update_date <- as.Date(last_update_date) + 17
+    last_update_date <- as.Date(last_update_date) + 24
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    next_update_date <- as.Date(next_update_date) + 31
-    # next_update_date <- as.Date(next_update_date) + 38
+    # next_update_date <- as.Date(next_update_date) + 31
+    next_update_date <- as.Date(next_update_date) + 38
 
     # paste0("Data was last updated on 2023-03-09 and is next expected to be updated on 2023-03-23. The most recent full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on ", last_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
 
@@ -1403,15 +1406,16 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      as.Date() + 17
-    # as.Date() + 24
+      # as.Date() + 17
+      as.Date() + 24
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      as.Date() + 31
-    # as.Date() + 38
+      # as.Date() + 31
+      as.Date() + 38
 
-    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on ", last_update_date, ". The most recent full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
 
@@ -1750,24 +1754,25 @@ server <- function(input, output, session) {
   ## Reading in data ##########################################################
 
   # Read in shapefile and transform coordinates (because map reasons...)
-  mapshape <- st_read("data/CTYUA_DEC_2021_UK_BUC.shp") %>% st_transform(crs = 4326)
+  mapshape <- st_read("data/CTYUA_MAY_2023_UK_BUC.shp") %>% st_transform(crs = 4326)
 
   # Process the joined files to refine our 'mapdata', not pretty yet and mostly done just cos it's how its done in global...
 
   mapdata0 <- attendance_data %>%
     mutate(time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))) %>%
     filter(time_period == max(time_period)) %>%
-    filter(time_identifier == max(time_identifier)) %>%
+    # filter(time_identifier == max(time_identifier)) %>%
+    filter(time_identifier == "29") %>%
     filter(geographic_level == "Local authority") %>%
     filter(breakdown == "Weekly")
 
 
   mapdata <- mapdata0 %>%
-    mutate(CTYUA21CD = new_la_code) %>% # renaming to match to shapefile later
+    mutate(CTYUA23CD = new_la_code) %>% # renaming to match to shapefile later
     filter(!is.na(region_name), !is.na(la_name))
 
   mapdata <- mapdata %>%
-    group_by(time_period, time_identifier, geographic_level, region_name, la_name, CTYUA21CD, school_type) %>%
+    group_by(time_period, time_identifier, geographic_level, region_name, la_name, CTYUA23CD, school_type) %>%
     mutate(
       overall_label_LA = paste(la_name),
       overall_label_rate = paste(as.character(roundFiveUp(overall_absence_perc, 1)), "%", sep = ""),
@@ -1783,7 +1788,7 @@ server <- function(input, output, session) {
   ## Combine shapefile and data into mapdata ###############################################
 
   # Merge the transformed shapefile with the processed source data ---------------
-  mapdata_shaped <- merge(mapshape, mapdata, by = "CTYUA21CD", duplicateGeoms = TRUE)
+  mapdata_shaped <- merge(mapshape, mapdata, by = "CTYUA23CD", duplicateGeoms = TRUE)
 
   # Create colour bins and palette labels --------------------------------------
 
