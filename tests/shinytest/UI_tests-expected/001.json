@@ -3,7 +3,7 @@
     "dash": "headlines",
     "ees": 0,
     "geography_choice": "National",
-    "la_choice": "Derby",
+    "la_choice": "",
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
     "link_to_reasons_tab": 0,
@@ -11,7 +11,7 @@
     "navlistPanel": "Homepage",
     "region_choice": "East Midlands",
     "school_choice": "Primary",
-    "ts_choice": "Most recent week"
+    "ts_choice": "Latest week - 2023-07-17 to 2023-07-21"
   },
   "output": {
     "daily_schools_count": "15,671 schools provided information on the most recent full day of data, i.e. 2023-07-21",

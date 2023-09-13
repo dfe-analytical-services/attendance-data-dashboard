@@ -2,14 +2,14 @@
   "input": {
     "dash": "headlines",
     "geography_choice": "Regional",
-    "la_choice": "Derby",
+    "la_choice": "",
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
     "link_to_reasons_tab": 0,
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Secondary",
-    "ts_choice": "Year to date"
+    "ts_choice": "Year to date - 2022-09-12 to 2023-07-21"
   },
   "output": {
     "absence_rates_timeseries_plot": {
@@ -224,10 +224,10 @@
               13.5644258997477
             ],
             "line": {
-              "color": "black"
+              "color": "#12436D"
             },
             "marker": {
-              "color": "black",
+              "color": "#12436D",
               "line": {
                 "color": "rgba(255,127,14,1)"
               }
@@ -370,10 +370,10 @@
               7.0373320067731697
             ],
             "line": {
-              "color": "steelblue"
+              "color": "#28A197"
             },
             "marker": {
-              "color": "steelblue",
+              "color": "#28A197",
               "line": {
                 "color": "rgba(44,160,44,1)"
               }
@@ -516,10 +516,10 @@
               6.5270938929745599
             ],
             "line": {
-              "color": "orangered"
+              "color": "#F46A25"
             },
             "marker": {
-              "color": "orangered",
+              "color": "#F46A25",
               "line": {
                 "color": "rgba(214,39,40,1)"
               }
@@ -690,7 +690,7 @@
         }
       ]
     },
-    "headline_bullet_title_reg": "Headline figures for the year to date: secondary state-funded school attendance at regional level (East Midlands)",
+    "headline_bullet_title_reg": "Headline figures for the year to date - 2022-09-12 to 2023-07-21: secondary state-funded school attendance at regional level (East Midlands)",
     "ytd_absence_rate_reg": "• 9.3% of sessions were recorded as absence in East Midlands (compared to 9.3% of sessions at national level)",
     "ytd_attendance_rate_reg": "• 90.7% of sessions were recorded as attending in East Midlands (compared to 90.7% of sessions at national level)",
     "ytd_illness_rate_reg": "• 4.2% of sessions were recorded as illness in East Midlands (compared to 4.2% of sessions at national level)"
