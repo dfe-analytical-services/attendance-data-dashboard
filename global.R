@@ -125,6 +125,11 @@ spring_end <- as.Date("2023-03-31")
 summer_start <- as.Date("2023-04-01")
 summer_end <- as.Date("2023-07-21")
 
+# most_recent_week_dates <- paste("Most recent week -", as.Date(end_date)-4, "to", as.Date(end_date))
+most_recent_week_dates <- paste("Latest week -", as.Date(end_date) - 11, "to", as.Date(end_date) - 7)
+# ytd_dates <- paste("Year to date -", as.Date(start_date), "to", as.Date(end_date))
+ytd_dates <- paste("Year to date -", as.Date(start_date), "to", as.Date(end_date) - 7)
+
 school_freq_count <- fread("data/enrolments_schools_denominator_310723split.csv")
 school_freq_count$total_enrolments <- as.numeric(school_freq_count$total_enrolments)
 
@@ -138,7 +143,11 @@ EES_daily_data <- read_ees_daily()
 geog_lookup <- attendance_data %>%
   dplyr::select(geographic_level, region_name, la_name) %>%
   unique() %>%
-  arrange(region_name, la_name)
+  arrange(region_name, la_name) %>%
+  mutate(la_name = case_when(
+    geographic_level == "Regioinal" ~ "All",
+    geographic_level != "Regional" ~ la_name
+  ))
 
 school_type_lookup <- attendance_data %>%
   dplyr::select(geographic_level, school_type) %>%
