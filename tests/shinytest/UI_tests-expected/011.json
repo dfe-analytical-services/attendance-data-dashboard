@@ -9,7 +9,7 @@
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Secondary",
-    "ts_choice": "Year to date"
+    "ts_choice": "Year to date - 2022-09-12 to 2023-07-21"
   },
   "output": {
     "absence_reasons_timeseries_plot": {
@@ -507,10 +507,10 @@
               1.5036271708067701
             ],
             "line": {
-              "color": "\t#F46A25"
+              "color": "#F46A25"
             },
             "marker": {
-              "color": "\t#F46A25",
+              "color": "#F46A25",
               "line": {
                 "color": "rgba(214,39,40,1)"
               }
@@ -650,10 +650,10 @@
               3.5711145306660801
             ],
             "line": {
-              "color": "\t#3D3D3D"
+              "color": "#801650"
             },
             "marker": {
-              "color": "\t#3D3D3D",
+              "color": "#801650",
               "line": {
                 "color": "rgba(148,103,189,1)"
               }

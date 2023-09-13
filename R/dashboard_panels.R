@@ -31,7 +31,7 @@ homepage_panel <- function() {
                 tags$div(
                   title = "Headline information on overall and persistent absence",
                   h3(actionLink("link_to_headlines_tab", "Headlines")),
-                  p("The headlines tab includes information on attendance, overall absence (including  authorised and unauthorised absence) in the most recent week and across the year to date, depending on dropdown selected."),
+                  p("The headlines tab includes information on attendance, overall absence (including  authorised and unauthorised absence) in the latest week and across the year to date, depending on dropdown selected."),
                   p("• Charts on this tab display overall, authorised and unauthorised absence rates"),
                   p("• Headline bullets show the overall attendance and absence rates, in addition to illness absence rate"),
                   p("• This tab now includes data relating to persistent absence (pupils missing 10% or more sessions). To view these, select “year to date” in the drop-down menu. Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods. Underlying data relating to the Autumn term and year to date is available at the link below:"),
@@ -54,7 +54,7 @@ homepage_panel <- function() {
                 tags$div(
                   title = "Breakdown of overall, authorised and unauthorised absence by local authority",
                   h3(actionLink("link_to_la_tab", "Local authority data")),
-                  p("The local authority data tab includes information on the overall, authorised and unauthorised absence rates for each local authority in the most recent week.")
+                  p("The local authority data tab includes information on the overall, authorised and unauthorised absence rates for each local authority in the latest week.")
                 ),
                 
                 
@@ -135,10 +135,9 @@ dashboard_panel <- function() {
       gov_row(
         h1("Attendance and absence headlines and reasons"),
         
+        
         expandable(
           inputId = "details", label = textOutput("dropdown_label"), contents =
-            
-            
             div(
               id = "div_a",
               #class = "well",
@@ -159,7 +158,7 @@ dashboard_panel <- function() {
                            conditionalPanel(condition = "input.dash == 'headlines'|| input.dash == 'reasons'",
                                             selectInput(inputId = "ts_choice",
                                                         label = "Choose time period:",
-                                                        choices = c("Most recent week", "Year to date")
+                                                        choices = c(most_recent_week_dates, ytd_dates)
                                             )
                            )
                     )
@@ -192,17 +191,18 @@ dashboard_panel <- function() {
                 ),
                 column(
                   width=3,
-                  conditionalPanel(condition = "input.geography_choice == 'Regional' && input.dash != 'la comparisons' || input.geography_choice == 'Local authority' && input.dash != 'la comparisons'", 
-                                   selectInput(inputId = "region_choice",
-                                               label = "Choose region:",
-                                               choices = regions,
-                                               selected = regions[1]
+                  conditionalPanel(condition = "input.geography_choice == 'Regional' && input.dash != 'la comparisons'", 
+                                   #conditionalPanel(condition = "input.geography_choice == 'Regional' && input.dash != 'la comparisons' || input.geography_choice == 'Local authority' && input.dash != 'la comparisons'", 
+                                   selectizeInput(inputId = "region_choice",
+                                                  label = "Choose region:",
+                                                  choices = regions,
+                                                  selected = regions[1]
                                    )),
                   conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.dash != 'la comparisons'", 
-                                   selectInput(inputId = "la_choice",
-                                               label = "Choose local authority:",
-                                               choices = las,
-                                               selected = las[1]
+                                   selectizeInput(inputId = "la_choice",
+                                                  label = "Choose local authority:",
+                                                  choices = las,
+                                                  selected = las[1]
                                    ))
                 )
               )
@@ -226,103 +226,101 @@ dashboard_panel <- function() {
                 conditionalPanel(condition = "input.geography_choice == 'Local authority'", 
                                  h4(textOutput("headline_bullet_title_la"
                                  ))),
-                conditionalPanel(condition = "input.ts_choice == 'Most recent week'",
+                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"'"),
                                  textOutput("school_count_proportion_weekly"),
                                  textOutput("update_dates"),
-                                 p("Data for earlier weeks has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level data covering the week commencing 5th September is available on", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Explore Education Statistics"), ". Data at National and Regional level for the week commencing 19th December has not been included as very few Local Authorities have schools open during this week. Where Local Authorities were open during the week commending 19th December, this data has been shown at Local Authority level."),
-                                 p(strong(paste0("No figures for the day of national teacher strikes have been provided in the dashboard and underlying data. No figures for the day of regional teacher strikes have been provided in the dashboard and underlying data for regions affected or at a national level, however figures are still available for regions not expected to be affected. Further information on attendance during these days is available at the link below:"))),
-                                 a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools"),
                 ),
-                conditionalPanel(condition = "input.ts_choice == 'Year to date'",
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"'"),
                                  textOutput("school_count_proportion_weekly2"),
                                  textOutput("update_dates2"),
-                                 p("Data for earlier weeks has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level data covering the week commencing 5th September is available on", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Explore Education Statistics"), ". Data at National and Regional level for the week commencing 19th December has not been included as very few Local Authorities have schools open during this week. Where Local Authorities were open during the week commending 19th December, this data has been shown at Local Authority level."),
-                                 p(strong(paste0("No figures for the day of national teacher strikes have been provided in the dashboard and underlying data. No figures for the day of regional teacher strikes have been provided in the dashboard and underlying data for regions affected or at a national level, however figures are still available for regions not expected to be affected. Further information on attendance during these days is available at the link below:"))),
-                                 a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools"),
                 ),
                 
                 br(),
-                conditionalPanel(condition = "input.ts_choice == 'Year to date'",
-                                 p(strong(paste0("Attendance and absence across year to date")))),
-                conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Year to date'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"'"),
+                                 p(strong(paste0("Attendance and absence across year to date"))),
+                                 p("Attendance and absence rates presented here are calculated across all sessions in the year to date.")),
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'National'"),
                                  textOutput("ytd_attendance_rate_nat"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Year to date'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Regional'"), 
                                  textOutput("ytd_attendance_rate_reg"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Year to date'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Local authority'"),
                                  textOutput("ytd_attendance_rate_la"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Year to date'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'National'"),
                                  textOutput("ytd_absence_rate_nat"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Year to date'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Regional'"),  
                                  textOutput("ytd_absence_rate_reg"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Year to date'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Local authority'"),
                                  textOutput("ytd_absence_rate_la"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Year to date'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'National'"), 
                                  textOutput("ytd_illness_rate_nat"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Year to date'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Regional'"), 
                                  textOutput("ytd_illness_rate_reg"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Year to date'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Local authority'"),
                                  textOutput("ytd_illness_rate_la"
                                  )),
-                conditionalPanel(condition = "input.ts_choice == 'Year to date'",
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"'"),
                                  br(),
                                  p(strong(paste0("Persistent absence across year to date"))),
                                  p("A pupil enrolment is identified as persistently absent if they have missed 10% or more of their possible sessions in the year to date.")),
-                conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Year to date'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'National'"),
                                  textOutput("ytd_pa_rate_nat"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Year to date'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Regional'"), 
                                  textOutput("ytd_pa_rate_reg"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Year to date'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Local authority'"), 
                                  textOutput("ytd_pa_rate_la"
                                  )),
-                conditionalPanel(condition = "input.ts_choice == 'Most recent week'",
-                                 p(strong(paste0("Attendance and absence in the most recent week")))),
-                conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Most recent week'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"'"),
+                                 p(strong(paste0("Attendance and absence in the latest week"))),
+                                 p("Attendance and absence rates presented here are calculated across all sessions in the latest week.")),
+                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'National'"),
                                  textOutput("weekly_attendance_rate_nat"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Most recent week'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'Regional'"),
                                  textOutput("weekly_attendance_rate_reg"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Most recent week'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'Local authority'"),
                                  textOutput("weekly_attendance_rate_la"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Most recent week'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'National'"),
                                  textOutput("weekly_absence_rate_nat"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Most recent week'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'Regional'"),
                                  textOutput("weekly_absence_rate_reg"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Most recent week'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'Local authority'"), 
                                  textOutput("weekly_absence_rate_la"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'National' && input.ts_choice == 'Most recent week'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'National'"),
                                  textOutput("weekly_illness_rate_nat"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Regional' && input.ts_choice == 'Most recent week'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'Regional'"),
                                  textOutput("weekly_illness_rate_reg"
                                  )),
-                conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.ts_choice == 'Most recent week'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'Local authority'"),
                                  textOutput("weekly_illness_rate_la"
                                  )),
-                conditionalPanel(condition = "input.ts_choice == 'Most recent week'",
+                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"'"),
                                  br(),
                                  p(strong(paste0("To view persistent absence figures, select “year to date” in the drop-down menu. Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods. Underlying data relating to the Spring and Autumn terms and year to date is available at the link below:"))),
                                  a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools")),
                 
                 br(),
                 h5(textOutput("headline_ts_chart_title")),
-                conditionalPanel(condition = "input.ts_choice == 'Year to date'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"'"), 
+                                 p("Absence rates presented here are calculated on a weekly basis. Each point on the chart shows an absence rate calculated across all sessions in the given week."),
                                  plotlyOutput("absence_rates_timeseries_plot")),
-                conditionalPanel(condition = "input.ts_choice == 'Most recent week'", 
+                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"'"), 
+                                 p("Absence rates presented here are calculated on a daily basis. Each point on the chart shows an absence rate calculated across all sessions in the given day."),
                                  plotlyOutput("absence_rates_daily_plot")),
                 
               ),
@@ -345,7 +343,9 @@ dashboard_panel <- function() {
                                )))
             ),
             fluidRow(
-              conditionalPanel(condition = "input.ts_choice == 'Most recent week'",
+              conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"'"),
+                               p("Absence rates presented on the chart below are calculated on a daily basis. Each point on the chart shows an absence rate calculated across all sessions in the given day."),
+                               p("Absence rates presented in the blue boxes and tables below are calculated across all sessions in the latest week."),
                                column(9,
                                       br(),
                                       plotlyOutput("absence_reasons_daily_plot")),
@@ -363,7 +363,9 @@ dashboard_panel <- function() {
                                       )
                                )
               ),
-              conditionalPanel(condition = "input.ts_choice == 'Year to date'",
+              conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"'"),
+                               p("Absence rates presented on the chart below are calculated on a weekly basis. Each point on the chart shows an absence rate calculated across all sessions in the given week."),
+                               p("Absence rates presented in the blue boxes and tables below are calculated across all sessions in the year to date."),
                                column(9,
                                       br(),
                                       plotlyOutput("absence_reasons_timeseries_plot")),
@@ -383,15 +385,15 @@ dashboard_panel <- function() {
               )
             ),
             br(),
-            conditionalPanel(condition = "input.ts_choice == 'Most recent week'",
-                             p(strong("Reasons for absence in the most recent week")),
+            conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"'"),
+                             p(strong("Reasons for absence in the latest week")),
                              p("Authorised absence"),
                              DTOutput("absence_auth_reasons_table"),
                              br(),
                              br(),
                              p("Unauthorised absence"),
                              DTOutput("absence_unauth_reasons_table")),
-            conditionalPanel(condition = "input.ts_choice == 'Year to date'",
+            conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"'"),
                              p(strong("Reasons for absence in the year to date")),
                              p("Authorised absence"),
                              DTOutput("absence_auth_reasons_table_ytd"),
@@ -458,12 +460,14 @@ notes_panel <- function(){
         p("Users should be aware"),
         p("• Estimates for non-response - In recognition that response rates are not equal across school types and, therefore, not representative of the total school population, the total rates for all schools has been weighted based on the Spring 2022 school census. Weighted total figures are not included at local authority level due to the low number of schools involved."),
         p("• Reporting lag - Schools update their registers continually and attendance codes change, resulting in absence rates for a particular day to decrease over time. Analysis of data from the Summer 2022 term suggests that this could be a decrease in the absence rate of around 1 percentage point before settling down. Historical figures will be recalculated in each publication."),
-        p("• Data prior to 12 September 2022 has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level estimates covering the week commencing 5 September is available at the link below: "),
+        p("• Data prior to 12 September 2022 has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level data covering the week commencing 5th September is available on", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Explore Education Statistics"), ". Data at National and Regional level for the week commencing 19th December has not been included as very few Local Authorities have schools open during this week. Where Local Authorities were open during the week commending 19th December, this data has been shown at Local Authority level."),
+        p("• No figures for the day of national teacher strikes have been provided in the dashboard and underlying data. No figures for the day of regional teacher strikes have been provided in the dashboard and underlying data for regions affected or at a national level, however figures are still available for regions not expected to be affected. Further information on attendance during these days is available at the link below:"),
         a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools"),
         br(),
         br(),
         p("Full information on methodologies and further technical notes are available through", a(href = "https://explore-education-statistics.service.gov.uk/methodology/pupil-attendance-in-schools", "Explore Education Statistics")),
-        br()
+        p(strong("Definitions for common attendance terms")),
+        DTOutput("notesTableReasons"),
       )
     )
   )

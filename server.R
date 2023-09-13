@@ -61,19 +61,50 @@ server <- function(input, output, session) {
   # Setting up reactive levels for dropdown ------------------------------------------------------------
 
   # Local authority geographies
+
+  # NEW LA FILTERING
+  # Combined local authority and region list
+  la_list <- geog_lookup %>%
+    dplyr::select(region_name, la_name) %>%
+    filter(region_name != "All") %>%
+    distinct() %>%
+    arrange(region_name, la_name) %>%
+    group_by(region_name) %>%
+    dplyr::select(region_name, la_name) %>%
+    group_split(.keep = FALSE) %>%
+    unlist(recursive = FALSE)
+
+  names(la_list) <- geog_lookup %>%
+    dplyr::select(region_name) %>%
+    filter(region_name != "All") %>%
+    distinct() %>%
+    pull(region_name) %>%
+    sort()
+
+  updateSelectizeInput(
+    session,
+    "la_choice",
+    choices =
+      la_list
+  )
+
+  # Regional geographies updating based on LA
   observe({
-    la_geog <- geog_lookup %>%
-      filter(
-        geographic_level == "Local authority",
-        region_name == input$region_choice
-      ) %>%
-      pull(la_name) %>%
-      unique()
-    updateSelectInput(session, "la_choice",
-      choices = la_geog
-    )
+    if (input$geography_choice == "Local authority") {
+      reg_geog <- geog_lookup %>%
+        filter(
+          geographic_level == "Local authority",
+          la_name == input$la_choice
+        ) %>%
+        pull(region_name) %>%
+        unique()
+      updateSelectInput(session, "region_choice",
+        choices = reg_geog
+      )
+    }
   })
 
+  # School type updating based on geographic level
   observe({
     if (input$dash == "la comparisons") {
       choicesSchools <- (school_type_lookup %>%
@@ -106,7 +137,7 @@ server <- function(input, output, session) {
 
   output$dropdown_label <- renderText({
     if (input$dash == "la comparisons") {
-      paste0("Current selections: Most recent week, ", input$school_choice, ", National")
+      paste0("Current selections: ", most_recent_week_dates, ", ", input$school_choice, ", National")
     } else if (input$geography_choice == "National") {
       paste0("Current selections: ", input$ts_choice, ", ", input$school_choice, ", ", input$geography_choice)
     } else if (input$geography_choice == "Regional") {
@@ -558,8 +589,10 @@ server <- function(input, output, session) {
       add_trace(
         x = ~week_commencing,
         y = ~overall_absence_perc,
-        line = list(color = "black"),
-        marker = list(color = "black"),
+        # line = list(color = "black"),
+        line = list(color = "#12436D"),
+        # marker = list(color = "black"),
+        marker = list(color = "#12436D"),
         name = "Overall absence rate",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
@@ -567,8 +600,10 @@ server <- function(input, output, session) {
       add_trace(
         x = ~week_commencing,
         y = ~authorised_absence_perc,
-        line = list(color = "steelblue"),
-        marker = list(color = "steelblue"),
+        # line = list(color = "steelblue"),
+        line = list(color = "#28A197"),
+        # marker = list(color = "steelblue"),
+        marker = list(color = "#28A197"),
         name = "Authorised absence rate",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
@@ -576,8 +611,10 @@ server <- function(input, output, session) {
       add_trace(
         x = ~week_commencing,
         y = ~unauthorised_absence_perc,
-        line = list(color = "orangered"),
-        marker = list(color = "orangered"),
+        # line = list(color = "orangered"),
+        line = list(color = "#F46A25"),
+        # marker = list(color = "orangered"),
+        marker = list(color = "#F46A25"),
         name = "Unauthorised absence rate",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
@@ -636,8 +673,10 @@ server <- function(input, output, session) {
       add_trace(
         x = ~attendance_date,
         y = ~overall_absence_perc,
-        line = list(color = "black"),
-        marker = list(color = "black"),
+        # line = list(color = "black"),
+        line = list(color = "#12436D"),
+        # marker = list(color = "black"),
+        marker = list(color = "#12436D"),
         name = "Overall absence rate",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
@@ -645,8 +684,10 @@ server <- function(input, output, session) {
       add_trace(
         x = ~attendance_date,
         y = ~authorised_absence_perc,
-        line = list(color = "steelblue"),
-        marker = list(color = "steelblue"),
+        # line = list(color = "steelblue"),
+        line = list(color = "#28A197"),
+        # marker = list(color = "steelblue"),
+        marker = list(color = "#28A197"),
         name = "Authorised absence rate",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
@@ -654,8 +695,10 @@ server <- function(input, output, session) {
       add_trace(
         x = ~attendance_date,
         y = ~unauthorised_absence_perc,
-        line = list(color = "orangered"),
-        marker = list(color = "orangered"),
+        # line = list(color = "orangered"),
+        line = list(color = "#F46A25"),
+        # marker = list(color = "orangered"),
+        marker = list(color = "#F46A25"),
         name = "Unauthorised absence rate",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
@@ -723,8 +766,8 @@ server <- function(input, output, session) {
       add_trace(
         x = ~week_commencing,
         y = ~unauth_hol_perc,
-        line = list(color = "	#F46A25"),
-        marker = list(color = "	#F46A25"),
+        line = list(color = "#F46A25"),
+        marker = list(color = "#F46A25"),
         name = "Unauthorised holiday",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
@@ -732,8 +775,8 @@ server <- function(input, output, session) {
       add_trace(
         x = ~week_commencing,
         y = ~unauth_oth_perc,
-        line = list(color = "	#3D3D3D"),
-        marker = list(color = "	#3D3D3D"),
+        line = list(color = "#801650"),
+        marker = list(color = "#801650"),
         name = "Unauthorised other",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
@@ -825,8 +868,8 @@ server <- function(input, output, session) {
       add_trace(
         x = ~attendance_date,
         y = ~unauth_hol_perc,
-        line = list(color = "	#F46A25"),
-        marker = list(color = "	#F46A25"),
+        line = list(color = "#F46A25"),
+        marker = list(color = "#F46A25"),
         name = "Unauthorised holiday",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
@@ -834,8 +877,8 @@ server <- function(input, output, session) {
       add_trace(
         x = ~attendance_date,
         y = ~unauth_oth_perc,
-        line = list(color = "	#3D3D3D"),
-        marker = list(color = "	#3D3D3D"),
+        line = list(color = "#801650"),
+        marker = list(color = "#801650"),
         name = "Unauthorised other",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
@@ -1704,14 +1747,9 @@ server <- function(input, output, session) {
       column_spec(2, width_max = "40em")
   }
 
-  output$notesTableReasons <- function() {
-    notesTableReasons[is.na(notesTableReasons)] <- " "
-
-    kable(notesTableReasons, "html", align = "l", escape = FALSE) %>%
-      kable_styling(full_width = T) %>%
-      column_spec(1, bold = T, extra_css = "vertical-align: top !important;") %>%
-      column_spec(2, width_max = "40em")
-  }
+  output$notesTableReasons <- renderDT({
+    datatable(notesTableReasons, options = list(pageLength = 15))
+  })
 
   # Data download button ---------------------------------------------------------------------------------
   output$downloadData <- downloadHandler(

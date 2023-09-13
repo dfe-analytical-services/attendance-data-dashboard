@@ -2,14 +2,14 @@
   "input": {
     "dash": "headlines",
     "geography_choice": "National",
-    "la_choice": "Derby",
+    "la_choice": "",
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
     "link_to_reasons_tab": 0,
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Secondary",
-    "ts_choice": "Year to date"
+    "ts_choice": "Year to date - 2022-09-12 to 2023-07-21"
   },
   "output": {
     "absence_rates_timeseries_plot": {
@@ -224,10 +224,10 @@
               14.7041240012445
             ],
             "line": {
-              "color": "black"
+              "color": "#12436D"
             },
             "marker": {
-              "color": "black",
+              "color": "#12436D",
               "line": {
                 "color": "rgba(255,127,14,1)"
               }
@@ -370,10 +370,10 @@
               6.8915504766190701
             ],
             "line": {
-              "color": "steelblue"
+              "color": "#28A197"
             },
             "marker": {
-              "color": "steelblue",
+              "color": "#28A197",
               "line": {
                 "color": "rgba(44,160,44,1)"
               }
@@ -516,10 +516,10 @@
               7.81257352462538
             ],
             "line": {
-              "color": "orangered"
+              "color": "#F46A25"
             },
             "marker": {
-              "color": "orangered",
+              "color": "#F46A25",
               "line": {
                 "color": "rgba(214,39,40,1)"
               }
@@ -690,7 +690,7 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the year to date: secondary state-funded school attendance at national level",
+    "headline_bullet_title_nat": "Headline figures for the year to date - 2022-09-12 to 2023-07-21: secondary state-funded school attendance at national level",
     "ytd_absence_rate_nat": "• 9.3% of sessions were recorded as absence",
     "ytd_attendance_rate_nat": "• 90.7% of sessions were recorded as attending",
     "ytd_illness_rate_nat": "• 4.2% of sessions were recorded as illness"

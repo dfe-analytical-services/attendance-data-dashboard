@@ -59,7 +59,7 @@ app$snapshot(list(
 
 # 4. If the time series is changed from default most recent week to year to date, are outputs produced?  --------------------------------------------
 message("Test 4")
-app$setInputs(ts_choice = "Year to date")
+app$setInputs(ts_choice = "Year to date - 2022-09-12 to 2023-07-21")
 app$snapshot(list(
   input = listInputs,
   output = c(
@@ -89,7 +89,8 @@ app$snapshot(list(
 
 # 6. If the geography is changed to local authority, does this autofill and do outputs change?  --------------------------------------------
 message("Test 6")
-app$setInputs(geography_choice = "Local authority")
+app$setInputs(region_choice = "East Midlands", la_choice = "Derby", geography_choice = "Local authority", school_choice = "Primary")
+Sys.sleep(4)
 app$snapshot(list(
   input = listInputs,
   output = c(
