@@ -85,7 +85,8 @@ server <- function(input, output, session) {
     session,
     "la_choice",
     choices =
-      la_list
+      la_list,
+    selected = "Derby"
   )
 
   # Regional geographies updating based on LA
@@ -101,8 +102,20 @@ server <- function(input, output, session) {
       updateSelectInput(session, "region_choice",
         choices = reg_geog
       )
+    } else if (input$geography_choice == "Regional") {
+      reg_geog <- geog_lookup %>%
+        filter(
+          geographic_level == "Regional"
+        ) %>%
+        pull(region_name) %>%
+        unique()
+      updateSelectInput(session, "region_choice",
+        choices = reg_geog
+      )
     }
   })
+
+
 
   # School type updating based on geographic level
   observe({
