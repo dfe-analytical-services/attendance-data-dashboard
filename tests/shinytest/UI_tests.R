@@ -59,7 +59,7 @@ app$snapshot(list(
 
 # 4. If the time series is changed from default most recent week to year to date, are outputs produced?  --------------------------------------------
 message("Test 4")
-app$setInputs(ts_choice = ytd_dates)
+app$setInputs(ts_choice = "Year to date - 2022-09-12 to 2023-07-21")
 app$snapshot(list(
   input = listInputs,
   output = c(
