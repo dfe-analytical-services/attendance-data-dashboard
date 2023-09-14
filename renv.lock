@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.2.3",
+    "Version": "4.3.1",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -1350,32 +1350,28 @@
     },
     "rsconnect": {
       "Package": "rsconnect",
-      "Version": "1.1.0",
+      "Version": "0.8.29",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
-        "cli",
         "curl",
         "digest",
         "jsonlite",
-        "lifecycle",
         "openssl",
         "packrat",
-        "renv",
-        "rlang",
         "rstudioapi",
         "tools",
         "yaml"
       ],
-      "Hash": "ec53d658cf0abbd7cd7ce2d6b9d70337"
+      "Hash": "fe178fc15af80952f546aafedf655b36"
     },
     "rstudioapi": {
       "Package": "rstudioapi",
-      "Version": "0.15.0",
+      "Version": "0.14",
       "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "5564500e25cffad9e22244ced1379887"
+      "Repository": "CRAN",
+      "Hash": "690bd2acc42a9166ce34845884459320"
     },
     "rvest": {
       "Package": "rvest",
