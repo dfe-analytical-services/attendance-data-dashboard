@@ -65,32 +65,34 @@ server <- function(input, output, session) {
   # NEW LA FILTERING
 
   # Regional geographies updating based on LA
-  observeEvent(input$region_choice , {
+  observeEvent(input$region_choice, {
     if (input$geography_choice == "Regional") {
       las_in_region <- geog_lookup %>%
         filter(
           geographic_level == "Local authority",
           region_name == input$region_choice
-        ) 
-      if(input$la_choice %in% las_in_region){
+        )
+      if (input$la_choice %in% las_in_region) {
         selected_la <- input$la_choice
       } else {
-        selected_la <- las_in_region %>% head(1) %>%
+        selected_la <- las_in_region %>%
+          head(1) %>%
           pull(la_name)
       }
       updateSelectizeInput(session, "la_choice",
-                           selected = selected_la
+        selected = selected_la
       )
     }
   })
 
-  observeEvent(input$la_choice , {
+  observeEvent(input$la_choice, {
     if (input$geography_choice == "Local authority") {
       parent_region <- geog_lookup %>%
-        filter(la_name == input$la_choice) %>% 
-        pull(region_name) %>% unique()
-      if(parent_region != input$region_choice){
-        updateSelectizeInput(session, "region_choice",selected = parent_region)
+        filter(la_name == input$la_choice) %>%
+        pull(region_name) %>%
+        unique()
+      if (parent_region != input$region_choice) {
+        updateSelectizeInput(session, "region_choice", selected = parent_region)
       }
     }
   })
