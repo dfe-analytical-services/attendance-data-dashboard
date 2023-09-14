@@ -63,44 +63,18 @@ server <- function(input, output, session) {
   # Local authority geographies
 
   # NEW LA FILTERING
-  # Combined local authority and region list
-  la_list <- geog_lookup %>%
-    dplyr::select(region_name, la_name) %>%
-    filter(region_name != "All") %>%
-    distinct() %>%
-    arrange(region_name, la_name) %>%
-    group_by(region_name) %>%
-    dplyr::select(region_name, la_name) %>%
-    group_split(.keep = FALSE) %>%
-    unlist(recursive = FALSE)
-
-  names(la_list) <- geog_lookup %>%
-    dplyr::select(region_name) %>%
-    filter(region_name != "All") %>%
-    distinct() %>%
-    pull(region_name) %>%
-    sort()
-
-  updateSelectizeInput(
-    session,
-    "la_choice",
-    choices =
-      la_list,
-    selected = "Derby"
-  )
 
   # Regional geographies updating based on LA
-  observe({
+  observeEvent(input$geography_choice , {
     if (input$geography_choice == "Local authority") {
-      reg_geog <- geog_lookup %>%
+      selected_la <- geog_lookup %>%
         filter(
           geographic_level == "Local authority",
-          la_name == input$la_choice
-        ) %>%
-        pull(region_name) %>%
-        unique()
-      updateSelectInput(session, "region_choice",
-        choices = reg_geog
+          region_name == input$region_choice
+        ) %>% head(1) %>%
+        pull(la_name) 
+      updateSelectizeInput(session, "la_choice",
+        selected = selected_la
       )
     } else if (input$geography_choice == "Regional") {
       reg_geog <- geog_lookup %>%
@@ -110,7 +84,8 @@ server <- function(input, output, session) {
         pull(region_name) %>%
         unique()
       updateSelectInput(session, "region_choice",
-        choices = reg_geog
+        choices = reg_geog,
+        selected=input$region_choice
       )
     }
   })
