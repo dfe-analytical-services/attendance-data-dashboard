@@ -110,7 +110,8 @@ server <- function(input, output, session) {
         pull(region_name) %>%
         unique()
       updateSelectInput(session, "region_choice",
-        choices = reg_geog
+        choices = reg_geog,
+        selected = input$region_choice
       )
     }
   })
