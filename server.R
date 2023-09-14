@@ -65,31 +65,35 @@ server <- function(input, output, session) {
   # NEW LA FILTERING
 
   # Regional geographies updating based on LA
-  observeEvent(input$geography_choice , {
-    if (input$geography_choice == "Local authority") {
-      selected_la <- geog_lookup %>%
+  observeEvent(input$region_choice , {
+    if (input$geography_choice == "Regional") {
+      las_in_region <- geog_lookup %>%
         filter(
           geographic_level == "Local authority",
           region_name == input$region_choice
-        ) %>% head(1) %>%
-        pull(la_name) 
+        ) 
+      if(input$la_choice %in% las_in_region){
+        selected_la <- input$la_choice
+      } else {
+        selected_la <- las_in_region %>% head(1) %>%
+          pull(la_name)
+      }
       updateSelectizeInput(session, "la_choice",
-        selected = selected_la
-      )
-    } else if (input$geography_choice == "Regional") {
-      reg_geog <- geog_lookup %>%
-        filter(
-          geographic_level == "Regional"
-        ) %>%
-        pull(region_name) %>%
-        unique()
-      updateSelectInput(session, "region_choice",
-        choices = reg_geog,
-        selected=input$region_choice
+                           selected = selected_la
       )
     }
   })
 
+  observeEvent(input$la_choice , {
+    if (input$geography_choice == "Local authority") {
+      parent_region <- geog_lookup %>%
+        filter(la_name == input$la_choice) %>% 
+        pull(region_name) %>% unique()
+      if(parent_region != input$region_choice){
+        updateSelectizeInput(session, "region_choice",selected = parent_region)
+      }
+    }
+  })
 
 
   # School type updating based on geographic level
