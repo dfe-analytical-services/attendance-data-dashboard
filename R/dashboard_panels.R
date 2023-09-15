@@ -201,7 +201,7 @@ dashboard_panel <- function() {
                   conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.dash != 'la comparisons'", 
                                    selectizeInput(inputId = "la_choice",
                                                   label = "Choose local authority:",
-                                                  choices = las,
+                                                  choices = la_list,
                                                   selected = las[1]
                                    ))
                 )

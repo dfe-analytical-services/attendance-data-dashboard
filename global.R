@@ -154,6 +154,24 @@ school_type_lookup <- attendance_data %>%
   unique() %>%
   arrange(geographic_level, school_type)
 
+# Combined local authority and region list
+la_list <- geog_lookup %>%
+  dplyr::select(region_name, la_name) %>%
+  filter(region_name != "All") %>%
+  distinct() %>%
+  arrange(region_name, la_name) %>%
+  group_by(region_name) %>%
+  dplyr::select(region_name, la_name) %>%
+  group_split(.keep = FALSE) %>%
+  unlist(recursive = FALSE)
+
+names(la_list) <- geog_lookup %>%
+  dplyr::select(region_name) %>%
+  filter(region_name != "All") %>%
+  distinct() %>%
+  pull(region_name) %>%
+  sort()
+
 
 # Notes tables----------------------------------
 

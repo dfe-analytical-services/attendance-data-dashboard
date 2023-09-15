@@ -1,0 +1,11 @@
+name: pupil-attendance-in-schools
+title:
+username:
+account: department-for-education
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 7144838
+bundleId: 7680746
+url: https://department-for-education.shinyapps.io/pupil-attendance-in-schools/
+when: 1694627785.76926
+lastSyncTime: 1694627785.76949
