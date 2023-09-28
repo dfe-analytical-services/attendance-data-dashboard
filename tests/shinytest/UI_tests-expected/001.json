@@ -11,12 +11,12 @@
     "navlistPanel": "Homepage",
     "region_choice": "East Midlands",
     "school_choice": "Primary",
-    "ts_choice": "Latest week - 2023-07-17 to 2023-07-21"
+    "ts_choice": "Latest week - 2023-09-11 to 2023-09-15"
   },
   "output": {
-    "daily_schools_count": "15,671 schools provided information on the most recent full day of data, i.e. 2023-07-21",
-    "headline_update_date": "Data was last updated on 2023-08-10.",
-    "homepage_update_dates": "Data was last updated on 2023-08-10. The most recent full week of data was the week commencing 2023-07-17."
+    "daily_schools_count": "18,114 schools provided information on the most recent full day of data, i.e. 2023-09-15",
+    "headline_update_date": "Data was last updated on 2023-09-28.",
+    "homepage_update_dates": "Data was last updated on 2023-09-28 and is next expected to be updated on 2023-10-12. The most recent full week of data was the week commencing 2023-09-11."
   },
   "export": {
 
