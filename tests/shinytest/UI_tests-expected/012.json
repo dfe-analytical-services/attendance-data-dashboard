@@ -9,754 +9,130 @@
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Secondary",
-    "ts_choice": "Year to date - 2022-09-12 to 2023-07-21"
+    "ts_choice": "Latest week - 2023-09-11 to 2023-09-15"
   },
   "output": {
-    "absence_reasons_timeseries_plot": {
+    "absence_auth_reasons_table": {
       "x": {
-        "layout": {
-          "margin": {
-            "b": 40,
-            "l": 60,
-            "t": 80,
-            "r": 10
-          },
-          "xaxis": {
-            "domain": [
-              0,
-              1
-            ],
-            "automargin": true,
-            "title": "Week commencing",
-            "tickvals": [
-              "2022-09-12",
-              "2022-09-19",
-              "2022-09-26",
-              "2022-10-03",
-              "2022-10-10",
-              "2022-10-17",
-              "2022-10-31",
-              "2022-11-07",
-              "2022-11-14",
-              "2022-11-21",
-              "2022-11-28",
-              "2022-12-05",
-              "2022-12-12",
-              "2023-01-02",
-              "2023-01-09",
-              "2023-01-16",
-              "2023-01-23",
-              "2023-01-30",
-              "2023-02-06",
-              "2023-02-20",
-              "2023-02-27",
-              "2023-03-06",
-              "2023-03-13",
-              "2023-03-20",
-              "2023-03-27",
-              "2023-04-17",
-              "2023-04-24",
-              "2023-05-01",
-              "2023-05-08",
-              "2023-05-15",
-              "2023-05-22",
-              "2023-06-05",
-              "2023-06-12",
-              "2023-06-19",
-              "2023-06-26",
-              "2023-07-03",
-              "2023-07-10",
-              "2023-07-17"
-            ],
-            "zeroline": true,
-            "zerolinewidth": 2,
-            "zerolinecolor": "Grey",
-            "tickmode": "linear",
-            "tick0": "2022-09-12",
-            "dtick": 1209600000
-          },
-          "yaxis": {
-            "domain": [
-              0,
-              1
-            ],
-            "automargin": true,
-            "rangemode": "tozero",
-            "title": "Absence rate (%)",
-            "zeroline": true,
-            "zerolinewidth": 2,
-            "zerolinecolor": "Grey"
-          },
-          "hovermode": "x unified",
-          "legend": {
-            "font": {
-              "size": 11
+        "filter": "none",
+        "vertical": false,
+        "container": "<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th>Illness<\/th>\n      <th>Medical or dental appointments<\/th>\n      <th>Religious observance<\/th>\n      <th>Study leave<\/th>\n      <th>Traveller<\/th>\n      <th>Holiday<\/th>\n      <th>Excluded<\/th>\n      <th>Other<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "options": {
+          "scrollX": true,
+          "ordering": false,
+          "searching": false,
+          "lengthChange": false,
+          "dom": "t",
+          "columnDefs": [
+            {
+              "targets": -1,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 1, 3, \",\", \".\", null);\n  }"
             },
-            "orientation": "h",
-            "yanchor": "top",
-            "y": -0.5,
-            "xanchor": "center",
-            "x": 0.5
-          },
-          "title": "Weekly summary of absence reasons for <br>secondary state-funded schools at local authority level<br>(East Midlands, Rutland)",
-          "font": {
-            "family": "arial",
-            "size": 10,
-            "color": "grey"
-          },
-          "showlegend": true
-        },
-        "source": "A",
-        "config": {
-          "modeBarButtonsToAdd": [
-            "hoverclosest",
-            "hovercompare"
+            {
+              "targets": 0,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 1, 3, \",\", \".\", null);\n  }"
+            },
+            {
+              "targets": 1,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 1, 3, \",\", \".\", null);\n  }"
+            },
+            {
+              "targets": 2,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 1, 3, \",\", \".\", null);\n  }"
+            },
+            {
+              "targets": 3,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 1, 3, \",\", \".\", null);\n  }"
+            },
+            {
+              "targets": 4,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 1, 3, \",\", \".\", null);\n  }"
+            },
+            {
+              "targets": 5,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 1, 3, \",\", \".\", null);\n  }"
+            },
+            {
+              "targets": 6,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 1, 3, \",\", \".\", null);\n  }"
+            },
+            {
+              "className": "dt-center",
+              "targets": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
           ],
-          "showSendToCloud": false
+          "order": [
+
+          ],
+          "autoWidth": false,
+          "orderClasses": false,
+          "ajax": {
+            "type": "POST",
+            "data": "function(d) {\nd.search.caseInsensitive = true;\nd.search.smart = true;\nd.escape = false;\nvar encodeAmp = function(x) { x.value = x.value.replace(/&/g, \"%26\"); }\nencodeAmp(d.search);\n$.each(d.columns, function(i, v) {encodeAmp(v.search);});\n}"
+          },
+          "serverSide": true,
+          "processing": true
         },
-        "data": [
-          {
-            "mode": "lines+markers",
-            "type": "scatter",
-            "marker": {
-              "color": "rgba(31,119,180,1)",
-              "line": {
-                "color": "rgba(31,119,180,1)"
-              }
-            },
-            "error_y": {
-              "color": "rgba(31,119,180,1)"
-            },
-            "error_x": {
-              "color": "rgba(31,119,180,1)"
-            },
-            "line": {
-              "color": "rgba(31,119,180,1)"
-            },
-            "xaxis": "x",
-            "yaxis": "y",
-            "frame": null
-          },
-          {
-            "mode": "markers+lines",
-            "type": "scatter",
-            "x": [
-              "2022-09-12",
-              "2022-09-19",
-              "2022-09-26",
-              "2022-10-03",
-              "2022-10-10",
-              "2022-10-31",
-              "2022-11-07",
-              "2022-11-14",
-              "2022-11-21",
-              "2022-11-28",
-              "2022-12-05",
-              "2022-12-12",
-              "2023-01-02",
-              "2023-01-09",
-              "2023-01-16",
-              "2023-01-23",
-              "2023-01-30",
-              "2023-02-06",
-              "2023-02-20",
-              "2023-02-27",
-              "2023-03-06",
-              "2023-03-13",
-              "2023-03-20",
-              "2023-03-27",
-              "2023-04-17",
-              "2023-04-24",
-              "2023-05-01",
-              "2023-05-08",
-              "2023-05-15",
-              "2023-05-22",
-              "2023-06-05",
-              "2023-06-12",
-              "2023-06-19",
-              "2023-06-26",
-              "2023-07-03",
-              "2023-07-10"
-            ],
-            "y": [
-              3.2943705495096101,
-              3.8688480622234098,
-              4.5591236172269403,
-              4.5954501555960903,
-              4.3534239961374404,
-              2.8189752101515202,
-              3.93502385675226,
-              4.9197234266963603,
-              9.6275701538859408,
-              8.7541435274871908,
-              7.3304628632938602,
-              8.9948115137031994,
-              2.9425104887175402,
-              3.5391760557323502,
-              4.1430815918042301,
-              4.6124031007751896,
-              5.7419931096082699,
-              4.6380309920472396,
-              3.4557438794726898,
-              3.6443542934415101,
-              4.7338545571382697,
-              3.9400916189978901,
-              4.1880305054073803,
-              3.7212609623133401,
-              2.5276971065935201,
-              3.4800601956358199,
-              3.4328550286339401,
-              3.8573351278600301,
-              3.8418468429666599,
-              3.8863171493164002,
-              2.8359720667413,
-              3.4004123471847101,
-              3.2863473757274799,
-              3.2813937989908299,
-              3.9074025040662699,
-              3.65951229693533
-            ],
-            "line": {
-              "color": "#12436D"
-            },
-            "marker": {
-              "color": "#12436D",
-              "line": {
-                "color": "rgba(255,127,14,1)"
-              }
-            },
-            "name": "Illness",
-            "hovertemplate": [
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%"
-            ],
-            "error_y": {
-              "color": "rgba(255,127,14,1)"
-            },
-            "error_x": {
-              "color": "rgba(255,127,14,1)"
-            },
-            "xaxis": "x",
-            "yaxis": "y",
-            "frame": null
-          },
-          {
-            "mode": "markers+lines",
-            "type": "scatter",
-            "x": [
-              "2022-09-12",
-              "2022-09-19",
-              "2022-09-26",
-              "2022-10-03",
-              "2022-10-10",
-              "2022-10-31",
-              "2022-11-07",
-              "2022-11-14",
-              "2022-11-21",
-              "2022-11-28",
-              "2022-12-05",
-              "2022-12-12",
-              "2023-01-02",
-              "2023-01-09",
-              "2023-01-16",
-              "2023-01-23",
-              "2023-01-30",
-              "2023-02-06",
-              "2023-02-20",
-              "2023-02-27",
-              "2023-03-06",
-              "2023-03-13",
-              "2023-03-20",
-              "2023-03-27",
-              "2023-04-17",
-              "2023-04-24",
-              "2023-05-01",
-              "2023-05-08",
-              "2023-05-15",
-              "2023-05-22",
-              "2023-06-05",
-              "2023-06-12",
-              "2023-06-19",
-              "2023-06-26",
-              "2023-07-03",
-              "2023-07-10"
-            ],
-            "y": [
-              0.33319897890635503,
-              0.46265254123642202,
-              0.35441950381269499,
-              0.27631720141646099,
-              0.40234972237869199,
-              0.37746961503453402,
-              0.40208009435479503,
-              0.43595452947380797,
-              0.40734514418724899,
-              0.365921907959878,
-              0.49300322927879398,
-              0.35738121380438798,
-              0.31466152625014199,
-              0.36552851122387497,
-              0.38955728213847601,
-              0.45434969853574497,
-              0.36238356513972197,
-              0.47845858746955799,
-              0.63088512241054595,
-              0.482307865675006,
-              0.43911320552639999,
-              0.51506016947141098,
-              0.43302167262699798,
-              0.38354629489969599,
-              0.40228030547488403,
-              0.467927012791573,
-              0.48581172382729598,
-              0.390309555854643,
-              0.43500732190541802,
-              0.419851437183766,
-              0.38914654299269702,
-              0.519789761012864,
-              0.42714506914410799,
-              0.39351337628129901,
-              0.37825774482732499,
-              0.37917000034786202
-            ],
-            "line": {
-              "color": "#28A197"
-            },
-            "marker": {
-              "color": "#28A197",
-              "line": {
-                "color": "rgba(44,160,44,1)"
-              }
-            },
-            "name": "Medical appointments",
-            "hovertemplate": [
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%"
-            ],
-            "error_y": {
-              "color": "rgba(44,160,44,1)"
-            },
-            "error_x": {
-              "color": "rgba(44,160,44,1)"
-            },
-            "xaxis": "x",
-            "yaxis": "y",
-            "frame": null
-          },
-          {
-            "mode": "markers+lines",
-            "type": "scatter",
-            "x": [
-              "2022-09-12",
-              "2022-09-19",
-              "2022-09-26",
-              "2022-10-03",
-              "2022-10-10",
-              "2022-10-31",
-              "2022-11-07",
-              "2022-11-14",
-              "2022-11-21",
-              "2022-11-28",
-              "2022-12-05",
-              "2022-12-12",
-              "2023-01-02",
-              "2023-01-09",
-              "2023-01-16",
-              "2023-01-23",
-              "2023-01-30",
-              "2023-02-06",
-              "2023-02-20",
-              "2023-02-27",
-              "2023-03-06",
-              "2023-03-13",
-              "2023-03-20",
-              "2023-03-27",
-              "2023-04-17",
-              "2023-04-24",
-              "2023-05-01",
-              "2023-05-08",
-              "2023-05-15",
-              "2023-05-22",
-              "2023-06-05",
-              "2023-06-12",
-              "2023-06-19",
-              "2023-06-26",
-              "2023-07-03",
-              "2023-07-10"
-            ],
-            "y": [
-              0.0107483541582695,
-              0.013410218586562999,
-              0.032219954892063099,
-              0.016096147655327801,
-              0.300421126042756,
-              0.0321250736199604,
-              0.085777086795689697,
-              0.089065979139810195,
-              0.056036898142161298,
-              0.021524818115286899,
-              0,
-              0.027987685418415901,
-              0.113391540991042,
-              0.047303689687795601,
-              0.021522501775606401,
-              0.068906115417743302,
-              0.0459359448768661,
-              0.107760943123774,
-              0.056497175141242903,
-              0,
-              0.032130234550712199,
-              0.085447770050556607,
-              0.11202550734628799,
-              0.11635674114934599,
-              0.111864042164139,
-              0.030568096313017299,
-              0.019303777105720399,
-              0.086137281292059206,
-              0.043070031871823601,
-              0.219614597911508,
-              0.063969294738525501,
-              0.302000755001887,
-              0.133482834107534,
-              0.11107232395036699,
-              0.037825774482732499,
-              0.62615229415243301
-            ],
-            "line": {
-              "color": "#F46A25"
-            },
-            "marker": {
-              "color": "#F46A25",
-              "line": {
-                "color": "rgba(214,39,40,1)"
-              }
-            },
-            "name": "Unauthorised holiday",
-            "hovertemplate": [
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%"
-            ],
-            "error_y": {
-              "color": "rgba(214,39,40,1)"
-            },
-            "error_x": {
-              "color": "rgba(214,39,40,1)"
-            },
-            "xaxis": "x",
-            "yaxis": "y",
-            "frame": null
-          },
-          {
-            "mode": "markers+lines",
-            "type": "scatter",
-            "x": [
-              "2022-09-12",
-              "2022-09-19",
-              "2022-09-26",
-              "2022-10-03",
-              "2022-10-10",
-              "2022-10-31",
-              "2022-11-07",
-              "2022-11-14",
-              "2022-11-21",
-              "2022-11-28",
-              "2022-12-05",
-              "2022-12-12",
-              "2023-01-02",
-              "2023-01-09",
-              "2023-01-16",
-              "2023-01-23",
-              "2023-01-30",
-              "2023-02-06",
-              "2023-02-20",
-              "2023-02-27",
-              "2023-03-06",
-              "2023-03-13",
-              "2023-03-20",
-              "2023-03-27",
-              "2023-04-17",
-              "2023-04-24",
-              "2023-05-01",
-              "2023-05-08",
-              "2023-05-15",
-              "2023-05-22",
-              "2023-06-05",
-              "2023-06-12",
-              "2023-06-19",
-              "2023-06-26",
-              "2023-07-03",
-              "2023-07-10"
-            ],
-            "y": [
-              0.744323525460164,
-              0.78785034196057402,
-              1.0471485339920501,
-              0.86650928211181499,
-              1.0058743059467301,
-              0.82454355624565001,
-              0.96231169248914405,
-              1.1039493730223799,
-              1.3966119229277101,
-              1.68324077661544,
-              1.66846071044133,
-              2.3724945639303301,
-              1.66685565256832,
-              1.5008170637309699,
-              1.88752340572068,
-              1.87123169681309,
-              2.0467015439581502,
-              1.7349511842927601,
-              1.1864406779661001,
-              2.6346630606265502,
-              2.2196637035450402,
-              1.7231966960195599,
-              1.75147572062562,
-              2.41547975608179,
-              2.0092502957943399,
-              1.9540067720090299,
-              1.9979409304420599,
-              1.82234185733513,
-              1.9553794469807899,
-              2.7494886424803502,
-              2.64139879524495,
-              2.0065627087144602,
-              2.25585989641732,
-              1.78350417314589,
-              1.9177667662745399,
-              3.5621108289560701
-            ],
-            "line": {
-              "color": "#801650"
-            },
-            "marker": {
-              "color": "#801650",
-              "line": {
-                "color": "rgba(148,103,189,1)"
-              }
-            },
-            "name": "Unauthorised other",
-            "hovertemplate": [
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%"
-            ],
-            "error_y": {
-              "color": "rgba(148,103,189,1)"
-            },
-            "error_x": {
-              "color": "rgba(148,103,189,1)"
-            },
-            "xaxis": "x",
-            "yaxis": "y",
-            "frame": null
-          }
-        ],
-        "highlight": {
-          "on": "plotly_click",
-          "persistent": false,
-          "dynamic": false,
-          "selectize": false,
-          "opacityDim": 0.20000000000000001,
-          "selected": {
-            "opacity": 1
-          },
-          "debounce": 0
-        },
-        "shinyEvents": [
-          "plotly_hover",
-          "plotly_click",
-          "plotly_selected",
-          "plotly_relayout",
-          "plotly_brushed",
-          "plotly_brushing",
-          "plotly_clickannotation",
-          "plotly_doubleclick",
-          "plotly_deselect",
-          "plotly_afterplot",
-          "plotly_sunburstclick"
-        ],
-        "base_url": "https://plot.ly"
+        "selection": {
+          "mode": "none",
+          "selected": null,
+          "target": "row",
+          "selectable": null
+        }
       },
       "evals": [
-
+        "options.columnDefs.0.render",
+        "options.columnDefs.1.render",
+        "options.columnDefs.2.render",
+        "options.columnDefs.3.render",
+        "options.columnDefs.4.render",
+        "options.columnDefs.5.render",
+        "options.columnDefs.6.render",
+        "options.columnDefs.7.render",
+        "options.ajax.data"
       ],
       "jsHooks": [
 
       ],
       "deps": [
         {
-          "name": "setprototypeof",
-          "version": "0.1",
-          "src": {
-            "href": "setprototypeof-0.1"
-          },
-          "meta": null,
-          "script": "setprototypeof.js",
-          "stylesheet": null,
-          "head": null,
-          "attachment": null,
-          "all_files": false
-        },
-        {
-          "name": "typedarray",
-          "version": "0.1",
-          "src": {
-            "href": "typedarray-0.1"
-          },
-          "meta": null,
-          "script": "typedarray.min.js",
-          "stylesheet": null,
-          "head": null,
-          "attachment": null,
-          "all_files": false
-        },
-        {
           "name": "jquery",
-          "version": "3.5.1",
+          "version": "3.6.0",
           "src": {
-            "href": "jquery-3.5.1"
+            "href": "jquery-3.6.0"
           },
           "meta": null,
-          "script": "jquery.min.js",
+          "script": "jquery-3.6.0.min.js",
           "stylesheet": null,
           "head": null,
           "attachment": null,
           "all_files": true
+        },
+        {
+          "name": "dt-core",
+          "version": "1.13.4",
+          "src": {
+            "href": "dt-core-1.13.4"
+          },
+          "meta": null,
+          "script": "js/jquery.dataTables.min.js",
+          "stylesheet": [
+            "css/jquery.dataTables.min.css",
+            "css/jquery.dataTables.extra.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
         },
         {
           "name": "crosstalk",
@@ -770,43 +146,130 @@
           "head": null,
           "attachment": null,
           "all_files": true
-        },
-        {
-          "name": "plotly-htmlwidgets-css",
-          "version": "2.11.1",
-          "src": {
-            "href": "plotly-htmlwidgets-css-2.11.1"
-          },
-          "meta": null,
-          "script": null,
-          "stylesheet": "plotly-htmlwidgets.css",
-          "head": null,
-          "attachment": null,
-          "all_files": false
-        },
-        {
-          "name": "plotly-main",
-          "version": "2.11.1",
-          "src": {
-            "href": "plotly-main-2.11.1"
-          },
-          "meta": null,
-          "script": "plotly-latest.min.js",
-          "stylesheet": null,
-          "head": null,
-          "attachment": null,
-          "all_files": false
         }
       ]
     },
-    "headline_auth_rate_ytd": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>5.6%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
+    "absence_unauth_reasons_table": {
+      "x": {
+        "filter": "none",
+        "vertical": false,
+        "container": "<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th>Holiday<\/th>\n      <th>Late after registers closed<\/th>\n      <th>Other<\/th>\n      <th>No reason yet<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "options": {
+          "scrollX": true,
+          "ordering": false,
+          "searching": false,
+          "lengthChange": false,
+          "dom": "t",
+          "columnDefs": [
+            {
+              "targets": -1,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 1, 3, \",\", \".\", null);\n  }"
+            },
+            {
+              "targets": 0,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 1, 3, \",\", \".\", null);\n  }"
+            },
+            {
+              "targets": 1,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 1, 3, \",\", \".\", null);\n  }"
+            },
+            {
+              "targets": 2,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 1, 3, \",\", \".\", null);\n  }"
+            },
+            {
+              "className": "dt-center",
+              "targets": [
+                0,
+                1,
+                2,
+                3
+              ]
+            }
+          ],
+          "order": [
+
+          ],
+          "autoWidth": false,
+          "orderClasses": false,
+          "ajax": {
+            "type": "POST",
+            "data": "function(d) {\nd.search.caseInsensitive = true;\nd.search.smart = true;\nd.escape = false;\nvar encodeAmp = function(x) { x.value = x.value.replace(/&/g, \"%26\"); }\nencodeAmp(d.search);\n$.each(d.columns, function(i, v) {encodeAmp(v.search);});\n}"
+          },
+          "serverSide": true,
+          "processing": true
+        },
+        "selection": {
+          "mode": "none",
+          "selected": null,
+          "target": "row",
+          "selectable": null
+        }
+      },
+      "evals": [
+        "options.columnDefs.0.render",
+        "options.columnDefs.1.render",
+        "options.columnDefs.2.render",
+        "options.columnDefs.3.render",
+        "options.ajax.data"
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "jquery",
+          "version": "3.6.0",
+          "src": {
+            "href": "jquery-3.6.0"
+          },
+          "meta": null,
+          "script": "jquery-3.6.0.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "dt-core",
+          "version": "1.13.4",
+          "src": {
+            "href": "dt-core-1.13.4"
+          },
+          "meta": null,
+          "script": "js/jquery.dataTables.min.js",
+          "stylesheet": [
+            "css/jquery.dataTables.min.css",
+            "css/jquery.dataTables.extra.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.2.0",
+          "src": {
+            "href": "crosstalk-1.2.0"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.min.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "headline_auth_rate_weekly": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>4.2%<\/h3>\n    <p>Most recent full week<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
-    "headline_unauth_rate_ytd": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>2%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
+    "headline_unauth_rate_weekly": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1.4%<\/h3>\n    <p>Most recent full week<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
