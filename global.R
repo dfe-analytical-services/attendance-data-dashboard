@@ -105,7 +105,7 @@ site_c <- ""
 # Read in data
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 start_date <- as.Date("2023-09-11")
-end_date <- as.Date("2023-09-15")
+end_date <- as.Date("2023-09-29")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -125,13 +125,13 @@ end_date <- as.Date("2023-09-15")
 # summer_start <- as.Date("2023-04-01")
 # summer_end <- as.Date("2023-07-21")
 
-# most_recent_week_dates <- paste("Most recent week -", as.Date(end_date)-4, "to", as.Date(end_date))
+most_recent_week_dates <- paste("Latest week -", as.Date(end_date) - 4, "to", as.Date(end_date))
 # most_recent_week_dates <- paste("Latest week -", as.Date(end_date) - 11, "to", as.Date(end_date) - 7)
-most_recent_week_dates <- paste("Latest week -", as.Date(start_date), "to", as.Date(end_date))
+# most_recent_week_dates <- paste("Latest week -", as.Date(start_date), "to", as.Date(end_date))
 # ytd_dates <- paste("Year to date -", as.Date(start_date), "to", as.Date(end_date))
 ytd_dates <- paste("Year to date -", as.Date(start_date), "to", as.Date(end_date))
 
-school_freq_count <- fread("data/enrolments_schools_denominator_180923.csv")
+school_freq_count <- fread("data/enrolments_schools_denominator_041023.csv")
 school_freq_count$total_enrolments <- as.numeric(school_freq_count$total_enrolments)
 
 attendance_data <- read.csv("data/attendance_data_dashboard.csv")

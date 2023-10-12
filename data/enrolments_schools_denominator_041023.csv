@@ -1,0 +1,910 @@
+time_period,time_identifier,geographic_level,country_code,country_name,region_code,region_name,new_la_code,old_la_code,la_name,phase,total_num_schools,total_enrolments
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000004,353,Oldham,Primary,86,25605
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000016,370,Barnsley,Independent school,3,147
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000030,936,Surrey,Special,30,3523
+2023,June,Local authority,E92000001,England,E12000007,London,E09000016,311,Havering,PRU/Academy/Free school AP,1,11
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000041,872,Wokingham,Secondary,10,13012
+2023,June,Local authority,E92000001,England,E12000007,London,E09000009,307,Ealing,PRU/Academy/Free school AP,2,60
+2023,June,Local authority,E92000001,England,E12000007,London,E09000032,212,Wandsworth,State-funded nursery,3,166
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000036,867,Bracknell Forest,Independent school,7,3287
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000034,883,Thurrock,Special,3,498
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000027,332,Dudley,Secondary,20,18309
+2023,June,Local authority,E92000001,England,E12000009,South West,E10000008,878,Devon,Independent school,42,7192
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000047,840,County Durham,Secondary,31,29138
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000030,866,Swindon,Independent school,1,77
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000016,370,Barnsley,PRU/Academy/Free school AP,1,56
+2023,June,Local authority,E92000001,England,E12000007,London,E09000026,317,Redbridge,Primary,52,28901
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000015,919,Hertfordshire,PRU/Academy/Free school AP,8,90
+2023,June,Local authority,E92000001,England,E12000007,London,E09000004,303,Bexley,Special,7,736
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000035,383,Leeds,Secondary,47,55161
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000003,807,Redcar and Cleveland,Special,4,475
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000054,865,Wiltshire,Secondary,29,31364
+2023,June,Local authority,E92000001,England,E12000007,London,E09000004,303,Bexley,Secondary,16,19132
+2023,June,Local authority,E92000001,England,E12000007,London,E09000031,320,Waltham Forest,Secondary,18,16768
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000031,336,Wolverhampton,Secondary,20,20571
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000001,805,Hartlepool,Secondary,5,5832
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000007,830,Derbyshire,Independent school,28,4071
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000031,937,Warwickshire,Secondary,39,39475
+2023,June,Local authority,E92000001,England,E12000007,London,E09000031,320,Waltham Forest,PRU/Academy/Free school AP,3,22
+2023,June,Local authority,E92000001,England,E12000007,London,E09000017,312,Hillingdon,Secondary,22,22610
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000002,351,Bury,State-funded nursery,1,96
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000010,810,"Kingston upon Hull, City of",Primary,71,25432
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000001,805,Hartlepool,Independent school,2,16
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000044,851,Portsmouth,Special,5,667
+2023,June,Local authority,E92000001,England,E12000007,London,E09000033,213,Westminster,Independent school,33,9639
+2023,June,Local authority,E92000001,England,E12000007,London,E09000005,304,Brent,Special,5,836
+2023,June,Local authority,E92000001,England,E12000007,London,E09000008,306,Croydon,Secondary,25,24324
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000055,822,Bedford,Independent school,10,4553
+2023,June,Local authority,E92000001,England,E12000007,London,E09000017,312,Hillingdon,Primary,67,29378
+2023,June,Local authority,E92000001,England,E12000007,London,E09000021,314,Kingston upon Thames,Independent school,12,4225
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000004,353,Oldham,Independent school,11,1530
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000035,887,Medway,Independent school,9,1789
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000016,856,Leicester,Secondary,23,20914
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000062,941,West Northamptonshire,Primary,148,35451
+2023,June,Local authority,E92000001,England,E12000007,London,E09000017,312,Hillingdon,Independent school,8,4110
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000059,838,Dorset,Special,6,848
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000051,893,Shropshire,Independent school,32,4932
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000029,935,Suffolk,Primary,253,56939
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000028,333,Sandwell,Special,6,787
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000003,873,Cambridgeshire,PRU/Academy/Free school AP,3,3
+2023,June,Local authority,E92000001,England,E12000007,London,E09000027,318,Richmond upon Thames,Primary,45,16697
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000027,332,Dudley,Primary,78,26987
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000065,815,North Yorkshire,Secondary,43,36872
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000066,933,Somerset,Special,8,941
+2023,June,Local authority,E92000001,England,E12000007,London,E09000011,203,Greenwich,Independent school,14,3596
+2023,June,Local authority,E92000001,England,E12000007,London,E09000004,303,Bexley,Independent school,6,737
+2023,June,Local authority,E92000001,England,E12000007,London,E09000025,316,Newham,Primary,68,34294
+2023,June,Local authority,E92000001,England,E12000007,London,E09000027,318,Richmond upon Thames,Secondary,11,11859
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000024,394,Sunderland,State-funded nursery,7,686
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000030,335,Walsall,Primary,84,28547
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000032,821,Luton,Special,4,784
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000019,884,"Herefordshire, County of",Primary,77,13528
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000050,896,Cheshire West and Chester,PRU/Academy/Free school AP,2,60
+2023,June,Local authority,E92000001,England,E12000007,London,E09000025,316,Newham,Special,3,228
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000025,330,Birmingham,Secondary,90,87476
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000018,372,Rotherham,Secondary,17,19113
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000038,870,Reading,State-funded nursery,5,405
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000018,855,Leicestershire,Independent school,33,6760
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000020,926,Norfolk,Secondary,55,51025
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000035,887,Medway,PRU/Academy/Free school AP,2,65
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000017,371,Doncaster,Special,7,752
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000055,822,Bedford,Primary,54,16890
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000010,359,Wigan,PRU/Academy/Free school AP,1,98
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000017,371,Doncaster,Primary,97,26522
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000047,840,County Durham,Independent school,8,1993
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000024,394,Sunderland,Primary,81,23146
+2023,June,Local authority,E92000001,England,E12000007,London,E09000023,209,Lewisham,PRU/Academy/Free school AP,1,75
+2023,June,Local authority,E92000001,England,E12000007,London,E09000030,211,Tower Hamlets,PRU/Academy/Free school AP,2,134
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000003,352,Manchester,Primary,135,53619
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000023,801,"Bristol, City of",Secondary,25,25051
+2023,June,Local authority,E92000001,England,E12000007,London,E09000011,203,Greenwich,PRU/Academy/Free school AP,1,166
+2023,June,Local authority,E92000001,England,E12000007,London,E09000022,208,Lambeth,Independent school,8,2084
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000012,341,Liverpool,Primary,114,39612
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000051,893,Shropshire,Special,3,501
+2023,June,Local authority,E92000001,England,E12000007,London,E09000013,205,Hammersmith and Fulham,State-funded nursery,4,333
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000023,393,South Tyneside,PRU/Academy/Free school AP,1,63
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000003,873,Cambridgeshire,Independent school,36,11443
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,Special,10,1229
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000025,330,Birmingham,State-funded nursery,27,3020
+2023,June,Local authority,E92000001,England,E12000007,London,E09000019,206,Islington,PRU/Academy/Free school AP,4,89
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000036,867,Bracknell Forest,Special,1,198
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000011,340,Knowsley,Independent school,2,26
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000003,352,Manchester,Secondary,33,34197
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000024,394,Sunderland,Special,7,837
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000022,800,Bath and North East Somerset,Secondary,14,13388
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000050,896,Cheshire West and Chester,Independent school,12,4155
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000054,865,Wiltshire,Primary,201,37982
+2023,June,Local authority,E92000001,England,E12000007,London,E09000022,208,Lambeth,PRU/Academy/Free school AP,1,59
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000062,941,West Northamptonshire,State-funded nursery,5,343
+2023,June,Local authority,E92000001,England,E12000007,London,E09000005,304,Brent,PRU/Academy/Free school AP,3,54
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000005,841,Darlington,PRU/Academy/Free school AP,1,36
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000019,925,Lincolnshire,PRU/Academy/Free school AP,5,174
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000027,332,Dudley,Independent school,6,464
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000023,393,South Tyneside,State-funded nursery,4,295
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000025,803,South Gloucestershire,Independent school,5,418
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000031,937,Warwickshire,Special,11,1723
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000062,941,West Northamptonshire,PRU/Academy/Free school AP,3,135
+2023,June,Local authority,E92000001,England,E12000007,London,E09000028,210,Southwark,Primary,70,20889
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000044,851,Portsmouth,Secondary,10,9556
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000030,936,Surrey,Primary,298,89891
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000003,807,Redcar and Cleveland,Secondary,11,8305
+2023,June,Local authority,E92000001,England,E12000007,London,E09000019,206,Islington,Primary,44,13502
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000030,936,Surrey,Independent school,111,41033
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000015,919,Hertfordshire,Secondary,82,91265
+2023,June,Local authority,E92000001,England,E12000002,North West,E10000017,888,Lancashire,PRU/Academy/Free school AP,10,565
+2023,June,Local authority,E92000001,England,E12000007,London,E09000005,304,Brent,Secondary,16,21091
+2023,June,Local authority,E92000001,England,E12000007,London,E09000015,310,Harrow,PRU/Academy/Free school AP,2,37
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000021,391,Newcastle upon Tyne,Primary,72,22951
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000045,852,Southampton,Independent school,6,1564
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000024,891,Nottinghamshire,Independent school,17,1471
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000013,342,St. Helens,Primary,53,15289
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000023,393,South Tyneside,Primary,45,12760
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000031,874,Peterborough,Independent school,4,652
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000015,831,Derby,Primary,74,24692
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000005,841,Darlington,Special,2,339
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000055,822,Bedford,PRU/Academy/Free school AP,1,40
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000004,808,Stockton-on-Tees,Primary,60,17899
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000009,890,Blackpool,Primary,30,11561
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000054,865,Wiltshire,Independent school,28,6078
+2023,June,Local authority,E92000001,England,E12000007,London,E09000028,210,Southwark,PRU/Academy/Free school AP,1,48
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000001,350,Bolton,PRU/Academy/Free school AP,3,103
+2023,June,Local authority,E92000001,England,E12000007,London,E09000030,211,Tower Hamlets,Secondary,18,19188
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000018,372,Rotherham,Primary,96,24650
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000036,867,Bracknell Forest,Primary,29,10316
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000016,886,Kent,Independent school,93,19326
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000034,885,Worcestershire,State-funded nursery,1,98
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000022,800,Bath and North East Somerset,Special,3,553
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000034,883,Thurrock,Primary,39,18745
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000042,826,Milton Keynes,Primary,90,27476
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000064,943,Westmorland and Furness,State-funded nursery,2,159
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000014,850,Hampshire,State-funded nursery,3,306
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000024,394,Sunderland,PRU/Academy/Free school AP,3,98
+2023,June,Local authority,E92000001,England,E12000007,London,E09000022,208,Lambeth,State-funded nursery,5,476
+2023,June,Local authority,E92000001,England,E12000007,London,E09000003,302,Barnet,Primary,88,30301
+2023,June,Local authority,E92000001,England,E12000007,London,E09000009,307,Ealing,Independent school,21,4267
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000014,343,Sefton,Special,6,862
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000014,850,Hampshire,Primary,423,105836
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000046,921,Isle of Wight,Special,3,395
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000032,380,Bradford,Special,8,1337
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000024,802,North Somerset,PRU/Academy/Free school AP,1,44
+2023,June,Local authority,E92000001,England,E12000007,London,E09000007,202,Camden,Independent school,34,9573
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000009,358,Trafford,Special,8,963
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000040,868,Windsor and Maidenhead,Special,2,398
+2023,June,Local authority,E92000001,England,E12000007,London,E09000016,311,Havering,Special,4,364
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000003,873,Cambridgeshire,State-funded nursery,7,630
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000008,889,Blackburn with Darwen,State-funded nursery,4,285
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000001,805,Hartlepool,PRU/Academy/Free school AP,1,24
+2023,June,Local authority,E92000001,England,E12000007,London,E09000006,305,Bromley,PRU/Academy/Free school AP,1,55
+2023,June,Local authority,E92000001,England,E12000007,London,E09000023,209,Lewisham,Primary,64,22845
+2023,June,Local authority,E92000001,England,E12000007,London,E09000026,317,Redbridge,Independent school,14,3146
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000037,869,West Berkshire,Secondary,10,12673
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000063,942,Cumberland,State-funded nursery,3,128
+2023,June,Local authority,E92000001,England,E12000007,London,E09000015,310,Harrow,Special,4,506
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000026,331,Coventry,Primary,85,33594
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000022,392,North Tyneside,Special,6,952
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000049,895,Cheshire East,State-funded nursery,1,68
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000011,811,East Riding of Yorkshire,Independent school,6,1324
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000061,940,North Northamptonshire,Independent school,8,2394
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000051,893,Shropshire,Secondary,20,16582
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000020,894,Telford and Wrekin,Primary,55,17417
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000038,870,Reading,Primary,40,14246
+2023,June,Local authority,E92000001,England,E12000007,London,E09000014,309,Haringey,PRU/Academy/Free school AP,1,53
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000005,841,Darlington,Secondary,8,6754
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000009,890,Blackpool,Secondary,8,7640
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000032,938,West Sussex,State-funded nursery,4,526
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000049,895,Cheshire East,Primary,124,31507
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000032,380,Bradford,Primary,156,53321
+2023,June,Local authority,E92000001,England,E12000007,London,E09000009,307,Ealing,Special,6,951
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000016,370,Barnsley,Secondary,11,13563
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000022,392,North Tyneside,State-funded nursery,1,82
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000015,831,Derby,State-funded nursery,7,528
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000012,881,Essex,PRU/Academy/Free school AP,6,226
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000032,380,Bradford,Independent school,16,3084
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000007,877,Warrington,Primary,69,18377
+2023,June,Local authority,E92000001,England,E12000009,South West,E10000008,878,Devon,State-funded nursery,2,209
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000016,856,Leicester,PRU/Academy/Free school AP,2,44
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000013,813,North Lincolnshire,Independent school,7,390
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000041,872,Wokingham,Primary,55,15790
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000063,942,Cumberland,Special,3,441
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000059,838,Dorset,Primary,116,21202
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000017,857,Rutland,Primary,17,2560
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000028,860,Staffordshire,Primary,303,64281
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000036,384,Wakefield,PRU/Academy/Free school AP,3,126
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000031,336,Wolverhampton,Special,8,858
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000047,840,County Durham,PRU/Academy/Free school AP,2,177
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000047,840,County Durham,Primary,210,39643
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000028,333,Sandwell,Independent school,5,281
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000045,852,Southampton,Primary,54,19499
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000029,935,Suffolk,PRU/Academy/Free school AP,10,38
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000004,353,Oldham,Special,6,1338
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000018,372,Rotherham,Independent school,2,73
+2023,June,Local authority,E92000001,England,E12000007,London,E09000006,305,Bromley,Independent school,16,5128
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000023,801,"Bristol, City of",State-funded nursery,12,1585
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000019,925,Lincolnshire,Independent school,23,3932
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000030,866,Swindon,Secondary,14,14086
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000025,931,Oxfordshire,PRU/Academy/Free school AP,1,8
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000052,908,Cornwall,State-funded nursery,2,163
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000052,908,Cornwall,Independent school,12,2159
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000047,840,County Durham,State-funded nursery,11,844
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000006,355,Salford,Primary,76,23357
+2023,June,Local authority,E92000001,England,E12000007,London,E09000002,301,Barking and Dagenham,PRU/Academy/Free school AP,1,69
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000052,908,Cornwall,Special,4,468
+2023,June,Local authority,E92000001,England,E12000007,London,E09000015,310,Harrow,Independent school,12,3944
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000039,871,Slough,Primary,28,17410
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000008,889,Blackburn with Darwen,PRU/Academy/Free school AP,2,79
+2023,June,Local authority,E92000001,England,E12000007,London,E09000011,203,Greenwich,Primary,63,24556
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000012,341,Liverpool,Special,14,1823
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000001,350,Bolton,Secondary,20,21813
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000006,355,Salford,Independent school,29,5946
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000051,893,Shropshire,Primary,126,22465
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000003,352,Manchester,PRU/Academy/Free school AP,2,234
+2023,June,Local authority,E92000001,England,E12000007,London,E09000020,207,Kensington and Chelsea,Primary,27,6823
+2023,June,Local authority,E92000001,England,E12000007,London,E09000008,306,Croydon,Independent school,26,7134
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000025,330,Birmingham,PRU/Academy/Free school AP,7,359
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000039,871,Slough,Secondary,15,14662
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000061,940,North Northamptonshire,State-funded nursery,4,456
+2023,June,Local authority,E92000001,England,E12000007,London,E09000013,205,Hammersmith and Fulham,PRU/Academy/Free school AP,3,62
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000031,874,Peterborough,PRU/Academy/Free school AP,1,98
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000059,838,Dorset,Independent school,22,5174
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000017,857,Rutland,Special,1,8
+2023,June,Local authority,E92000001,England,E12000009,South West,E10000013,916,Gloucestershire,PRU/Academy/Free school AP,3,76
+2023,June,Local authority,E92000001,England,E12000007,London,E09000011,203,Greenwich,Secondary,17,18461
+2023,June,Local authority,E92000001,England,E12000007,London,E09000014,309,Haringey,Secondary,14,16249
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000035,887,Medway,Special,5,1052
+2023,June,Local authority,E92000001,England,E12000007,London,E09000002,301,Barking and Dagenham,Special,3,511
+2023,June,Local authority,E92000001,England,E12000007,London,E09000023,209,Lewisham,Secondary,14,14266
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000034,382,Kirklees,Primary,139,36630
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,Special,10,1676
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000050,896,Cheshire West and Chester,Primary,129,28570
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000040,868,Windsor and Maidenhead,PRU/Academy/Free school AP,1,25
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000031,336,Wolverhampton,PRU/Academy/Free school AP,3,71
+2023,June,Local authority,E92000001,England,E12000007,London,E09000001,201,City of London,Primary,1,271
+2023,June,Local authority,E92000001,England,E12000007,London,E09000019,206,Islington,State-funded nursery,3,292
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000025,330,Birmingham,Primary,293,110044
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000056,823,Central Bedfordshire,State-funded nursery,2,221
+2023,June,Local authority,E92000001,England,E12000007,London,E09000020,207,Kensington and Chelsea,PRU/Academy/Free school AP,1,47
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000015,344,Wirral,Secondary,21,22596
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000034,382,Kirklees,Special,7,862
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000032,821,Luton,Independent school,7,841
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000013,813,North Lincolnshire,PRU/Academy/Free school AP,1,7
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000002,806,Middlesbrough,PRU/Academy/Free school AP,3,105
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000003,807,Redcar and Cleveland,PRU/Academy/Free school AP,1,68
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000002,351,Bury,Independent school,8,1883
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000031,937,Warwickshire,State-funded nursery,6,401
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000002,351,Bury,Special,3,478
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000007,356,Stockport,Independent school,17,4510
+2023,June,Local authority,E92000001,England,E12000007,London,E09000006,305,Bromley,Secondary,19,24505
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,Primary,127,21622
+2023,June,Local authority,E92000001,England,E12000007,London,E09000023,209,Lewisham,Special,5,855
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000019,925,Lincolnshire,State-funded nursery,5,455
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000024,394,Sunderland,Secondary,18,16100
+2023,June,Local authority,E92000001,England,E12000007,London,E09000007,202,Camden,Secondary,10,10563
+2023,June,Local authority,E92000001,England,E12000007,London,E09000024,315,Merton,Secondary,9,10556
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000028,333,Sandwell,PRU/Academy/Free school AP,3,83
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000019,373,Sheffield,Special,12,1530
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000032,938,West Sussex,Secondary,39,50125
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000015,919,Hertfordshire,Independent school,53,23996
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000002,351,Bury,Primary,63,16410
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000007,356,Stockport,Special,8,892
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000010,359,Wigan,State-funded nursery,2,174
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000018,372,Rotherham,State-funded nursery,3,380
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,Primary,67,15873
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000005,841,Darlington,Independent school,4,116
+2023,June,Local authority,E92000001,England,E12000007,London,E09000022,208,Lambeth,Primary,60,19387
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000019,373,Sheffield,Primary,133,46507
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000015,831,Derby,Special,7,963
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000043,846,Brighton and Hove,State-funded nursery,2,209
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000045,852,Southampton,Secondary,14,13420
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000031,937,Warwickshire,Primary,195,46348
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000009,358,Trafford,PRU/Academy/Free school AP,1,39
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000002,351,Bury,PRU/Academy/Free school AP,1,127
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000045,852,Southampton,Special,6,869
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000037,869,West Berkshire,Independent school,13,3444
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000034,885,Worcestershire,Primary,182,42496
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000018,855,Leicestershire,State-funded nursery,2,110
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000033,381,Calderdale,PRU/Academy/Free school AP,1,76
+2023,June,Local authority,E92000001,England,E12000007,London,E09000018,313,Hounslow,Primary,49,22560
+2023,June,Local authority,E92000001,England,E12000007,London,E09000026,317,Redbridge,PRU/Academy/Free school AP,3,83
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000021,861,Stoke-on-Trent,Primary,71,24368
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000019,373,Sheffield,PRU/Academy/Free school AP,1,199
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000033,882,Southend-on-Sea,Special,5,645
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000011,811,East Riding of Yorkshire,PRU/Academy/Free school AP,1,122
+2023,June,Local authority,E92000001,England,E12000007,London,E09000007,202,Camden,Primary,38,10616
+2023,June,Local authority,E92000001,England,E12000007,London,E09000020,207,Kensington and Chelsea,Independent school,31,10900
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000061,940,North Northamptonshire,Primary,111,29977
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000011,340,Knowsley,Secondary,6,5792
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000005,354,Rochdale,Primary,69,22259
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000008,357,Tameside,Independent school,7,172
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000035,383,Leeds,Independent school,15,4807
+2023,June,Local authority,E92000001,England,E12000002,North West,E10000017,888,Lancashire,Primary,479,99348
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000034,883,Thurrock,PRU/Academy/Free school AP,1,56
+2023,June,Local authority,E92000001,England,E12000007,London,E09000016,311,Havering,Primary,59,24885
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000035,383,Leeds,Special,10,2019
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000019,884,"Herefordshire, County of",Independent school,11,1454
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000014,816,York,Independent school,5,2384
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000016,886,Kent,PRU/Academy/Free school AP,6,7
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000031,336,Wolverhampton,Primary,71,26197
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000004,353,Oldham,Secondary,15,18384
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000019,373,Sheffield,Independent school,9,2487
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000062,941,West Northamptonshire,Special,8,1055
+2023,June,Local authority,E92000001,England,E12000007,London,E09000010,308,Enfield,PRU/Academy/Free school AP,1,43
+2023,June,Local authority,E92000001,England,E12000007,London,E09000025,316,Newham,Secondary,23,28920
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000024,802,North Somerset,Independent school,4,1015
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000005,841,Darlington,Primary,29,8886
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000034,885,Worcestershire,Independent school,26,7428
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000008,889,Blackburn with Darwen,Secondary,11,11319
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000036,867,Bracknell Forest,PRU/Academy/Free school AP,1,24
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000013,813,North Lincolnshire,Special,3,347
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000006,355,Salford,PRU/Academy/Free school AP,4,137
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000064,943,Westmorland and Furness,Primary,122,15451
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000026,879,Plymouth,Special,7,637
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,Secondary,27,21313
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000003,807,Redcar and Cleveland,Independent school,5,103
+2023,June,Local authority,E92000001,England,E12000007,London,E09000029,319,Sutton,Special,4,643
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000001,350,Bolton,State-funded nursery,2,221
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000007,830,Derbyshire,Primary,350,60177
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000011,845,East Sussex,Special,15,1463
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000011,811,East Riding of Yorkshire,Primary,123,24478
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000011,811,East Riding of Yorkshire,Secondary,18,19991
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000028,860,Staffordshire,PRU/Academy/Free school AP,6,155
+2023,June,Local authority,E92000001,England,E12000007,London,E09000032,212,Wandsworth,Independent school,31,10037
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000025,330,Birmingham,Independent school,58,8321
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000024,394,Sunderland,Independent school,4,391
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000002,806,Middlesbrough,Primary,41,14367
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000014,850,Hampshire,PRU/Academy/Free school AP,7,118
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000026,331,Coventry,PRU/Academy/Free school AP,2,82
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000027,880,Torbay,PRU/Academy/Free school AP,1,43
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000021,391,Newcastle upon Tyne,PRU/Academy/Free school AP,2,97
+2023,June,Local authority,E92000001,England,E12000007,London,E09000014,309,Haringey,Primary,63,20895
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000017,371,Doncaster,PRU/Academy/Free school AP,3,22
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000018,855,Leicestershire,Primary,229,54789
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000029,334,Solihull,Secondary,16,18205
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000059,838,Dorset,PRU/Academy/Free school AP,4,121
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000039,871,Slough,Special,2,373
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000025,330,Birmingham,Special,27,4730
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,State-funded nursery,1,59
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000040,868,Windsor and Maidenhead,Primary,46,10367
+2023,June,Local authority,E92000001,England,E12000007,London,E09000003,302,Barnet,State-funded nursery,4,411
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000013,342,St. Helens,Independent school,5,539
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000005,354,Rochdale,Independent school,8,500
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000016,886,Kent,State-funded nursery,1,91
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000016,856,Leicester,Primary,82,34224
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000018,855,Leicestershire,Special,8,1741
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000061,940,North Northamptonshire,Secondary,21,24193
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000020,894,Telford and Wrekin,Special,4,699
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000018,372,Rotherham,PRU/Academy/Free school AP,1,91
+2023,June,Local authority,E92000001,England,E12000007,London,E09000014,309,Haringey,Independent school,13,3723
+2023,June,Local authority,E92000001,England,E12000007,London,E09000015,310,Harrow,Secondary,13,16687
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000030,335,Walsall,Special,7,749
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000007,830,Derbyshire,Secondary,45,42271
+2023,June,Local authority,E92000001,England,E12000009,South West,E10000013,916,Gloucestershire,Secondary,41,42369
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000044,851,Portsmouth,Independent school,4,2404
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000015,919,Hertfordshire,State-funded nursery,14,1541
+2023,June,Local authority,E92000001,England,E12000007,London,E09000016,311,Havering,Secondary,19,16964
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000021,861,Stoke-on-Trent,Secondary,15,15444
+2023,June,Local authority,E92000001,England,E12000007,London,E09000007,202,Camden,PRU/Academy/Free school AP,3,74
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000031,336,Wolverhampton,Independent school,7,1415
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000015,919,Hertfordshire,Primary,404,103490
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000004,808,Stockton-on-Tees,Special,4,654
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000002,351,Bury,Secondary,13,11359
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000006,876,Halton,Primary,48,10066
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000010,810,"Kingston upon Hull, City of",Special,6,746
+2023,June,Local authority,E92000001,England,E12000002,North West,E10000017,888,Lancashire,Secondary,82,69169
+2023,June,Local authority,E92000001,England,E12000007,London,E09000007,202,Camden,State-funded nursery,1,136
+2023,June,Local authority,E92000001,England,E12000007,London,E09000019,206,Islington,Independent school,6,918
+2023,June,Local authority,E92000001,England,E12000007,London,E09000021,314,Kingston upon Thames,Primary,35,14019
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000007,356,Stockport,Primary,85,26157
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000006,876,Halton,Secondary,8,8181
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000065,815,North Yorkshire,State-funded nursery,3,213
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000032,938,West Sussex,Primary,226,64147
+2023,June,Local authority,E92000001,England,E12000007,London,E09000033,213,Westminster,Special,3,246
+2023,June,Local authority,E92000001,England,E12000007,London,E09000031,320,Waltham Forest,State-funded nursery,3,295
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000012,341,Liverpool,State-funded nursery,5,549
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000008,357,Tameside,Secondary,17,14777
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000021,391,Newcastle upon Tyne,Independent school,8,4146
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000047,840,County Durham,Special,9,1671
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000033,882,Southend-on-Sea,Primary,32,15398
+2023,June,Local authority,E92000001,England,E12000007,London,E09000010,308,Enfield,Secondary,21,24886
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000023,393,South Tyneside,Special,4,623
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000050,896,Cheshire West and Chester,Secondary,21,19450
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000005,841,Darlington,State-funded nursery,2,216
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000043,846,Brighton and Hove,Special,4,478
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000034,382,Kirklees,PRU/Academy/Free school AP,3,48
+2023,June,Local authority,E92000001,England,E12000007,London,E09000030,211,Tower Hamlets,Primary,66,25047
+2023,June,Local authority,E92000001,England,E12000007,London,E09000017,312,Hillingdon,Special,8,1080
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000056,823,Central Bedfordshire,Special,4,836
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000037,869,West Berkshire,Primary,67,13546
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000012,881,Essex,State-funded nursery,2,267
+2023,June,Local authority,E92000001,England,E12000007,London,E09000002,301,Barking and Dagenham,Independent school,5,214
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000029,334,Solihull,PRU/Academy/Free school AP,3,85
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000029,334,Solihull,Independent school,6,2155
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000013,342,St. Helens,Special,4,463
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000058,839,"Bournemouth, Christchurch and Poole",Special,8,1187
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000046,921,Isle of Wight,Primary,38,8742
+2023,June,Local authority,E92000001,England,E12000007,London,E09000033,213,Westminster,Primary,38,8083
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000005,354,Rochdale,Secondary,13,13118
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000007,877,Warrington,Secondary,14,13954
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000018,892,Nottingham,State-funded nursery,1,100
+2023,June,Local authority,E92000001,England,E12000007,London,E09000004,303,Bexley,PRU/Academy/Free school AP,1,21
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000016,886,Kent,Primary,460,129652
+2023,June,Local authority,E92000001,England,E12000009,South West,E10000008,878,Devon,PRU/Academy/Free school AP,5,137
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000026,331,Coventry,Secondary,22,25088
+2023,June,Local authority,E92000001,England,E12000007,London,E09000010,308,Enfield,Independent school,12,1475
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000012,341,Liverpool,Secondary,33,32281
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000014,850,Hampshire,Independent school,62,15296
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000020,926,Norfolk,Special,15,1881
+2023,June,Local authority,E92000001,England,E12000007,London,E09000013,205,Hammersmith and Fulham,Independent school,19,6540
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000013,342,St. Helens,Secondary,9,11184
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000049,895,Cheshire East,Special,7,635
+2023,June,Local authority,E92000001,England,E12000002,North West,E10000017,888,Lancashire,State-funded nursery,24,2280
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000025,931,Oxfordshire,State-funded nursery,7,450
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000021,861,Stoke-on-Trent,State-funded nursery,1,58
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000030,866,Swindon,Special,7,834
+2023,June,Local authority,E92000001,England,E12000007,London,E09000008,306,Croydon,Special,9,1304
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000009,358,Trafford,Independent school,10,1758
+2023,June,Local authority,E92000001,England,E12000009,South West,E10000013,916,Gloucestershire,Special,13,1503
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000035,887,Medway,Secondary,20,21826
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000016,856,Leicester,Special,8,1311
+2023,June,Local authority,E92000001,England,E12000007,London,E09000009,307,Ealing,State-funded nursery,4,489
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000040,868,Windsor and Maidenhead,Secondary,14,11769
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,Secondary,37,39627
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000025,931,Oxfordshire,Independent school,53,18203
+2023,June,Local authority,E92000001,England,E12000007,London,E09000032,212,Wandsworth,Special,7,889
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000023,801,"Bristol, City of",Primary,103,35709
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000015,831,Derby,Secondary,16,18994
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000035,887,Medway,Primary,76,26488
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000038,870,Reading,PRU/Academy/Free school AP,1,74
+2023,June,Local authority,E92000001,England,E12000007,London,E09000012,204,Hackney,Special,3,477
+2023,June,Local authority,E92000001,England,E12000007,London,E09000021,314,Kingston upon Thames,State-funded nursery,1,127
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000006,355,Salford,Secondary,16,13138
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000014,850,Hampshire,Secondary,70,71043
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000061,940,North Northamptonshire,Special,8,1195
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000045,852,Southampton,PRU/Academy/Free school AP,2,43
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000006,876,Halton,PRU/Academy/Free school AP,1,37
+2023,June,Local authority,E92000001,England,E12000007,London,E09000010,308,Enfield,Special,7,1170
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000019,925,Lincolnshire,Special,18,2158
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000024,802,North Somerset,Secondary,11,14020
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000022,800,Bath and North East Somerset,Primary,65,13562
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000037,869,West Berkshire,State-funded nursery,2,229
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000020,894,Telford and Wrekin,State-funded nursery,2,137
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000030,335,Walsall,PRU/Academy/Free school AP,3,136
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000056,823,Central Bedfordshire,PRU/Academy/Free school AP,1,62
+2023,June,Local authority,E92000001,England,E12000007,London,E09000013,205,Hammersmith and Fulham,Primary,36,8974
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000032,380,Bradford,State-funded nursery,7,891
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000007,877,Warrington,Special,4,444
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000011,845,East Sussex,PRU/Academy/Free school AP,2,47
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000034,885,Worcestershire,Special,10,1766
+2023,June,Local authority,E92000001,England,E12000007,London,E09000014,309,Haringey,Special,6,681
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000003,352,Manchester,Independent school,19,5713
+2023,June,Local authority,E92000001,England,E12000007,London,E09000008,306,Croydon,State-funded nursery,5,402
+2023,June,Local authority,E92000001,England,E12000007,London,E09000008,306,Croydon,PRU/Academy/Free school AP,2,89
+2023,June,Local authority,E92000001,England,E12000007,London,E09000009,307,Ealing,Primary,65,30187
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000026,879,Plymouth,Primary,69,20145
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000012,881,Essex,Secondary,81,93836
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000012,812,North East Lincolnshire,State-funded nursery,2,96
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000009,890,Blackpool,Independent school,4,90
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000009,890,Blackpool,PRU/Academy/Free school AP,1,76
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000052,908,Cornwall,PRU/Academy/Free school AP,6,110
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000041,872,Wokingham,PRU/Academy/Free school AP,2,14
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000034,382,Kirklees,State-funded nursery,1,88
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000034,382,Kirklees,Independent school,14,1826
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000063,942,Cumberland,Independent school,5,683
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000014,816,York,State-funded nursery,1,73
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000024,891,Nottinghamshire,Secondary,45,54467
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000001,805,Hartlepool,Special,2,295
+2023,June,Local authority,E92000001,England,E12000007,London,E09000018,313,Hounslow,Special,5,916
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000063,942,Cumberland,Secondary,19,17001
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000032,938,West Sussex,Special,14,2228
+2023,June,Local authority,E92000001,England,E12000007,London,E09000024,315,Merton,Independent school,18,4692
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000027,332,Dudley,State-funded nursery,1,140
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000001,350,Bolton,Independent school,10,3308
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000020,926,Norfolk,State-funded nursery,3,239
+2023,June,Local authority,E92000001,England,E12000007,London,E09000017,312,Hillingdon,PRU/Academy/Free school AP,1,55
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000021,391,Newcastle upon Tyne,Special,6,1002
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000023,801,"Bristol, City of",Independent school,14,6660
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000027,880,Torbay,Special,3,589
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000012,881,Essex,Independent school,47,11565
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000019,925,Lincolnshire,Secondary,54,49843
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000051,893,Shropshire,PRU/Academy/Free school AP,1,57
+2023,June,Local authority,E92000001,England,E12000007,London,E09000020,207,Kensington and Chelsea,Special,3,302
+2023,June,Local authority,E92000001,England,E12000007,London,E09000008,306,Croydon,Primary,86,32166
+2023,June,Local authority,E92000001,England,E12000007,London,E09000031,320,Waltham Forest,Primary,51,24728
+2023,June,Local authority,E92000001,England,E12000009,South West,E10000008,878,Devon,Secondary,43,40171
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000012,812,North East Lincolnshire,Special,2,357
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000007,830,Derbyshire,PRU/Academy/Free school AP,3,225
+2023,June,Local authority,E92000001,England,E12000007,London,E09000021,314,Kingston upon Thames,PRU/Academy/Free school AP,1,95
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000009,358,Trafford,Primary,63,22294
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000064,943,Westmorland and Furness,Special,3,289
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000011,845,East Sussex,Independent school,26,6429
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000019,884,"Herefordshire, County of",Special,4,300
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000031,336,Wolverhampton,State-funded nursery,7,730
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000045,852,Southampton,State-funded nursery,1,104
+2023,June,Local authority,E92000001,England,E12000007,London,E09000029,319,Sutton,Secondary,15,21278
+2023,June,Local authority,E92000001,England,E12000007,London,E09000031,320,Waltham Forest,Independent school,6,2210
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000025,803,South Gloucestershire,PRU/Academy/Free school AP,1,71
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000018,372,Rotherham,Special,7,768
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000032,821,Luton,Secondary,13,14895
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000011,845,East Sussex,Secondary,26,28885
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000010,810,"Kingston upon Hull, City of",Independent school,2,1186
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000020,926,Norfolk,Independent school,34,5744
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000037,869,West Berkshire,PRU/Academy/Free school AP,1,55
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000021,861,Stoke-on-Trent,PRU/Academy/Free school AP,1,2
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000062,941,West Northamptonshire,Secondary,23,30795
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000012,812,North East Lincolnshire,Secondary,10,9387
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000009,358,Trafford,Secondary,19,19748
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000019,373,Sheffield,State-funded nursery,2,203
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000038,870,Reading,Independent school,11,2943
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000043,846,Brighton and Hove,Primary,52,17496
+2023,June,Local authority,E92000001,England,E12000007,London,E09000005,304,Brent,State-funded nursery,4,380
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000026,331,Coventry,Special,7,1068
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000024,891,Nottinghamshire,Special,12,1275
+2023,June,Local authority,E92000001,England,E12000007,London,E09000029,319,Sutton,PRU/Academy/Free school AP,2,109
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000018,855,Leicestershire,Secondary,46,44237
+2023,June,Local authority,E92000001,England,E12000007,London,E09000033,213,Westminster,PRU/Academy/Free school AP,1,55
+2023,June,Local authority,E92000001,England,E12000007,London,E09000033,213,Westminster,State-funded nursery,4,268
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000011,340,Knowsley,PRU/Academy/Free school AP,1,50
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000058,839,"Bournemouth, Christchurch and Poole",Independent school,12,2693
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000004,353,Oldham,PRU/Academy/Free school AP,1,42
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,PRU/Academy/Free school AP,1,90
+2023,June,Local authority,E92000001,England,E12000007,London,E09000024,315,Merton,Primary,44,16930
+2023,June,Local authority,E92000001,England,E12000007,London,E09000027,318,Richmond upon Thames,State-funded nursery,1,90
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000028,333,Sandwell,Secondary,22,24863
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000014,343,Sefton,Secondary,18,15991
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000022,392,North Tyneside,PRU/Academy/Free school AP,1,167
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000055,822,Bedford,Special,3,410
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000058,839,"Bournemouth, Christchurch and Poole",Secondary,25,24822
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,PRU/Academy/Free school AP,3,84
+2023,June,Local authority,E92000001,England,E12000007,London,E09000020,207,Kensington and Chelsea,Secondary,6,6221
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000010,359,Wigan,Primary,99,27361
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,Secondary,10,12178
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000025,803,South Gloucestershire,Primary,93,19107
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000024,802,North Somerset,Special,4,429
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000049,895,Cheshire East,Secondary,23,24892
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000006,876,Halton,Special,4,425
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000007,830,Derbyshire,State-funded nursery,8,611
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,PRU/Academy/Free school AP,1,21
+2023,June,Local authority,E92000001,England,E12000007,London,E09000020,207,Kensington and Chelsea,State-funded nursery,4,201
+2023,June,Local authority,E92000001,England,E12000007,London,E09000028,210,Southwark,Special,10,842
+2023,June,Local authority,E92000001,England,E12000007,London,E09000003,302,Barnet,Independent school,37,8123
+2023,June,Local authority,E92000001,England,E12000007,London,E09000018,313,Hounslow,Secondary,20,21059
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000001,350,Bolton,Primary,97,30336
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000026,879,Plymouth,Independent school,5,995
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000033,882,Southend-on-Sea,Secondary,12,14834
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000042,826,Milton Keynes,Secondary,15,22638
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000020,894,Telford and Wrekin,Secondary,12,12613
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000066,933,Somerset,Primary,216,39884
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000032,938,West Sussex,PRU/Academy/Free school AP,2,142
+2023,June,Local authority,E92000001,England,E12000007,London,E09000024,315,Merton,PRU/Academy/Free school AP,1,66
+2023,June,Local authority,E92000001,England,E12000007,London,E09000018,313,Hounslow,Independent school,13,2403
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000014,816,York,Secondary,9,9946
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000018,855,Leicestershire,PRU/Academy/Free school AP,1,3
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000024,802,North Somerset,Primary,64,16095
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000031,874,Peterborough,State-funded nursery,1,136
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000009,890,Blackpool,Special,4,581
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000007,877,Warrington,PRU/Academy/Free school AP,1,9
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000023,801,"Bristol, City of",PRU/Academy/Free school AP,3,125
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000017,857,Rutland,Secondary,4,3284
+2023,June,Local authority,E92000001,England,E12000007,London,E09000026,317,Redbridge,Special,5,653
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000015,344,Wirral,Primary,88,25513
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000032,380,Bradford,Secondary,37,38878
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000026,879,Plymouth,Secondary,19,17542
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000013,342,St. Helens,State-funded nursery,1,61
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000034,883,Thurrock,Secondary,13,12314
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000014,816,York,Primary,50,13393
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000020,894,Telford and Wrekin,Independent school,8,971
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000028,860,Staffordshire,Special,23,2900
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000049,895,Cheshire East,PRU/Academy/Free school AP,2,65
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000003,352,Manchester,State-funded nursery,2,114
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000006,355,Salford,Special,4,925
+2023,June,Local authority,E92000001,England,E12000007,London,E09000002,301,Barking and Dagenham,Primary,43,24539
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000033,381,Calderdale,Secondary,14,17053
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000036,384,Wakefield,Secondary,20,21383
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000040,868,Windsor and Maidenhead,State-funded nursery,3,269
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000034,885,Worcestershire,Secondary,45,37158
+2023,June,Local authority,E92000001,England,E12000007,London,E09000015,310,Harrow,State-funded nursery,1,84
+2023,June,Local authority,E92000001,England,E12000007,London,E09000023,209,Lewisham,State-funded nursery,2,213
+2023,June,Local authority,E92000001,England,E12000007,London,E09000032,212,Wandsworth,PRU/Academy/Free school AP,3,61
+2023,June,Local authority,E92000001,England,E12000007,London,E09000006,305,Bromley,Special,4,868
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000026,331,Coventry,State-funded nursery,1,153
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000039,871,Slough,State-funded nursery,5,526
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000038,870,Reading,Special,4,343
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000031,937,Warwickshire,Independent school,32,6924
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000046,921,Isle of Wight,PRU/Academy/Free school AP,1,39
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000033,882,Southend-on-Sea,PRU/Academy/Free school AP,2,58
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000012,812,North East Lincolnshire,PRU/Academy/Free school AP,2,72
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000029,334,Solihull,Special,6,757
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000002,806,Middlesbrough,Special,5,658
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000064,943,Westmorland and Furness,Independent school,14,1457
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000027,880,Torbay,Independent school,2,170
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000030,936,Surrey,Secondary,62,67183
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000012,341,Liverpool,PRU/Academy/Free school AP,4,323
+2023,June,Local authority,E92000001,England,E12000007,London,E09000030,211,Tower Hamlets,Special,5,768
+2023,June,Local authority,E92000001,England,E12000007,London,E09000032,212,Wandsworth,Primary,61,18712
+2023,June,Local authority,E92000001,England,E12000007,London,E09000017,312,Hillingdon,State-funded nursery,1,147
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000023,801,"Bristol, City of",Special,11,1308
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000041,872,Wokingham,Special,4,407
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000026,879,Plymouth,State-funded nursery,2,136
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000043,846,Brighton and Hove,Independent school,16,4224
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000032,938,West Sussex,Independent school,44,12100
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000030,866,Swindon,Primary,66,20956
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000022,392,North Tyneside,Independent school,3,74
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000049,895,Cheshire East,Independent school,16,3085
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000029,935,Suffolk,Secondary,46,45087
+2023,June,Local authority,E92000001,England,E12000007,London,E09000018,313,Hounslow,PRU/Academy/Free school AP,1,101
+2023,June,Local authority,E92000001,England,E12000007,London,E09000004,303,Bexley,Primary,60,22487
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000036,384,Wakefield,Special,4,650
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000004,808,Stockton-on-Tees,Secondary,13,12453
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000003,807,Redcar and Cleveland,Primary,44,12482
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000016,886,Kent,Secondary,102,110578
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000019,925,Lincolnshire,Primary,280,56677
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000024,891,Nottinghamshire,Primary,281,70180
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000054,865,Wiltshire,Special,5,917
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000003,873,Cambridgeshire,Secondary,35,36191
+2023,June,Local authority,E92000001,England,E12000007,London,E09000029,319,Sutton,State-funded nursery,2,180
+2023,June,Local authority,E92000001,England,E12000007,London,E09000033,213,Westminster,Secondary,12,12729
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000015,344,Wirral,State-funded nursery,3,279
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000021,391,Newcastle upon Tyne,State-funded nursery,3,323
+2023,June,Local authority,E92000001,England,E12000007,London,E09000013,205,Hammersmith and Fulham,Secondary,12,10044
+2023,June,Local authority,E92000001,England,E12000007,London,E09000028,210,Southwark,Independent school,13,5982
+2023,June,Local authority,E92000001,England,E12000002,North West,E10000017,888,Lancashire,Special,29,3450
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000029,935,Suffolk,Special,14,1504
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000066,933,Somerset,PRU/Academy/Free school AP,4,132
+2023,June,Local authority,E92000001,England,E12000007,London,E09000021,314,Kingston upon Thames,Special,4,468
+2023,June,Local authority,E92000001,England,E12000007,London,E09000022,208,Lambeth,Special,6,620
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000030,335,Walsall,Independent school,8,1148
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000016,370,Barnsley,Primary,77,20892
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000016,886,Kent,Special,26,6167
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000008,889,Blackburn with Darwen,Primary,56,15256
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000020,894,Telford and Wrekin,PRU/Academy/Free school AP,2,32
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000018,892,Nottingham,Secondary,20,19308
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E10000007,830,Derbyshire,Special,10,1208
+2023,June,Local authority,E92000001,England,E12000007,London,E09000031,320,Waltham Forest,Special,4,750
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000030,936,Surrey,PRU/Academy/Free school AP,8,103
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000030,335,Walsall,Secondary,19,22760
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000013,342,St. Helens,PRU/Academy/Free school AP,2,47
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000028,860,Staffordshire,Independent school,36,4719
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000032,821,Luton,State-funded nursery,6,794
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000062,941,West Northamptonshire,Independent school,17,2936
+2023,June,Local authority,E92000001,England,E12000007,London,E09000013,205,Hammersmith and Fulham,Special,5,617
+2023,June,Local authority,E92000001,England,E12000007,London,E09000019,206,Islington,Special,6,571
+2023,June,Local authority,E92000001,England,E12000007,London,E09000009,307,Ealing,Secondary,17,23107
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,Primary,182,44688
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000034,885,Worcestershire,PRU/Academy/Free school AP,7,141
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000005,354,Rochdale,Special,4,659
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000036,384,Wakefield,Primary,112,31930
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000052,908,Cornwall,Secondary,32,31054
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000058,839,"Bournemouth, Christchurch and Poole",Primary,66,26806
+2023,June,Local authority,E92000001,England,E12000007,London,E09000001,201,City of London,Independent school,5,2671
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000014,343,Sefton,PRU/Academy/Free school AP,2,69
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000017,371,Doncaster,Independent school,5,864
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000031,874,Peterborough,Primary,60,21319
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000066,933,Somerset,Secondary,35,28268
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000028,860,Staffordshire,Secondary,71,54833
+2023,June,Local authority,E92000001,England,E12000007,London,E09000012,204,Hackney,PRU/Academy/Free school AP,2,50
+2023,June,Local authority,E92000001,England,E12000007,London,E09000010,308,Enfield,Primary,68,30171
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000027,332,Dudley,Special,7,940
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000021,391,Newcastle upon Tyne,Secondary,18,18187
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000012,881,Essex,Primary,443,120927
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000029,334,Solihull,Primary,59,18081
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000041,872,Wokingham,State-funded nursery,1,122
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000038,870,Reading,Secondary,10,9651
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000011,845,East Sussex,Primary,148,35666
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000065,815,North Yorkshire,Primary,297,43840
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000017,371,Doncaster,Secondary,21,18986
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000039,871,Slough,Independent school,7,750
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000018,892,Nottingham,Primary,75,28348
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000042,826,Milton Keynes,PRU/Academy/Free school AP,2,32
+2023,June,Local authority,E92000001,England,E12000007,London,E09000003,302,Barnet,Special,7,755
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000019,373,Sheffield,Secondary,32,35833
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000066,933,Somerset,Independent school,34,8441
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000046,921,Isle of Wight,Secondary,7,7655
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000063,942,Cumberland,Primary,145,22079
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000033,882,Southend-on-Sea,Independent school,7,1127
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000010,359,Wigan,Independent school,9,210
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000032,821,Luton,Primary,46,22842
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000040,868,Windsor and Maidenhead,Independent school,18,5514
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000027,880,Torbay,Primary,31,10413
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000014,816,York,PRU/Academy/Free school AP,1,134
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000035,383,Leeds,PRU/Academy/Free school AP,2,2
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000035,383,Leeds,Primary,222,73256
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000022,392,North Tyneside,Primary,54,16062
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000015,831,Derby,PRU/Academy/Free school AP,3,61
+2023,June,Local authority,E92000001,England,E12000007,London,E09000011,203,Greenwich,State-funded nursery,4,609
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000003,352,Manchester,Special,14,2322
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000031,874,Peterborough,Special,5,633
+2023,June,Local authority,E92000001,England,E12000007,London,E09000025,316,Newham,State-funded nursery,7,1072
+2023,June,Local authority,E92000001,England,E12000007,London,E09000029,319,Sutton,Independent school,6,1637
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000065,815,North Yorkshire,Independent school,25,6218
+2023,June,Local authority,E92000001,England,E12000009,South West,E10000008,878,Devon,Primary,310,57336
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000055,822,Bedford,Secondary,15,13797
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000041,872,Wokingham,Independent school,12,4245
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000025,931,Oxfordshire,Special,16,1410
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000015,831,Derby,Independent school,7,1186
+2023,June,Local authority,E92000001,England,E12000009,South West,E10000008,878,Devon,Special,13,1666
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000025,931,Oxfordshire,Primary,241,55079
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000029,935,Suffolk,State-funded nursery,1,107
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000007,877,Warrington,Independent school,2,75
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000014,816,York,Special,2,312
+2023,June,Local authority,E92000001,England,E12000007,London,E09000030,211,Tower Hamlets,Independent school,14,2505
+2023,June,Local authority,E92000001,England,E12000007,London,E09000028,210,Southwark,State-funded nursery,5,537
+2023,June,Local authority,E92000001,England,E12000007,London,E09000026,317,Redbridge,Secondary,19,28802
+2023,June,Local authority,E92000001,England,E12000007,London,E09000029,319,Sutton,Primary,41,19124
+2023,June,Local authority,E92000001,England,E12000007,London,E09000011,203,Greenwich,Special,4,564
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000033,381,Calderdale,Special,4,538
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000064,943,Westmorland and Furness,Secondary,20,14214
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000018,892,Nottingham,PRU/Academy/Free school AP,5,296
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000005,354,Rochdale,PRU/Academy/Free school AP,1,123
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000006,876,Halton,Independent school,4,42
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,Special,6,740
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000037,869,West Berkshire,Special,3,615
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000004,808,Stockton-on-Tees,Independent school,8,2038
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000021,861,Stoke-on-Trent,Independent school,15,623
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000016,370,Barnsley,Special,2,438
+2023,June,Local authority,E92000001,England,E12000007,London,E09000012,204,Hackney,Independent school,30,10416
+2023,June,Local authority,E92000001,England,E12000007,London,E09000019,206,Islington,Secondary,11,9341
+2023,June,Local authority,E92000001,England,E12000007,London,E09000022,208,Lambeth,Secondary,20,15477
+2023,June,Local authority,E92000001,England,E12000007,London,E09000006,305,Bromley,Primary,76,27801
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000037,390,Gateshead,Independent school,8,1585
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000012,812,North East Lincolnshire,Primary,47,14121
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000029,935,Suffolk,Independent school,34,8140
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000014,343,Sefton,Primary,74,22241
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000034,382,Kirklees,Secondary,27,28493
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000036,384,Wakefield,State-funded nursery,3,273
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000022,800,Bath and North East Somerset,Independent school,8,4477
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000042,826,Milton Keynes,State-funded nursery,2,117
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000001,805,Hartlepool,Primary,30,8884
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000027,880,Torbay,Secondary,8,9269
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000056,823,Central Bedfordshire,Independent school,3,444
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000013,813,North Lincolnshire,Primary,62,13580
+2023,June,Local authority,E92000001,England,E12000002,North West,E10000017,888,Lancashire,Independent school,58,7988
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000008,889,Blackburn with Darwen,Independent school,11,2009
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000010,359,Wigan,Secondary,19,19677
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000044,851,Portsmouth,Primary,46,15945
+2023,June,Local authority,E92000001,England,E12000007,London,E09000030,211,Tower Hamlets,State-funded nursery,4,344
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000064,943,Westmorland and Furness,PRU/Academy/Free school AP,1,44
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000015,919,Hertfordshire,Special,27,2847
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000058,839,"Bournemouth, Christchurch and Poole",PRU/Academy/Free school AP,2,100
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000002,806,Middlesbrough,Independent school,3,92
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000039,871,Slough,PRU/Academy/Free school AP,1,137
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000011,811,East Riding of Yorkshire,Special,3,442
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000046,921,Isle of Wight,Independent school,3,979
+2023,June,Local authority,E92000001,England,E12000007,London,E09000005,304,Brent,Independent school,15,2161
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000033,381,Calderdale,Primary,81,18755
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000033,381,Calderdale,Independent school,13,1167
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000043,846,Brighton and Hove,Secondary,10,12952
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000017,857,Rutland,Independent school,6,2138
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000016,856,Leicester,Independent school,13,2295
+2023,June,Local authority,E92000001,England,E12000007,London,E09000012,204,Hackney,State-funded nursery,2,212
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000059,838,Dorset,Secondary,29,25011
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000011,811,East Riding of Yorkshire,State-funded nursery,4,350
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000013,813,North Lincolnshire,Secondary,14,10381
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000032,821,Luton,PRU/Academy/Free school AP,1,60
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000053,420,Isles of Scilly,Secondary,1,263
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000007,356,Stockport,State-funded nursery,4,380
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000052,908,Cornwall,Primary,236,42567
+2023,June,Local authority,E92000001,England,E12000007,London,E09000032,212,Wandsworth,Secondary,11,12457
+2023,June,Local authority,E92000001,England,E12000007,London,E09000005,304,Brent,Primary,60,26222
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000026,331,Coventry,Independent school,7,2242
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000025,803,South Gloucestershire,Secondary,16,16940
+2023,June,Local authority,E92000001,England,E12000007,London,E09000012,204,Hackney,Secondary,16,13684
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000015,344,Wirral,Independent school,9,1340
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000023,393,South Tyneside,Secondary,8,9271
+2023,June,Local authority,E92000001,England,E12000007,London,E09000014,309,Haringey,State-funded nursery,3,459
+2023,June,Local authority,E92000001,England,E12000009,South West,E10000013,916,Gloucestershire,Primary,244,46760
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000057,929,Northumberland,Independent school,6,647
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E10000028,860,Staffordshire,State-funded nursery,2,51
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000055,822,Bedford,State-funded nursery,2,278
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000012,812,North East Lincolnshire,Independent school,5,421
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000002,806,Middlesbrough,Secondary,8,9141
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000026,879,Plymouth,PRU/Academy/Free school AP,1,221
+2023,June,Local authority,E92000001,England,E12000007,London,E09000012,204,Hackney,Primary,58,18401
+2023,June,Local authority,E92000001,England,E12000007,London,E09000028,210,Southwark,Secondary,20,19648
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000007,356,Stockport,Secondary,14,14846
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000050,896,Cheshire West and Chester,Special,10,1106
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000008,357,Tameside,Primary,76,20690
+2023,June,Local authority,E92000001,England,E12000009,South West,E10000013,916,Gloucestershire,Independent school,31,8499
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000019,884,"Herefordshire, County of",Secondary,16,9762
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000010,810,"Kingston upon Hull, City of",State-funded nursery,1,117
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000025,931,Oxfordshire,Secondary,42,43368
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000030,866,Swindon,PRU/Academy/Free school AP,1,63
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000032,380,Bradford,PRU/Academy/Free school AP,3,102
+2023,June,Local authority,E92000001,England,E12000007,London,E09000025,316,Newham,Independent school,9,1119
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,Independent school,32,8782
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000003,873,Cambridgeshire,Special,12,1682
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000065,815,North Yorkshire,PRU/Academy/Free school AP,5,45
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000008,357,Tameside,PRU/Academy/Free school AP,1,143
+2023,June,Local authority,E92000001,England,E12000007,London,E09000027,318,Richmond upon Thames,Independent school,22,10470
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000014,343,Sefton,State-funded nursery,3,234
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000015,344,Wirral,Special,12,1519
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000028,333,Sandwell,Primary,93,36084
+2023,June,Local authority,E92000001,England,E12000009,South West,E06000025,803,South Gloucestershire,Special,5,587
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000065,815,North Yorkshire,Special,11,1175
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000010,810,"Kingston upon Hull, City of",Secondary,13,16514
+2023,June,Local authority,E92000001,England,E12000007,London,E09000003,302,Barnet,PRU/Academy/Free school AP,2,44
+2023,June,Local authority,E92000001,England,E12000007,London,E09000024,315,Merton,Special,3,498
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000011,340,Knowsley,Primary,50,14442
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000011,340,Knowsley,Special,4,680
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000012,341,Liverpool,Independent school,17,1273
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000014,343,Sefton,Independent school,5,2127
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000001,350,Bolton,Special,7,1124
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000007,877,Warrington,State-funded nursery,1,104
+2023,June,Local authority,E92000001,England,E12000007,London,E09000007,202,Camden,Special,5,418
+2023,June,Local authority,E92000001,England,E12000007,London,E09000015,310,Harrow,Primary,40,21965
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000018,892,Nottingham,Special,6,691
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000030,335,Walsall,State-funded nursery,8,1072
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000036,867,Bracknell Forest,Secondary,7,8292
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000063,942,Cumberland,PRU/Academy/Free school AP,2,68
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000021,861,Stoke-on-Trent,Special,4,809
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E08000027,332,Dudley,PRU/Academy/Free school AP,2,18
+2023,June,Local authority,E92000001,England,E12000007,London,E09000021,314,Kingston upon Thames,Secondary,11,12578
+2023,June,Local authority,E92000001,England,E12000007,London,E09000025,316,Newham,PRU/Academy/Free school AP,3,161
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000005,354,Rochdale,State-funded nursery,2,145
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000042,826,Milton Keynes,Independent school,8,1287
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000042,826,Milton Keynes,Special,6,907
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000020,926,Norfolk,Primary,347,64182
+2023,June,Local authority,E92000001,England,E12000004,East Midlands,E06000018,892,Nottingham,Independent school,10,2711
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000007,356,Stockport,PRU/Academy/Free school AP,3,112
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000056,823,Central Bedfordshire,Primary,97,23908
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000060,825,Buckinghamshire,State-funded nursery,2,249
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000006,876,Halton,State-funded nursery,3,201
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000014,850,Hampshire,Special,28,3370
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000020,926,Norfolk,PRU/Academy/Free school AP,2,351
+2023,June,Local authority,E92000001,England,E12000001,North East,E06000004,808,Stockton-on-Tees,PRU/Academy/Free school AP,1,59
+2023,June,Local authority,E92000001,England,E12000007,London,E09000003,302,Barnet,Secondary,30,30560
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000003,873,Cambridgeshire,Primary,209,51865
+2023,June,Local authority,E92000001,England,E12000006,East of England,E10000012,881,Essex,Special,23,3609
+2023,June,Local authority,E92000001,England,E12000008,South East,E06000043,846,Brighton and Hove,PRU/Academy/Free school AP,1,88
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000008,357,Tameside,Special,5,781
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000031,874,Peterborough,Secondary,15,17567
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E06000010,810,"Kingston upon Hull, City of",PRU/Academy/Free school AP,7,354
+2023,June,Local authority,E92000001,England,E12000001,North East,E08000022,392,North Tyneside,Secondary,16,14114
+2023,June,Local authority,E92000001,England,E12000005,West Midlands,E06000019,884,"Herefordshire, County of",PRU/Academy/Free school AP,1,51
+2023,June,Local authority,E92000001,England,E12000002,North West,E08000010,359,Wigan,Special,6,938
+2023,June,Local authority,E92000001,England,E12000003,Yorkshire and The Humber,E08000036,384,Wakefield,Independent school,13,3365
+2023,June,Local authority,E92000001,England,E12000006,East of England,E06000056,823,Central Bedfordshire,Secondary,28,23012
+2023,June,Local authority,E92000001,England,E12000007,London,E09000027,318,Richmond upon Thames,Special,3,334
+2023,June,Local authority,E92000001,England,E12000007,London,E09000023,209,Lewisham,Independent school,9,2096
+2023,June,Local authority,E92000001,England,E12000007,London,E09000002,301,Barking and Dagenham,Secondary,13,20349
+2023,June,Local authority,E92000001,England,E12000007,London,E09000016,311,Havering,Independent school,7,701
+2023,June,Local authority,E92000001,England,E12000008,South East,E10000030,936,Surrey,State-funded nursery,4,464
+2023,June,Local authority,E92000001,England,E12000002,North West,E06000008,889,Blackburn with Darwen,Special,3,370
+2023,June,Regional,E92000001,England,E12000009,South West,,,,PRU/Academy/Free school AP,32,1243
+2023,June,Regional,E92000001,England,E12000004,East Midlands,,,,State-funded nursery,32,2603
+2023,June,Regional,E92000001,England,E12000005,West Midlands,,,,Secondary,427,403139
+2023,June,Regional,E92000001,England,E12000009,South West,,,,Special,97,12467
+2023,June,Regional,E92000001,England,E12000006,East of England,,,,Independent school,235,68505
+2023,June,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,Secondary,333,351554
+2023,June,Regional,E92000001,England,E12000008,South East,,,,Independent school,535,153599
+2023,June,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,PRU/Academy/Free school AP,35,1456
+2023,June,Regional,E92000001,England,E12000004,East Midlands,,,,Special,86,11605
+2023,June,Regional,E92000001,England,E12000002,North West,,,,PRU/Academy/Free school AP,49,2650
+2023,June,Regional,E92000001,England,E12000007,London,,,,Independent school,525,148576
+2023,June,Regional,E92000001,England,E12000004,East Midlands,,,,PRU/Academy/Free school AP,22,938
+2023,June,Regional,E92000001,England,E12000004,East Midlands,,,,Independent school,162,29894
+2023,June,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,Independent school,140,29743
+2023,June,Regional,E92000001,England,E12000002,North West,,,,Special,172,23508
+2023,June,Regional,E92000001,England,E12000008,South East,,,,Primary,2599,722280
+2023,June,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,Primary,1763,467307
+2023,June,Regional,E92000001,England,E12000009,South West,,,,Independent school,220,54048
+2023,June,Regional,E92000001,England,E12000004,East Midlands,,,,Secondary,297,308306
+2023,June,Regional,E92000001,England,E12000009,South West,,,,State-funded nursery,18,2093
+2023,June,Regional,E92000001,England,E12000007,London,,,,Special,163,21421
+2023,June,Regional,E92000001,England,E12000001,North East,,,,Secondary,173,162786
+2023,June,Regional,E92000001,England,E12000005,West Midlands,,,,State-funded nursery,56,5860
+2023,June,Regional,E92000001,England,E12000001,North East,,,,State-funded nursery,29,2505
+2023,June,Regional,E92000001,England,E12000006,East of England,,,,Primary,1984,516505
+2023,June,Regional,E92000001,England,E12000006,East of England,,,,State-funded nursery,38,4213
+2023,June,Regional,E92000001,England,E12000008,South East,,,,Special,184,26539
+2023,June,Regional,E92000001,England,E12000006,East of England,,,,Special,115,15329
+2023,June,Regional,E92000001,England,E12000009,South West,,,,Primary,1880,408524
+2023,June,Regional,E92000001,England,E12000006,East of England,,,,PRU/Academy/Free school AP,36,1082
+2023,June,Regional,E92000001,England,E12000001,North East,,,,Primary,860,214575
+2023,June,Regional,E92000001,England,E12000009,South West,,,,Secondary,342,333618
+2023,June,Regional,E92000001,England,E12000005,West Midlands,,,,Primary,1772,510437
+2023,June,Regional,E92000001,England,E12000002,North West,,,,Secondary,472,454721
+2023,June,Regional,E92000001,England,E12000008,South East,,,,Secondary,520,568915
+2023,June,Regional,E92000001,England,E12000008,South East,,,,PRU/Academy/Free school AP,44,1105
+2023,June,Regional,E92000001,England,E12000006,East of England,,,,Secondary,395,413823
+2023,June,Regional,E92000001,England,E12000005,West Midlands,,,,Special,127,18587
+2023,June,Regional,E92000001,England,E12000001,North East,,,,PRU/Academy/Free school AP,18,1005
+2023,June,Regional,E92000001,England,E12000008,South East,,,,State-funded nursery,42,4067
+2023,June,Regional,E92000001,England,E12000007,London,,,,State-funded nursery,77,7923
+2023,June,Regional,E92000001,England,E12000005,West Midlands,,,,Independent school,257,43077
+2023,June,Regional,E92000001,England,E12000002,North West,,,,State-funded nursery,63,5478
+2023,June,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,Special,88,12273
+2023,June,Regional,E92000001,England,E12000002,North West,,,,Primary,2430,637400
+2023,June,Regional,E92000001,England,E12000007,London,,,,Secondary,518,574363
+2023,June,Regional,E92000001,England,E12000002,North West,,,,Independent school,292,50419
+2023,June,Regional,E92000001,England,E12000004,East Midlands,,,,Primary,1647,397075
+2023,June,Regional,E92000001,England,E12000007,London,,,,Primary,1786,696356
+2023,June,Regional,E92000001,England,E12000001,North East,,,,Special,65,9475
+2023,June,Regional,E92000001,England,E12000001,North East,,,,Independent school,59,11201
+2023,June,Regional,E92000001,England,E12000003,Yorkshire and The Humber,,,,State-funded nursery,27,2684
+2023,June,Regional,E92000001,England,E12000007,London,,,,PRU/Academy/Free school AP,55,2148
+2023,June,Regional,E92000001,England,E12000005,West Midlands,,,,PRU/Academy/Free school AP,41,1272
+2023,September,National,E92000001,England,,,,,,Secondary,3477,3571225
+2023,September,National,E92000001,England,,,,,,Independent school,2425,589062
+2023,September,National,E92000001,England,,,,,,Special,1097,151204
+2023,September,National,E92000001,England,,,,,,State-funded nursery,382,37426
+2023,September,National,E92000001,England,,,,,,PRU/Academy/Free school AP,332,12899
+2023,September,National,E92000001,England,,,,,,Primary,16721,4570459
