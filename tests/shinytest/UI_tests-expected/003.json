@@ -9,7 +9,7 @@
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Secondary",
-    "ts_choice": "Most recent week"
+    "ts_choice": "Latest week - 2023-10-09 to 2023-10-13"
   },
   "output": {
     "absence_rates_daily_plot": {
@@ -29,11 +29,11 @@
             "automargin": true,
             "title": "Date",
             "tickvals": [
-              "2023-04-17",
-              "2023-04-18",
-              "2023-04-19",
-              "2023-04-20",
-              "2023-04-21"
+              "2023-10-09",
+              "2023-10-10",
+              "2023-10-11",
+              "2023-10-12",
+              "2023-10-13"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -105,24 +105,24 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2023-04-17",
-              "2023-04-18",
-              "2023-04-19",
-              "2023-04-20",
-              "2023-04-21"
+              "2023-10-09",
+              "2023-10-10",
+              "2023-10-11",
+              "2023-10-12",
+              "2023-10-13"
             ],
             "y": [
-              8.52651757525878,
-              8.08908200051316,
-              8.14010193444574,
-              8.43925843362849,
-              17.5489928343799
+              8.1345873911278801,
+              7.9260914993918998,
+              7.7895821022590903,
+              7.88236604525276,
+              9.1432488978630708
             ],
             "line": {
-              "color": "black"
+              "color": "#12436D"
             },
             "marker": {
-              "color": "black",
+              "color": "#12436D",
               "line": {
                 "color": "rgba(255,127,14,1)"
               }
@@ -149,24 +149,24 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2023-04-17",
-              "2023-04-18",
-              "2023-04-19",
-              "2023-04-20",
-              "2023-04-21"
+              "2023-10-09",
+              "2023-10-10",
+              "2023-10-11",
+              "2023-10-12",
+              "2023-10-13"
             ],
             "y": [
-              4.1216726600009,
-              4.19301474406877,
-              4.33734835111277,
-              4.48337185730233,
-              12.3455093638296
+              5.1730966081851104,
+              5.0676890205189196,
+              4.8870532823357102,
+              4.8639989520430298,
+              5.5650537149139101
             ],
             "line": {
-              "color": "steelblue"
+              "color": "#28A197"
             },
             "marker": {
-              "color": "steelblue",
+              "color": "#28A197",
               "line": {
                 "color": "rgba(44,160,44,1)"
               }
@@ -193,24 +193,24 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2023-04-17",
-              "2023-04-18",
-              "2023-04-19",
-              "2023-04-20",
-              "2023-04-21"
+              "2023-10-09",
+              "2023-10-10",
+              "2023-10-11",
+              "2023-10-12",
+              "2023-10-13"
             ],
             "y": [
-              4.40484491525787,
-              3.89606725644439,
-              3.80275358333297,
-              3.95588657632617,
-              5.20348347055032
+              2.9614907829427701,
+              2.8584024788729701,
+              2.9025288199233801,
+              3.0183670932097302,
+              3.5781951829491501
             ],
             "line": {
-              "color": "orangered"
+              "color": "#F46A25"
             },
             "marker": {
-              "color": "orangered",
+              "color": "#F46A25",
               "line": {
                 "color": "rgba(214,39,40,1)"
               }
@@ -239,7 +239,7 @@
           "persistent": false,
           "dynamic": false,
           "selectize": false,
-          "opacityDim": 0.2,
+          "opacityDim": 0.20000000000000001,
           "selected": {
             "opacity": 1
           },
@@ -347,9 +347,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the most recent week: secondary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 10.1% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 89.9% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "• 2.9% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2023-10-09 to 2023-10-13: secondary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "• 8.2% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "• 91.8% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "• 3.8% of sessions were recorded as illness"
   }
 }

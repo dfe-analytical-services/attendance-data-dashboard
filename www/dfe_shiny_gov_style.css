@@ -45,7 +45,7 @@ a:active {
 
 /* This line sets the main area width. Originally set to 66.667% in the GDS 
 template. 80% works well here to reduce white space on the right hand side.*/
-.col-sm-8{ width: 67%}
+.col-sm-8{ width: 80%}
 
 .container-fluid {
   padding: 0px;
@@ -53,6 +53,7 @@ template. 80% works well here to reduce white space on the right hand side.*/
 
 .row {
   margin-right: 0px;
+  margin-left: 0px;
 }
 
 .nav-pills > li.active > a {
@@ -242,32 +243,6 @@ template. 80% works well here to reduce white space on the right hand side.*/
     }
 }
 
-.govuk-details{
-  font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
-  font-size: 14px;
-}
-
-.govuk-width-container {
-    width: 100% !important;
-    max-width: 100% !important;
-}
-
-.govuk-header__content,
-.govuk-header__logo {
-    box-sizing: border-box
-}
-
-.govuk-header__logo {
-    margin-bottom: 10px;
-    padding-right: 50px
-}
-
-@media (min-width:40.0625em) {
-    .govuk-header__logo {
-        margin-bottom: 10px
-    }
-}
-
 @media (min-width:48.0625em) {
     .govuk-header__logo {
   width: 15% !important;
@@ -322,4 +297,45 @@ template. 80% works well here to reduce white space on the right hand side.*/
   text-align: left;
   font-weight: bold;
   font-size: 28px;
+}
+
+.govuk-details {
+    padding: 19px;
+    font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    font-size: 15px;
+    background-color: #1d70b8;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 20px;
+    display: block;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+}
+
+.govuk-details__summary {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 5px;
+    padding-left: 25px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.govuk-details__summary-text:hover {
+    text-decoration: underline;
+    text-decoration-thickness: max(4px, .1875rem, .12em);
+}
+
+.govuk-details__summary:hover {
+    color: #fff;
+}
+
+.govuk-details__summary:focus {
+    outline: 3px solid rgba(0, 0, 0, 0);
+    /* color: #0b0c0c; */
+    background-color: #fd0;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+    color: #0b0c0c;
+    text-decoration: none;
 }

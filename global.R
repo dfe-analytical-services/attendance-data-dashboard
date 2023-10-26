@@ -38,7 +38,7 @@ library(bit64)
 library(DT)
 library(raster)
 library(leaflet)
-library(rgdal)
+# library(rgdal)
 library(sf)
 library(checkmate)
 
@@ -100,57 +100,79 @@ site_primary <- " https://department-for-education.shinyapps.io/pupil-attendance
 site_overflow <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror"
 site_c <- ""
 
+
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
-attendance_data_raw <- fread("data/sql_export_2023_05_02_v2.csv")
-pa_data_raw <- fread("data/export_pa_output_2023_05_02_v2.csv")
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
-start_date <- as.Date("2022-09-12")
-end_date <- as.Date("2023-04-21")
-funeral_date <- as.Date("2022-09-19")
-strike_date_1 <- as.Date("2023-02-01")
-strike_date_2 <- as.Date("2023-03-15")
-strike_date_3 <- as.Date("2023-03-16")
-regional_strike_1 <- as.Date("2023-02-28")
-regional_strike_2 <- as.Date("2023-03-01")
-regional_strike_3 <- as.Date("2023-03-02")
-autumn_only_pa_data_raw <- fread("data/export_autumn_pa_output_2023_05_02_v2.csv")
-autumn_start <- as.Date("2022-09-12")
-autumn_end <- as.Date("2022-12-16")
-spring_only_pa_data_raw <- fread("data/export_spring_pa_output_2023_05_02_v2.csv")
-spring_start <- as.Date("2023-01-03")
-spring_end <- as.Date("2023-03-31")
+start_date <- as.Date("2023-09-11")
+end_date <- as.Date("2023-10-13")
+# funeral_date <- as.Date("2022-09-19")
+# strike_date_1 <- as.Date("2023-02-01")
+# strike_date_2 <- as.Date("2023-03-15")
+# strike_date_3 <- as.Date("2023-03-16")
+# strike_date_4 <- as.Date("2023-04-27")
+# strike_date_5 <- as.Date("2023-05-02")
+# strike_date_6 <- as.Date("2023-07-05")
+# strike_date_7 <- as.Date("2023-07-07")
 
-school_freq_count <- fread("data/enrolments_schools_denominator.csv")
+# regional_strike_1 <- as.Date("2023-02-28")
+# regional_strike_2 <- as.Date("2023-03-01")
+# regional_strike_3 <- as.Date("2023-03-02")
+# autumn_start <- as.Date("2022-09-12")
+# autumn_end <- as.Date("2022-12-16")
+# spring_start <- as.Date("2023-01-03")
+# spring_end <- as.Date("2023-03-31")
+# summer_start <- as.Date("2023-04-01")
+# summer_end <- as.Date("2023-07-21")
 
-list_attendance <- process_attendance_data(attendance_data_raw, start_date, end_date, funeral_date)
-attendance_data <- list_attendance$attendance_data
-attendance_data_daily_totals <- list_attendance$daily_totals
-attendance_data_weekly_totals <- list_attendance$weekly_totals
-attendance_data_ytd_totals <- list_attendance$ytd_totals
+most_recent_week_dates <- paste("Latest week -", as.Date(end_date) - 4, "to", as.Date(end_date))
+# most_recent_week_dates <- paste("Latest week -", as.Date(end_date) - 11, "to", as.Date(end_date) - 7)
+# most_recent_week_dates <- paste("Latest week -", as.Date(start_date), "to", as.Date(end_date))
+# ytd_dates <- paste("Year to date -", as.Date(start_date), "to", as.Date(end_date))
+ytd_dates <- paste("Year to date -", as.Date(start_date), "to", as.Date(end_date))
 
-list_attendance_autumn <- process_attendance_data_autumn(attendance_data_raw, autumn_start, autumn_end)
-attendance_data_autumn <- list_attendance_autumn$attendance_data_autumn
-attendance_data_autumn_totals <- list_attendance_autumn$autumn_totals
+school_freq_count <- fread("data/enrolments_schools_denominator_041023.csv")
+school_freq_count$total_enrolments <- as.numeric(school_freq_count$total_enrolments)
 
-list_attendance_spring <- process_attendance_data_spring(attendance_data_raw, spring_start, spring_end)
-attendance_data_spring <- list_attendance_spring$attendance_data_spring
-attendance_data_spring_totals <- list_attendance_spring$spring_totals
+attendance_data <- read.csv("data/attendance_data_dashboard.csv")
 
 message(paste("Finished processing steps, ", Sys.time()))
 
 EES_daily_data <- read_ees_daily()
 
 # Add geog lookup
-geog_lookup <- attendance_data_raw %>%
+geog_lookup <- attendance_data %>%
   dplyr::select(geographic_level, region_name, la_name) %>%
   unique() %>%
-  arrange(region_name, la_name)
+  arrange(region_name, la_name) %>%
+  mutate(la_name = case_when(
+    geographic_level == "Regioinal" ~ "All",
+    geographic_level != "Regional" ~ la_name
+  ))
 
 school_type_lookup <- attendance_data %>%
   dplyr::select(geographic_level, school_type) %>%
   unique() %>%
   arrange(geographic_level, school_type)
+
+# Combined local authority and region list
+la_list <- geog_lookup %>%
+  dplyr::select(region_name, la_name) %>%
+  filter(region_name != "All") %>%
+  filter(la_name != "NA") %>%
+  distinct() %>%
+  arrange(region_name, la_name) %>%
+  group_by(region_name) %>%
+  dplyr::select(region_name, la_name) %>%
+  group_split(.keep = FALSE) %>%
+  unlist(recursive = FALSE)
+
+names(la_list) <- geog_lookup %>%
+  dplyr::select(region_name) %>%
+  filter(region_name != "All") %>%
+  distinct() %>%
+  pull(region_name) %>%
+  sort()
 
 
 # Notes tables----------------------------------
@@ -174,3 +196,18 @@ las <- geog_lookup %>%
   arrange(region_name, la_name) %>%
   pull(la_name) %>%
   unique()
+
+# Expandable dropdown function----------------------------------
+expandable <- function(inputId, label, contents) {
+  govDetails <- shiny::tags$details(
+    class = "govuk-details", id = inputId,
+    shiny::tags$summary(
+      class = "govuk-details__summary",
+      shiny::tags$span(
+        class = "govuk-details__summary-text",
+        label
+      )
+    ),
+    shiny::tags$div(contents)
+  )
+}

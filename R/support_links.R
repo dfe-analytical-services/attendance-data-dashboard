@@ -6,7 +6,10 @@ support_links <- function() {
     a(
       href = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-U4ie_t5E21MlsudeT67Fb5UQ0s1NFoxMUo4RjRYT080SFRMUUxVNUg5Uy4u",
       "feedback form", .noWS = c("after")
-    ), ".", br(),
+    ), ".", 
+    br(),
+    "Your feedback is incredibly valuable and has previously been used to develop easier filtering and a glossary of terms.",
+    br(),
     "If you spot any errors or bugs while using this dashboard, please screenshot and email them to ",
     a(href = "mailto:schools.statistics@education.gov.uk", "schools.statistics@education.gov.uk", .noWS = c("after")), ".",
     br(),
