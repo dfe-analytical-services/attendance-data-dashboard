@@ -105,7 +105,7 @@ site_c <- ""
 # Read in data
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 start_date <- as.Date("2023-09-11")
-end_date <- as.Date("2023-09-29")
+end_date <- as.Date("2023-10-13")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
