@@ -9,7 +9,7 @@
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Secondary",
-    "ts_choice": "Latest week - 2023-09-25 to 2023-09-29"
+    "ts_choice": "Latest week - 2023-10-09 to 2023-10-13"
   },
   "output": {
     "absence_auth_reasons_table": {
@@ -263,13 +263,13 @@
       ]
     },
     "headline_auth_rate_weekly": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>7.2%<\/h3>\n    <p>Latest full week<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>7.1%<\/h3>\n    <p>Latest full week<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "headline_unauth_rate_weekly": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1.4%<\/h3>\n    <p>Latest full week<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1.6%<\/h3>\n    <p>Latest full week<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
