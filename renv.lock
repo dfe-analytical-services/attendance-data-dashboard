@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.2.2",
+    "Version": "4.3.1",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -452,6 +452,23 @@
         "utils"
       ],
       "Hash": "6b9602c7ebbe87101a9c8edb6e8b6d21"
+    },
+    "dfeshiny": {
+      "Package": "dfeshiny",
+      "Version": "0.1.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteUsername": "dfe-analytical-services",
+      "RemoteRepo": "dfeshiny",
+      "RemoteRef": "main",
+      "RemoteSha": "437c6e4c60b5eb9c1f55333588b65110d47b7ba2",
+      "RemoteHost": "api.github.com",
+      "Requirements": [
+        "shiny",
+        "shinyGovstyle",
+        "styler"
+      ],
+      "Hash": "b3f1cac9ab18652447e842b04f702959"
     },
     "diffobj": {
       "Package": "diffobj",
