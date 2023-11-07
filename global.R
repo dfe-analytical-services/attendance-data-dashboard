@@ -53,21 +53,6 @@ cs_num <- function(value) {
   format(value, big.mark = ",", trim = TRUE)
 }
 
-# tidy_code_function -------------------------------------------------------------------------------
-# Code to tidy up the scripts.
-
-tidy_code_function <- function() {
-  message("----------------------------------------")
-  message("App scripts")
-  message("----------------------------------------")
-  app_scripts <- eval(styler::style_dir(recursive = FALSE)$changed)
-  message("Test scripts")
-  message("----------------------------------------")
-  test_scripts <- eval(styler::style_dir("tests/", filetype = "r")$changed)
-  script_changes <- c(app_scripts, test_scripts)
-  return(script_changes)
-}
-
 # Source scripts ---------------------------------------------------------------------------------
 
 # Source any scripts here. Scripts may be needed to process data before it gets to the server file.
