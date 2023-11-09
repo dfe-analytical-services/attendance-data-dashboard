@@ -7,7 +7,7 @@ homepage_panel <- function() {
       gov_row(
         column(
           12,
-          h1("Pupil attendance and absence in schools in England"), 
+          h1("Pupil attendance and absence in schools in England"),
           textOutput("headline_update_date"),
           br(),
         ),
@@ -85,7 +85,7 @@ homepage_panel <- function() {
                   br(),
                   h3("Coverage"),
                   h4(textOutput("daily_schools_count")),
-                  p("This number is approximately 86% of the number of schools participating in the School Census. As schools opt in to sharing of data, the number of schools reporting may change over time."),
+                  p("This number is approximately 83% of the number of schools participating in the School Census. As schools opt in to sharing of data, the number of schools reporting may change over time."),
                   p("Absence rates are provided broken down by state-funded primary, secondary and special schools. At national and regional level, absence figures are also provided across all schools. In recognition that response rates are not equal across school types and, therefore, not representative of the total school population, the total absence figure for all schools has been weighted based on the Spring 2023 school census. Weighted total figures are not included at local authority level due to the low number of schools involved."),
                   br(),
                   h3("National statistics"),
@@ -232,44 +232,44 @@ dashboard_panel <- function() {
                 conditionalPanel(condition = "input.geography_choice == 'Local authority'", 
                                  h4(textOutput("headline_bullet_title_la"
                                  ))),
-                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true"),
                                  textOutput("school_count_proportion_weekly"),
                                  textOutput("update_dates"),
                 ),
-                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true"),
                                  textOutput("school_count_proportion_weekly2"),
                                  textOutput("update_dates2"),
                 ),
                 
                 br(),
-                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true"),
                                  p(strong(paste0("Attendance and absence across year to date"))),
                                  p("Attendance and absence rates presented here are calculated across all sessions in the year to date.")),
-                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'National'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true && input.geography_choice == 'National'"),
                                  textOutput("ytd_attendance_rate_nat"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Regional'"), 
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true && input.geography_choice == 'Regional'"), 
                                  textOutput("ytd_attendance_rate_reg"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Local authority'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true && input.geography_choice == 'Local authority'"),
                                  textOutput("ytd_attendance_rate_la"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'National'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true && input.geography_choice == 'National'"),
                                  textOutput("ytd_absence_rate_nat"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Regional'"),  
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true && input.geography_choice == 'Regional'"),  
                                  textOutput("ytd_absence_rate_reg"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Local authority'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true && input.geography_choice == 'Local authority'"),
                                  textOutput("ytd_absence_rate_la"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'National'"), 
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true && input.geography_choice == 'National'"), 
                                  textOutput("ytd_illness_rate_nat"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Regional'"), 
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true && input.geography_choice == 'Regional'"), 
                                  textOutput("ytd_illness_rate_reg"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Local authority'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true && input.geography_choice == 'Local authority'"),
                                  textOutput("ytd_illness_rate_la"
                                  )),
                 # conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"'"),
@@ -285,34 +285,34 @@ dashboard_panel <- function() {
                 # conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Local authority'"), 
                 #                  textOutput("ytd_pa_rate_la"
                 #                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true"),
                                  p(strong(paste0("Attendance and absence in the latest week"))),
                                  p("Attendance and absence rates presented here are calculated across all sessions in the latest week.")),
-                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'National'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true && input.geography_choice == 'National'"),
                                  textOutput("weekly_attendance_rate_nat"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'Regional'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true && input.geography_choice == 'Regional'"),
                                  textOutput("weekly_attendance_rate_reg"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'Local authority'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true && input.geography_choice == 'Local authority'"),
                                  textOutput("weekly_attendance_rate_la"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'National'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true && input.geography_choice == 'National'"),
                                  textOutput("weekly_absence_rate_nat"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'Regional'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true && input.geography_choice == 'Regional'"),
                                  textOutput("weekly_absence_rate_reg"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'Local authority'"), 
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true && input.geography_choice == 'Local authority'"), 
                                  textOutput("weekly_absence_rate_la"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'National'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true && input.geography_choice == 'National'"),
                                  textOutput("weekly_illness_rate_nat"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'Regional'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true && input.geography_choice == 'Regional'"),
                                  textOutput("weekly_illness_rate_reg"
                                  )),
-                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"' && input.geography_choice == 'Local authority'"),
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true && input.geography_choice == 'Local authority'"),
                                  textOutput("weekly_illness_rate_la"
                                  )),
                 # conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"'"),
@@ -322,10 +322,10 @@ dashboard_panel <- function() {
                 # 
                 br(),
                 h5(textOutput("headline_ts_chart_title")),
-                conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"'"), 
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true"), 
                                  p("Absence rates presented here are calculated on a weekly basis. Each point on the chart shows an absence rate calculated across all sessions in the given week."),
                                  plotlyOutput("absence_rates_timeseries_plot")),
-                conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"'"), 
+                conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true"), 
                                  p("Absence rates presented here are calculated on a daily basis. Each point on the chart shows an absence rate calculated across all sessions in the given day."),
                                  plotlyOutput("absence_rates_daily_plot")),
                 
@@ -349,7 +349,7 @@ dashboard_panel <- function() {
                                )))
             ),
             fluidRow(
-              conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"'"),
+              conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true"),
                                p("Absence rates presented on the chart below are calculated on a daily basis. Each point on the chart shows an absence rate calculated across all sessions in the given day."),
                                p("Absence rates presented in the blue boxes and tables below are calculated across all sessions in the latest week."),
                                column(9,
@@ -369,7 +369,7 @@ dashboard_panel <- function() {
                                       )
                                )
               ),
-              conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"'"),
+              conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true"),
                                p("Absence rates presented on the chart below are calculated on a weekly basis. Each point on the chart shows an absence rate calculated across all sessions in the given week."),
                                p("Absence rates presented in the blue boxes and tables below are calculated across all sessions in the year to date."),
                                column(9,
@@ -391,7 +391,7 @@ dashboard_panel <- function() {
               )
             ),
             br(),
-            conditionalPanel(condition = paste0("input.ts_choice == '",most_recent_week_dates,"'"),
+            conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true"),
                              p(strong("Reasons for absence in the latest week")),
                              p("Authorised absence"),
                              DTOutput("absence_auth_reasons_table"),
@@ -399,7 +399,7 @@ dashboard_panel <- function() {
                              br(),
                              p("Unauthorised absence"),
                              DTOutput("absence_unauth_reasons_table")),
-            conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"'"),
+            conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true"),
                              p(strong("Reasons for absence in the year to date")),
                              p("Authorised absence"),
                              DTOutput("absence_auth_reasons_table_ytd"),
