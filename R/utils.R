@@ -56,7 +56,7 @@ customDisconnectMessage <- function(refresh = "Refresh page",
                       onclick = "window.location.reload(true);")),
         tags$p("If this persists, you can also view the dashboard at one of our mirror sites:"),
         tags$p(
-          tags$a(href = "https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror", "Mirror a"),
+          tags$a(href = "https://department-for-education.shinyapps.io/pupil-attendance-in-schools-overflow", "Mirror a"),
           " - ",
           tags$a(href = "https://department-for-education.shinyapps.io/pupil-attendance-in-schools", "Mirror b")),
         tags$p("All the data used in this dashboard can also be viewed or downloaded via the ",
