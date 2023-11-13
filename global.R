@@ -97,7 +97,7 @@ source("R/support_links.R")
 source("R/prerun_utils.R")
 
 site_primary <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
-site_overflow <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror"
+site_overflow <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-overflow"
 site_c <- ""
 
 
