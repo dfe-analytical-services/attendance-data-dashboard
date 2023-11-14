@@ -90,10 +90,10 @@ ui <- function(input, output, session) {
       dashboard_panel(),
       notes_panel(),
       dfeshiny::support_panel(
-        team_email = 'schools.statistics@education.gov.uk',
-        repo_name = 'attendance-data-dashboard',
-        publication_name = 'Pupil attendance in schools',
-        publication_stub = 'pupil-attendance-in-schools',
+        team_email = "schools.statistics@education.gov.uk",
+        repo_name = "attendance-data-dashboard",
+        publication_name = "Pupil attendance in schools",
+        publication_stub = "pupil-attendance-in-schools",
         form_url = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-U4ie_t5E21MlsudeT67Fb5UQ0s1NFoxMUo4RjRYT080SFRMUUxVNUg5Uy4u"
       ),
       accessibility_panel()
