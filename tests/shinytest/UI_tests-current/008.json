@@ -1,15 +1,14 @@
 {
   "input": {
     "dash": "reasons",
-    "geography_choice": "Local authority",
-    "la_choice": "Rutland",
+    "geography_choice": "National",
+    "la_choice": "Lincolnshire",
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
     "link_to_reasons_tab": 0,
-    "measure_choice": "Overall",
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
-    "school_choice": "Secondary",
+    "school_choice": "Primary",
     "ts_choice": "Latest week - 2023-10-09 to 2023-10-13"
   },
   "output": {
@@ -264,17 +263,17 @@
       ]
     },
     "headline_auth_rate_weekly": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>7.1%<\/h3>\n    <p>Latest full week<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>3.2%<\/h3>\n    <p>Latest full week<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "headline_unauth_rate_weekly": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1.6%<\/h3>\n    <p>Latest full week<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1.4%<\/h3>\n    <p>Latest full week<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
-    "reasons_chart_title_la": "Secondary state-funded schools: absence at local authority level (East Midlands, Rutland)"
+    "reasons_chart_title_nat": "Primary state-funded schools: absence at national level"
   }
 }

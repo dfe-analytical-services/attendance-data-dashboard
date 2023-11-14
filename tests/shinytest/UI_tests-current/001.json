@@ -1,7 +1,17 @@
 {
   "input": {
+    "cookieAccept": 0,
+    "cookieLink": 0,
+    "cookieReject": 0,
+    "cookies": {
+      "_ga_DG7P4WLB0Y": "GS1.1.1699971773.1.0.1699971773.0.0.0",
+      "_ga": "GA1.1.1405827607.1699971774"
+    },
     "dash": "headlines",
+    "ees": 0,
     "geography_choice": "National",
+    "hideAccept": 0,
+    "hideReject": 0,
     "la_choice": "Derby",
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
@@ -9,6 +19,7 @@
     "measure_choice": "Overall",
     "navlistPanel": "Homepage",
     "region_choice": "East Midlands",
+    "remove": 0,
     "school_choice": "Primary",
     "ts_choice": "Latest week - 2023-10-09 to 2023-10-13"
   },
@@ -16,5 +27,8 @@
     "daily_schools_count": "18,221 schools provided information on the latest full day of data, i.e. 2023-10-13",
     "headline_update_date": "Data was last updated on 2023-10-26.",
     "homepage_update_dates": "Data was last updated on 2023-10-26 and is next expected to be updated on 2023-11-09. The latest full week of data was the week commencing 2023-10-09."
+  },
+  "export": {
+
   }
 }

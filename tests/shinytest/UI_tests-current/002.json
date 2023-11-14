@@ -6,10 +6,9 @@
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
     "link_to_reasons_tab": 0,
-    "measure_choice": "Overall",
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
-    "school_choice": "Secondary",
+    "school_choice": "Primary",
     "ts_choice": "Latest week - 2023-10-09 to 2023-10-13"
   },
   "output": {
@@ -63,7 +62,7 @@
             "xanchor": "center",
             "x": 0.5
           },
-          "title": "Daily summary of absence rates for secondary<br> state-funded schools at national level",
+          "title": "Daily summary of absence rates for primary<br> state-funded schools at national level",
           "font": {
             "family": "arial",
             "size": 10,
@@ -113,11 +112,11 @@
               "2023-10-13"
             ],
             "y": [
-              8.1345873911278801,
-              7.9260914993918998,
-              7.7895821022590903,
-              7.88236604525276,
-              9.1432488978630708
+              4.9027779698449301,
+              4.29900333933554,
+              4.2440036864763604,
+              4.3529568752899097,
+              5.4874191077833299
             ],
             "line": {
               "color": "#12436D"
@@ -157,11 +156,11 @@
               "2023-10-13"
             ],
             "y": [
-              5.1730966081851104,
-              5.0676890205189196,
-              4.8870532823357102,
-              4.8639989520430298,
-              5.5650537149139101
+              3.4248250082479101,
+              3.0299832693076101,
+              2.9424002448367599,
+              2.99913127859995,
+              3.7291290736059799
             ],
             "line": {
               "color": "#28A197"
@@ -201,11 +200,11 @@
               "2023-10-13"
             ],
             "y": [
-              2.9614907829427701,
-              2.8584024788729701,
-              2.9025288199233801,
-              3.0183670932097302,
-              3.5781951829491501
+              1.4779529615970199,
+              1.2690200700279299,
+              1.3016034416395901,
+              1.3538255966899599,
+              1.75829003417735
             ],
             "line": {
               "color": "#F46A25"
@@ -348,9 +347,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2023-10-09 to 2023-10-13: secondary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 8.2% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 91.8% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "• 3.8% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2023-10-09 to 2023-10-13: primary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "• 4.7% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "• 95.3% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "• 2.6% of sessions were recorded as illness"
   }
 }

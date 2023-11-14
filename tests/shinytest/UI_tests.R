@@ -11,6 +11,7 @@ listInputs <- c(
   "geography_choice",
   "region_choice",
   "la_choice",
+  "measure_choice",
   "link_to_coverage",
   "link_to_headlines_tab",
   "link_to_la_tab",
@@ -23,7 +24,16 @@ listInputs <- c(
 # 1. Does it load  -------------------------------------------------------------------------------------------------------------------
 message("Test 1")
 Sys.sleep(1)
-app$snapshot()
+app$snapshot(
+  list(
+    input = listInputs,
+    output = c(
+      "daily_schools_count",
+      "headline_update_date",
+      "homepage_update_dates"
+    )
+  )
+)
 
 
 # Checking headlines tab
