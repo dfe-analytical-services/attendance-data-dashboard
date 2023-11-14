@@ -44,6 +44,17 @@ ui <- function(input, output, session) {
 
     customDisconnectMessage(),
     useShinydashboard(),
+    # Setting up cookie consent based on a cookie recording the consent:
+    # https://book.javascript-for-r.com/shiny-cookies.html
+    tags$head(
+      tags$script(
+        src = paste0(
+          "https://cdn.jsdelivr.net/npm/js-cookie@rc/",
+          "dist/js.cookie.min.js"
+        )
+      ),
+      tags$script(src = "cookie-consent.js")
+    ),
     tags$head(includeHTML(("google-analytics.html"))),
     tags$head(
       tags$link(
@@ -52,6 +63,7 @@ ui <- function(input, output, session) {
         href = "dfe_shiny_gov_style.css"
       )
     ),
+    shinyGovstyle::cookieBanner("DfE pupil attendance and absence in schools in England"),
     shinyGovstyle::header(
       main_text = "",
       secondary_text = "DfE pupil attendance and absence in schools in England: data dashboard",
@@ -77,7 +89,13 @@ ui <- function(input, output, session) {
       homepage_panel(),
       dashboard_panel(),
       notes_panel(),
-      support_panel(),
+      dfeshiny::support_panel(
+        team_email = 'schools.statistics@education.gov.uk',
+        repo_name = 'attendance-data-dashboard',
+        publication_name = 'Pupil attendance in schools',
+        publication_stub = 'pupil-attendance-in-schools',
+        form_url = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-U4ie_t5E21MlsudeT67Fb5UQ0s1NFoxMUo4RjRYT080SFRMUUxVNUg5Uy4u"
+      ),
       accessibility_panel()
     ),
     gov_layout(
