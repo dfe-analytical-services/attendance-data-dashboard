@@ -15,7 +15,7 @@ customDisconnectMessage <- function(refresh = "Refresh page",
   checkmate::assert_string(overlayColour)
   checkmate::assert_number(overlayOpacity, lower = 0, upper = 1)
   checkmate::assert_string(refreshColour)
-  
+
   if (width == "full") {
     width <- "100%"
   } else if (is.numeric(width) && width >= 0) {
@@ -23,7 +23,7 @@ customDisconnectMessage <- function(refresh = "Refresh page",
   } else {
     stop("disconnectMessage: 'width' must be either an integer, or the string \"full\".", call. = FALSE)
   }
-  
+
   if (top == "center") {
     top <- "50%"
     ytransform <- "-50%"
@@ -33,7 +33,7 @@ customDisconnectMessage <- function(refresh = "Refresh page",
   } else {
     stop("disconnectMessage: 'top' must be either an integer, or the string \"center\".", call. = FALSE)
   }
-  
+
   htmltools::tagList(
     htmltools::tags$script(
       paste0(
@@ -51,22 +51,30 @@ customDisconnectMessage <- function(refresh = "Refresh page",
       htmltools::tags$div(
         id = "ss-connect-refresh",
         tags$p("You've lost connection to the dashboard server - please try refreshing the page:"),
-        tags$p(tags$a(id = "ss-reload-link", 
-                      href = "#", "Refresh page",
-                      onclick = "window.location.reload(true);")),
+        tags$p(tags$a(
+          id = "ss-reload-link",
+          href = "#", "Refresh page",
+          onclick = "window.location.reload(true);"
+        )),
         tags$p("If this persists, you can also view the dashboard at one of our mirror sites:"),
         tags$p(
           tags$a(href = "https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror", "Mirror a"),
           " - ",
-          tags$a(href = "https://department-for-education.shinyapps.io/pupil-attendance-in-schools", "Mirror b")),
-        tags$p("All the data used in this dashboard can also be viewed or downloaded via the ",
-               tags$a(href="https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools",
-                      "Pupil Attendance in Schools"),
-               "on Explore Education Statistics."
+          tags$a(href = "https://department-for-education.shinyapps.io/pupil-attendance-in-schools", "Mirror b")
         ),
-        tags$p("Please contact",
-               tags$a(href="mailto:statistics.development@education.gov.uk","statistics.development@education.gov.uk"),
-               "with details of any problems with this resource.")
+        tags$p(
+          "All the data used in this dashboard can also be viewed or downloaded via the ",
+          tags$a(
+            href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools",
+            "Pupil Attendance in Schools"
+          ),
+          "on Explore Education Statistics."
+        ),
+        tags$p(
+          "Please contact",
+          tags$a(href = "mailto:statistics.development@education.gov.uk", "statistics.development@education.gov.uk"),
+          "with details of any problems with this resource."
+        )
         #  ),
         # htmltools::tags$p("If this persists, you can view tables and data via the ",htmltools::tags$a(href ='https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools', "Pupil attendance in schools")," release on Explore Education Statistics and please contact statistics.development@education.gov.uk with details of what you were trying to do.")
       )
@@ -75,11 +83,11 @@ customDisconnectMessage <- function(refresh = "Refresh page",
     htmltools::tags$head(htmltools::tags$style(
       glue::glue(
         .open = "{{", .close = "}}",
-        
+
         ## This hides the old message
         "#ss-connect-dialog { display: none !important; }", # rsconnect
         "#shiny-disconnected-overlay { display: none !important; }", # local
-        
+
         "#ss-overlay {
              background-color: {{overlayColour}} !important;
              opacity: {{overlayOpacity}} !important;
@@ -126,6 +134,6 @@ customDisconnectMessage <- function(refresh = "Refresh page",
 }
 
 
-roundFiveUp <- function(x){
-  ceiling(x/5)*5
+roundFiveUp <- function(x) {
+  ceiling(x / 5) * 5
 }

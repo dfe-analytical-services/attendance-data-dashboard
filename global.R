@@ -41,7 +41,7 @@ library(leaflet)
 # library(rgdal)
 library(sf)
 library(checkmate)
-
+library(dfeshiny)
 # Functions ---------------------------------------------------------------------------------
 
 # Here's an example function for simplifying the code needed to commas separate numbers:
@@ -51,21 +51,6 @@ library(checkmate)
 
 cs_num <- function(value) {
   format(value, big.mark = ",", trim = TRUE)
-}
-
-# tidy_code_function -------------------------------------------------------------------------------
-# Code to tidy up the scripts.
-
-tidy_code_function <- function() {
-  message("----------------------------------------")
-  message("App scripts")
-  message("----------------------------------------")
-  app_scripts <- eval(styler::style_dir(recursive = FALSE)$changed)
-  message("Test scripts")
-  message("----------------------------------------")
-  test_scripts <- eval(styler::style_dir("tests/", filetype = "r")$changed)
-  script_changes <- c(app_scripts, test_scripts)
-  return(script_changes)
 }
 
 # Source scripts ---------------------------------------------------------------------------------
@@ -99,7 +84,7 @@ source("R/prerun_utils.R")
 site_primary <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
 site_overflow <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-mirror"
 site_c <- ""
-
+google_analytics_key <- "DG7P4WLB0Y"
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
