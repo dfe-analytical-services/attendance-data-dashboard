@@ -158,7 +158,8 @@ dashboard_panel <- function() {
                         inputId = "school_choice",
                         label = "Choose school type:",
                         choices = school_type_lookup %>% dplyr::filter(geographic_level == "National") %>% dplyr::select(school_type) %>% unique() %>% as.data.table(),
-                        selected = "Primary"
+                        selected = "Primary",
+                        selectize = FALSE
                       )
                     ),
                     column(
@@ -168,7 +169,8 @@ dashboard_panel <- function() {
                         selectInput(
                           inputId = "ts_choice",
                           label = "Choose time period:",
-                          choices = c(most_recent_week_dates, ytd_dates)
+                          choices = c(most_recent_week_dates, ytd_dates),
+                          selectize = FALSE
                         )
                       )
                     )
@@ -200,7 +202,8 @@ dashboard_panel <- function() {
                       inputId = "geography_choice",
                       label = "Choose geographic level:",
                       choices = c("National", "Regional", "Local authority"),
-                      selected = head(geog_levels, 1)
+                      selected = head(geog_levels, 1),
+                      selectize = FALSE
                     )
                   )
                 ),
@@ -209,20 +212,22 @@ dashboard_panel <- function() {
                   conditionalPanel(
                     condition = "input.geography_choice == 'Regional' && input.dash != 'la comparisons'",
                     # conditionalPanel(condition = "input.geography_choice == 'Regional' && input.dash != 'la comparisons' || input.geography_choice == 'Local authority' && input.dash != 'la comparisons'",
-                    selectizeInput(
+                    selectInput(
                       inputId = "region_choice",
                       label = "Choose region:",
                       choices = regions,
-                      selected = regions[1]
+                      selected = regions[1],
+                      selectize = FALSE
                     )
                   ),
                   conditionalPanel(
                     condition = "input.geography_choice == 'Local authority' && input.dash != 'la comparisons'",
-                    selectizeInput(
+                    selectInput(
                       inputId = "la_choice",
                       label = "Choose local authority:",
                       choices = la_list,
-                      selected = las[1]
+                      selected = las[1],
+                      selectize = FALSE
                     )
                   )
                 )

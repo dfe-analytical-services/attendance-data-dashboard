@@ -133,7 +133,7 @@ template. 80% works well here to reduce white space on the right hand side.*/
     padding: 19px;
     font-family: GDS Transport, arial, sans-serif;
     -webkit-font-smoothing: antialiased;
-    font-size: 25px;
+    font-size: 0.875em;
     background-color: #1d70b8;
     font-weight: 400;
     color: #fff;
@@ -150,6 +150,7 @@ template. 80% works well here to reduce white space on the right hand side.*/
     padding-left: 25px;
     color: #fff;
     cursor: pointer;
+    font-size: 1.42em;
 }
 
 .govuk-details__summary-text:hover {
