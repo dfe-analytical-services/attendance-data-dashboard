@@ -11,9 +11,9 @@ homepage_panel <- function() {
           textOutput("headline_update_date"),
           br(),
         ),
-        
+
         ## Left panel -------------------------------------------------------
-        
+
         column(
           6,
           div(
@@ -58,15 +58,13 @@ homepage_panel <- function() {
                   h3(actionLink("link_to_la_tab", "Local authority data")),
                   p("The local authority data tab includes information on the overall, authorised and unauthorised absence rates for each local authority in the latest week.")
                 ),
-                
-                
               )
             )
           ),
         ),
-        
+
         ## Right panel ------------------------------------------------------
-        
+
         column(
           6,
           div(
@@ -80,8 +78,10 @@ homepage_panel <- function() {
               div(
                 class = "panel-body",
                 tags$div(
-                  p("These figures are derived from regular data automatically submitted to the Department for Education (DfE) by participating schools. These are intended to continue the series that was previously sourced from the daily Educational Settings Survey (EdSet). Due to the timeliness of the data and that they are based on a subset of schools, the figures are estimates that we expect to change as registers are adjusted. They should be viewed as an early indicator for the more detailed but less regular", 
-                    a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england", "National Statistics"), "on pupil absence (which will include school level breakdowns)."),
+                  p(
+                    "These figures are derived from regular data automatically submitted to the Department for Education (DfE) by participating schools. These are intended to continue the series that was previously sourced from the daily Educational Settings Survey (EdSet). Due to the timeliness of the data and that they are based on a subset of schools, the figures are estimates that we expect to change as registers are adjusted. They should be viewed as an early indicator for the more detailed but less regular",
+                    a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england", "National Statistics"), "on pupil absence (which will include school level breakdowns)."
+                  ),
                   br(),
                   h3("Coverage"),
                   h4(textOutput("daily_schools_count")),
@@ -89,7 +89,7 @@ homepage_panel <- function() {
                   p("Absence rates are provided broken down by state-funded primary, secondary and special schools. At national and regional level, absence figures are also provided across all schools. In recognition that response rates are not equal across school types and, therefore, not representative of the total school population, the total absence figure for all schools has been weighted based on the Spring 2023 school census. Weighted total figures are not included at local authority level due to the low number of schools involved."),
                   br(),
                   h3("National statistics"),
-                  p("This dashboard has been developed as an accompaniment to DFE's termly National statistics on pupil absence. You can access these publications through the links below:"), 
+                  p("This dashboard has been developed as an accompaniment to DFE's termly National statistics on pupil absence. You can access these publications through the links below:"),
                   a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england", "Pupil absence in schools in England"),
                   br(a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england-autumn-and-spring-terms", "Pupil absence in schools in England: autumn and spring terms")),
                   a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england-autumn-term", "Pupil absence in schools in England: autumn term"),
@@ -110,9 +110,11 @@ homepage_panel <- function() {
                   a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools"),
                   br(),
                   br(),
-                  h4("If you are a school that has not yet signed up to share your data, please visit ", 
-                     a(href = "https://www.gov.uk/guidance/share-your-daily-school-attendance-data", "Share your daily school attendance data"), "for more information. This will also give you, your local authority and your multi-academy trust (if applicable)",
-                     a(href = "https://esfahelp.education.gov.uk/hc/en-gb/articles/6176380401810-School-Daily-Attendance-Trial?utm_source=5%20September%202022%20C19&utm_medium=Daily%20Email%20C19&utm_campaign=DfE%20C19", "access to daily attendance reports"), "to help identify pupils needing attendance support earlier."),
+                  h4(
+                    "If you are a school that has not yet signed up to share your data, please visit ",
+                    a(href = "https://www.gov.uk/guidance/share-your-daily-school-attendance-data", "Share your daily school attendance data"), "for more information. This will also give you, your local authority and your multi-academy trust (if applicable)",
+                    a(href = "https://esfahelp.education.gov.uk/hc/en-gb/articles/6176380401810-School-Daily-Attendance-Trial?utm_source=5%20September%202022%20C19&utm_medium=Daily%20Email%20C19&utm_campaign=DfE%20C19", "access to daily attendance reports"), "to help identify pupils needing attendance support earlier."
+                  ),
                   br(),
                 ),
               )
@@ -127,96 +129,108 @@ homepage_panel <- function() {
 
 # dashboard panel
 dashboard_panel <- function() {
-  #fluidPage(
-  
+  # fluidPage(
+
   tabPanel(
     value = "dashboard",
     "Dashboard",
-    
+
     # Define UI for application that draws a histogram
-    
+
     # Sidebar with a slider input for number of bins
-    
+
     gov_main_layout(
       gov_row(
         h1("Attendance and absence headlines and reasons"),
-        
-        
         expandable(
           inputId = "details", label = textOutput("dropdown_label"), contents =
             div(
               id = "div_a",
-              #class = "well",
-              #style = "min-height: 100%; height: 100%; overflow-y: visible",
+              # class = "well",
+              # style = "min-height: 100%; height: 100%; overflow-y: visible",
               fluidRow(
                 column(
-                  width=6,
+                  width = 6,
                   fluidRow(
                     column(
-                      width=6,
-                      selectInput(inputId = "school_choice",
-                                  label = "Choose school type:",
-                                  choices = school_type_lookup %>% dplyr::filter(geographic_level == "National") %>% dplyr::select(school_type) %>% unique() %>% as.data.table(),
-                                  selected = "Primary"
+                      width = 6,
+                      selectInput(
+                        inputId = "school_choice",
+                        label = "Choose school type:",
+                        choices = school_type_lookup %>% dplyr::filter(geographic_level == "National") %>% dplyr::select(school_type) %>% unique() %>% as.data.table(),
+                        selected = "Primary"
                       )
                     ),
-                    column(width=6,
-                           conditionalPanel(condition = "input.dash == 'headlines'|| input.dash == 'reasons'",
-                                            selectInput(inputId = "ts_choice",
-                                                        label = "Choose time period:",
-                                                        choices = c(most_recent_week_dates, ytd_dates)
-                                            )
-                           )
+                    column(
+                      width = 6,
+                      conditionalPanel(
+                        condition = "input.dash == 'headlines'|| input.dash == 'reasons'",
+                        selectInput(
+                          inputId = "ts_choice",
+                          label = "Choose time period:",
+                          choices = c(most_recent_week_dates, ytd_dates)
+                        )
+                      )
                     )
                   ),
                   fluidRow(
                     column(
-                      width=6,
+                      width = 6,
                       p(strong("Download underlying data")),
                       downloadButton("downloadData2", label = "Download data", style = "width:100%;white-space:normal;")
                     ),
                     column(
-                      width=6,
+                      width = 6,
                       p(strong("For more tables and metadata")),
-                      actionButton(inputId='ees', 
-                                   label="Visit Explore Education Statistics", 
-                                   icon = icon("th"), 
-                                   onclick ="window.open('https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools', '_blank')",
-                                   style = "width:100%;white-space:normal;")
-                      
+                      actionButton(
+                        inputId = "ees",
+                        label = "Visit Explore Education Statistics",
+                        icon = icon("th"),
+                        onclick = "window.open('https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools', '_blank')",
+                        style = "width:100%;white-space:normal;"
+                      )
                     )
                   )
                 ),
                 column(
-                  width=3,
-                  conditionalPanel(condition = "input.dash == 'headlines'|| input.dash == 'reasons'",
-                                   selectInput(inputId = "geography_choice",
-                                               label = "Choose geographic level:",
-                                               choices = c("National","Regional","Local authority"),
-                                               selected = head(geog_levels,1)))
+                  width = 3,
+                  conditionalPanel(
+                    condition = "input.dash == 'headlines'|| input.dash == 'reasons'",
+                    selectInput(
+                      inputId = "geography_choice",
+                      label = "Choose geographic level:",
+                      choices = c("National", "Regional", "Local authority"),
+                      selected = head(geog_levels, 1)
+                    )
+                  )
                 ),
                 column(
-                  width=3,
-                  conditionalPanel(condition = "input.geography_choice == 'Regional' && input.dash != 'la comparisons'", 
-                                   #conditionalPanel(condition = "input.geography_choice == 'Regional' && input.dash != 'la comparisons' || input.geography_choice == 'Local authority' && input.dash != 'la comparisons'", 
-                                   selectizeInput(inputId = "region_choice",
-                                                  label = "Choose region:",
-                                                  choices = regions,
-                                                  selected = regions[1]
-                                   )),
-                  conditionalPanel(condition = "input.geography_choice == 'Local authority' && input.dash != 'la comparisons'", 
-                                   selectizeInput(inputId = "la_choice",
-                                                  label = "Choose local authority:",
-                                                  choices = la_list,
-                                                  selected = las[1]
-                                   ))
+                  width = 3,
+                  conditionalPanel(
+                    condition = "input.geography_choice == 'Regional' && input.dash != 'la comparisons'",
+                    # conditionalPanel(condition = "input.geography_choice == 'Regional' && input.dash != 'la comparisons' || input.geography_choice == 'Local authority' && input.dash != 'la comparisons'",
+                    selectizeInput(
+                      inputId = "region_choice",
+                      label = "Choose region:",
+                      choices = regions,
+                      selected = regions[1]
+                    )
+                  ),
+                  conditionalPanel(
+                    condition = "input.geography_choice == 'Local authority' && input.dash != 'la comparisons'",
+                    selectizeInput(
+                      inputId = "la_choice",
+                      label = "Choose local authority:",
+                      choices = la_list,
+                      selected = las[1]
+                    )
+                  )
                 )
               )
-              
             )
         ),
         tabsetPanel(
-          id = 'dash',
+          id = "dash",
           tabPanel(
             value = "headlines",
             title = "Headlines",
@@ -279,10 +293,10 @@ dashboard_panel <- function() {
                 # conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'National'"),
                 #                  textOutput("ytd_pa_rate_nat"
                 #                  )),
-                # conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Regional'"), 
+                # conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Regional'"),
                 #                  textOutput("ytd_pa_rate_reg"
                 #                  )),
-                # conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Local authority'"), 
+                # conditionalPanel(condition = paste0("input.ts_choice == '",ytd_dates,"' && input.geography_choice == 'Local authority'"),
                 #                  textOutput("ytd_pa_rate_la"
                 #                  )),
                 conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true"),
@@ -319,7 +333,7 @@ dashboard_panel <- function() {
                 #                  br(),
                 #                  p(strong(paste0("To view persistent absence figures, select “year to date” in the drop-down menu. Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods. Underlying data relating to the Spring and Autumn terms and year to date is available at the link below:"))),
                 #                  a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools")),
-                # 
+                #
                 br(),
                 h5(textOutput("headline_ts_chart_title")),
                 conditionalPanel(condition = paste0("input.ts_choice.startsWith('Year') === true"), 
@@ -338,15 +352,18 @@ dashboard_panel <- function() {
             fluidRow(
               br(),
               br(),
-              conditionalPanel(condition = "input.geography_choice == 'National'", 
-                               h4(textOutput("reasons_chart_title_nat"
-                               ))),
-              conditionalPanel(condition = "input.geography_choice == 'Regional'", 
-                               h4(textOutput("reasons_chart_title_reg"
-                               ))),
-              conditionalPanel(condition = "input.geography_choice == 'Local authority'", 
-                               h4(textOutput("reasons_chart_title_la"
-                               )))
+              conditionalPanel(
+                condition = "input.geography_choice == 'National'",
+                h4(textOutput("reasons_chart_title_nat"))
+              ),
+              conditionalPanel(
+                condition = "input.geography_choice == 'Regional'",
+                h4(textOutput("reasons_chart_title_reg"))
+              ),
+              conditionalPanel(
+                condition = "input.geography_choice == 'Local authority'",
+                h4(textOutput("reasons_chart_title_la"))
+              )
             ),
             fluidRow(
               conditionalPanel(condition = paste0("input.ts_choice.startsWith('Latest week') === true"),
@@ -424,9 +441,10 @@ dashboard_panel <- function() {
                   ),
                   column(
                     3,
-                    selectInput(inputId = "measure_choice",
-                                label = "Choose measure of interest:",
-                                choices = c("Overall", "Authorised","Unauthorised")
+                    selectInput(
+                      inputId = "measure_choice",
+                      label = "Choose measure of interest:",
+                      choices = c("Overall", "Authorised", "Unauthorised")
                     )
                   ),
                 ),
@@ -445,7 +463,7 @@ dashboard_panel <- function() {
 }
 
 # technical notes panel
-notes_panel <- function(){
+notes_panel <- function() {
   tabPanel(
     value = "technical notes",
     title = "Technical notes",
@@ -481,7 +499,7 @@ notes_panel <- function(){
 }
 
 # accessibility panel
-accessibility_panel <- function(){
+accessibility_panel <- function() {
   tabPanel(
     "Accessibility",
     gov_main_layout(
@@ -507,11 +525,12 @@ accessibility_panel <- function(){
           a(href = "mailto:schools.statistics@education.gov.uk", "schools.statistics@education.gov.uk")
         )
       )
-    ))
+    )
+  )
 }
 
 # support panel
-support_panel <- function(){
+support_panel <- function() {
   tabPanel(
     "Support and feedback",
     support_links() # defined in R/supporting_links.R

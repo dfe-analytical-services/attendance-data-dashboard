@@ -69,7 +69,7 @@ jobs:
         shell: Rscript {0}
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
-          renv::install("rsconnect@0.8.29")
+          renv::install("rsconnect")
          
 # Tokens are stored as secrets in GitHub to make sure only DfE analysts can publish apps in our shiny.io area
 # Navigate to Settings > Secrets to add and view secrets. These can also be things like admin login and passwords for SQL databases.
@@ -79,6 +79,6 @@ jobs:
         run: >
           Rscript
           -e "rsconnect::setAccountInfo(name = 'department-for-education', token = '${{secrets.SHINYAPPS_TOKEN}}', secret = '${{secrets.SHINYAPPS_SECRET}}')"
-          -e "rsconnect::deployApp(appName=${{env.SHINYAPP_NAME}})"
-          -e "rsconnect::deployApp(appName=${{env.SHINYAPP_OVERFLOW_NAME}})"
+          -e "rsconnect::deployApp(appName=${{env.SHINYAPP_NAME}}, forceUpdate = TRUE)"
+          -e "rsconnect::deployApp(appName=${{env.SHINYAPP_OVERFLOW_NAME}}, forceUpdate = TRUE)"
           
