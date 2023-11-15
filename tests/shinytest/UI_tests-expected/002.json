@@ -10,7 +10,7 @@
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Primary",
-    "ts_choice": "Latest week - 2023-10-09 to 2023-10-13"
+    "ts_choice": "Latest week -2023-10-16 to 2023-10-20"
   },
   "output": {
     "absence_rates_daily_plot": {
@@ -30,11 +30,11 @@
             "automargin": true,
             "title": "Date",
             "tickvals": [
-              "2023-10-09",
-              "2023-10-10",
-              "2023-10-11",
-              "2023-10-12",
-              "2023-10-13"
+              "2023-10-16",
+              "2023-10-17",
+              "2023-10-18",
+              "2023-10-19",
+              "2023-10-20"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -106,18 +106,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2023-10-09",
-              "2023-10-10",
-              "2023-10-11",
-              "2023-10-12",
-              "2023-10-13"
+              "2023-10-16",
+              "2023-10-17",
+              "2023-10-18",
+              "2023-10-19",
+              "2023-10-20"
             ],
             "y": [
-              4.9027779698449301,
-              4.29900333933554,
-              4.2440036864763604,
-              4.3529568752899097,
-              5.4874191077833299
+              5.2564623033347999,
+              4.8347632735574297,
+              4.9881143549088298,
+              5.5787811939996699,
+              7.7984194133993299
             ],
             "line": {
               "color": "#12436D"
@@ -150,18 +150,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2023-10-09",
-              "2023-10-10",
-              "2023-10-11",
-              "2023-10-12",
-              "2023-10-13"
+              "2023-10-16",
+              "2023-10-17",
+              "2023-10-18",
+              "2023-10-19",
+              "2023-10-20"
             ],
             "y": [
-              3.4248250082479101,
-              3.0299832693076101,
-              2.9424002448367599,
-              2.99913127859995,
-              3.7291290736059799
+              3.6401202009688101,
+              3.3624021495062402,
+              3.35253107097164,
+              3.6583923173618,
+              4.9058606539901604
             ],
             "line": {
               "color": "#28A197"
@@ -194,18 +194,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2023-10-09",
-              "2023-10-10",
-              "2023-10-11",
-              "2023-10-12",
-              "2023-10-13"
+              "2023-10-16",
+              "2023-10-17",
+              "2023-10-18",
+              "2023-10-19",
+              "2023-10-20"
             ],
             "y": [
-              1.4779529615970199,
-              1.2690200700279299,
-              1.3016034416395901,
-              1.3538255966899599,
-              1.75829003417735
+              1.6163421023659901,
+              1.4723611240512,
+              1.63558328393719,
+              1.9203888766378701,
+              2.89255875940917
             ],
             "line": {
               "color": "#F46A25"
@@ -348,9 +348,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2023-10-09 to 2023-10-13: primary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 4.7% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 95.3% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "• 2.6% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week -2023-10-16 to 2023-10-20: primary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "• 5.6% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "• 94.4% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "• 3% of sessions were recorded as illness"
   }
 }

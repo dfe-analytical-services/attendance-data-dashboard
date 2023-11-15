@@ -215,6 +215,140 @@ server <- function(input, output, session) {
   #   }
   # })
 
+  # Reactive dates for dropdown
+
+  regionReactive <- reactive({
+    list(input$geography_choice, input$region_choice)
+  })
+
+  laReactive <- reactive({
+    list(input$geography_choice, input$la_choice)
+  })
+
+  # tsChoiceReactive <- reactive({
+  #   paste0(input$ts_choice)
+  # })
+
+  observeEvent(input$geography_choice, {
+    if (input$geography_choice == "National") {
+      week_start_date <- most_recent_week_lookup %>%
+        filter(geographic_level == input$geography_choice) %>%
+        pull(week_start)
+
+      week_end_date <- most_recent_week_lookup %>%
+        filter(geographic_level == input$geography_choice) %>%
+        pull(week_end)
+
+
+      updated_most_recent_week_dates <- paste0("Latest week -", week_start_date, " to ", week_end_date)
+
+      year_start_date <- year_lookup %>%
+        filter(geographic_level == input$geography_choice) %>%
+        pull(year_start)
+
+      year_end_date <- year_lookup %>%
+        filter(geographic_level == input$geography_choice) %>%
+        pull(year_end)
+
+
+      updated_ytd_dates <- paste0("Year to date -", year_start_date, " to ", year_end_date)
+
+      newchoices <- c(updated_most_recent_week_dates, updated_ytd_dates)
+      current_stub <- substr(input$ts_choice, 1, 10)
+      newselected <- newchoices[grepl(current_stub, newchoices)]
+
+      updateSelectInput(session, "ts_choice", choices = newchoices, selected = newselected)
+    }
+  })
+
+  observeEvent(regionReactive(), {
+    if (input$geography_choice == "Regional") {
+      week_start_date <- most_recent_week_lookup %>%
+        filter(
+          geographic_level == input$geography_choice,
+          region_name == input$region_choice
+        ) %>%
+        pull(week_start)
+
+      week_end_date <- most_recent_week_lookup %>%
+        filter(
+          geographic_level == input$geography_choice,
+          region_name == input$region_choice
+        ) %>%
+        pull(week_end)
+
+
+      updated_most_recent_week_dates <- paste0("Latest week -", week_start_date, " to ", week_end_date)
+
+      year_start_date <- year_lookup %>%
+        filter(
+          geographic_level == input$geography_choice,
+          region_name == input$region_choice
+        ) %>%
+        pull(year_start)
+
+      year_end_date <- year_lookup %>%
+        filter(
+          geographic_level == input$geography_choice,
+          region_name == input$region_choice
+        ) %>%
+        pull(year_end)
+
+
+      updated_ytd_dates <- paste0("Year to date -", year_start_date, " to ", year_end_date)
+
+      newchoices <- c(updated_most_recent_week_dates, updated_ytd_dates)
+      current_stub <- substr(input$ts_choice, 1, 10)
+      newselected <- newchoices[grepl(current_stub, newchoices)]
+
+      updateSelectInput(session, "ts_choice", choices = newchoices, selected = newselected)
+    }
+  })
+
+  observeEvent(laReactive(), {
+    if (input$geography_choice == "Local authority") {
+      week_start_date <- most_recent_week_lookup %>%
+        filter(
+          geographic_level == input$geography_choice,
+          la_name == input$la_choice
+        ) %>%
+        pull(week_start)
+
+      week_end_date <- most_recent_week_lookup %>%
+        filter(
+          geographic_level == input$geography_choice,
+          la_name == input$la_choice
+        ) %>%
+        pull(week_end)
+
+
+      updated_most_recent_week_dates <- paste0("Latest week -", week_start_date, " to ", week_end_date)
+
+      year_start_date <- year_lookup %>%
+        filter(
+          geographic_level == input$geography_choice,
+          la_name == input$la_choice
+        ) %>%
+        pull(year_start)
+
+      year_end_date <- year_lookup %>%
+        filter(
+          geographic_level == input$geography_choice,
+          la_name == input$la_choice
+        ) %>%
+        pull(year_end)
+
+
+      updated_ytd_dates <- paste0("Year to date -", year_start_date, " to ", year_end_date)
+
+      newchoices <- c(updated_most_recent_week_dates, updated_ytd_dates)
+      current_stub <- substr(input$ts_choice, 1, 10)
+      newselected <- newchoices[grepl(current_stub, newchoices)]
+
+      updateSelectInput(session, "ts_choice", choices = newchoices, selected = newselected)
+    }
+  })
+
   # Dropdown expandable label ------------------------------------------------------------
   observeEvent(input$go, {
     toggle(id = "div_a", anim = T)
@@ -485,7 +619,8 @@ server <- function(input, output, session) {
       time_period == max(time_period),
       breakdown == "Weekly"
     ) %>%
-      filter(time_identifier == max(time_identifier)) %>%
+      # filter(time_identifier == max(time_identifier)) %>%
+      filter(time_identifier == max(time_identifier) - 1) %>%
       mutate(
         overall_absence_perc = overall_absence_perc / 100,
         authorised_absence_perc = authorised_absence_perc / 100,
@@ -1072,7 +1207,8 @@ server <- function(input, output, session) {
     pull(attendance_date)
 
   output$daily_schools_count <- renderText({
-    paste0(scales::comma(schools_count), " schools provided information on the latest full day of data, i.e. ", schools_count_date)
+    paste0(scales::comma(schools_count), " schools provided information on the latest full day of data prior to half-term, i.e. ", schools_count_date)
+    # paste0(scales::comma(schools_count), " schools provided information on the latest full day of data, i.e. ", schools_count_date)
     # paste0(scales::comma(schools_count_pre_ht), " schools provided information on the last full day of data prior to half-term, i.e. ", schools_count_date_pre_ht)
   })
 
@@ -1456,10 +1592,11 @@ server <- function(input, output, session) {
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    last_update_date <- as.Date(last_update_date) + 17
-    # last_update_date <- as.Date(last_update_date) + 24
+    # last_update_date <- as.Date(last_update_date) + 17
+    last_update_date <- as.Date(last_update_date) + 24
 
-    paste0("Data was last updated on ", last_update_date, ".")
+    # paste0("Data was last updated on ", last_update_date, ".")
+    paste0("Data was last updated on 2023-11-09")
   })
 
   output$la_clarity_dates <- renderText({
@@ -1469,8 +1606,8 @@ server <- function(input, output, session) {
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(week_commencing)
 
-    # paste0("Data on this tab relates to the week commencing 2023-02-20")
-    paste0("Data on this tab relates to the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data on this tab relates to the week commencing 2023-10-16")
+    # paste0("Data on this tab relates to the week commencing ", most_recent_fullweek_date, ".")
   })
 
   output$update_dates <- renderText({
@@ -1484,17 +1621,17 @@ server <- function(input, output, session) {
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    last_update_date <- as.Date(last_update_date) + 17
-    # last_update_date <- as.Date(last_update_date) + 24
+    # last_update_date <- as.Date(last_update_date) + 17
+    last_update_date <- as.Date(last_update_date) + 24
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    next_update_date <- as.Date(next_update_date) + 31
-    # next_update_date <- as.Date(next_update_date) + 38
+    # next_update_date <- as.Date(next_update_date) + 31
+    next_update_date <- as.Date(next_update_date) + 38
 
-    # paste0("Data was last updated on 2023-03-09 and is next expected to be updated on 2023-03-23. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on 2023-11-09 and is next expected to be updated on 2023-11-23. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
@@ -1509,17 +1646,17 @@ server <- function(input, output, session) {
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    last_update_date <- as.Date(last_update_date) + 17
-    # last_update_date <- as.Date(last_update_date) + 24
+    # last_update_date <- as.Date(last_update_date) + 17
+    last_update_date <- as.Date(last_update_date) + 24
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    next_update_date <- as.Date(next_update_date) + 31
-    # next_update_date <- as.Date(next_update_date) + 38
+    # next_update_date <- as.Date(next_update_date) + 31
+    next_update_date <- as.Date(next_update_date) + 38
 
-    # paste0("Data was last updated on 2023-03-09 and is next expected to be updated on 2023-03-23. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on 2023-11-09 and is next expected to be updated on 2023-11-23. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
@@ -1533,15 +1670,16 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      as.Date() + 17
-    # as.Date() + 24
+      # as.Date() + 17
+      as.Date() + 24
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      as.Date() + 31
-    # as.Date() + 38
+      # as.Date() + 31
+      as.Date() + 38
 
-    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on 2023-11-09 and is next expected to be updated on 2023-11-23. The latest full week of data was the week commencing 2023-10-16.")
+    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
@@ -1855,73 +1993,6 @@ server <- function(input, output, session) {
       write.csv(underlying_data, con, row.names = FALSE)
     }
   )
-
-
-  # Map ---------------------------------------------------------------------------------
-
-  ## Custom rounding function ################################################
-
-  roundFiveUp <- function(value, dp) {
-    if (!is.numeric(value) && !is.numeric(dp)) stop("both inputs must be numeric")
-    if (!is.numeric(value)) stop("the value to be rounded must be numeric")
-    if (!is.numeric(dp)) stop("the decimal places value must be numeric")
-
-    z <- abs(value) * 10^dp
-    z <- z + 0.5 + sqrt(.Machine$double.eps)
-    z <- trunc(z)
-    z <- z / 10^dp
-    return(z * sign(value))
-  }
-
-  ## Reading in data ##########################################################
-
-  # Read in shapefile and transform coordinates (because map reasons...)
-  mapshape <- st_read("data/CTYUA_MAY_2023_UK_BUC.shp") %>% st_transform(crs = 4326)
-
-  # Process the joined files to refine our 'mapdata', not pretty yet and mostly done just cos it's how its done in global...
-
-  mapdata0 <- attendance_data %>%
-    mutate(time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))) %>%
-    filter(time_period == max(time_period)) %>%
-    filter(time_identifier == max(time_identifier)) %>%
-    filter(geographic_level == "Local authority") %>%
-    filter(breakdown == "Weekly")
-
-
-  mapdata <- mapdata0 %>%
-    mutate(CTYUA23CD = new_la_code) %>% # renaming to match to shapefile later
-    filter(!is.na(region_name), !is.na(la_name))
-
-  mapdata <- mapdata %>%
-    group_by(time_period, time_identifier, geographic_level, region_name, la_name, CTYUA23CD, school_type) %>%
-    mutate(
-      overall_label_LA = paste(la_name),
-      overall_label_rate = paste(as.character(roundFiveUp(overall_absence_perc, 1)), "%", sep = ""),
-      overall_label = paste0(overall_label_LA, " overall absence rate: ", overall_label_rate),
-      auth_label_LA = paste(la_name),
-      auth_label_rate = paste(as.character(roundFiveUp(authorised_absence_perc, 1)), "%", sep = ""),
-      auth_label = paste0(auth_label_LA, " authorised absence rate: ", auth_label_rate),
-      unauth_label_LA = paste(la_name),
-      unauth_label_rate = paste(as.character(roundFiveUp(unauthorised_absence_perc, 1)), "%", sep = ""),
-      unauth_label = paste0(unauth_label_LA, " unauthorised absence rate: ", unauth_label_rate)
-    )
-
-  ## Combine shapefile and data into mapdata ###############################################
-
-  # Merge the transformed shapefile with the processed source data ---------------
-  mapdata_shaped <- merge(mapshape, mapdata, by = "CTYUA23CD", duplicateGeoms = TRUE)
-
-  # Create colour bins and palette labels --------------------------------------
-
-  # Pull in the colours from another script
-  source("R/gov_colours.R")
-
-  # Create bins
-  overall_abs_pal <- colorQuantile(map_gov_colours, mapdata_shaped$overall_abs_perc, n = 5)
-
-  auth_abs_pal <- colorQuantile(map_gov_colours, mapdata_shaped$auth_abs_perc, n = 5)
-
-  unauth_abs_pal <- colorQuantile(map_gov_colours, mapdata_shaped$unauth_abs_perc, n = 5)
 
   ## Create the map function ###############################################
 
