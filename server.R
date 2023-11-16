@@ -87,7 +87,6 @@ server <- function(input, output, session) {
     msg <- list(name = "dfe_analytics", value = "denied")
     session$sendCustomMessage("cookie-remove", msg)
     session$sendCustomMessage("analytics-consent", msg)
-    print(input$cookies)
   })
 
   cookies_data <- reactive({
@@ -225,128 +224,37 @@ server <- function(input, output, session) {
     list(input$geography_choice, input$la_choice)
   })
 
-  # tsChoiceReactive <- reactive({
-  #   paste0(input$ts_choice)
-  # })
-
-  observeEvent(input$geography_choice, {
-    if (input$geography_choice == "National") {
-      week_start_date <- most_recent_week_lookup %>%
-        filter(geographic_level == input$geography_choice) %>%
-        pull(week_start)
-
-      week_end_date <- most_recent_week_lookup %>%
-        filter(geographic_level == input$geography_choice) %>%
-        pull(week_end)
-
-
-      updated_most_recent_week_dates <- paste0("Latest week -", week_start_date, " to ", week_end_date)
-
-      year_start_date <- year_lookup %>%
-        filter(geographic_level == input$geography_choice) %>%
-        pull(year_start)
-
-      year_end_date <- year_lookup %>%
-        filter(geographic_level == input$geography_choice) %>%
-        pull(year_end)
-
-
-      updated_ytd_dates <- paste0("Year to date -", year_start_date, " to ", year_end_date)
-
-      newchoices <- c(updated_most_recent_week_dates, updated_ytd_dates)
-      current_stub <- substr(input$ts_choice, 1, 10)
-      newselected <- newchoices[grepl(current_stub, newchoices)]
-
-      updateSelectInput(session, "ts_choice", choices = newchoices, selected = newselected)
+  reactive_latestweeks_string <- reactive({
+    latestweek_line <- most_recent_week_lookup %>%
+      filter(geographic_level == input$geography_choice)
+    if(input$geography_choice == "Regional"){
+      latestweek_line <- latestweek_line %>% filter(region_name == input$region_choice)
+    } else if (input$geography_choice == "Local authority"){
+      latestweek_line <- latestweek_line %>% filter(la_name == input$la_choice)
     }
+    paste0("Latest week - ", latestweek_line %>% pull(week_start), " to ", latestweek_line %>% pull(week_end))
   })
 
-  observeEvent(regionReactive(), {
-    if (input$geography_choice == "Regional") {
-      week_start_date <- most_recent_week_lookup %>%
-        filter(
-          geographic_level == input$geography_choice,
-          region_name == input$region_choice
-        ) %>%
-        pull(week_start)
-
-      week_end_date <- most_recent_week_lookup %>%
-        filter(
-          geographic_level == input$geography_choice,
-          region_name == input$region_choice
-        ) %>%
-        pull(week_end)
-
-
-      updated_most_recent_week_dates <- paste0("Latest week -", week_start_date, " to ", week_end_date)
-
-      year_start_date <- year_lookup %>%
-        filter(
-          geographic_level == input$geography_choice,
-          region_name == input$region_choice
-        ) %>%
-        pull(year_start)
-
-      year_end_date <- year_lookup %>%
-        filter(
-          geographic_level == input$geography_choice,
-          region_name == input$region_choice
-        ) %>%
-        pull(year_end)
-
-
-      updated_ytd_dates <- paste0("Year to date -", year_start_date, " to ", year_end_date)
-
-      newchoices <- c(updated_most_recent_week_dates, updated_ytd_dates)
-      current_stub <- substr(input$ts_choice, 1, 10)
-      newselected <- newchoices[grepl(current_stub, newchoices)]
-
-      updateSelectInput(session, "ts_choice", choices = newchoices, selected = newselected)
+  reactive_yeartodate_string <- reactive({
+    year_line <- year_lookup %>%
+      filter(geographic_level == input$geography_choice)
+    if(input$geography_choice == "Regional"){
+      year_line <- year_line %>% filter(region_name == input$region_choice)
+    } else if (input$geography_choice == "Local authority"){
+      year_line <- year_line %>% filter(la_name == input$la_choice)
     }
+    paste0("Year to date - ", year_line %>% pull(year_start), " to ", year_line %>% pull(year_end))
   })
-
-  observeEvent(laReactive(), {
-    if (input$geography_choice == "Local authority") {
-      week_start_date <- most_recent_week_lookup %>%
-        filter(
-          geographic_level == input$geography_choice,
-          la_name == input$la_choice
-        ) %>%
-        pull(week_start)
-
-      week_end_date <- most_recent_week_lookup %>%
-        filter(
-          geographic_level == input$geography_choice,
-          la_name == input$la_choice
-        ) %>%
-        pull(week_end)
-
-
-      updated_most_recent_week_dates <- paste0("Latest week -", week_start_date, " to ", week_end_date)
-
-      year_start_date <- year_lookup %>%
-        filter(
-          geographic_level == input$geography_choice,
-          la_name == input$la_choice
-        ) %>%
-        pull(year_start)
-
-      year_end_date <- year_lookup %>%
-        filter(
-          geographic_level == input$geography_choice,
-          la_name == input$la_choice
-        ) %>%
-        pull(year_end)
-
-
-      updated_ytd_dates <- paste0("Year to date -", year_start_date, " to ", year_end_date)
-
-      newchoices <- c(updated_most_recent_week_dates, updated_ytd_dates)
-      current_stub <- substr(input$ts_choice, 1, 10)
-      newselected <- newchoices[grepl(current_stub, newchoices)]
-
-      updateSelectInput(session, "ts_choice", choices = newchoices, selected = newselected)
-    }
+  
+  reactive_period_selected <- reactive({
+    if(input$ts_choice=='latestweeks'){period <- reactive_latestweeks_string()} else {period <- reactive_yeartodate_string()}
+    period
+  })
+  
+  observe({
+      newchoices <- c(latest_weeks = 'latestweeks', ytd_dates = 'yeartodate')
+      names(newchoices) = c(reactive_latestweeks_string(), reactive_yeartodate_string())
+      updateSelectInput(session, "ts_choice", choices = newchoices, selected = input$ts_choice)
   })
 
   # Dropdown expandable label ------------------------------------------------------------
@@ -358,11 +266,11 @@ server <- function(input, output, session) {
     if (input$dash == "la comparisons") {
       paste0("Current selections: ", most_recent_week_dates, ", ", input$school_choice, ", National")
     } else if (input$geography_choice == "National") {
-      paste0("Current selections: ", input$ts_choice, ", ", input$school_choice, ", ", input$geography_choice)
+      paste0("Current selections: ", reactive_period_selected(), ", ", input$school_choice, ", ", input$geography_choice)
     } else if (input$geography_choice == "Regional") {
-      paste0("Current selections: ", input$ts_choice, ", ", input$school_choice, ", ", input$geography_choice, ", ", input$region_choice)
+      paste0("Current selections: ", reactive_period_selected(), ", ", input$school_choice, ", ", input$geography_choice, ", ", input$region_choice)
     } else if (input$geography_choice == "Local authority") {
-      paste0("Current selections: ", input$ts_choice, ", ", input$school_choice, ", ", input$geography_choice, ", ", input$region_choice, ", ", input$la_choice)
+      paste0("Current selections: ", reactive_period_selected(), ", ", input$school_choice, ", ", input$geography_choice, ", ", input$region_choice, ", ", input$la_choice)
     }
   })
 
@@ -1125,20 +1033,20 @@ server <- function(input, output, session) {
 
   # timeseries chart reactive title
   output$headline_ts_chart_title <- renderText({
-    paste0("Overall, authorised and unauthorised absence rates across the ", str_to_lower(input$ts_choice))
+    paste0("Overall, authorised and unauthorised absence rates across the ", str_to_lower(reactive_period_selected()))
   })
 
   # headline bullet reactive titles
   output$headline_bullet_title_nat <- renderText({
-    paste0("Headline figures for the ", str_to_lower(input$ts_choice), ": ", str_to_lower(input$school_choice), " state-funded school attendance at ", str_to_lower(input$geography_choice), " level")
+    paste0("Headline figures for the ", str_to_lower(reactive_period_selected()), ": ", str_to_lower(input$school_choice), " state-funded school attendance at ", str_to_lower(input$geography_choice), " level")
   })
 
   output$headline_bullet_title_reg <- renderText({
-    paste0("Headline figures for the ", str_to_lower(input$ts_choice), ": ", str_to_lower(input$school_choice), " state-funded school attendance at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ")")
+    paste0("Headline figures for the ", str_to_lower(reactive_period_selected()), ": ", str_to_lower(input$school_choice), " state-funded school attendance at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ")")
   })
 
   output$headline_bullet_title_la <- renderText({
-    paste0("Headline figures for the ", str_to_lower(input$ts_choice), ": ", str_to_lower(input$school_choice), " state-funded school attendance at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ", ", input$la_choice, ")")
+    paste0("Headline figures for the ", str_to_lower(reactive_period_selected()), ": ", str_to_lower(input$school_choice), " state-funded school attendance at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ", ", input$la_choice, ")")
   })
 
 

@@ -10,7 +10,7 @@
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Primary",
-    "ts_choice": "Latest week -2023-10-23 to 2023-10-27"
+    "ts_choice": "yeartodate"
   },
   "output": {
     "absence_rates_timeseries_plot": {
@@ -371,7 +371,7 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the latest week -2023-10-23 to 2023-10-27: primary state-funded school attendance at local authority level (East Midlands, Derby)",
+    "headline_bullet_title_la": "Headline figures for the year to date - 2023-09-11 to 2023-10-27: primary state-funded school attendance at local authority level (East Midlands, Derby)",
     "ytd_absence_rate_la": "• 5.2% of sessions were recorded as absence in Derby (compared to 4.8% of sessions in East Midlands)",
     "ytd_attendance_rate_la": "• 94.8% of sessions were recorded as attending in Derby (compared to 95.2% of sessions in East Midlands)",
     "ytd_illness_rate_la": "• 2.7% of sessions were recorded as illness in Derby (compared to 2.6% of sessions in East Midlands)"

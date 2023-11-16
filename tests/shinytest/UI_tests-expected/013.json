@@ -10,7 +10,7 @@
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Primary",
-    "ts_choice": "Latest week -2023-10-16 to 2023-10-20"
+    "ts_choice": "yeartodate"
   },
   "output": {
     "absence_reasons_la_table": {

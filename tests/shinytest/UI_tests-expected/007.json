@@ -10,7 +10,7 @@
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Primary",
-    "ts_choice": "Latest week -2023-10-16 to 2023-10-20"
+    "ts_choice": "yeartodate"
   },
   "output": {
     "absence_rates_timeseries_plot": {
@@ -361,7 +361,7 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the latest week -2023-10-16 to 2023-10-20: primary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "headline_bullet_title_la": "Headline figures for the year to date - 2023-09-11 to 2023-10-20: primary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
     "ytd_absence_rate_la": "• 4.6% of sessions were recorded as absence in Lincolnshire (compared to 4.8% of sessions in East Midlands)",
     "ytd_attendance_rate_la": "• 95.4% of sessions were recorded as attending in Lincolnshire (compared to 95.2% of sessions in East Midlands)",
     "ytd_illness_rate_la": "• 2.7% of sessions were recorded as illness in Lincolnshire (compared to 2.6% of sessions in East Midlands)"
