@@ -159,7 +159,7 @@ dashboard_panel <- function() {
                         label = "Choose school type:",
                         choices = school_type_lookup %>% dplyr::filter(geographic_level == "National") %>% dplyr::select(school_type) %>% unique() %>% as.data.table(),
                         selected = "Primary",
-                        selectize = FALSE
+                        selectize = TRUE
                       )
                     ),
                     column(
@@ -169,8 +169,8 @@ dashboard_panel <- function() {
                         selectInput(
                           inputId = "ts_choice",
                           label = "Choose time period:",
-                          choices = c(most_recent_week_dates = 'latestweeks', ytd_dates = 'yeartodate'),
-                          selectize = FALSE
+                          choices = c(most_recent_week_dates = "latestweeks", ytd_dates = "yeartodate"),
+                          selectize = TRUE
                         )
                       )
                     )
@@ -203,7 +203,7 @@ dashboard_panel <- function() {
                       label = "Choose geographic level:",
                       choices = c("National", "Regional", "Local authority"),
                       selected = head(geog_levels, 1),
-                      selectize = FALSE
+                      selectize = TRUE
                     )
                   )
                 ),
@@ -217,7 +217,7 @@ dashboard_panel <- function() {
                       label = "Choose region:",
                       choices = regions,
                       selected = regions[1],
-                      selectize = FALSE
+                      selectize = TRUE
                     )
                   ),
                   conditionalPanel(
@@ -227,7 +227,7 @@ dashboard_panel <- function() {
                       label = "Choose local authority:",
                       choices = la_list,
                       selected = las[1],
-                      selectize = FALSE
+                      selectize = TRUE
                     )
                   )
                 )
