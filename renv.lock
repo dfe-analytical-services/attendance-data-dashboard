@@ -72,7 +72,7 @@
     },
     "Matrix": {
       "Package": "Matrix",
-      "Version": "1.6-2",
+      "Version": "1.6-3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -85,7 +85,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "e4ea5684d8d52584681b7704132b5189"
+      "Hash": "1d1b6901cf9b6b1b446bc56a7d47efa4"
     },
     "R.cache": {
       "Package": "R.cache",
@@ -461,14 +461,14 @@
       "RemoteUsername": "dfe-analytical-services",
       "RemoteRepo": "dfeshiny",
       "RemoteRef": "main",
-      "RemoteSha": "437c6e4c60b5eb9c1f55333588b65110d47b7ba2",
+      "RemoteSha": "d90d2099892d1ff0f4c688213952f9512d9dea16",
       "RemoteHost": "api.github.com",
       "Requirements": [
         "shiny",
         "shinyGovstyle",
         "styler"
       ],
-      "Hash": "b3f1cac9ab18652447e842b04f702959"
+      "Hash": "cd664e1910e9b52deaddcf1b92aeabda"
     },
     "diffobj": {
       "Package": "diffobj",
@@ -1713,7 +1713,7 @@
     },
     "stringr": {
       "Package": "stringr",
-      "Version": "1.5.0",
+      "Version": "1.5.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1726,7 +1726,7 @@
         "stringi",
         "vctrs"
       ],
-      "Hash": "671a4d384ae9d32fc47a14e98bfa3dc8"
+      "Hash": "960e2ae9e09656611e0b8214ad543207"
     },
     "styler": {
       "Package": "styler",
