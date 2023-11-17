@@ -52,11 +52,7 @@ template. 80% works well here to reduce white space on the right hand side.*/
 .col-sm-8{ width: 80%}
 
 .container-fluid {
-  padding: 0px;
-}
-
-.row {
-  margin-right: 0px;
+  padding: 3.2px;
 }
 
 .nav-pills > li.active > a {
