@@ -9,7 +9,7 @@
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Secondary",
-    "ts_choice": "Latest week -2023-10-16 to 2023-10-20"
+    "ts_choice": "Latest week -2023-11-06 to 2023-11-10"
   },
   "output": {
     "absence_rates_timeseries_plot": {
@@ -34,7 +34,9 @@
               "2023-09-25",
               "2023-10-02",
               "2023-10-09",
-              "2023-10-16"
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -114,15 +116,19 @@
               "2023-09-25",
               "2023-10-02",
               "2023-10-09",
-              "2023-10-16"
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06"
             ],
             "y": [
-              6.3987881372329101,
-              7.7245108924703398,
-              9.0023233601399895,
-              8.9703762884297493,
-              8.8225825434958693,
-              9.7591464297085295
+              6.3837124041355704,
+              7.6981710267826999,
+              8.9708898614087094,
+              8.9439164212346807,
+              8.77303705764513,
+              9.6355942873749001,
+              7.5612257108098904,
+              7.8580665004624404
             ],
             "line": {
               "color": "#12436D"
@@ -140,6 +146,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -161,15 +169,19 @@
               "2023-09-25",
               "2023-10-02",
               "2023-10-09",
-              "2023-10-16"
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06"
             ],
             "y": [
-              3.8894325377945602,
-              5.0465892933329801,
-              6.1446601061808703,
-              6.0714913888832998,
-              5.6283708001301598,
-              5.91394348123921
+              3.8901688854856902,
+              5.0425272083370798,
+              6.1384667155137302,
+              6.07730271372996,
+              5.6273833474584602,
+              5.8977310497631903,
+              4.8533507947376497,
+              4.8576831188634602
             ],
             "line": {
               "color": "#28A197"
@@ -187,6 +199,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -208,15 +222,19 @@
               "2023-09-25",
               "2023-10-02",
               "2023-10-09",
-              "2023-10-16"
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06"
             ],
             "y": [
-              2.5093555994383401,
-              2.6779215991373602,
-              2.85766325395912,
-              2.89888489954645,
-              3.19421174336571,
-              3.84520294846932
+              2.49354351864987,
+              2.6556438184456201,
+              2.8324231458949898,
+              2.8666137075047202,
+              3.1456537101866702,
+              3.73786323761172,
+              2.7078749160722499,
+              3.0003833815989802
             ],
             "line": {
               "color": "#F46A25"
@@ -229,6 +247,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
@@ -360,9 +380,9 @@
         }
       ]
     },
-    "headline_bullet_title_reg": "Headline figures for the latest week -2023-10-16 to 2023-10-20: secondary state-funded school attendance at regional level (East Midlands)",
-    "ytd_absence_rate_reg": "• 8.4% of sessions were recorded as absence in East Midlands (compared to 8% of sessions at national level)",
-    "ytd_attendance_rate_reg": "• 91.6% of sessions were recorded as attending in East Midlands (compared to 92% of sessions at national level)",
-    "ytd_illness_rate_reg": "• 4% of sessions were recorded as illness in East Midlands (compared to 3.8% of sessions at national level)"
+    "headline_bullet_title_reg": "Headline figures for the latest week -2023-11-06 to 2023-11-10: secondary state-funded school attendance at regional level (East Midlands)",
+    "ytd_absence_rate_reg": "• 8.2% of sessions were recorded as absence in East Midlands (compared to 8% of sessions at national level)",
+    "ytd_attendance_rate_reg": "• 91.8% of sessions were recorded as attending in East Midlands (compared to 92% of sessions at national level)",
+    "ytd_illness_rate_reg": "• 3.9% of sessions were recorded as illness in East Midlands (compared to 3.7% of sessions at national level)"
   }
 }

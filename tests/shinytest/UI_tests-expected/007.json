@@ -9,7 +9,7 @@
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Primary",
-    "ts_choice": "Latest week -2023-10-16 to 2023-10-20"
+    "ts_choice": "Latest week -2023-11-06 to 2023-11-10"
   },
   "output": {
     "absence_rates_timeseries_plot": {
@@ -34,7 +34,9 @@
               "2023-09-25",
               "2023-10-02",
               "2023-10-09",
-              "2023-10-16"
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -114,15 +116,19 @@
               "2023-09-25",
               "2023-10-02",
               "2023-10-09",
-              "2023-10-16"
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06"
             ],
             "y": [
-              3.3476603611960698,
-              4.5217758184229098,
-              5.0480524955947397,
-              4.5813382205530004,
-              4.4589005686713801,
-              5.8234519681313603
+              3.35092029481654,
+              4.5153977350975101,
+              5.0554062307801999,
+              4.5913680333594398,
+              4.4590723807425396,
+              5.8038805439021104,
+              4.3261172360065201,
+              4.6551517126635904
             ],
             "line": {
               "color": "#12436D"
@@ -140,6 +146,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -161,15 +169,19 @@
               "2023-09-25",
               "2023-10-02",
               "2023-10-09",
-              "2023-10-16"
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06"
             ],
             "y": [
-              2.21792722271605,
-              3.41145878179407,
-              3.8930629276888302,
-              3.4419190941435098,
-              3.33362054109943,
-              4.0129332156258801
+              2.2208749954955,
+              3.4130321938197201,
+              3.9057828058728301,
+              3.4582901170543798,
+              3.3489122973534098,
+              4.0340335404871803,
+              3.1206473240633601,
+              3.65066636935902
             ],
             "line": {
               "color": "#28A197"
@@ -187,6 +199,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -208,15 +222,19 @@
               "2023-09-25",
               "2023-10-02",
               "2023-10-09",
-              "2023-10-16"
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06"
             ],
             "y": [
-              1.12973313848001,
-              1.11031703662884,
-              1.1549895679059099,
-              1.1394191264094899,
-              1.1252800275719499,
-              1.81051875250548
+              1.1300452993210399,
+              1.10236554127779,
+              1.14962342490737,
+              1.1330779163050599,
+              1.1101600833891201,
+              1.7698470034149301,
+              1.20546991194315,
+              1.00448534330457
             ],
             "line": {
               "color": "#F46A25"
@@ -229,6 +247,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
@@ -360,9 +380,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the latest week -2023-10-16 to 2023-10-20: primary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "headline_bullet_title_la": "Headline figures for the latest week -2023-11-06 to 2023-11-10: primary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
     "ytd_absence_rate_la": "• 4.6% of sessions were recorded as absence in Lincolnshire (compared to 4.8% of sessions in East Midlands)",
     "ytd_attendance_rate_la": "• 95.4% of sessions were recorded as attending in Lincolnshire (compared to 95.2% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "• 2.7% of sessions were recorded as illness in Lincolnshire (compared to 2.6% of sessions in East Midlands)"
+    "ytd_illness_rate_la": "• 2.7% of sessions were recorded as illness in Lincolnshire (compared to 2.7% of sessions in East Midlands)"
   }
 }
