@@ -12,12 +12,6 @@ cat("Sourcing .Rprofile.", fill = TRUE)
 
 source("renv/activate.R")
 
-# Tidy code function
-tidy_code <- function() {
-  source("global.r")
-  tidy_code_function()
-}
-
 # Function to run tests
 run_tests_locally <- function() {
   Sys.unsetenv("http_proxy")

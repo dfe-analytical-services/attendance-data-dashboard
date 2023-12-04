@@ -6,10 +6,11 @@
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
     "link_to_reasons_tab": 0,
+    "measure_choice": "Overall",
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Primary",
-    "ts_choice": "Latest week -2023-11-06 to 2023-11-10"
+    "ts_choice": "latestweeks"
   },
   "output": {
     "absence_rates_daily_plot": {
@@ -347,7 +348,7 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week -2023-11-06 to 2023-11-10: primary state-funded school attendance at national level",
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2023-11-06 to 2023-11-10: primary state-funded school attendance at national level",
     "weekly_absence_rate_nat": "• 4.9% of sessions were recorded as absence",
     "weekly_attendance_rate_nat": "• 95.1% of sessions were recorded as attending",
     "weekly_illness_rate_nat": "• 2.9% of sessions were recorded as illness"

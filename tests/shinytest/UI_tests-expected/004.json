@@ -6,10 +6,11 @@
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
     "link_to_reasons_tab": 0,
+    "measure_choice": "Overall",
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Secondary",
-    "ts_choice": "Latest week -2023-11-06 to 2023-11-10"
+    "ts_choice": "yeartodate"
   },
   "output": {
     "absence_rates_timeseries_plot": {
@@ -380,7 +381,7 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week -2023-11-06 to 2023-11-10: secondary state-funded school attendance at national level",
+    "headline_bullet_title_nat": "Headline figures for the year to date - 2023-09-11 to 2023-11-10: secondary state-funded school attendance at national level",
     "ytd_absence_rate_nat": "• 8% of sessions were recorded as absence",
     "ytd_attendance_rate_nat": "• 92% of sessions were recorded as attending",
     "ytd_illness_rate_nat": "• 3.7% of sessions were recorded as illness"

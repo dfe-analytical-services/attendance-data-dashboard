@@ -43,17 +43,16 @@ a:active {
   text-decoration: underline
 }
 
+.govuk-cookie-banner {
+  padding: 6px 6px 6px 6px;
+}
+
 /* This line sets the main area width. Originally set to 66.667% in the GDS 
 template. 80% works well here to reduce white space on the right hand side.*/
 .col-sm-8{ width: 80%}
 
 .container-fluid {
-  padding: 0px;
-}
-
-.row {
-  margin-right: 0px;
-  margin-left: 0px;
+  padding: 3.2px;
 }
 
 .nav-pills > li.active > a {
@@ -124,6 +123,48 @@ template. 80% works well here to reduce white space on the right hand side.*/
     -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%);
     box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%);
     color: #fff;
+}
+
+.govuk-details {
+    padding: 19px;
+    font-family: GDS Transport, arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 0.875em;
+    background-color: #1d70b8;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 20px;
+    display: block;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+}
+
+.govuk-details__summary {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 5px;
+    padding-left: 25px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.42em;
+}
+
+.govuk-details__summary-text:hover {
+    text-decoration: underline;
+    text-decoration-thickness: max(4px, .1875rem, .12em);
+}
+
+.govuk-details__summary:hover {
+    color: #fff;
+}
+
+.govuk-details__summary:focus {
+    outline: 3px solid rgba(0, 0, 0, 0);
+    /* color: #0b0c0c; */
+    background-color: #fd0;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+    color: #0b0c0c;
+    text-decoration: none;
 }
 
 
@@ -297,45 +338,4 @@ template. 80% works well here to reduce white space on the right hand side.*/
   text-align: left;
   font-weight: bold;
   font-size: 28px;
-}
-
-.govuk-details {
-    padding: 19px;
-    font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif !important;
-    -webkit-font-smoothing: antialiased;
-    font-size: 15px;
-    background-color: #1d70b8;
-    font-weight: 400;
-    color: #fff;
-    margin-bottom: 20px;
-    display: block;
-    border: 1px solid #e3e3e3;
-    border-radius: 4px;
-}
-
-.govuk-details__summary {
-    display: inline-block;
-    position: relative;
-    margin-bottom: 5px;
-    padding-left: 25px;
-    color: #fff;
-    cursor: pointer;
-}
-
-.govuk-details__summary-text:hover {
-    text-decoration: underline;
-    text-decoration-thickness: max(4px, .1875rem, .12em);
-}
-
-.govuk-details__summary:hover {
-    color: #fff;
-}
-
-.govuk-details__summary:focus {
-    outline: 3px solid rgba(0, 0, 0, 0);
-    /* color: #0b0c0c; */
-    background-color: #fd0;
-    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
-    color: #0b0c0c;
-    text-decoration: none;
 }
