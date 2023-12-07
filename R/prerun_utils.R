@@ -6,7 +6,7 @@ run_data_update <- function() {
   # pa_autumn_file <- "data/export_autumn_pa_output_2023_08_07.csv"
   # pa_spring_file <- "data/export_spring_pa_output_2023_08_07.csv"
   # pa_summer_file <- "data/export_summer_pa_output_2023_08_07.csv"
-  attendance_data_raw <- fread("data/sql_export_2023_11_20_full.csv")
+  attendance_data_raw <- fread("data/sql_export_2023_12_04_full.csv")
 
   attendance_data <- process_attendance_data(
     attendance_data_raw,
