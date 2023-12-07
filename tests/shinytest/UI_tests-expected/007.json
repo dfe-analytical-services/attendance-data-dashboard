@@ -37,7 +37,9 @@
               "2023-10-09",
               "2023-10-16",
               "2023-10-30",
-              "2023-11-06"
+              "2023-11-06",
+              "2023-11-13",
+              "2023-11-20"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -119,17 +121,21 @@
               "2023-10-09",
               "2023-10-16",
               "2023-10-30",
-              "2023-11-06"
+              "2023-11-06",
+              "2023-11-13",
+              "2023-11-20"
             ],
             "y": [
-              3.35092029481654,
-              4.5153977350975101,
-              5.0554062307801999,
-              4.5913680333594398,
-              4.4590723807425396,
-              5.8038805439021104,
-              4.3261172360065201,
-              4.6551517126635904
+              3.3652283960118301,
+              4.5295653548825499,
+              5.0479427948460396,
+              4.58296511652728,
+              4.4501275493853303,
+              5.8097320845884903,
+              4.3062567603014497,
+              4.6543945561334503,
+              4.9684902535136404,
+              5.3269792427803999
             ],
             "line": {
               "color": "#12436D"
@@ -149,6 +155,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -172,17 +180,21 @@
               "2023-10-09",
               "2023-10-16",
               "2023-10-30",
-              "2023-11-06"
+              "2023-11-06",
+              "2023-11-13",
+              "2023-11-20"
             ],
             "y": [
-              2.2208749954955,
-              3.4130321938197201,
-              3.9057828058728301,
-              3.4582901170543798,
-              3.3489122973534098,
-              4.0340335404871803,
-              3.1206473240633601,
-              3.65066636935902
+              2.2326543874950802,
+              3.4257522210874001,
+              3.8959422454568098,
+              3.4477900587866102,
+              3.33850367692617,
+              4.0463914184087599,
+              3.1105491648909398,
+              3.6585078615308499,
+              4.0873744592130397,
+              4.4025790636430404
             ],
             "line": {
               "color": "#28A197"
@@ -202,6 +214,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -225,17 +239,21 @@
               "2023-10-09",
               "2023-10-16",
               "2023-10-30",
-              "2023-11-06"
+              "2023-11-06",
+              "2023-11-13",
+              "2023-11-20"
             ],
             "y": [
-              1.1300452993210399,
-              1.10236554127779,
-              1.14962342490737,
-              1.1330779163050599,
-              1.1101600833891201,
-              1.7698470034149301,
-              1.20546991194315,
-              1.00448534330457
+              1.1325740085167499,
+              1.10381313379514,
+              1.15200054938923,
+              1.1351750577406601,
+              1.1116238724591601,
+              1.76334066617973,
+              1.1957075954105101,
+              0.99588669460259804,
+              0.88111579430060405,
+              0.92440017913735495
             ],
             "line": {
               "color": "#F46A25"
@@ -248,6 +266,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
@@ -381,9 +401,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date - 2023-09-11 to 2023-11-10: primary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
-    "ytd_absence_rate_la": "• 4.6% of sessions were recorded as absence in Lincolnshire (compared to 4.8% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "• 95.4% of sessions were recorded as attending in Lincolnshire (compared to 95.2% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "• 2.7% of sessions were recorded as illness in Lincolnshire (compared to 2.7% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date - 2023-09-11 to 2023-11-24: primary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "ytd_absence_rate_la": "• 4.7% of sessions were recorded as absence in Lincolnshire (compared to 4.9% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 95.3% of sessions were recorded as attending in Lincolnshire (compared to 95.1% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 2.9% of sessions were recorded as illness in Lincolnshire (compared to 2.8% of sessions in East Midlands)"
   }
 }

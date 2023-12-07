@@ -85,7 +85,7 @@ homepage_panel <- function() {
                   br(),
                   h3("Coverage"),
                   h4(textOutput("daily_schools_count")),
-                  p("This number is approximately 86% of the number of schools participating in the School Census. As schools opt in to sharing of data, the number of schools reporting may change over time."),
+                  p("This number is approximately 87% of the number of schools participating in the School Census. As schools opt in to sharing of data, the number of schools reporting may change over time."),
                   p("Absence rates are provided broken down by state-funded primary, secondary and special schools. At national and regional level, absence figures are also provided across all schools. In recognition that response rates are not equal across school types and, therefore, not representative of the total school population, the total absence figure for all schools has been weighted based on the Spring 2023 school census. Weighted total figures are not included at local authority level due to the low number of schools involved."),
                   br(),
                   h3("National statistics"),
@@ -454,23 +454,33 @@ dashboard_panel <- function() {
                   ),
                   conditionalPanel(
                     condition = paste0("input.ts_choice == 'latestweeks'"),
-                    p(strong("Reasons for absence in the latest week")),
-                    p("Authorised absence"),
-                    DTOutput("absence_auth_reasons_table"),
-                    br(),
-                    br(),
-                    p("Unauthorised absence"),
-                    DTOutput("absence_unauth_reasons_table")
+                    column(
+                      12,
+                      fluidRow(
+                        p(strong("Reasons for absence in the latest week")),
+                        p("Authorised absence"),
+                        DTOutput("absence_auth_reasons_table"),
+                        br(),
+                        br(),
+                        p("Unauthorised absence"),
+                        DTOutput("absence_unauth_reasons_table")
+                      )
+                    )
                   ),
                   conditionalPanel(
                     condition = paste0("input.ts_choice == 'yeartodate'"),
-                    p(strong("Reasons for absence in the year to date")),
-                    p("Authorised absence"),
-                    DTOutput("absence_auth_reasons_table_ytd"),
-                    br(),
-                    br(),
-                    p("Unauthorised absence"),
-                    DTOutput("absence_unauth_reasons_table_ytd")
+                    column(
+                      12,
+                      fluidRow(
+                        p(strong("Reasons for absence in the year to date")),
+                        p("Authorised absence"),
+                        DTOutput("absence_auth_reasons_table_ytd"),
+                        br(),
+                        br(),
+                        p("Unauthorised absence"),
+                        DTOutput("absence_unauth_reasons_table_ytd")
+                      )
+                    )
                   )
                 )
               )
