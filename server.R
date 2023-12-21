@@ -1539,8 +1539,8 @@ server <- function(input, output, session) {
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    next_update_date <- as.Date(next_update_date) + 31
-    # next_update_date <- as.Date(next_update_date) + 38
+    # next_update_date <- as.Date(next_update_date) + 31
+    next_update_date <- as.Date(next_update_date) + 38
 
     # paste0("Data was last updated on 2023-11-09 and is next expected to be updated on 2023-11-23. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
@@ -1564,8 +1564,8 @@ server <- function(input, output, session) {
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date)
 
-    next_update_date <- as.Date(next_update_date) + 31
-    # next_update_date <- as.Date(next_update_date) + 38
+    # next_update_date <- as.Date(next_update_date) + 31
+    next_update_date <- as.Date(next_update_date) + 38
 
     #  paste0("Data was last updated on 2023-11-09 and is next expected to be updated on 2023-11-23. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
@@ -1587,8 +1587,8 @@ server <- function(input, output, session) {
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      as.Date() + 31
-    # as.Date() + 38
+      # as.Date() + 31
+      as.Date() + 38
 
     # paste0("Data was last updated on 2023-11-09 and is next expected to be updated on 2023-11-23. The latest full week of data was the week commencing 2023-10-16.")
     paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
