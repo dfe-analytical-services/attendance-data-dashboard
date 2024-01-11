@@ -90,7 +90,7 @@ google_analytics_key <- "DG7P4WLB0Y"
 # Read in data
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 start_date <- as.Date("2023-09-11")
-end_date <- as.Date("2023-12-08")
+end_date <- as.Date("2023-12-22")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -114,7 +114,7 @@ most_recent_week_dates <- paste0("Latest week -", as.Date(end_date) - 4, " to ",
 ytd_dates <- paste0("Year to date -", as.Date(start_date), "to", as.Date(end_date))
 
 
-school_freq_count <- fread("data/enrolments_schools_denominator_041223.csv")
+school_freq_count <- fread("data/enrolments_schools_denominator_050124.csv")
 school_freq_count$total_enrolments <- as.numeric(school_freq_count$total_enrolments)
 
 attendance_data <- read.csv("data/attendance_data_dashboard.csv")
@@ -241,8 +241,8 @@ mapshape <- st_read("data/CTYUA_MAY_2023_UK_BUC.shp") %>% st_transform(crs = 432
 mapdata0 <- attendance_data %>%
   mutate(time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))) %>%
   filter(time_period == max(time_period)) %>%
-  filter(time_identifier == max(time_identifier)) %>%
-  # filter(time_identifier == max(time_identifier) - 1) %>%
+  # filter(time_identifier == max(time_identifier)) %>%
+  filter(time_identifier == max(time_identifier) - 1) %>%
   filter(geographic_level == "Local authority") %>%
   filter(breakdown == "Weekly")
 
