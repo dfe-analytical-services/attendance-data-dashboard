@@ -10,7 +10,7 @@
 
 cat("Sourcing .Rprofile.", fill = TRUE)
 
-# source("renv/activate.R")
+source("renv/activate.R")
 
 # Function to run tests
 run_tests_locally <- function() {

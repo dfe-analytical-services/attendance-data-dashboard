@@ -38,7 +38,7 @@ jobs:
         uses: r-lib/actions/setup-r@4e1feaf90520ec1215d1882fdddfe3411c08e492
 
       - name: Setup lintr
-        uses: r-lib/actions/setup-renv
+        uses: r-lib/actions/setup-renv@v2
         with:
           extra-packages: lintr
 
