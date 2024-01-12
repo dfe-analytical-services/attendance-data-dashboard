@@ -14,10 +14,9 @@ permissions:
 
 jobs:
   lintr:
-    name: Run lintr scanning
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    name: Run lintr scanning
 
     strategy:
       fail-fast: false
