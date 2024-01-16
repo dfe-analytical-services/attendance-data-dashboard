@@ -1,16 +1,22 @@
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
-  
-name: shiny-tests
+    # The branches below must be a subset of the branches above
+    branches: [ "main" ]
+  schedule:
+    - cron: '20 3 * * 0'
+
+name: lintr
+
+permissions:
+  contents: read
 
 jobs:
-  automatedTests:
+  lintr:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    name: Run lintr scanning
 
     strategy:
       fail-fast: false
@@ -19,15 +25,21 @@ jobs:
         # Running on mac as it's quicker to build
           - {os: macOS-latest, r: 'release'}
 
+    permissions:
+      contents: read # for checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       RENV_PATHS_ROOT: ~/.local/share/renv
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - uses: r-lib/actions/setup-r@v2
+      - name: Setup R
+        uses: r-lib/actions/setup-r@4e1feaf90520ec1215d1882fdddfe3411c08e492
         with:
           r-version: 4.2.1
           use-public-rspm: true
@@ -48,33 +60,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-renv-
         
-      - name: Restore renv snapshot
+      - name: Restore renv snapshot and install lintr
         shell: Rscript {0}
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
-      - name: Find PhantomJS path
-        id: phantomjs
-        run: |
-          echo "::set-output name=path::$(Rscript -e 'cat(shinytest:::phantom_paths()[[1]])')"
-      - name: Cache PhantomJS
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.phantomjs.outputs.path }}
-          key: ${{ runner.os }}-phantomjs
-          restore-keys: ${{ runner.os }}-phantomjs
-      - name: Install PhantomJS
+          renv::install("lintr")
+
+      - name: Run lintr
+        run: lintr::sarif_output(lintr::lint_dir("."), "lintr-results.sarif")
         shell: Rscript {0}
-        run: |
-          options(install.packages.check.source = "no")
-          if (!shinytest::dependenciesInstalled()) shinytest::installDependencies()
-      - name: Run tests
-        shell: Rscript {0}
-        run: |
-          shiny::runTests(".", assert = TRUE)
-      - name: Upload test results
-        if: failure()
-        uses: actions/upload-artifact@master
+        continue-on-error: true
+
+      - name: Upload analysis results to GitHub
+        uses: github/codeql-action/upload-sarif@v2
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-tests
-          path: tests
+          sarif_file: lintr-results.sarif
+          wait-for-processing: true
