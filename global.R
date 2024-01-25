@@ -90,7 +90,7 @@ google_analytics_key <- "DG7P4WLB0Y"
 # Read in data
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 start_date <- as.Date("2023-09-11")
-end_date <- as.Date("2023-12-22")
+end_date <- as.Date("2024-01-12")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -103,8 +103,8 @@ end_date <- as.Date("2023-12-22")
 # regional_strike_1 <- as.Date("2023-02-28")
 # regional_strike_2 <- as.Date("2023-03-01")
 # regional_strike_3 <- as.Date("2023-03-02")
-# autumn_start <- as.Date("2022-09-12")
-# autumn_end <- as.Date("2022-12-16")
+autumn_start <- as.Date("2023-09-11")
+autumn_end <- as.Date("2023-12-15")
 # spring_start <- as.Date("2023-01-03")
 # spring_end <- as.Date("2023-03-31")
 # summer_start <- as.Date("2023-04-01")
@@ -160,6 +160,7 @@ names(la_list) <- geog_lookup %>%
 # date filter lookups
 most_recent_week_lookup <- attendance_data %>%
   group_by(geographic_level, region_name, la_name) %>%
+  filter(time_period == max(time_period)) %>%
   filter(time_identifier == max(time_identifier)) %>%
   mutate(
     week_start = min(attendance_date),
@@ -241,8 +242,8 @@ mapshape <- st_read("data/CTYUA_MAY_2023_UK_BUC.shp") %>% st_transform(crs = 432
 mapdata0 <- attendance_data %>%
   mutate(time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))) %>%
   filter(time_period == max(time_period)) %>%
-  # filter(time_identifier == max(time_identifier)) %>%
-  filter(time_identifier == max(time_identifier) - 1) %>%
+  filter(time_identifier == max(time_identifier)) %>%
+  # filter(time_identifier == max(time_identifier) - 1) %>%
   filter(geographic_level == "Local authority") %>%
   filter(breakdown == "Weekly")
 

@@ -1,0 +1,619 @@
+geographic_level,region_code,region_name,new_la_code,la_name,old_la_code,school_type,num_schools,ytd_enrolments,pa_flag
+Local authority,E12000002,North West,E08000005,Rochdale,354,Primary,65,17826,3374
+Local authority,E12000003,Yorkshire and The Humber,E06000065,North Yorkshire,815,Secondary,39,30177,7732
+Local authority,E12000001,North East,E06000057,Northumberland,929,Primary,117,15887,2709
+Local authority,E12000009,South West,E06000030,Swindon,866,Primary,64,17220,2487
+Local authority,E12000006,East of England,E10000012,Essex,881,Secondary,55,57019,14195
+Local authority,E12000007,London,E09000016,Havering,311,Primary,48,16719,2676
+Local authority,E12000007,London,E09000031,Waltham Forest,320,Primary,41,14509,2296
+Local authority,E12000002,North West,E08000004,Oldham,353,Secondary,13,16107,4022
+Local authority,E12000005,West Midlands,E08000025,Birmingham,330,Primary,267,85783,15911
+Local authority,E12000008,South East,E10000032,West Sussex,938,Primary,216,53116,7741
+Local authority,E12000005,West Midlands,E10000031,Warwickshire,937,Primary,183,38110,5850
+Local authority,E12000002,North West,E08000012,Liverpool,341,Special,11,1613,623
+Local authority,E12000008,South East,E10000014,Hampshire,850,Primary,375,81313,10084
+Local authority,E12000009,South West,E06000025,South Gloucestershire,803,Primary,83,18296,2590
+Local authority,E12000009,South West,E06000026,Plymouth,879,Secondary,17,13755,4022
+Local authority,E12000007,London,E09000010,Enfield,308,Primary,61,22324,3435
+Local authority,E12000001,North East,E06000001,Hartlepool,805,Primary,30,6736,1283
+Local authority,E12000002,North West,E06000049,Cheshire East,895,Secondary,23,21596,5478
+Local authority,E12000003,Yorkshire and The Humber,E06000013,North Lincolnshire,813,Secondary,14,10527,2833
+Local authority,E12000002,North West,E08000007,Stockport,356,Primary,77,19847,3225
+Local authority,E12000009,South West,E06000054,Wiltshire,865,Primary,173,27676,3814
+Local authority,E12000002,North West,E08000009,Trafford,358,Special,8,811,264
+Local authority,E12000006,East of England,E06000031,Peterborough,874,Secondary,14,15070,3615
+Local authority,E12000009,South West,E10000013,Gloucestershire,916,Primary,229,39163,5994
+Local authority,E12000002,North West,E08000002,Bury,351,Primary,61,13368,2051
+Local authority,E12000003,Yorkshire and The Humber,E08000033,Calderdale,381,Primary,68,12014,1986
+Local authority,E12000002,North West,E08000004,Oldham,353,Primary,88,21781,4022
+Local authority,E12000007,London,E09000012,Hackney,204,Primary,38,9868,1634
+Local authority,E12000002,North West,E08000010,Wigan,359,Primary,91,20767,3379
+Local authority,E12000002,North West,E08000010,Wigan,359,Special,3,255,124
+Local authority,E12000003,Yorkshire and The Humber,E08000016,Barnsley,370,Primary,70,15577,2678
+Local authority,E12000001,North East,E06000002,Middlesbrough,806,Secondary,8,8944,2814
+Local authority,E12000008,South East,E06000046,Isle of Wight,921,Primary,38,7580,1320
+Local authority,E12000005,West Midlands,E06000019,"Herefordshire, County of",884,Primary,77,11431,1500
+Local authority,E12000003,Yorkshire and The Humber,E06000012,North East Lincolnshire,812,Primary,47,11716,1932
+Local authority,E12000001,North East,E08000023,South Tyneside,393,Special,4,573,165
+Local authority,E12000004,East Midlands,E06000061,North Northamptonshire,940,Secondary,15,16047,4334
+Local authority,E12000002,North West,E06000063,Cumberland,942,Secondary,16,13583,3657
+Local authority,E12000002,North West,E08000010,Wigan,359,Secondary,17,16805,4133
+Local authority,E12000006,East of England,E10000015,Hertfordshire,919,Secondary,66,61684,12830
+Local authority,E12000002,North West,E06000064,Westmorland and Furness,943,Primary,114,11759,1688
+Local authority,E12000007,London,E09000011,Greenwich,203,Primary,48,16073,2560
+Local authority,E12000001,North East,E08000021,Newcastle upon Tyne,391,Secondary,15,13439,3952
+Local authority,E12000003,Yorkshire and The Humber,E08000035,Leeds,383,Primary,205,54774,9266
+Local authority,E12000004,East Midlands,E06000015,Derby,831,Primary,72,20550,3458
+Local authority,E12000008,South East,E06000035,Medway,887,Primary,65,20556,3890
+Local authority,E12000003,Yorkshire and The Humber,E06000013,North Lincolnshire,813,Primary,61,11450,1671
+Local authority,E12000002,North West,E08000014,Sefton,343,Primary,74,18168,3284
+Local authority,E12000002,North West,E10000017,Lancashire,888,Secondary,66,54372,13858
+Local authority,E12000008,South East,E06000060,Buckinghamshire,825,Primary,168,36060,5297
+Local authority,E12000008,South East,E10000016,Kent,886,Secondary,71,69565,18208
+Local authority,E12000002,North West,E08000001,Bolton,350,Primary,91,23318,3766
+Local authority,E12000003,Yorkshire and The Humber,E08000035,Leeds,383,Secondary,37,41758,10808
+Local authority,E12000006,East of England,E10000029,Suffolk,935,Primary,244,46375,7340
+Local authority,E12000006,East of England,E10000003,Cambridgeshire,873,Primary,209,45103,6498
+Local authority,E12000008,South East,E06000044,Portsmouth,851,Primary,45,13646,2108
+Local authority,E12000003,Yorkshire and The Humber,E06000010,"Kingston upon Hull, City of",810,Primary,62,17964,3341
+Local authority,E12000006,East of England,E10000012,Essex,881,Primary,395,93084,14604
+Local authority,E12000005,West Midlands,E06000020,Telford and Wrekin,894,Primary,54,14418,2196
+Local authority,E12000004,East Midlands,E06000062,West Northamptonshire,941,Secondary,19,23810,5466
+Local authority,E12000007,London,E09000010,Enfield,308,Secondary,17,17547,3879
+Local authority,E12000009,South West,E06000030,Swindon,866,Secondary,13,12970,3380
+Local authority,E12000005,West Midlands,E06000051,Shropshire,893,Primary,119,17461,2718
+Local authority,E12000001,North East,E06000004,Stockton-on-Tees,808,Secondary,13,12311,3492
+Local authority,E12000009,South West,E06000024,North Somerset,802,Primary,52,11552,1861
+Local authority,E12000007,London,E09000014,Haringey,309,Primary,52,13773,2256
+Local authority,E12000008,South East,E06000060,Buckinghamshire,825,Secondary,27,26277,5551
+Local authority,E12000009,South West,E06000052,Cornwall,908,Primary,229,33942,5663
+Local authority,E12000009,South West,E06000059,Dorset,838,Primary,120,17831,2630
+Local authority,E12000007,London,E09000028,Southwark,210,Primary,52,13107,1996
+Local authority,E12000001,North East,E08000022,North Tyneside,392,Secondary,14,11339,2812
+Local authority,E12000008,South East,E10000016,Kent,886,Primary,404,98835,17684
+Local authority,E12000003,Yorkshire and The Humber,E08000019,Sheffield,373,Primary,129,37758,6904
+Local authority,E12000008,South East,E10000011,East Sussex,845,Primary,132,28554,4891
+Local authority,E12000001,North East,E06000047,County Durham,840,Primary,183,29002,5516
+Local authority,E12000009,South West,E06000027,Torbay,880,Primary,31,8291,1492
+Local authority,E12000004,East Midlands,E06000018,Nottingham,892,Primary,74,22976,4706
+Local authority,E12000008,South East,E06000045,Southampton,852,Secondary,12,12957,3596
+Local authority,E12000007,London,E09000002,Barking and Dagenham,301,Primary,38,17398,3242
+Local authority,E12000002,North West,E08000006,Salford,355,Primary,79,20649,3952
+Local authority,E12000003,Yorkshire and The Humber,E08000032,Bradford,380,Primary,145,43236,8063
+Local authority,E12000001,North East,E08000024,Sunderland,394,Primary,63,13729,2619
+Local authority,E12000008,South East,E10000025,Oxfordshire,931,Primary,224,42912,6016
+Local authority,E12000004,East Midlands,E10000024,Nottinghamshire,891,Primary,261,54802,9027
+Local authority,E12000003,Yorkshire and The Humber,E08000016,Barnsley,370,Secondary,10,12680,3712
+Local authority,E12000005,West Midlands,E08000030,Walsall,335,Special,5,512,156
+Local authority,E12000006,East of England,E06000033,Southend-on-Sea,882,PRU/Academy/Free school AP,2,177,118
+Local authority,E12000008,South East,E10000014,Hampshire,850,Secondary,65,69267,16776
+Local authority,E12000007,London,E09000022,Lambeth,208,Primary,46,12857,2265
+Local authority,E12000005,West Midlands,E10000034,Worcestershire,885,Secondary,45,34839,8310
+Local authority,E12000002,North West,E10000017,Lancashire,888,Primary,424,76821,11959
+Local authority,E12000006,East of England,E10000015,Hertfordshire,919,Primary,335,72060,10339
+Local authority,E12000007,London,E09000017,Hillingdon,312,Primary,63,21948,3692
+Local authority,E12000003,Yorkshire and The Humber,E08000034,Kirklees,382,Primary,127,27601,4320
+Local authority,E12000006,East of England,E10000020,Norfolk,926,Primary,310,47973,8075
+Local authority,E12000008,South East,E10000030,Surrey,936,Secondary,49,50230,10833
+Local authority,E12000005,West Midlands,E08000025,Birmingham,330,Secondary,72,64659,16211
+Local authority,E12000004,East Midlands,E10000007,Derbyshire,830,Primary,301,43092,6833
+Local authority,E12000002,North West,E08000008,Tameside,357,Primary,74,17304,2608
+Local authority,E12000005,West Midlands,E10000028,Staffordshire,860,Primary,271,49665,7149
+Local authority,E12000002,North West,E06000007,Warrington,877,Primary,64,14074,1715
+Local authority,E12000008,South East,E06000045,Southampton,852,Primary,46,14011,2435
+Local authority,E12000007,London,E09000006,Bromley,305,Secondary,12,12329,2924
+Local authority,E12000001,North East,E06000001,Hartlepool,805,Secondary,4,5162,1469
+Local authority,E12000007,London,E09000012,Hackney,204,Secondary,10,7293,1667
+Local authority,E12000002,North West,E08000002,Bury,351,Secondary,12,11452,2937
+Local authority,E12000004,East Midlands,E10000024,Nottinghamshire,891,Secondary,40,42782,11370
+Local authority,E12000005,West Midlands,E08000028,Sandwell,333,Secondary,19,22405,5573
+Local authority,E12000009,South West,E06000022,Bath and North East Somerset,800,Secondary,8,5861,1415
+Local authority,E12000002,North West,E08000014,Sefton,343,Special,6,743,308
+Local authority,E12000006,East of England,E10000020,Norfolk,926,Secondary,39,34623,9556
+Local authority,E12000007,London,E09000026,Redbridge,317,Secondary,12,15029,2495
+Local authority,E12000006,East of England,E10000015,Hertfordshire,919,PRU/Academy/Free school AP,6,349,285
+Local authority,E12000007,London,E09000007,Camden,202,Secondary,9,7252,1912
+Local authority,E12000006,East of England,E10000003,Cambridgeshire,873,Special,12,1571,615
+Local authority,E12000008,South East,E10000011,East Sussex,845,Secondary,23,25060,7304
+Local authority,E12000004,East Midlands,E10000019,Lincolnshire,925,Primary,276,48600,7307
+Local authority,E12000002,North West,E08000009,Trafford,358,Secondary,18,15657,2642
+Local authority,E12000005,West Midlands,E06000051,Shropshire,893,Secondary,20,15116,4101
+Local authority,E12000004,East Midlands,E06000016,Leicester,856,Primary,74,26349,4732
+Local authority,E12000006,East of England,E06000056,Central Bedfordshire,823,Primary,93,17536,2716
+Local authority,E12000001,North East,E08000037,Gateshead,390,Primary,50,8997,1463
+Local authority,E12000007,London,E09000021,Kingston upon Thames,314,Primary,29,9602,1315
+Local authority,E12000009,South West,E06000025,South Gloucestershire,803,Secondary,15,14129,3470
+Local authority,E12000005,West Midlands,E08000031,Wolverhampton,336,Primary,68,21140,3640
+Local authority,E12000009,South West,E06000026,Plymouth,879,Primary,69,17340,2863
+Local authority,E12000004,East Midlands,E06000061,North Northamptonshire,940,Primary,103,24548,3675
+Local authority,E12000008,South East,E06000041,Wokingham,872,Primary,45,11472,1416
+Local authority,E12000003,Yorkshire and The Humber,E06000065,North Yorkshire,815,Primary,279,35032,5060
+Local authority,E12000005,West Midlands,E10000028,Staffordshire,860,Special,18,2163,655
+Local authority,E12000006,East of England,E10000012,Essex,881,Special,17,2507,823
+Local authority,E12000008,South East,E06000036,Bracknell Forest,867,Primary,26,7324,959
+Local authority,E12000002,North West,E08000012,Liverpool,341,Primary,113,33350,6015
+Local authority,E12000002,North West,E06000008,Blackburn with Darwen,889,Secondary,10,9610,2363
+Local authority,E12000003,Yorkshire and The Humber,E06000011,East Riding of Yorkshire,811,Primary,117,18947,2787
+Local authority,E12000001,North East,E06000047,County Durham,840,Secondary,25,22888,6984
+Local authority,E12000002,North West,E06000049,Cheshire East,895,Primary,120,25065,3651
+Local authority,E12000007,London,E09000018,Hounslow,313,Primary,47,18008,3014
+Local authority,E12000006,East of England,E10000015,Hertfordshire,919,Special,21,2483,874
+Local authority,E12000001,North East,E08000024,Sunderland,394,Special,6,763,316
+Local authority,E12000004,East Midlands,E10000007,Derbyshire,830,Secondary,32,29492,7402
+Local authority,E12000006,East of England,E06000055,Bedford,822,Primary,53,13891,1971
+Local authority,E12000007,London,E09000027,Richmond upon Thames,318,Primary,41,12623,1360
+Local authority,E12000003,Yorkshire and The Humber,E06000010,"Kingston upon Hull, City of",810,Secondary,12,14532,4086
+Local authority,E12000005,West Midlands,E08000027,Dudley,332,Primary,75,22057,3778
+Local authority,E12000002,North West,E08000003,Manchester,352,Primary,132,42611,7447
+Local authority,E12000003,Yorkshire and The Humber,E08000019,Sheffield,373,Secondary,23,25657,6557
+Local authority,E12000006,East of England,E06000031,Peterborough,874,Primary,60,18722,2886
+Local authority,E12000007,London,E09000004,Bexley,303,Primary,50,15307,2327
+Local authority,E12000008,South East,E10000030,Surrey,936,Primary,279,71078,9854
+Local authority,E12000004,East Midlands,E06000017,Rutland,857,Primary,16,2164,226
+Local authority,E12000001,North East,E06000003,Redcar and Cleveland,807,Primary,44,9298,1626
+Local authority,E12000005,West Midlands,E06000019,"Herefordshire, County of",884,Secondary,14,8846,2221
+Local authority,E12000007,London,E09000025,Newham,316,Primary,63,24873,5142
+Local authority,E12000006,East of England,E10000020,Norfolk,926,PRU/Academy/Free school AP,2,500,440
+Local authority,E12000004,East Midlands,E06000062,West Northamptonshire,941,Primary,134,28197,3863
+Local authority,E12000008,South East,E06000040,Windsor and Maidenhead,868,Primary,46,8637,1135
+Local authority,E12000006,East of England,E10000003,Cambridgeshire,873,Secondary,32,32373,7468
+Local authority,E12000007,London,E09000003,Barnet,302,Special,6,569,210
+Local authority,E12000008,South East,E06000045,Southampton,852,Special,3,633,205
+Local authority,E12000008,South East,E06000042,Milton Keynes,826,Primary,85,22392,3294
+Local authority,E12000002,North West,E06000009,Blackpool,890,Special,4,496,173
+Local authority,E12000003,Yorkshire and The Humber,E08000017,Doncaster,371,Primary,91,21156,3593
+Local authority,E12000004,East Midlands,E10000018,Leicestershire,855,Primary,209,45346,6357
+Local authority,E12000007,London,E09000009,Ealing,307,PRU/Academy/Free school AP,1,117,38
+Local authority,E12000001,North East,E06000002,Middlesbrough,806,Primary,41,12331,2388
+Local authority,E12000007,London,E09000032,Wandsworth,212,Primary,55,13112,1971
+Local authority,E12000001,North East,E06000057,Northumberland,929,Secondary,28,17780,4667
+Local authority,E12000009,South West,E06000058,"Bournemouth, Christchurch and Poole",839,Primary,65,22873,3297
+Local authority,E12000007,London,E09000026,Redbridge,317,Primary,44,19775,3703
+Local authority,E12000005,West Midlands,E08000030,Walsall,335,Primary,67,18622,3356
+Local authority,E12000002,North West,E08000015,Wirral,344,Primary,93,22034,4107
+Local authority,E12000009,South West,E06000066,Somerset,933,Primary,131,19585,2971
+Local authority,E12000002,North West,E08000008,Tameside,357,Special,5,777,278
+Local authority,E12000007,London,E09000029,Sutton,319,Secondary,11,12878,2553
+Local authority,E12000009,South West,E10000008,Devon,878,Primary,279,44351,5739
+Local authority,E12000002,North West,E08000011,Knowsley,340,Primary,42,9995,2253
+Local authority,E12000005,West Midlands,E10000034,Worcestershire,885,Special,9,1307,486
+Local authority,E12000002,North West,E06000007,Warrington,877,Special,3,364,132
+Local authority,E12000001,North East,E08000023,South Tyneside,393,Primary,41,9493,1941
+Local authority,E12000003,Yorkshire and The Humber,E08000036,Wakefield,384,Primary,111,24848,4376
+Local authority,E12000004,East Midlands,E10000018,Leicestershire,855,Secondary,41,38170,9242
+Local authority,E12000007,London,E09000015,Harrow,310,Primary,35,16461,2551
+Local authority,E12000001,North East,E08000021,Newcastle upon Tyne,391,Primary,77,19858,3504
+Local authority,E12000005,West Midlands,E08000025,Birmingham,330,Special,21,3373,1386
+Local authority,E12000009,South West,E06000023,"Bristol, City of",801,Secondary,19,19061,5748
+Local authority,E12000007,London,E09000009,Ealing,307,Primary,52,19568,2977
+Local authority,E12000005,West Midlands,E06000021,Stoke-on-Trent,861,Primary,69,19396,3044
+Local authority,E12000005,West Midlands,E06000021,Stoke-on-Trent,861,Secondary,14,15505,4363
+Local authority,E12000006,East of England,E10000029,Suffolk,935,PRU/Academy/Free school AP,2,19,8
+Local authority,E12000007,London,E09000005,Brent,304,Primary,52,19331,3118
+Local authority,E12000009,South West,E06000023,"Bristol, City of",801,Primary,97,28307,5095
+Local authority,E12000006,East of England,E06000034,Thurrock,883,Primary,33,12711,2234
+Local authority,E12000005,West Midlands,E10000034,Worcestershire,885,Primary,174,33017,4969
+Local authority,E12000002,North West,E06000063,Cumberland,942,Primary,138,16654,2709
+Local authority,E12000005,West Midlands,E08000028,Sandwell,333,Primary,91,28560,4944
+Local authority,E12000002,North West,E06000050,Cheshire West and Chester,896,Primary,130,24365,3775
+Local authority,E12000007,London,E09000031,Waltham Forest,320,Special,4,649,279
+Local authority,E12000004,East Midlands,E06000018,Nottingham,892,Secondary,19,18796,5276
+Local authority,E12000001,North East,E08000022,North Tyneside,392,Primary,46,10504,1833
+Local authority,E12000008,South East,E06000043,Brighton and Hove,846,Primary,28,8912,1429
+Local authority,E12000002,North West,E08000014,Sefton,343,Secondary,18,15924,4528
+Local authority,E12000007,London,E09000003,Barnet,302,Secondary,18,17851,3319
+Local authority,E12000007,London,E09000013,Hammersmith and Fulham,205,Primary,34,7499,1286
+Local authority,E12000002,North West,E10000017,Lancashire,888,PRU/Academy/Free school AP,9,1024,873
+Local authority,E12000007,London,E09000030,Tower Hamlets,211,Primary,64,18853,3653
+Local authority,E12000001,North East,E08000037,Gateshead,390,Secondary,8,8235,2468
+Local authority,E12000004,East Midlands,E10000019,Lincolnshire,925,Special,18,2225,818
+Local authority,E12000002,North West,E08000013,St. Helens,342,Primary,53,12499,2057
+Local authority,E12000009,South West,E10000013,Gloucestershire,916,Special,10,1274,415
+Local authority,E12000009,South West,E06000059,Dorset,838,Secondary,28,21445,5539
+Local authority,E12000009,South West,E10000008,Devon,878,Special,9,1240,399
+Local authority,E12000002,North West,E06000008,Blackburn with Darwen,889,Primary,54,12879,2164
+Local authority,E12000007,London,E09000018,Hounslow,313,Special,4,493,203
+Local authority,E12000007,London,E09000019,Islington,206,Secondary,7,4261,1057
+Local authority,E12000008,South East,E06000060,Buckinghamshire,825,Special,7,1009,330
+Local authority,E12000006,East of England,E06000033,Southend-on-Sea,882,Primary,27,11719,2024
+Local authority,E12000005,West Midlands,E08000029,Solihull,334,Primary,57,16714,2537
+Local authority,E12000005,West Midlands,E08000026,Coventry,331,Primary,83,27275,4728
+Local authority,E12000007,London,E09000033,Westminster,213,Primary,30,5186,975
+Local authority,E12000003,Yorkshire and The Humber,E08000034,Kirklees,382,Secondary,26,26885,5817
+Local authority,E12000002,North West,E06000006,Halton,876,Primary,44,7875,1355
+Local authority,E12000004,East Midlands,E06000016,Leicester,856,Special,8,1318,617
+Local authority,E12000002,North West,E08000015,Wirral,344,Secondary,19,18765,5132
+Local authority,E12000004,East Midlands,E10000019,Lincolnshire,925,Secondary,51,41001,11010
+Local authority,E12000003,Yorkshire and The Humber,E06000012,North East Lincolnshire,812,Secondary,10,9346,2863
+Local authority,E12000002,North West,E06000050,Cheshire West and Chester,896,Secondary,17,16799,4354
+Local authority,E12000004,East Midlands,E10000024,Nottinghamshire,891,Special,10,971,353
+Local authority,E12000001,North East,E08000024,Sunderland,394,Secondary,17,14744,4728
+Local authority,E12000004,East Midlands,E06000016,Leicester,856,Secondary,17,20837,4720
+Local authority,E12000008,South East,E06000041,Wokingham,872,Secondary,9,10235,1819
+Local authority,E12000007,London,E09000002,Barking and Dagenham,301,PRU/Academy/Free school AP,1,198,170
+Local authority,E12000002,North West,E08000012,Liverpool,341,Secondary,27,25178,7315
+Local authority,E12000003,Yorkshire and The Humber,E08000032,Bradford,380,Special,9,1436,546
+Local authority,E12000005,West Midlands,E10000028,Staffordshire,860,Secondary,57,42935,10143
+Local authority,E12000009,South West,E06000058,"Bournemouth, Christchurch and Poole",839,Secondary,22,19656,4755
+Local authority,E12000004,East Midlands,E10000007,Derbyshire,830,PRU/Academy/Free school AP,3,446,346
+Local authority,E12000003,Yorkshire and The Humber,E08000032,Bradford,380,Secondary,34,36797,11187
+Local authority,E12000005,West Midlands,E08000030,Walsall,335,Secondary,14,15724,4412
+Local authority,E12000006,East of England,E06000056,Central Bedfordshire,823,Secondary,24,18470,4065
+Local authority,E12000001,North East,E06000004,Stockton-on-Tees,808,Primary,60,14714,2476
+Local authority,E12000006,East of England,E06000033,Southend-on-Sea,882,Secondary,8,6560,1122
+Local authority,E12000007,London,E09000030,Tower Hamlets,211,Secondary,14,11408,1998
+Local authority,E12000002,North West,E06000009,Blackpool,890,Primary,30,9706,2060
+Local authority,E12000003,Yorkshire and The Humber,E06000011,East Riding of Yorkshire,811,Secondary,18,17417,4386
+Local authority,E12000008,South East,E10000016,Kent,886,Special,20,4427,1723
+Local authority,E12000003,Yorkshire and The Humber,E08000018,Rotherham,372,Primary,89,18324,3401
+Local authority,E12000006,East of England,E10000029,Suffolk,935,Special,13,1460,558
+Local authority,E12000007,London,E09000003,Barnet,302,Primary,78,22008,2956
+Local authority,E12000009,South West,E06000022,Bath and North East Somerset,800,Primary,41,7178,864
+Local authority,E12000002,North West,E06000008,Blackburn with Darwen,889,Special,3,373,146
+Local authority,E12000002,North West,E08000003,Manchester,352,Secondary,29,32591,7374
+Local authority,E12000003,Yorkshire and The Humber,E06000065,North Yorkshire,815,PRU/Academy/Free school AP,5,137,115
+Local authority,E12000007,London,E09000011,Greenwich,203,Secondary,11,11559,2543
+Local authority,E12000007,London,E09000023,Lewisham,209,Secondary,14,12568,2721
+Local authority,E12000009,South West,E10000013,Gloucestershire,916,Secondary,40,33161,7884
+Local authority,E12000004,East Midlands,E06000062,West Northamptonshire,941,Special,8,991,314
+Local authority,E12000007,London,E09000008,Croydon,306,Secondary,14,11327,3050
+Local authority,E12000003,Yorkshire and The Humber,E08000018,Rotherham,372,Secondary,13,14456,4052
+Local authority,E12000002,North West,E06000006,Halton,876,Secondary,8,8140,2324
+Local authority,E12000004,East Midlands,E06000015,Derby,831,Special,5,533,214
+Local authority,E12000007,London,E09000005,Brent,304,Secondary,9,9802,2007
+Local authority,E12000003,Yorkshire and The Humber,E06000065,North Yorkshire,815,Special,9,947,373
+Local authority,E12000004,East Midlands,E06000015,Derby,831,Secondary,13,15284,3990
+Local authority,E12000007,London,E09000016,Havering,311,Secondary,15,12828,2580
+Local authority,E12000007,London,E09000006,Bromley,305,Primary,52,16602,2466
+Local authority,E12000008,South East,E06000040,Windsor and Maidenhead,868,Secondary,14,9642,2168
+Local authority,E12000007,London,E09000007,Camden,202,Primary,38,8386,1505
+Local authority,E12000004,East Midlands,E10000018,Leicestershire,855,Special,8,1500,486
+Local authority,E12000002,North West,E08000011,Knowsley,340,Secondary,6,6027,2173
+Local authority,E12000003,Yorkshire and The Humber,E08000036,Wakefield,384,Secondary,18,21144,5704
+Local authority,E12000007,London,E09000031,Waltham Forest,320,Secondary,14,12933,2869
+Local authority,E12000008,South East,E06000037,West Berkshire,869,Secondary,9,9879,2218
+Local authority,E12000007,London,E09000019,Islington,206,Special,6,460,162
+Local authority,E12000008,South East,E10000025,Oxfordshire,931,Secondary,35,31796,8158
+Local authority,E12000008,South East,E06000039,Slough,871,Primary,27,14177,2618
+Local authority,E12000006,East of England,E06000032,Luton,821,Primary,42,18415,2926
+Local authority,E12000009,South West,E10000008,Devon,878,Secondary,38,35795,10321
+Local authority,E12000007,London,E09000029,Sutton,319,Primary,40,15408,2369
+Local authority,E12000008,South East,E10000030,Surrey,936,Special,17,1922,598
+Local authority,E12000005,West Midlands,E06000051,Shropshire,893,Special,1,58,42
+Local authority,E12000005,West Midlands,E08000031,Wolverhampton,336,PRU/Academy/Free school AP,4,222,175
+Local authority,E12000007,London,E09000008,Croydon,306,Special,4,547,192
+Local authority,E12000007,London,E09000018,Hounslow,313,Secondary,10,9143,1965
+Local authority,E12000002,North West,E08000007,Stockport,356,Special,7,724,251
+Local authority,E12000001,North East,E06000047,County Durham,840,Special,8,1394,511
+Local authority,E12000002,North West,E08000015,Wirral,344,Special,12,1527,562
+Local authority,E12000005,West Midlands,E08000029,Solihull,334,Secondary,11,10361,2732
+Local authority,E12000008,South East,E10000014,Hampshire,850,Special,19,2286,823
+Local authority,E12000005,West Midlands,E10000031,Warwickshire,937,Secondary,33,31418,8231
+Local authority,E12000007,London,E09000019,Islington,206,Primary,39,9763,1839
+Local authority,E12000007,London,E09000023,Lewisham,209,Primary,60,17315,2631
+Local authority,E12000007,London,E09000027,Richmond upon Thames,318,Secondary,11,9705,1855
+Local authority,E12000006,East of England,E06000034,Thurrock,883,Secondary,9,7807,1949
+Local authority,E12000008,South East,E10000011,East Sussex,845,PRU/Academy/Free school AP,2,272,239
+Local authority,E12000002,North West,E08000002,Bury,351,Special,2,418,147
+Local authority,E12000008,South East,E10000032,West Sussex,938,Secondary,34,40404,9734
+Local authority,E12000007,London,E09000025,Newham,316,Secondary,14,15383,3397
+Local authority,E12000003,Yorkshire and The Humber,E08000017,Doncaster,371,Secondary,14,13511,4000
+Local authority,E12000007,London,E09000006,Bromley,305,PRU/Academy/Free school AP,1,134,96
+Local authority,E12000007,London,E09000022,Lambeth,208,Secondary,11,7135,1670
+Local authority,E12000002,North West,E08000003,Manchester,352,Special,12,1780,655
+Local authority,E12000006,East of England,E06000033,Southend-on-Sea,882,Special,5,577,222
+Local authority,E12000005,West Midlands,E06000020,Telford and Wrekin,894,Secondary,10,9528,2074
+Local authority,E12000008,South East,E06000038,Reading,870,Primary,37,11040,2002
+Local authority,E12000008,South East,E06000039,Slough,871,Secondary,14,12587,2780
+Local authority,E12000005,West Midlands,E10000031,Warwickshire,937,Special,10,1341,484
+Local authority,E12000007,London,E09000008,Croydon,306,Primary,65,20451,3560
+Local authority,E12000008,South East,E06000036,Bracknell Forest,867,Secondary,7,7529,1593
+Local authority,E12000009,South West,E06000024,North Somerset,802,Secondary,10,11915,3149
+Local authority,E12000002,North West,E08000007,Stockport,356,Secondary,12,14378,3331
+Local authority,E12000007,London,E09000024,Merton,315,Primary,43,12872,1817
+Local authority,E12000002,North West,E08000009,Trafford,358,Primary,57,16669,2268
+Local authority,E12000005,West Midlands,E08000027,Dudley,332,Secondary,18,17744,4554
+Local authority,E12000006,East of England,E10000020,Norfolk,926,Special,13,1569,598
+Local authority,E12000009,South West,E06000052,Cornwall,908,Secondary,30,28512,8304
+Local authority,E12000004,East Midlands,E06000018,Nottingham,892,Special,6,631,292
+Local authority,E12000007,London,E09000004,Bexley,303,Secondary,11,11254,2771
+Local authority,E12000002,North West,E06000009,Blackpool,890,Secondary,7,6518,2186
+Local authority,E12000007,London,E09000009,Ealing,307,Secondary,14,15560,2922
+Local authority,E12000005,West Midlands,E08000030,Walsall,335,PRU/Academy/Free school AP,2,175,139
+Local authority,E12000003,Yorkshire and The Humber,E06000014,York,816,Primary,50,11438,1630
+Local authority,E12000009,South West,E06000027,Torbay,880,Secondary,8,8284,2267
+Local authority,E12000002,North West,E08000005,Rochdale,354,Secondary,12,13569,3893
+Local authority,E12000009,South West,E06000054,Wiltshire,865,Secondary,19,17671,4333
+Local authority,E12000008,South East,E06000042,Milton Keynes,826,Special,6,804,309
+Local authority,E12000001,North East,E06000057,Northumberland,929,Special,9,1180,473
+Local authority,E12000002,North West,E08000001,Bolton,350,Secondary,17,16580,4495
+Local authority,E12000001,North East,E06000005,Darlington,841,Primary,25,6059,1216
+Local authority,E12000006,East of England,E10000029,Suffolk,935,Secondary,40,36425,9672
+Local authority,E12000008,South East,E10000025,Oxfordshire,931,Special,11,963,336
+Local authority,E12000003,Yorkshire and The Humber,E08000033,Calderdale,381,Secondary,12,13157,3469
+Local authority,E12000007,London,E09000015,Harrow,310,Special,4,432,137
+Local authority,E12000007,London,E09000013,Hammersmith and Fulham,205,Special,3,472,189
+Local authority,E12000003,Yorkshire and The Humber,E06000012,North East Lincolnshire,812,Special,2,315,86
+Local authority,E12000002,North West,E06000007,Warrington,877,Secondary,12,11826,2764
+Local authority,E12000002,North West,E10000017,Lancashire,888,Special,23,2566,804
+Local authority,E12000004,East Midlands,E06000015,Derby,831,PRU/Academy/Free school AP,3,349,300
+Local authority,E12000007,London,E09000028,Southwark,210,PRU/Academy/Free school AP,1,81,61
+Local authority,E12000002,North West,E06000008,Blackburn with Darwen,889,PRU/Academy/Free school AP,2,359,301
+Local authority,E12000008,South East,E10000011,East Sussex,845,Special,12,1262,455
+Local authority,E12000006,East of England,E06000056,Central Bedfordshire,823,Special,4,535,213
+Local authority,E12000007,London,E09000002,Barking and Dagenham,301,Secondary,10,13617,3290
+Local authority,E12000003,Yorkshire and The Humber,E08000019,Sheffield,373,Special,10,1253,459
+Local authority,E12000005,West Midlands,E06000021,Stoke-on-Trent,861,Special,4,903,312
+Local authority,E12000001,North East,E06000003,Redcar and Cleveland,807,Special,3,382,139
+Local authority,E12000003,Yorkshire and The Humber,E08000017,Doncaster,371,Special,7,710,229
+Local authority,E12000007,London,E09000006,Bromley,305,Special,3,500,234
+Local authority,E12000008,South East,E06000037,West Berkshire,869,Primary,48,8498,1165
+Local authority,E12000007,London,E09000028,Southwark,210,Special,3,203,95
+Local authority,E12000008,South East,E06000035,Medway,887,Secondary,13,11412,2876
+Local authority,E12000008,South East,E06000036,Bracknell Forest,867,Special,1,154,35
+Local authority,E12000007,London,E09000023,Lewisham,209,Special,4,663,257
+Local authority,E12000009,South West,E06000023,"Bristol, City of",801,Special,7,858,352
+Local authority,E12000007,London,E09000013,Hammersmith and Fulham,205,Secondary,8,5942,1252
+Local authority,E12000009,South West,E06000052,Cornwall,908,PRU/Academy/Free school AP,6,352,251
+Local authority,E12000002,North West,E06000064,Westmorland and Furness,943,Secondary,16,10746,2641
+Local authority,E12000007,London,E09000017,Hillingdon,312,Special,8,938,333
+Local authority,E12000003,Yorkshire and The Humber,E08000018,Rotherham,372,Special,6,863,311
+Local authority,E12000005,West Midlands,E08000031,Wolverhampton,336,Secondary,20,18386,4470
+Local authority,E12000008,South East,E06000060,Buckinghamshire,825,PRU/Academy/Free school AP,2,269,199
+Local authority,E12000001,North East,E08000021,Newcastle upon Tyne,391,Special,4,749,318
+Local authority,E12000008,South East,E10000032,West Sussex,938,Special,10,1372,486
+Local authority,E12000003,Yorkshire and The Humber,E06000010,"Kingston upon Hull, City of",810,Special,5,593,190
+Local authority,E12000007,London,E09000020,Kensington and Chelsea,207,Primary,23,4754,825
+Local authority,E12000009,South West,E06000030,Swindon,866,Special,7,784,299
+Local authority,E12000001,North East,E08000021,Newcastle upon Tyne,391,PRU/Academy/Free school AP,2,329,279
+Local authority,E12000002,North West,E06000050,Cheshire West and Chester,896,Special,10,979,307
+Local authority,E12000001,North East,E08000022,North Tyneside,392,PRU/Academy/Free school AP,1,377,330
+Local authority,E12000002,North West,E06000064,Westmorland and Furness,943,PRU/Academy/Free school AP,1,51,41
+Local authority,E12000004,East Midlands,E10000018,Leicestershire,855,PRU/Academy/Free school AP,1,22,11
+Local authority,E12000009,South West,E10000008,Devon,878,PRU/Academy/Free school AP,4,265,177
+Local authority,E12000002,North West,E08000013,St. Helens,342,Special,3,367,122
+Local authority,E12000002,North West,E06000006,Halton,876,Special,3,291,92
+Local authority,E12000002,North West,E08000001,Bolton,350,Special,5,639,234
+Local authority,E12000007,London,E09000004,Bexley,303,Special,7,763,252
+Local authority,E12000009,South West,E06000023,"Bristol, City of",801,PRU/Academy/Free school AP,4,481,405
+Local authority,E12000002,North West,E08000005,Rochdale,354,Special,3,626,377
+Local authority,E12000009,South West,E06000054,Wiltshire,865,Special,4,939,307
+Local authority,E12000007,London,E09000032,Wandsworth,212,Special,7,706,280
+Local authority,E12000008,South East,E06000039,Slough,871,Special,1,34,13
+Local authority,E12000002,North West,E08000014,Sefton,343,PRU/Academy/Free school AP,2,132,114
+Local authority,E12000008,South East,E06000046,Isle of Wight,921,Secondary,6,6087,1797
+Local authority,E12000008,South East,E06000038,Reading,870,Secondary,7,5947,1286
+Local authority,E12000002,North West,E08000006,Salford,355,Secondary,14,13302,3409
+Local authority,E12000003,Yorkshire and The Humber,E06000011,East Riding of Yorkshire,811,PRU/Academy/Free school AP,1,171,119
+Local authority,E12000002,North West,E08000008,Tameside,357,Secondary,16,15360,3541
+Local authority,E12000007,London,E09000030,Tower Hamlets,211,Special,4,592,258
+Local authority,E12000004,East Midlands,E06000016,Leicester,856,PRU/Academy/Free school AP,2,148,118
+Local authority,E12000007,London,E09000002,Barking and Dagenham,301,Special,3,451,195
+Local authority,E12000005,West Midlands,E06000020,Telford and Wrekin,894,Special,3,491,164
+Local authority,E12000006,East of England,E10000012,Essex,881,PRU/Academy/Free school AP,2,301,290
+Local authority,E12000001,North East,E06000005,Darlington,841,Secondary,7,5369,1459
+Local authority,E12000007,London,E09000027,Richmond upon Thames,318,Special,3,320,91
+Local authority,E12000008,South East,E06000037,West Berkshire,869,Special,1,119,26
+Local authority,E12000007,London,E09000017,Hillingdon,312,Secondary,21,15714,3673
+Local authority,E12000006,East of England,E06000031,Peterborough,874,Special,5,648,252
+Local authority,E12000008,South East,E06000046,Isle of Wight,921,Special,2,232,84
+Local authority,E12000007,London,E09000010,Enfield,308,Special,6,933,360
+Local authority,E12000008,South East,E06000040,Windsor and Maidenhead,868,Special,3,444,163
+Local authority,E12000005,West Midlands,E08000031,Wolverhampton,336,Special,7,890,305
+Local authority,E12000009,South West,E06000066,Somerset,933,Secondary,21,17606,5065
+Local authority,E12000002,North West,E06000064,Westmorland and Furness,943,Special,3,214,77
+Local authority,E12000005,West Midlands,E08000026,Coventry,331,Secondary,16,16015,3944
+Local authority,E12000006,East of England,E06000055,Bedford,822,Special,3,379,106
+Local authority,E12000006,East of England,E06000032,Luton,821,Special,3,574,191
+Local authority,E12000007,London,E09000021,Kingston upon Thames,314,Secondary,8,7309,1335
+Local authority,E12000009,South West,E06000066,Somerset,933,Special,7,860,364
+Local authority,E12000006,East of England,E06000055,Bedford,822,Secondary,13,10071,2388
+Local authority,E12000001,North East,E06000002,Middlesbrough,806,Special,5,595,195
+Local authority,E12000007,London,E09000022,Lambeth,208,Special,3,201,82
+Local authority,E12000009,South West,E06000026,Plymouth,879,Special,7,664,233
+Local authority,E12000008,South East,E06000043,Brighton and Hove,846,Secondary,6,7305,1864
+Local authority,E12000001,North East,E08000023,South Tyneside,393,Secondary,4,4219,1261
+Local authority,E12000007,London,E09000016,Havering,311,Special,3,190,89
+Local authority,E12000008,South East,E06000035,Medway,887,Special,4,744,232
+Local authority,E12000001,North East,E08000037,Gateshead,390,Special,2,147,58
+Local authority,E12000002,North West,E08000001,Bolton,350,PRU/Academy/Free school AP,3,208,164
+Local authority,E12000007,London,E09000032,Wandsworth,212,PRU/Academy/Free school AP,1,43,15
+Local authority,E12000002,North West,E08000006,Salford,355,Special,5,1174,448
+Local authority,E12000003,Yorkshire and The Humber,E06000010,"Kingston upon Hull, City of",810,PRU/Academy/Free school AP,6,601,339
+Local authority,E12000005,West Midlands,E08000031,Wolverhampton,336,State-funded nursery,2,2,2
+Local authority,E12000009,South West,E06000066,Somerset,933,PRU/Academy/Free school AP,2,160,103
+Local authority,E12000009,South West,E06000058,"Bournemouth, Christchurch and Poole",839,Special,4,717,225
+Local authority,E12000007,London,E09000024,Merton,315,Secondary,6,6325,1195
+Local authority,E12000005,West Midlands,E08000026,Coventry,331,Special,8,1063,391
+Local authority,E12000003,Yorkshire and The Humber,E06000014,York,816,Special,2,295,86
+Local authority,E12000007,London,E09000031,Waltham Forest,320,PRU/Academy/Free school AP,2,38,24
+Local authority,E12000002,North West,E08000013,St. Helens,342,Secondary,8,9338,2368
+Local authority,E12000007,London,E09000005,Brent,304,Special,3,347,69
+Local authority,E12000007,London,E09000025,Newham,316,PRU/Academy/Free school AP,3,332,221
+Local authority,E12000007,London,E09000012,Hackney,204,Special,2,252,97
+Local authority,E12000002,North West,E06000063,Cumberland,942,Special,3,392,125
+Local authority,E12000008,South East,E06000042,Milton Keynes,826,Secondary,11,15526,3640
+Local authority,E12000002,North West,E08000004,Oldham,353,Special,6,1193,528
+Local authority,E12000008,South East,E06000042,Milton Keynes,826,PRU/Academy/Free school AP,2,212,203
+Local authority,E12000009,South West,E06000052,Cornwall,908,Special,4,439,157
+Local authority,E12000005,West Midlands,E08000029,Solihull,334,PRU/Academy/Free school AP,2,176,125
+Local authority,E12000008,South East,E06000044,Portsmouth,851,Secondary,8,8472,2334
+Local authority,E12000006,East of England,E06000032,Luton,821,Secondary,11,12442,2751
+Local authority,E12000002,North West,E08000003,Manchester,352,PRU/Academy/Free school AP,2,361,283
+Local authority,E12000008,South East,E10000016,Kent,886,PRU/Academy/Free school AP,3,250,205
+Local authority,E12000007,London,E09000020,Kensington and Chelsea,207,Secondary,5,4594,1117
+Local authority,E12000007,London,E09000028,Southwark,210,Secondary,8,6803,1505
+Local authority,E12000003,Yorkshire and The Humber,E08000034,Kirklees,382,PRU/Academy/Free school AP,3,176,137
+Local authority,E12000005,West Midlands,E08000027,Dudley,332,Special,6,717,217
+Local authority,E12000007,London,E09000005,Brent,304,PRU/Academy/Free school AP,1,20,14
+Local authority,E12000003,Yorkshire and The Humber,E06000014,York,816,Secondary,9,10016,2508
+Local authority,E12000007,London,E09000029,Sutton,319,PRU/Academy/Free school AP,2,265,199
+Local authority,E12000005,West Midlands,E06000019,"Herefordshire, County of",884,Special,5,335,107
+Local authority,E12000007,London,E09000032,Wandsworth,212,Secondary,7,6535,1286
+Local authority,E12000007,London,E09000015,Harrow,310,Secondary,9,10460,2160
+Local authority,E12000005,West Midlands,E08000025,Birmingham,330,PRU/Academy/Free school AP,2,108,80
+Local authority,E12000002,North West,E08000009,Trafford,358,PRU/Academy/Free school AP,1,114,106
+Local authority,E12000003,Yorkshire and The Humber,E08000035,Leeds,383,Special,8,1737,603
+Local authority,E12000001,North East,E06000001,Hartlepool,805,Special,2,255,66
+Local authority,E12000003,Yorkshire and The Humber,E08000036,Wakefield,384,Special,4,524,209
+Local authority,E12000004,East Midlands,E10000019,Lincolnshire,925,PRU/Academy/Free school AP,5,310,204
+Local authority,E12000008,South East,E06000043,Brighton and Hove,846,Special,2,258,120
+Local authority,E12000007,London,E09000009,Ealing,307,Special,4,508,160
+Local authority,E12000002,North West,E08000011,Knowsley,340,Special,3,502,212
+Local authority,E12000001,North East,E06000003,Redcar and Cleveland,807,Secondary,10,8444,2272
+Local authority,E12000004,East Midlands,E06000061,North Northamptonshire,940,Special,6,848,331
+Local authority,E12000007,London,E09000020,Kensington and Chelsea,207,Special,2,165,47
+Local authority,E12000007,London,E09000013,Hammersmith and Fulham,205,PRU/Academy/Free school AP,2,138,105
+Local authority,E12000008,South East,E06000037,West Berkshire,869,PRU/Academy/Free school AP,1,125,99
+Local authority,E12000005,West Midlands,E10000034,Worcestershire,885,PRU/Academy/Free school AP,7,399,291
+Local authority,E12000007,London,E09000018,Hounslow,313,PRU/Academy/Free school AP,1,201,141
+Local authority,E12000007,London,E09000026,Redbridge,317,Special,4,533,198
+Local authority,E12000007,London,E09000025,Newham,316,Special,3,214,113
+Local authority,E12000003,Yorkshire and The Humber,E08000033,Calderdale,381,PRU/Academy/Free school AP,1,88,77
+Local authority,E12000005,West Midlands,E08000028,Sandwell,333,Special,5,682,230
+Local authority,E12000005,West Midlands,E08000027,Dudley,332,PRU/Academy/Free school AP,1,37,31
+Local authority,E12000002,North West,E08000006,Salford,355,PRU/Academy/Free school AP,5,331,231
+Local authority,E12000001,North East,E08000022,North Tyneside,392,Special,4,595,169
+Local authority,E12000007,London,E09000007,Camden,202,Special,3,288,130
+Local authority,E12000008,South East,E06000044,Portsmouth,851,Special,4,692,331
+Local authority,E12000007,London,E09000033,Westminster,213,Secondary,7,5369,1406
+Local authority,E12000006,East of England,E06000031,Peterborough,874,PRU/Academy/Free school AP,1,170,150
+Local authority,E12000002,North West,E06000049,Cheshire East,895,PRU/Academy/Free school AP,2,130,104
+Local authority,E12000004,East Midlands,E06000017,Rutland,857,Secondary,3,3004,691
+Local authority,E12000001,North East,E06000004,Stockton-on-Tees,808,Special,4,577,192
+Local authority,E12000008,South East,E06000038,Reading,870,Special,4,336,152
+Local authority,E12000003,Yorkshire and The Humber,E08000017,Doncaster,371,PRU/Academy/Free school AP,2,196,134
+Local authority,E12000009,South West,E06000030,Swindon,866,PRU/Academy/Free school AP,1,168,141
+Local authority,E12000008,South East,E10000025,Oxfordshire,931,PRU/Academy/Free school AP,1,151,123
+Local authority,E12000006,East of England,E06000055,Bedford,822,PRU/Academy/Free school AP,1,105,82
+Local authority,E12000007,London,E09000020,Kensington and Chelsea,207,PRU/Academy/Free school AP,1,89,72
+Local authority,E12000009,South West,E06000059,Dorset,838,Special,4,590,208
+Local authority,E12000008,South East,E10000014,Hampshire,850,PRU/Academy/Free school AP,3,209,169
+Local authority,E12000007,London,E09000010,Enfield,308,PRU/Academy/Free school AP,1,90,62
+Local authority,E12000007,London,E09000014,Haringey,309,Special,5,487,167
+Local authority,E12000007,London,E09000015,Harrow,310,PRU/Academy/Free school AP,1,67,60
+Local authority,E12000007,London,E09000033,Westminster,213,Special,3,239,84
+Local authority,E12000009,South West,E06000027,Torbay,880,Special,3,487,191
+Local authority,E12000004,East Midlands,E06000018,Nottingham,892,PRU/Academy/Free school AP,3,375,337
+Local authority,E12000006,East of England,E06000032,Luton,821,PRU/Academy/Free school AP,1,127,97
+Local authority,E12000005,West Midlands,E06000051,Shropshire,893,PRU/Academy/Free school AP,1,164,125
+Local authority,E12000003,Yorkshire and The Humber,E06000012,North East Lincolnshire,812,PRU/Academy/Free school AP,2,151,131
+Local authority,E12000007,London,E09000001,City of London,201,Primary,1,177,18
+Local authority,E12000007,London,E09000007,Camden,202,PRU/Academy/Free school AP,3,94,65
+Local authority,E12000008,South East,E06000038,Reading,870,PRU/Academy/Free school AP,1,83,83
+Local authority,E12000004,East Midlands,E10000007,Derbyshire,830,Special,9,799,265
+Local authority,E12000002,North West,E08000012,Liverpool,341,PRU/Academy/Free school AP,3,358,294
+Local authority,E12000008,South East,E06000041,Wokingham,872,Special,4,415,140
+Local authority,E12000004,East Midlands,E06000062,West Northamptonshire,941,PRU/Academy/Free school AP,2,129,88
+Local authority,E12000001,North East,E08000024,Sunderland,394,PRU/Academy/Free school AP,3,294,233
+Local authority,E12000002,North West,E08000011,Knowsley,340,PRU/Academy/Free school AP,1,174,150
+Local authority,E12000001,North East,E06000004,Stockton-on-Tees,808,PRU/Academy/Free school AP,1,77,73
+Local authority,E12000003,Yorkshire and The Humber,E08000033,Calderdale,381,Special,2,268,76
+Local authority,E12000009,South West,E10000013,Gloucestershire,916,PRU/Academy/Free school AP,1,215,197
+Local authority,E12000007,London,E09000029,Sutton,319,Special,4,571,249
+Local authority,E12000008,South East,E06000035,Medway,887,PRU/Academy/Free school AP,1,87,43
+Local authority,E12000001,North East,E06000047,County Durham,840,PRU/Academy/Free school AP,1,56,46
+Local authority,E12000002,North West,E06000007,Warrington,877,PRU/Academy/Free school AP,1,56,46
+Local authority,E12000007,London,E09000014,Haringey,309,Secondary,5,5418,1329
+Local authority,E12000002,North West,E06000049,Cheshire East,895,Special,4,436,150
+Local authority,E12000008,South East,E06000045,Southampton,852,PRU/Academy/Free school AP,1,128,111
+Local authority,E12000008,South East,E06000046,Isle of Wight,921,PRU/Academy/Free school AP,1,95,78
+Local authority,E12000007,London,E09000021,Kingston upon Thames,314,Special,3,404,180
+Local authority,E12000009,South West,E06000025,South Gloucestershire,803,Special,2,178,71
+Local authority,E12000003,Yorkshire and The Humber,E08000016,Barnsley,370,PRU/Academy/Free school AP,1,84,72
+Local authority,E12000007,London,E09000011,Greenwich,203,Special,2,302,108
+Local authority,E12000005,West Midlands,E08000028,Sandwell,333,PRU/Academy/Free school AP,3,276,240
+Local authority,E12000002,North West,E08000004,Oldham,353,PRU/Academy/Free school AP,1,120,99
+Local authority,E12000007,London,E09000024,Merton,315,Special,3,451,182
+Local authority,E12000008,South East,E10000030,Surrey,936,PRU/Academy/Free school AP,6,282,188
+Local authority,E12000009,South West,E06000027,Torbay,880,PRU/Academy/Free school AP,1,54,52
+Local authority,E12000007,London,E09000014,Haringey,309,PRU/Academy/Free school AP,1,100,45
+Local authority,E12000005,West Midlands,E06000020,Telford and Wrekin,894,PRU/Academy/Free school AP,3,174,130
+Local authority,E12000007,London,E09000024,Merton,315,PRU/Academy/Free school AP,1,118,62
+Local authority,E12000009,South West,E06000024,North Somerset,802,Special,1,106,29
+Local authority,E12000008,South East,E06000036,Bracknell Forest,867,PRU/Academy/Free school AP,1,31,29
+Local authority,E12000003,Yorkshire and The Humber,E08000032,Bradford,380,State-funded nursery,1,1,0
+Local authority,E12000005,West Midlands,E08000029,Solihull,334,Special,3,374,130
+Local authority,E12000007,London,E09000030,Tower Hamlets,211,PRU/Academy/Free school AP,1,187,139
+Local authority,E12000003,Yorkshire and The Humber,E06000013,North Lincolnshire,813,Special,1,156,30
+Local authority,E12000003,Yorkshire and The Humber,E08000032,Bradford,380,PRU/Academy/Free school AP,1,88,63
+Local authority,E12000003,Yorkshire and The Humber,E06000013,North Lincolnshire,813,PRU/Academy/Free school AP,1,30,16
+Local authority,E12000005,West Midlands,E10000028,Staffordshire,860,PRU/Academy/Free school AP,4,246,210
+Local authority,E12000001,North East,E06000057,Northumberland,929,PRU/Academy/Free school AP,1,62,51
+Local authority,E12000002,North West,E08000007,Stockport,356,PRU/Academy/Free school AP,1,179,174
+Local authority,E12000009,South West,E06000059,Dorset,838,PRU/Academy/Free school AP,3,176,137
+Local authority,E12000003,Yorkshire and The Humber,E08000016,Barnsley,370,Special,2,393,144
+Local authority,E12000002,North West,E06000009,Blackpool,890,PRU/Academy/Free school AP,1,173,152
+Local authority,E12000002,North West,E08000005,Rochdale,354,PRU/Academy/Free school AP,1,156,148
+Local authority,E12000007,London,E09000012,Hackney,204,PRU/Academy/Free school AP,1,48,30
+Local authority,E12000002,North West,E06000050,Cheshire West and Chester,896,PRU/Academy/Free school AP,2,94,83
+Local authority,E12000005,West Midlands,E08000026,Coventry,331,PRU/Academy/Free school AP,1,131,125
+Local authority,E12000003,Yorkshire and The Humber,E08000018,Rotherham,372,PRU/Academy/Free school AP,1,156,138
+Local authority,E12000007,London,E09000011,Greenwich,203,PRU/Academy/Free school AP,1,177,134
+Local authority,E12000001,North East,E08000023,South Tyneside,393,State-funded nursery,1,1,0
+Local authority,E12000007,London,E09000023,Lewisham,209,PRU/Academy/Free school AP,1,137,99
+Local authority,E12000007,London,E09000003,Barnet,302,PRU/Academy/Free school AP,2,185,162
+Local authority,E12000008,South East,E06000041,Wokingham,872,PRU/Academy/Free school AP,1,43,37
+Local authority,E12000009,South West,E06000022,Bath and North East Somerset,800,Special,2,297,123
+Local authority,E12000003,Yorkshire and The Humber,E08000034,Kirklees,382,Special,3,339,126
+Local authority,E12000005,West Midlands,E06000021,Stoke-on-Trent,861,PRU/Academy/Free school AP,1,41,32
+Local authority,E12000007,London,E09000017,Hillingdon,312,PRU/Academy/Free school AP,1,101,76
+Local authority,E12000003,Yorkshire and The Humber,E06000011,East Riding of Yorkshire,811,Special,2,223,81
+Local authority,E12000001,North East,E08000023,South Tyneside,393,PRU/Academy/Free school AP,1,91,53
+Local authority,E12000007,London,E09000033,Westminster,213,PRU/Academy/Free school AP,1,102,74
+Local authority,E12000002,North West,E06000006,Halton,876,PRU/Academy/Free school AP,1,119,102
+Local authority,E12000007,London,E09000026,Redbridge,317,PRU/Academy/Free school AP,2,153,109
+Local authority,E12000003,Yorkshire and The Humber,E08000036,Wakefield,384,PRU/Academy/Free school AP,2,157,139
+Local authority,E12000001,North East,E06000003,Redcar and Cleveland,807,PRU/Academy/Free school AP,1,90,83
+Local authority,E12000003,Yorkshire and The Humber,E08000035,Leeds,383,PRU/Academy/Free school AP,1,132,101
+Local authority,E12000001,North East,E06000005,Darlington,841,Special,2,341,94
+Local authority,E12000007,London,E09000004,Bexley,303,PRU/Academy/Free school AP,1,93,69
+Local authority,E12000007,London,E09000022,Lambeth,208,PRU/Academy/Free school AP,1,146,108
+Local authority,E12000001,North East,E06000001,Hartlepool,805,PRU/Academy/Free school AP,1,63,59
+Local authority,E12000002,North West,E08000008,Tameside,357,PRU/Academy/Free school AP,1,154,133
+Local authority,E12000002,North West,E06000063,Cumberland,942,PRU/Academy/Free school AP,1,85,67
+Local authority,E12000009,South West,E06000053,Isles of Scilly,420,Secondary,1,235,51
+Regional,E12000004,East Midlands,,,,PRU/Academy/Free school AP,19,1779,1404
+Regional,E12000002,North West,,,,Special,147,19260,7139
+Regional,E12000001,North East,,,,Secondary,153,132874,38378
+Regional,E12000007,London,,,,Special,126,14843,5682
+Regional,E12000006,East of England,,,,Secondary,311,292544,69611
+Regional,E12000002,North West,,,,Secondary,413,394223,100918
+Regional,E12000006,East of England,,,,PRU/Academy/Free school AP,17,1748,1470
+Regional,E12000005,West Midlands,,,,Primary,1655,403649,66320
+Regional,E12000007,London,,,,Secondary,352,333131,71702
+Regional,E12000007,London,,,,PRU/Academy/Free school AP,36,3454,2450
+Regional,E12000003,Yorkshire and The Humber,,,,Special,72,10052,3549
+Regional,E12000002,North West,,,,PRU/Academy/Free school AP,41,4378,3665
+Regional,E12000005,West Midlands,,,,State-funded nursery,2,2,2
+Regional,E12000001,North East,,,,Special,53,7551,2696
+Regional,E12000006,East of England,,,,Special,96,12303,4452
+Regional,E12000005,West Midlands,,,,Special,105,14209,5065
+Regional,E12000003,Yorkshire and The Humber,,,,State-funded nursery,1,1,0
+Regional,E12000002,North West,,,,Primary,2308,509384,84884
+Regional,E12000001,North East,,,,Primary,777,156608,28574
+Regional,E12000003,Yorkshire and The Humber,,,,Primary,1651,361835,61008
+Regional,E12000005,West Midlands,,,,PRU/Academy/Free school AP,31,2149,1703
+Regional,E12000004,East Midlands,,,,Secondary,250,249223,63501
+Regional,E12000007,London,,,,Primary,1522,486510,79430
+Regional,E12000008,South East,,,,Special,131,18106,6561
+Regional,E12000009,South West,,,,Secondary,289,260056,69703
+Regional,E12000001,North East,,,,State-funded nursery,1,1,0
+Regional,E12000003,Yorkshire and The Humber,,,,Secondary,289,298060,79714
+Regional,E12000006,East of England,,,,Primary,1801,397589,61613
+Regional,E12000009,South West,,,,Primary,1663,313605,47360
+Regional,E12000004,East Midlands,,,,Primary,1520,316624,50184
+Regional,E12000009,South West,,,,Special,71,9433,3373
+Regional,E12000009,South West,,,,PRU/Academy/Free school AP,22,1871,1463
+Regional,E12000005,West Midlands,,,,Secondary,363,323481,81339
+Regional,E12000008,South East,,,,PRU/Academy/Free school AP,26,2237,1806
+Regional,E12000008,South East,,,,Secondary,420,430177,104535
+Regional,E12000004,East Midlands,,,,Special,78,9816,3690
+Regional,E12000001,North East,,,,PRU/Academy/Free school AP,12,1439,1207
+Regional,E12000008,South East,,,,Primary,2334,560113,85338
+Regional,E12000003,Yorkshire and The Humber,,,,PRU/Academy/Free school AP,27,2167,1581
+National,,,,,,Secondary,2840,2713769,679401
+National,,,,,,Special,879,115573,42207
+National,,,,,,State-funded nursery,4,4,2
+National,,,,,,PRU/Academy/Free school AP,231,21222,16749
+National,,,,,,Primary,15231,3505917,564711
