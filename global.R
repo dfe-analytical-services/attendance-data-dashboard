@@ -42,6 +42,7 @@ library(leaflet)
 library(sf)
 library(checkmate)
 library(dfeshiny)
+library(shinytest2)
 # Functions ---------------------------------------------------------------------------------
 
 # Here's an example function for simplifying the code needed to commas separate numbers:
