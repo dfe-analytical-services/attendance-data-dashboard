@@ -9,7 +9,7 @@
     "measure_choice": "Overall",
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
-    "school_choice": "Primary",
+    "school_choice": "Secondary",
     "ts_choice": "latestweeks"
   },
   "output": {
@@ -30,11 +30,11 @@
             "automargin": true,
             "title": "Date",
             "tickvals": [
-              "2023-12-04",
-              "2023-12-05",
-              "2023-12-06",
-              "2023-12-07",
-              "2023-12-08"
+              "2024-01-08",
+              "2024-01-09",
+              "2024-01-10",
+              "2024-01-11",
+              "2024-01-12"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -63,7 +63,7 @@
             "xanchor": "center",
             "x": 0.5
           },
-          "title": "Daily summary of absence rates for primary<br> state-funded schools at national level",
+          "title": "Daily summary of absence rates for secondary<br> state-funded schools at national level",
           "font": {
             "family": "arial",
             "size": 10,
@@ -106,18 +106,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2023-12-04",
-              "2023-12-05",
-              "2023-12-06",
-              "2023-12-07",
-              "2023-12-08"
+              "2024-01-08",
+              "2024-01-09",
+              "2024-01-10",
+              "2024-01-11",
+              "2024-01-12"
             ],
             "y": [
-              6.8754253045001903,
-              6.0688290778158001,
-              5.7627100173709396,
-              5.8130859415008702,
-              6.9407295130899698
+              7.80198526396891,
+              7.7910191414602599,
+              8.0711919571653805,
+              8.2724898236810809,
+              9.0954334539643202
             ],
             "line": {
               "color": "#12436D"
@@ -150,18 +150,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2023-12-04",
-              "2023-12-05",
-              "2023-12-06",
-              "2023-12-07",
-              "2023-12-08"
+              "2024-01-08",
+              "2024-01-09",
+              "2024-01-10",
+              "2024-01-11",
+              "2024-01-12"
             ],
             "y": [
-              5.1584360300288701,
-              4.6940159152424199,
-              4.3806482596598499,
-              4.3891869254387696,
-              5.1437770371069496
+              4.3298060795424398,
+              4.4355990348791403,
+              4.7031893706677899,
+              4.8476387878120297,
+              5.2572625405317002
             ],
             "line": {
               "color": "#28A197"
@@ -194,18 +194,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2023-12-04",
-              "2023-12-05",
-              "2023-12-06",
-              "2023-12-07",
-              "2023-12-08"
+              "2024-01-08",
+              "2024-01-09",
+              "2024-01-10",
+              "2024-01-11",
+              "2024-01-12"
             ],
             "y": [
-              1.71698927447132,
-              1.3748131625733799,
-              1.3820617577110901,
-              1.4238990160621099,
-              1.79695247598302
+              3.4721791844264702,
+              3.35542010658112,
+              3.3680025864975902,
+              3.42485103586906,
+              3.8381709134326099
             ],
             "line": {
               "color": "#F46A25"
@@ -309,9 +309,9 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.2.0",
+          "version": "1.2.1",
           "src": {
-            "href": "crosstalk-1.2.0"
+            "href": "crosstalk-1.2.1"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
@@ -348,9 +348,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2023-12-04 to 2023-12-08: primary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 6.3% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 93.7% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "• 4.1% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2024-01-08 to 2024-01-12: secondary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "• 8.2% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "• 91.8% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "• 3.4% of sessions were recorded as illness"
   }
 }

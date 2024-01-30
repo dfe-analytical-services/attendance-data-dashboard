@@ -1,7 +1,7 @@
 {
   "input": {
     "dash": "headlines",
-    "geography_choice": "National",
+    "geography_choice": "Regional",
     "la_choice": "Derby",
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
@@ -10,10 +10,10 @@
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
     "school_choice": "Secondary",
-    "ts_choice": "latestweeks"
+    "ts_choice": "yeartodate"
   },
   "output": {
-    "absence_rates_daily_plot": {
+    "absence_rates_timeseries_plot": {
       "x": {
         "layout": {
           "margin": {
@@ -28,17 +28,30 @@
               1
             ],
             "automargin": true,
-            "title": "Date",
+            "title": "Week commencing",
             "tickvals": [
+              "2023-09-11",
+              "2023-09-18",
+              "2023-09-25",
+              "2023-10-02",
+              "2023-10-09",
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06",
+              "2023-11-13",
+              "2023-11-20",
+              "2023-11-27",
               "2023-12-04",
-              "2023-12-05",
-              "2023-12-06",
-              "2023-12-07",
-              "2023-12-08"
+              "2023-12-11",
+              "2024-01-01",
+              "2024-01-08"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
-            "zerolinecolor": "Grey"
+            "zerolinecolor": "Grey",
+            "tickmode": "linear",
+            "tick0": "2022-09-12",
+            "dtick": 1209600000
           },
           "yaxis": {
             "domain": [
@@ -63,7 +76,7 @@
             "xanchor": "center",
             "x": 0.5
           },
-          "title": "Daily summary of absence rates for secondary<br> state-funded schools at national level",
+          "title": "Weekly summary of absence rates for <br>secondary state-funded schools (East Midlands)",
           "font": {
             "family": "arial",
             "size": 10,
@@ -106,18 +119,38 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
+              "2023-09-11",
+              "2023-09-18",
+              "2023-09-25",
+              "2023-10-02",
+              "2023-10-09",
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06",
+              "2023-11-13",
+              "2023-11-20",
+              "2023-11-27",
               "2023-12-04",
-              "2023-12-05",
-              "2023-12-06",
-              "2023-12-07",
-              "2023-12-08"
+              "2023-12-11",
+              "2024-01-01",
+              "2024-01-08"
             ],
             "y": [
-              9.6703411388689595,
-              9.44721098596602,
-              9.4189960678756606,
-              9.6746650192042107,
-              10.952275052086501
+              6.38048525145481,
+              7.6716457981965096,
+              8.9467503108113693,
+              8.9142472395652099,
+              8.74171031414512,
+              9.5948677561580595,
+              7.5915223736458399,
+              7.8178884650207996,
+              8.3289274733712109,
+              8.48797497780971,
+              9.1358133624338205,
+              9.8621501649693499,
+              10.156504360283099,
+              9.4433459636739894,
+              8.1430253411476397
             ],
             "line": {
               "color": "#12436D"
@@ -134,6 +167,16 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -150,18 +193,38 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
+              "2023-09-11",
+              "2023-09-18",
+              "2023-09-25",
+              "2023-10-02",
+              "2023-10-09",
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06",
+              "2023-11-13",
+              "2023-11-20",
+              "2023-11-27",
               "2023-12-04",
-              "2023-12-05",
-              "2023-12-06",
-              "2023-12-07",
-              "2023-12-08"
+              "2023-12-11",
+              "2024-01-01",
+              "2024-01-08"
             ],
             "y": [
-              6.0765969403370796,
-              6.0723138131730199,
-              5.9923807338311503,
-              6.1170786294200301,
-              6.8356060577707396
+              3.90421666235319,
+              5.0422645590355204,
+              6.1499936620504601,
+              6.0815940957916998,
+              5.6328592558501001,
+              5.8929223297759199,
+              4.8753306701181298,
+              4.8758548053034501,
+              5.3724410933716804,
+              5.5448243797286398,
+              5.9623553572270502,
+              6.3866585764733399,
+              6.4756006137622304,
+              5.60671587510405,
+              4.77198209671183
             ],
             "line": {
               "color": "#28A197"
@@ -178,6 +241,16 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -194,18 +267,38 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
+              "2023-09-11",
+              "2023-09-18",
+              "2023-09-25",
+              "2023-10-02",
+              "2023-10-09",
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06",
+              "2023-11-13",
+              "2023-11-20",
+              "2023-11-27",
               "2023-12-04",
-              "2023-12-05",
-              "2023-12-06",
-              "2023-12-07",
-              "2023-12-08"
+              "2023-12-11",
+              "2024-01-01",
+              "2024-01-08"
             ],
             "y": [
-              3.5937441985318799,
-              3.3748971727930002,
-              3.4266153340445098,
-              3.5575863897841802,
-              4.1166689943157397
+              2.4762685891016201,
+              2.6293812391609901,
+              2.7967566487609101,
+              2.8326531437735101,
+              3.10885105829502,
+              3.7019454263821401,
+              2.7161917035277101,
+              2.9420336597173602,
+              2.95648637999953,
+              2.9431505980810702,
+              3.1734580052067698,
+              3.47549158849601,
+              3.6809037465208698,
+              3.8366300885699398,
+              3.3710432444357998
             ],
             "line": {
               "color": "#F46A25"
@@ -218,6 +311,16 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
@@ -309,9 +412,9 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.2.0",
+          "version": "1.2.1",
           "src": {
-            "href": "crosstalk-1.2.0"
+            "href": "crosstalk-1.2.1"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
@@ -348,9 +451,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2023-12-04 to 2023-12-08: secondary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 9.8% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 90.2% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "• 4.8% of sessions were recorded as illness"
+    "headline_bullet_title_reg": "Headline figures for the year to date - 2023-09-11 to 2024-01-12: secondary state-funded school attendance at regional level (East Midlands)",
+    "ytd_absence_rate_reg": "• 8.6% of sessions were recorded as absence in East Midlands (compared to 8.4% of sessions at national level)",
+    "ytd_attendance_rate_reg": "• 91.4% of sessions were recorded as attending in East Midlands (compared to 91.6% of sessions at national level)",
+    "ytd_illness_rate_reg": "• 4% of sessions were recorded as illness in East Midlands (compared to 3.9% of sessions at national level)"
   }
 }

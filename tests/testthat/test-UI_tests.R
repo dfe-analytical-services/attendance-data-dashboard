@@ -34,7 +34,7 @@ test_that("Migrated shinytest test: UI_tests.R", {
 
 
   # Checking headlines tab
-  # 2. Is the default setting National, Total?  --------------------------------------------
+  # 2. Is the default setting National, Primary?  --------------------------------------------
   message("Test 2")
   app$set_inputs(navlistPanel = "dashboard", dash = "headlines")
   app$expect_values(input = listInputs, output = c(
@@ -76,8 +76,7 @@ test_that("Migrated shinytest test: UI_tests.R", {
   # 6. If the geography is changed to local authority, does this autofill and do outputs change?  --------------------------------------------
   message("Test 6")
   app$set_inputs(
-    region_choice = "East Midlands", la_choice = "Derby",
-    geography_choice = "Local authority", school_choice = "Primary"
+    geography_choice = "Local authority"
   )
   Sys.sleep(4)
   app$expect_values(input = listInputs, output = c(
@@ -100,7 +99,7 @@ test_that("Migrated shinytest test: UI_tests.R", {
   message("Test 8")
   app$set_inputs(
     navlistPanel = "dashboard", dash = "reasons",
-    school_choice = "Primary", geography_choice = "National"
+    geography_choice = "National"
   )
   app$expect_values(input = listInputs, output = c(
     "reasons_chart_title_nat",
@@ -112,7 +111,7 @@ test_that("Migrated shinytest test: UI_tests.R", {
 
   # 9. If phase is changed do outputs change?  --------------------------------------------
   message("Test 9")
-  app$set_inputs(school_choice = "Secondary")
+  app$set_inputs(school_choice = "Primary")
   app$expect_values(input = listInputs, output = c(
     "reasons_chart_title_nat",
     "absence_reasons_timeseries_plot", "headline_auth_rate_weekly",
@@ -147,7 +146,7 @@ test_that("Migrated shinytest test: UI_tests.R", {
 
   # 12. If the LA is changed, do outputs change?  --------------------------------------------
   message("Test 12")
-  app$set_inputs(la_choice = "Rutland")
+  app$set_inputs(la_choice = "Nottingham")
   Sys.sleep(4)
   app$expect_values(input = listInputs, output = c(
     "reasons_chart_title_la",
@@ -164,7 +163,7 @@ test_that("Migrated shinytest test: UI_tests.R", {
     navlistPanel = "dashboard", dash = "la comparisons",
     school_choice = "Primary", timeout_ = 12000
   )
-  app$expect_values(input = listInputs, output = c("absence_reasons_la_table"))
+  app$expect_values(input = listInputs, output = c("map_title", "absence_reasons_la_table"))
 
   # 14. If phase is changed do outputs change?  --------------------------------------------
   message("Test 14")
@@ -172,5 +171,5 @@ test_that("Migrated shinytest test: UI_tests.R", {
     navlistPanel = "dashboard", school_choice = "Secondary",
     timeout_ = 12000
   )
-  app$expect_values(input = listInputs, output = c("absence_reasons_la_table"))
+  app$expect_values(input = listInputs, output = c("map_title", "absence_reasons_la_table"))
 })

@@ -1,8 +1,8 @@
 {
   "input": {
     "dash": "headlines",
-    "geography_choice": "National",
-    "la_choice": "Derby",
+    "geography_choice": "Local authority",
+    "la_choice": "Lincolnshire",
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
     "link_to_reasons_tab": 0,
@@ -41,7 +41,10 @@
               "2023-11-13",
               "2023-11-20",
               "2023-11-27",
-              "2023-12-04"
+              "2023-12-04",
+              "2023-12-11",
+              "2024-01-01",
+              "2024-01-08"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -73,7 +76,7 @@
             "xanchor": "center",
             "x": 0.5
           },
-          "title": "Weekly summary of absence rates for secondary<br> state-funded schools at national level",
+          "title": "Weekly summary of absence rates for <br>secondary state-funded schools <br>(East Midlands, Lincolnshire)",
           "font": {
             "family": "arial",
             "size": 10,
@@ -127,21 +130,27 @@
               "2023-11-13",
               "2023-11-20",
               "2023-11-27",
-              "2023-12-04"
+              "2023-12-04",
+              "2023-12-11",
+              "2024-01-01",
+              "2024-01-08"
             ],
             "y": [
-              6.14113221087828,
-              7.42090390448943,
-              8.7326177751379408,
-              8.6709729715161394,
-              8.08531257595493,
-              8.7528918300935405,
-              7.9698226624395101,
-              7.79121883651323,
-              8.1260534695056901,
-              8.4546404286828007,
-              9.1858096766189004,
-              9.8300504725601403
+              6.2189907858335003,
+              7.9254310366743397,
+              9.3849901247414707,
+              9.2873818333380207,
+              8.6749612543167398,
+              9.7526128414390403,
+              7.6965259874371501,
+              7.9668233426931998,
+              8.7807049903957495,
+              8.9398369762997199,
+              9.5220677571587498,
+              10.366274699654699,
+              10.517981542890899,
+              9.1110673567356706,
+              9.0136120150574701
             ],
             "line": {
               "color": "#12436D"
@@ -165,6 +174,9 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -192,21 +204,27 @@
               "2023-11-13",
               "2023-11-20",
               "2023-11-27",
-              "2023-12-04"
+              "2023-12-04",
+              "2023-12-11",
+              "2024-01-01",
+              "2024-01-08"
             ],
             "y": [
-              3.5328477098816302,
-              4.6933021614115598,
-              5.8484981243410399,
-              5.7325787674346298,
-              5.1289169372479897,
-              5.3275345978363102,
-              4.7317974378253203,
-              4.7492060128960096,
-              5.1243597463987696,
-              5.3844862357426102,
-              5.8556774270023801,
-              6.2177459526140701
+              4.2377036478140804,
+              5.8517264347127496,
+              7.1171751842389304,
+              7.1113509035258904,
+              6.3728696236388096,
+              6.8712004497001997,
+              5.3548791431053901,
+              5.73164652260611,
+              6.5990764651257496,
+              6.7504943389600198,
+              7.0696115921269698,
+              7.6279413450881002,
+              7.5848949898460196,
+              5.8791816681668196,
+              6.2687928515664204
             ],
             "line": {
               "color": "#28A197"
@@ -230,6 +248,9 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -257,21 +278,27 @@
               "2023-11-13",
               "2023-11-20",
               "2023-11-27",
-              "2023-12-04"
+              "2023-12-04",
+              "2023-12-11",
+              "2024-01-01",
+              "2024-01-08"
             ],
             "y": [
-              2.6082845009966502,
-              2.7276017430778698,
-              2.8841196507969,
-              2.9383942040815101,
-              2.9563956387069399,
-              3.4253572322572401,
-              3.2380252246141898,
-              3.0420128236172199,
-              3.0016937231069201,
-              3.0701541929401999,
-              3.3301322496165202,
-              3.6123045199460702
+              1.9812871380194199,
+              2.0737046019615901,
+              2.2678149405025398,
+              2.1760309298121401,
+              2.3020916306779302,
+              2.8814123917388401,
+              2.34164684433176,
+              2.2351768200870898,
+              2.1816285252699998,
+              2.1893426373397098,
+              2.45245616503178,
+              2.7383333545666502,
+              2.9330865530449102,
+              3.2318856885688598,
+              2.7448191634910502
             ],
             "line": {
               "color": "#F46A25"
@@ -284,6 +311,9 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
@@ -382,9 +412,9 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.2.0",
+          "version": "1.2.1",
           "src": {
-            "href": "crosstalk-1.2.0"
+            "href": "crosstalk-1.2.1"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
@@ -421,9 +451,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the year to date - 2023-09-11 to 2023-12-08: secondary state-funded school attendance at national level",
-    "ytd_absence_rate_nat": "• 8.3% of sessions were recorded as absence",
-    "ytd_attendance_rate_nat": "• 91.7% of sessions were recorded as attending",
-    "ytd_illness_rate_nat": "• 3.9% of sessions were recorded as illness"
+    "headline_bullet_title_la": "Headline figures for the year to date - 2023-09-11 to 2024-01-12: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "ytd_absence_rate_la": "• 8.9% of sessions were recorded as absence in Lincolnshire (compared to 8.6% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 91.1% of sessions were recorded as attending in Lincolnshire (compared to 91.4% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 4.8% of sessions were recorded as illness in Lincolnshire (compared to 4% of sessions in East Midlands)"
   }
 }

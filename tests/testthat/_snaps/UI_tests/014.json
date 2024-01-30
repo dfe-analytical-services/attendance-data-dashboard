@@ -2,7 +2,7 @@
   "input": {
     "dash": "la comparisons",
     "geography_choice": "Local authority",
-    "la_choice": "Rutland",
+    "la_choice": "Nottingham",
     "link_to_headlines_tab": 0,
     "link_to_la_tab": 0,
     "link_to_reasons_tab": 0,
@@ -50,6 +50,38 @@
               "targets": 1,
               "searchable": false,
               "visible": false
+            },
+            {
+              "name": "Year",
+              "targets": 0
+            },
+            {
+              "name": "Week number",
+              "targets": 1
+            },
+            {
+              "name": "Week commencing",
+              "targets": 2
+            },
+            {
+              "name": "Region name",
+              "targets": 3
+            },
+            {
+              "name": "Local authority name",
+              "targets": 4
+            },
+            {
+              "name": "Overall absence rate",
+              "targets": 5
+            },
+            {
+              "name": "Authorised absence rate",
+              "targets": 6
+            },
+            {
+              "name": "Unauthorised absence rate",
+              "targets": 7
             }
           ],
           "order": [
@@ -96,9 +128,9 @@
         },
         {
           "name": "dt-core",
-          "version": "1.13.4",
+          "version": "1.13.6",
           "src": {
-            "href": "dt-core-1.13.4"
+            "href": "dt-core-1.13.6"
           },
           "meta": null,
           "script": "js/jquery.dataTables.min.js",
@@ -113,9 +145,9 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.2.0",
+          "version": "1.2.1",
           "src": {
-            "href": "crosstalk-1.2.0"
+            "href": "crosstalk-1.2.1"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
@@ -125,6 +157,7 @@
           "all_files": true
         }
       ]
-    }
+    },
+    "map_title": "Secondary state-funded schools: overall absence rates by local authority"
   }
 }
