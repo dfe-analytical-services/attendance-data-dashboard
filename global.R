@@ -43,6 +43,8 @@ library(sf)
 library(checkmate)
 library(dfeshiny)
 library(shinytest2)
+library(librarian)
+
 # Functions ---------------------------------------------------------------------------------
 
 # Here's an example function for simplifying the code needed to commas separate numbers:
