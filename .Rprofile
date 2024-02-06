@@ -12,23 +12,14 @@ cat("Sourcing .Rprofile.", fill = TRUE)
 
 source("renv/activate.R")
 
-# Function to run tests
+# Run UI tests ------------------------------------------------------------
+
 run_tests_locally <- function() {
-  Sys.unsetenv("http_proxy")
-  Sys.unsetenv("https_proxy")
-  source("global.r")
-  # message("================================================================================")
-  # message("== testthat ====================================================================")
-  # message("")
-  # testthat::test_dir("tests/testthat")
-  # message("")
-  message("================================================================================")
-  message("== shinytest ===================================================================")
-  message("")
-  shinytest::testApp()
-  message("")
-  message("================================================================================")
+  library(shinytest2)
+  Sys.unsetenv("HTTP_PROXY")
+  test_app()
 }
+
 
 # Install commit-hooks locally
 statusWriteCommit <- file.copy(".hooks/pre-commit.R", ".git/hooks/pre-commit", overwrite = TRUE)
