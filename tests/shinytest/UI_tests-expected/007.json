@@ -1,0 +1,429 @@
+{
+  "input": {
+    "dash": "headlines",
+    "geography_choice": "Local authority",
+    "la_choice": "Lincolnshire",
+    "link_to_headlines_tab": 0,
+    "link_to_la_tab": 0,
+    "link_to_reasons_tab": 0,
+    "measure_choice": "Overall",
+    "navlistPanel": "dashboard",
+    "region_choice": "East Midlands",
+    "school_choice": "Primary",
+    "ts_choice": "yeartodate"
+  },
+  "output": {
+    "absence_rates_timeseries_plot": {
+      "x": {
+        "layout": {
+          "margin": {
+            "b": 40,
+            "l": 60,
+            "t": 80,
+            "r": 10
+          },
+          "xaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "title": "Week commencing",
+            "tickvals": [
+              "2023-09-11",
+              "2023-09-18",
+              "2023-09-25",
+              "2023-10-02",
+              "2023-10-09",
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06",
+              "2023-11-13",
+              "2023-11-20",
+              "2023-11-27",
+              "2023-12-04"
+            ],
+            "zeroline": true,
+            "zerolinewidth": 2,
+            "zerolinecolor": "Grey",
+            "tickmode": "linear",
+            "tick0": "2022-09-12",
+            "dtick": 1209600000
+          },
+          "yaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "rangemode": "tozero",
+            "title": "Absence rate (%)",
+            "zeroline": true,
+            "zerolinewidth": 2,
+            "zerolinecolor": "Grey"
+          },
+          "hovermode": "x unified",
+          "legend": {
+            "font": {
+              "size": 11
+            },
+            "orientation": "h",
+            "yanchor": "top",
+            "y": -0.5,
+            "xanchor": "center",
+            "x": 0.5
+          },
+          "title": "Weekly summary of absence rates for <br>primary state-funded schools <br>(East Midlands, Lincolnshire)",
+          "font": {
+            "family": "arial",
+            "size": 10,
+            "color": "grey"
+          },
+          "showlegend": true
+        },
+        "source": "A",
+        "config": {
+          "modeBarButtonsToAdd": [
+            "hoverclosest",
+            "hovercompare"
+          ],
+          "showSendToCloud": false
+        },
+        "data": [
+          {
+            "mode": "lines+markers",
+            "type": "scatter",
+            "marker": {
+              "color": "rgba(31,119,180,1)",
+              "line": {
+                "color": "rgba(31,119,180,1)"
+              }
+            },
+            "error_y": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "error_x": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "line": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "mode": "markers+lines",
+            "type": "scatter",
+            "x": [
+              "2023-09-11",
+              "2023-09-18",
+              "2023-09-25",
+              "2023-10-02",
+              "2023-10-09",
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06",
+              "2023-11-13",
+              "2023-11-20",
+              "2023-11-27",
+              "2023-12-04"
+            ],
+            "y": [
+              3.3642346734839101,
+              4.5281664259279797,
+              5.0473707363654903,
+              4.5837682310176504,
+              4.4492109305401,
+              5.81107680473961,
+              4.3057520037718104,
+              4.65821560272152,
+              4.9736140696417301,
+              5.3304529718179898,
+              5.7392996108949399,
+              5.8125190734699297
+            ],
+            "line": {
+              "color": "#12436D"
+            },
+            "marker": {
+              "color": "#12436D",
+              "line": {
+                "color": "rgba(255,127,14,1)"
+              }
+            },
+            "name": "Overall absence rate",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
+            "error_y": {
+              "color": "rgba(255,127,14,1)"
+            },
+            "error_x": {
+              "color": "rgba(255,127,14,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "mode": "markers+lines",
+            "type": "scatter",
+            "x": [
+              "2023-09-11",
+              "2023-09-18",
+              "2023-09-25",
+              "2023-10-02",
+              "2023-10-09",
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06",
+              "2023-11-13",
+              "2023-11-20",
+              "2023-11-27",
+              "2023-12-04"
+            ],
+            "y": [
+              2.2317792887632999,
+              3.4221929727096301,
+              3.8945934056501499,
+              3.44716446709826,
+              3.3382968405176001,
+              4.0462552638913802,
+              3.1167491749174898,
+              3.6670740242145898,
+              4.0992924503056098,
+              4.4089656604670404,
+              4.6312992312802503,
+              4.6724091243181904
+            ],
+            "line": {
+              "color": "#28A197"
+            },
+            "marker": {
+              "color": "#28A197",
+              "line": {
+                "color": "rgba(44,160,44,1)"
+              }
+            },
+            "name": "Authorised absence rate",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
+            "error_y": {
+              "color": "rgba(44,160,44,1)"
+            },
+            "error_x": {
+              "color": "rgba(44,160,44,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "mode": "markers+lines",
+            "type": "scatter",
+            "x": [
+              "2023-09-11",
+              "2023-09-18",
+              "2023-09-25",
+              "2023-10-02",
+              "2023-10-09",
+              "2023-10-16",
+              "2023-10-30",
+              "2023-11-06",
+              "2023-11-13",
+              "2023-11-20",
+              "2023-11-27",
+              "2023-12-04"
+            ],
+            "y": [
+              1.13245538472062,
+              1.1059734532183501,
+              1.1527773307153399,
+              1.13660376391939,
+              1.1109140900225001,
+              1.76482154084823,
+              1.18900282885431,
+              0.99114157850693096,
+              0.87432161933612396,
+              0.92148731135095097,
+              1.10800037961469,
+              1.1401099491517399
+            ],
+            "line": {
+              "color": "#F46A25"
+            },
+            "marker": {
+              "color": "#F46A25",
+              "line": {
+                "color": "rgba(214,39,40,1)"
+              }
+            },
+            "name": "Unauthorised absence rate",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
+            "error_y": {
+              "color": "rgba(214,39,40,1)"
+            },
+            "error_x": {
+              "color": "rgba(214,39,40,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          }
+        ],
+        "highlight": {
+          "on": "plotly_click",
+          "persistent": false,
+          "dynamic": false,
+          "selectize": false,
+          "opacityDim": 0.20000000000000001,
+          "selected": {
+            "opacity": 1
+          },
+          "debounce": 0
+        },
+        "shinyEvents": [
+          "plotly_hover",
+          "plotly_click",
+          "plotly_selected",
+          "plotly_relayout",
+          "plotly_brushed",
+          "plotly_brushing",
+          "plotly_clickannotation",
+          "plotly_doubleclick",
+          "plotly_deselect",
+          "plotly_afterplot",
+          "plotly_sunburstclick"
+        ],
+        "base_url": "https://plot.ly"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "setprototypeof",
+          "version": "0.1",
+          "src": {
+            "href": "setprototypeof-0.1"
+          },
+          "meta": null,
+          "script": "setprototypeof.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "typedarray",
+          "version": "0.1",
+          "src": {
+            "href": "typedarray-0.1"
+          },
+          "meta": null,
+          "script": "typedarray.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.2.0",
+          "src": {
+            "href": "crosstalk-1.2.0"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.min.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "plotly-htmlwidgets-css",
+          "version": "2.11.1",
+          "src": {
+            "href": "plotly-htmlwidgets-css-2.11.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "plotly-htmlwidgets.css",
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "plotly-main",
+          "version": "2.11.1",
+          "src": {
+            "href": "plotly-main-2.11.1"
+          },
+          "meta": null,
+          "script": "plotly-latest.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    },
+    "headline_bullet_title_la": "Headline figures for the year to date - 2023-09-11 to 2023-12-08: primary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "ytd_absence_rate_la": "• 4.9% of sessions were recorded as absence in Lincolnshire (compared to 5.1% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 95.1% of sessions were recorded as attending in Lincolnshire (compared to 94.9% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 3% of sessions were recorded as illness in Lincolnshire (compared to 3% of sessions in East Midlands)"
+  }
+}

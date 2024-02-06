@@ -43,7 +43,6 @@ library(sf)
 library(checkmate)
 library(dfeshiny)
 library(shinytest2)
-library(librarian)
 
 # Functions ---------------------------------------------------------------------------------
 
