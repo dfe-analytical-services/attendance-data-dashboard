@@ -65,12 +65,6 @@ jobs:
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
           
-      - name: Install rsconnect
-        shell: Rscript {0}
-        run: |
-          if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
-          renv::install("rsconnect")
-         
 # Tokens are stored as secrets in GitHub to make sure only DfE analysts can publish apps in our shiny.io area
 # Navigate to Settings > Secrets to add and view secrets. These can also be things like admin login and passwords for SQL databases.
 # Get in touch with the Stats Development team if you need to add the below secrets to publish to shinyapps.io
