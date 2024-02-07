@@ -612,28 +612,6 @@
       "Repository": "CRAN",
       "Hash": "f7736a18de97dea803bde0a2daaafb27"
     },
-    "flexdashboard": {
-      "Package": "flexdashboard",
-      "Version": "0.6.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "bslib",
-        "grDevices",
-        "htmltools",
-        "htmlwidgets",
-        "jsonlite",
-        "knitr",
-        "rmarkdown",
-        "sass",
-        "scales",
-        "shiny",
-        "tools",
-        "utils"
-      ],
-      "Hash": "c3c5a921ab91cb02845cb287efa7fcff"
-    },
     "fontawesome": {
       "Package": "fontawesome",
       "Version": "0.5.2",
