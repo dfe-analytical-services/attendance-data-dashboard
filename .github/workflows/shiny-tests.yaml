@@ -10,7 +10,7 @@ jobs:
   automatedTests:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    name: shiny-tests
 
     strategy:
       fail-fast: false
@@ -53,21 +53,6 @@ jobs:
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
-      - name: Find PhantomJS path
-        id: phantomjs
-        run: |
-          echo "::set-output name=path::$(Rscript -e 'cat(shinytest:::phantom_paths()[[1]])')"
-      - name: Cache PhantomJS
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.phantomjs.outputs.path }}
-          key: ${{ runner.os }}-phantomjs
-          restore-keys: ${{ runner.os }}-phantomjs
-      - name: Install PhantomJS
-        shell: Rscript {0}
-        run: |
-          options(install.packages.check.source = "no")
-          if (!shinytest::dependenciesInstalled()) shinytest::installDependencies()
       - name: Run tests
         shell: Rscript {0}
         run: |
