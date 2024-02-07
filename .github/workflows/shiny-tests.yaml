@@ -10,7 +10,7 @@ jobs:
   automatedTests:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    name: shiny-tests
 
     strategy:
       fail-fast: false
