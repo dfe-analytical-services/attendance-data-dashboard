@@ -129,7 +129,7 @@ template. 80% works well here to reduce white space on the right hand side.*/
     padding: 19px;
     font-family: GDS Transport, arial, sans-serif;
     -webkit-font-smoothing: antialiased;
-    font-size: 0.875em;
+    font-size: 15px;
     background-color: #1d70b8;
     font-weight: 400;
     color: #fff;
