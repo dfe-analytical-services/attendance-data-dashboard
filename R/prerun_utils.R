@@ -2,11 +2,21 @@ run_data_update <- function() {
   # Run this to update the comparison EES data files for QA checks.
   # The input is the attendance_data df produced in global.R, so you'll need to
   # source global.R before running this script.
-  pa_fullyear_file <- "data/export_pa_output_2024_01_22.csv"
-  pa_autumn_file <- "data/export_autumn_pa_output_2024_01_22.csv"
-  # pa_spring_file <- "data/export_spring_pa_output_2023_08_07.csv"
-  # pa_summer_file <- "data/export_summer_pa_output_2023_08_07.csv"
-  attendance_data_raw <- fread("data/export_2024_01_22_full.csv")
+
+  conn <- odbcConnect("Attendance Project Warehouse")
+  sqlQuery(conn, "USE CATALOG catalog_40_copper")
+
+  # school_freq_count <- fread("data/enrolments_schools_denominator_010224.csv")
+  school_freq_count <- sqlQuery(conn, "SELECT * FROM school_attendance_national_stats.enrolments_schools_denominator")
+  school_freq_count$total_enrolments <- as.numeric(school_freq_count$total_enrolments)
+
+  pa_fullyear_file <- sqlQuery(conn, "SELECT * FROM school_attendance_national_stats.ytd_2324_pa_clean_delta")
+
+  pa_autumn_file <- sqlQuery(conn, "SELECT * FROM school_attendance_national_stats.aut_2324_pa_clean_delta")
+  # pa_spring_file <- sqlQuery(conn, "SELECT * FROM school_attendance_national_stats.spr_2324_pa_clean_delta")
+  # pa_summer_file <- sqlQuery(conn, "SELECT * FROM school_attendance_national_stats.sum_2324_pa_clean_delta")
+
+  attendance_data_raw <- sqlQuery(conn, "SELECT * FROM school_attendance_national_stats.ytd_2324_oa_clean_delta")
 
   attendance_data <- process_attendance_data(
     attendance_data_raw,
@@ -48,7 +58,7 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
   # Set up data for use across the app
   # Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   message(paste("Processing attendance data,", Sys.time()))
-  pa_data_raw <- fread(pa_fullyear_file)
+  pa_data_raw <- pa_fullyear_file
   attendance_data <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -219,7 +229,7 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
 
   attendance_data_ytd <- left_join(attendance_data_ytd, dplyr::select(pa_data_raw, c(geographic_level, region_name, la_name, school_type, pa_flag, ytd_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "school_type"))
 
-  attendance_data <- rbind(attendance_data_daily, attendance_data_weekly, attendance_data_ytd, fill = TRUE)
+  attendance_data <- bind_rows(attendance_data_daily, attendance_data_weekly, attendance_data_ytd)
 
   attendance_data <- attendance_data %>% mutate(pa_perc = (pa_flag / ytd_enrolments) * 100)
 
@@ -338,7 +348,8 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
     )
 
   # Add total onto Primary, Secondary, Special data
-  attendance_data <- rbind(attendance_data, attendance_data_daily_totals, attendance_data_weekly_totals, attendance_data_ytd_totals, fill = TRUE)
+  attendance_data <- bind_rows(attendance_data, attendance_data_daily_totals, attendance_data_weekly_totals, attendance_data_ytd_totals)
+
   attendance_data <- attendance_data %>%
     dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
     arrange(time_period, time_identifier)
@@ -455,7 +466,7 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
   # Set up data for use across the app
   # Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   message(paste("Processing Autumn attendance data,", Sys.time()))
-  autumn_only_pa_data_raw <- fread(pa_autumn_file)
+  autumn_only_pa_data_raw <- pa_autumn_file
   attendance_data_autumn <- attendance_data_raw %>%
     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -601,7 +612,8 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
     )
 
   # Add total onto Primary, Secondary, Special data
-  attendance_data_autumn <- rbind(attendance_data_autumn, attendance_data_autumn_totals)
+  attendance_data_autumn <- bind_rows(attendance_data_autumn, attendance_data_autumn_totals)
+
   attendance_data_autumn <- attendance_data_autumn %>%
     dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
     arrange(time_period, time_identifier)
@@ -699,7 +711,7 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
 #   #Set up data for use across the app
 #   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
 #   message(paste("Processing Spring attendance data,",Sys.time()))
-#   spring_only_pa_data_raw <- fread(pa_spring_file)
+#   spring_only_pa_data_raw <- pa_spring_file
 #   attendance_data_spring <- attendance_data_raw %>%
 #     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
 #     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -842,7 +854,7 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
 #     )
 #
 #   #Add total onto Primary, Secondary, Special data
-#   attendance_data_spring <- rbind(attendance_data_spring, attendance_data_spring_totals)
+#   attendance_data_spring <- bind_rows(attendance_data_spring, attendance_data_spring_totals)
 #   attendance_data_spring <- attendance_data_spring %>% dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>% arrange(time_period, time_identifier)
 #
 #   #Data suppression
@@ -939,7 +951,7 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
 #   #Set up data for use across the app
 #   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
 #   message(paste("Processing Summer attendance data,",Sys.time()))
-#   summer_only_pa_data_raw <- fread(pa_summer_file)
+#   summer_only_pa_data_raw <- pa_summer_file
 #   attendance_data_summer <- attendance_data_raw %>%
 #     mutate(across(.cols = 15:51, .fns = as.numeric)) %>%
 #     mutate(time_identifier = str_remove_all(time_identifier, "Week ")) %>%
@@ -1082,7 +1094,7 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
 #     )
 #
 #   #Add total onto Primary, Secondary, Special data
-#   attendance_data_summer <- rbind(attendance_data_summer, attendance_data_summer_totals)
+#   attendance_data_summer <- bind_rows(attendance_data_summer, attendance_data_summer_totals)
 #   attendance_data_summer <- attendance_data_summer %>% dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>% arrange(time_period, time_identifier)
 #
 #   #Data suppression

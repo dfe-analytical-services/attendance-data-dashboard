@@ -40,6 +40,7 @@ library(checkmate)
 library(dfeshiny)
 library(shinytest2)
 library(diffviewer)
+library(RODBC)
 
 # Functions ---------------------------------------------------------------------------------
 
@@ -88,8 +89,9 @@ google_analytics_key <- "DG7P4WLB0Y"
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
+
 start_date <- as.Date("2023-09-11")
-end_date <- as.Date("2024-01-12")
+end_date <- as.Date("2024-01-26")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -111,10 +113,6 @@ autumn_end <- as.Date("2023-12-15")
 
 most_recent_week_dates <- paste0("Latest week -", as.Date(end_date) - 4, " to ", as.Date(end_date))
 ytd_dates <- paste0("Year to date -", as.Date(start_date), "to", as.Date(end_date))
-
-
-school_freq_count <- fread("data/enrolments_schools_denominator_050124.csv")
-school_freq_count$total_enrolments <- as.numeric(school_freq_count$total_enrolments)
 
 attendance_data <- read.csv("data/attendance_data_dashboard.csv")
 
