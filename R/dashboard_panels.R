@@ -113,7 +113,7 @@ homepage_panel <- function() {
                   h4(
                     "If you are a school that has not yet signed up to share your data, please visit ",
                     a(href = "https://www.gov.uk/guidance/share-your-daily-school-attendance-data", "Share your daily school attendance data"), "for more information. This will also give you, your local authority and your multi-academy trust (if applicable)",
-                    a(href = "https://esfahelp.education.gov.uk/hc/en-gb/articles/6176380401810-School-Daily-Attendance-Trial?utm_source=5%20September%202022%20C19&utm_medium=Daily%20Email%20C19&utm_campaign=DfE%20C19", "access to daily attendance reports"), "to help identify pupils needing attendance support earlier."
+                    a(href = "https://www.gov.uk/guidance/access-your-school-attendance-data", "access to daily attendance reports"), "to help identify pupils needing attendance support earlier."
                   ),
                   br(),
                 ),
@@ -179,12 +179,13 @@ dashboard_panel <- function() {
                     column(
                       width = 6,
                       p(strong("Download underlying data")),
-                      downloadButton("downloadData2", label = "Download data", style = "width:100%;white-space:normal;")
+                      downloadButton(class = "btn", "downloadData2", label = "Download data", style = "width:100%;white-space:normal;")
                     ),
                     column(
                       width = 6,
                       p(strong("For more tables and metadata")),
                       actionButton(
+                        class = "btn",
                         inputId = "ees",
                         label = "Visit Explore Education Statistics",
                         icon = icon("th"),
