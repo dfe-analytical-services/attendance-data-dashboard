@@ -152,50 +152,26 @@ dashboard_panel <- function() {
               # style = "min-height: 100%; height: 100%; overflow-y: visible",
               fluidRow(
                 column(
-                  width = 6,
-                  fluidRow(
-                    column(
-                      width = 6,
-                      selectInput(
-                        inputId = "school_choice",
-                        label = "Choose school type:",
-                        choices = school_type_lookup %>% dplyr::filter(geographic_level == "National") %>% dplyr::select(school_type) %>% unique() %>% as.data.table(),
-                        selected = "Primary",
-                        selectize = TRUE,
-                        width = "100%"
-                      )
-                    ),
-                    column(
-                      width = 6,
-                      conditionalPanel(
-                        condition = "input.dash == 'headlines'|| input.dash == 'reasons'",
-                        selectInput(
-                          inputId = "ts_choice",
-                          label = "Choose time period:",
-                          choices = c(most_recent_week_dates = "latestweeks", ytd_dates = "yeartodate"),
-                          selectize = TRUE,
-                          width = "100%"
-                        )
-                      )
-                    )
-                  ),
-                  fluidRow(
-                    column(
-                      width = 6,
-                      p(strong("Download underlying data")),
-                      downloadButton(class = "btn", "downloadData2", label = "Download data", style = "width:100%;white-space:normal;")
-                    ),
-                    column(
-                      width = 6,
-                      p(strong("For more tables and metadata")),
-                      actionButton(
-                        class = "btn",
-                        inputId = "ees",
-                        label = "Visit Explore Education Statistics",
-                        icon = icon("th"),
-                        onclick = "window.open('https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools', '_blank')",
-                        style = "width:100%;white-space:normal;"
-                      )
+                  width = 3,
+                  selectInput(
+                    inputId = "school_choice",
+                    label = "Choose school type:",
+                    choices = school_type_lookup %>% dplyr::filter(geographic_level == "National") %>% dplyr::select(school_type) %>% unique() %>% as.data.table(),
+                    selected = "Primary",
+                    selectize = TRUE,
+                    width = "100%"
+                  )
+                ),
+                column(
+                  width = 3,
+                  conditionalPanel(
+                    condition = "input.dash == 'headlines'|| input.dash == 'reasons'",
+                    selectInput(
+                      inputId = "ts_choice",
+                      label = "Choose time period:",
+                      choices = c(most_recent_week_dates = "latestweeks", ytd_dates = "yeartodate"),
+                      selectize = TRUE,
+                      width = "100%"
                     )
                   )
                 ),
@@ -237,6 +213,25 @@ dashboard_panel <- function() {
                       selectize = TRUE,
                       width = "100%"
                     )
+                  )
+                )
+              ),
+              fluidRow(
+                column(
+                  width = 3,
+                  p(strong("Download underlying data")),
+                  downloadButton(class = "btn", "downloadData2", label = "Download data", style = "width:100%;white-space:normal;")
+                ),
+                column(
+                  width = 3,
+                  p(strong("For more tables and metadata")),
+                  actionButton(
+                    class = "btn",
+                    inputId = "ees",
+                    label = "Visit Explore Education Statistics",
+                    icon = icon("th"),
+                    onclick = "window.open('https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools', '_blank')",
+                    style = "width:100%;white-space:normal;"
                   )
                 )
               )
