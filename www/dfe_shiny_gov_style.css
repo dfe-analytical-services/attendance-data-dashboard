@@ -105,7 +105,6 @@ template. 80% works well here to reduce white space on the right hand side.*/
 }
 
 .nav-tabs > li.active > a,
-.nav-tabs > li.active > a:focus,
 .nav-tabs > li.active > a:hover {
   position: relative;
   margin-top: -5px;
@@ -153,19 +152,28 @@ template. 80% works well here to reduce white space on the right hand side.*/
     outline: 4px;
     outline-style: solid;
     outline-color: #fd0!important;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
     color: #0b0c0c!important;
     background-color: #fff!important;
 }
 
-.dropdown {
-    background-color: #fff;
-    color: #0b0c0c;
-}
-
-.dropdown:focus {
+.nav-tabs:focus {
+    -webkit-appearance: none;
     outline: 4px;
     outline-style: solid;
     outline-color: #fd0!important;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+    color: #0b0c0c!important;
+    background-color: #fff!important;
+}
+
+.selectize-input.focus {
+    -webkit-appearance: none;
+    border: none;
+    outline: 4px;
+    outline-style: solid;
+    outline-color: #fd0!important;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c!important;
     color: #0b0c0c!important;
     background-color: #fff!important;
 }
@@ -233,7 +241,6 @@ template. 80% works well here to reduce white space on the right hand side.*/
     z-index: 9999;
     overflow: hidden;
 }
-
 
 .small-box.bg-purple {
     background-color: 	#801650 !important;
@@ -383,4 +390,12 @@ template. 80% works well here to reduce white space on the right hand side.*/
   text-align: left;
   font-weight: bold;
   font-size: 28px;
+}
+
+.leaflet-control-attribution.leaflet-control {
+    display: none;
+}
+
+.govuk-phase-banner__content {
+  width: 95%!important;
 }
