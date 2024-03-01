@@ -146,6 +146,16 @@ template. 80% works well here to reduce white space on the right hand side.*/
     background-color: #fff!important;
 }
 
+.paginate_button:focus {
+    margin-left: 4px;
+    margin-right: 4px;
+    outline: 4px!important;
+    outline-style: solid!important;
+    outline-color: #fd0!important;
+    background-color: #fff!important;
+    border: 1px solid #0b0c0c;
+}
+
 /* Wells styling */
 .well {
     min-height: 90vh;
