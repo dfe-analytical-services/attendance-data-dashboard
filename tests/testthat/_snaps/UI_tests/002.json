@@ -30,11 +30,11 @@
             "automargin": true,
             "title": "Date",
             "tickvals": [
-              "2024-01-22",
-              "2024-01-23",
-              "2024-01-24",
-              "2024-01-25",
-              "2024-01-26"
+              "2024-02-05",
+              "2024-02-06",
+              "2024-02-07",
+              "2024-02-08",
+              "2024-02-09"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -77,7 +77,8 @@
             "hoverclosest",
             "hovercompare"
           ],
-          "showSendToCloud": false
+          "showSendToCloud": false,
+          "displayModeBar": false
         },
         "data": [
           {
@@ -106,18 +107,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2024-01-22",
-              "2024-01-23",
-              "2024-01-24",
-              "2024-01-25",
-              "2024-01-26"
+              "2024-02-05",
+              "2024-02-06",
+              "2024-02-07",
+              "2024-02-08",
+              "2024-02-09"
             ],
             "y": [
-              6.6839968906665002,
-              6.0589014118982201,
-              5.8270865012108297,
-              5.7423205863902202,
-              6.7021781444533799
+              6.0995775912514203,
+              5.8066077244127801,
+              5.6569542361139398,
+              6.3799988250048596,
+              7.9255646700289999
             ],
             "line": {
               "color": "#12436D"
@@ -150,18 +151,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2024-01-22",
-              "2024-01-23",
-              "2024-01-24",
-              "2024-01-25",
-              "2024-01-26"
+              "2024-02-05",
+              "2024-02-06",
+              "2024-02-07",
+              "2024-02-08",
+              "2024-02-09"
             ],
             "y": [
-              5.24087673692393,
-              4.8656082065888597,
-              4.6355940492810603,
-              4.52982528540986,
-              5.2256448739764503
+              4.7141337540837203,
+              4.5161105931385102,
+              4.2741758017849101,
+              4.63526592058472,
+              5.4459326461698501
             ],
             "line": {
               "color": "#28A197"
@@ -194,18 +195,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2024-01-22",
-              "2024-01-23",
-              "2024-01-24",
-              "2024-01-25",
-              "2024-01-26"
+              "2024-02-05",
+              "2024-02-06",
+              "2024-02-07",
+              "2024-02-08",
+              "2024-02-09"
             ],
             "y": [
-              1.44312015374257,
-              1.1932932053093599,
-              1.19149245192977,
-              1.2124953009803601,
-              1.4765332704769301
+              1.38544383716771,
+              1.2904971312742599,
+              1.3827784343290299,
+              1.7447329044201401,
+              2.4796320238591498
             ],
             "line": {
               "color": "#F46A25"
@@ -348,9 +349,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2024-01-22 to 2024-01-26: primary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 6.2% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 93.8% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "• 4.2% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2024-02-05 to 2024-02-09: primary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "• 6.3% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "• 93.7% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "• 4% of sessions were recorded as illness"
   }
 }

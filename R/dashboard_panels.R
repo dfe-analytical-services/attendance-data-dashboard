@@ -27,6 +27,7 @@ homepage_panel <- function() {
               div(
                 class = "panel-body",
                 p("The dashboard provides data on attendance and absence at National, Regional and Local Authority geographic levels. Data is available across state-funded primary, secondary and special schools and can also be broken down by individual school type. Drop-down menus at the top of the page allow customisation of breakdowns. Users will need to select a geographic level prior to selecting further options at Region or Local Authority level."),
+                p("You can navigate directly to tabs of the dashboard using the 'Headlines', 'Reasons' and 'Local authority data' links below."),
                 br(),
                 tags$div(
                   title = "Headline information on overall and persistent absence",
