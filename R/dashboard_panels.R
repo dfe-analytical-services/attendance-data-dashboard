@@ -27,6 +27,7 @@ homepage_panel <- function() {
               div(
                 class = "panel-body",
                 p("The dashboard provides data on attendance and absence at National, Regional and Local Authority geographic levels. Data is available across state-funded primary, secondary and special schools and can also be broken down by individual school type. Drop-down menus at the top of the page allow customisation of breakdowns. Users will need to select a geographic level prior to selecting further options at Region or Local Authority level."),
+                p("You can navigate directly to tabs of the dashboard using the 'Headlines', 'Reasons' and 'Local authority data' links below."),
                 br(),
                 tags$div(
                   title = "Headline information on overall and persistent absence",
@@ -84,7 +85,7 @@ homepage_panel <- function() {
                   ),
                   br(),
                   h3("Coverage"),
-                  h4(textOutput("daily_schools_count")),
+                  p(textOutput("daily_schools_count")),
                   p("This number is approximately 88% of the number of schools participating in the School Census. As schools opt in to sharing of data, the number of schools reporting may change over time."),
                   p("Absence rates are provided broken down by state-funded primary, secondary and special schools. At national and regional level, absence figures are also provided across all schools. In recognition that response rates are not equal across school types and, therefore, not representative of the total school population, the total absence figure for all schools has been weighted based on the Spring 2023 school census. Weighted total figures are not included at local authority level due to the low number of schools involved."),
                   br(),
@@ -110,10 +111,12 @@ homepage_panel <- function() {
                   a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools"),
                   br(),
                   br(),
-                  h4(
-                    "If you are a school that has not yet signed up to share your data, please visit ",
-                    a(href = "https://www.gov.uk/guidance/share-your-daily-school-attendance-data", "Share your daily school attendance data"), "for more information. This will also give you, your local authority and your multi-academy trust (if applicable)",
-                    a(href = "https://esfahelp.education.gov.uk/hc/en-gb/articles/6176380401810-School-Daily-Attendance-Trial?utm_source=5%20September%202022%20C19&utm_medium=Daily%20Email%20C19&utm_campaign=DfE%20C19", "access to daily attendance reports"), "to help identify pupils needing attendance support earlier."
+                  p(
+                    strong(
+                      "If you are a school that has not yet signed up to share your data, please visit ",
+                      a(href = "https://www.gov.uk/guidance/share-your-daily-school-attendance-data", "Share your daily school attendance data"), "for more information. This will also give you, your local authority and your multi-academy trust (if applicable)",
+                      a(href = "https://www.gov.uk/guidance/access-your-school-attendance-data", "access to daily attendance reports"), "to help identify pupils needing attendance support earlier."
+                    )
                   ),
                   br(),
                 ),
@@ -150,47 +153,26 @@ dashboard_panel <- function() {
               # style = "min-height: 100%; height: 100%; overflow-y: visible",
               fluidRow(
                 column(
-                  width = 6,
-                  fluidRow(
-                    column(
-                      width = 6,
-                      selectInput(
-                        inputId = "school_choice",
-                        label = "Choose school type:",
-                        choices = school_type_lookup %>% dplyr::filter(geographic_level == "National") %>% dplyr::select(school_type) %>% unique() %>% as.data.table(),
-                        selected = "Primary",
-                        selectize = TRUE
-                      )
-                    ),
-                    column(
-                      width = 6,
-                      conditionalPanel(
-                        condition = "input.dash == 'headlines'|| input.dash == 'reasons'",
-                        selectInput(
-                          inputId = "ts_choice",
-                          label = "Choose time period:",
-                          choices = c(most_recent_week_dates = "latestweeks", ytd_dates = "yeartodate"),
-                          selectize = TRUE
-                        )
-                      )
-                    )
-                  ),
-                  fluidRow(
-                    column(
-                      width = 6,
-                      p(strong("Download underlying data")),
-                      downloadButton("downloadData2", label = "Download data", style = "width:100%;white-space:normal;")
-                    ),
-                    column(
-                      width = 6,
-                      p(strong("For more tables and metadata")),
-                      actionButton(
-                        inputId = "ees",
-                        label = "Visit Explore Education Statistics",
-                        icon = icon("th"),
-                        onclick = "window.open('https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools', '_blank')",
-                        style = "width:100%;white-space:normal;"
-                      )
+                  width = 3,
+                  selectInput(
+                    inputId = "school_choice",
+                    label = "Choose school type:",
+                    choices = school_type_lookup %>% dplyr::filter(geographic_level == "National") %>% dplyr::select(school_type) %>% unique() %>% as.data.table(),
+                    selected = "Primary",
+                    selectize = TRUE,
+                    width = "100%"
+                  )
+                ),
+                column(
+                  width = 3,
+                  conditionalPanel(
+                    condition = "input.dash == 'headlines'|| input.dash == 'reasons'",
+                    selectInput(
+                      inputId = "ts_choice",
+                      label = "Choose time period:",
+                      choices = c(most_recent_week_dates = "latestweeks", ytd_dates = "yeartodate"),
+                      selectize = TRUE,
+                      width = "100%"
                     )
                   )
                 ),
@@ -203,7 +185,8 @@ dashboard_panel <- function() {
                       label = "Choose geographic level:",
                       choices = c("National", "Regional", "Local authority"),
                       selected = head(geog_levels, 1),
-                      selectize = TRUE
+                      selectize = TRUE,
+                      width = "100%"
                     )
                   )
                 ),
@@ -217,7 +200,8 @@ dashboard_panel <- function() {
                       label = "Choose region:",
                       choices = regions,
                       selected = regions[1],
-                      selectize = TRUE
+                      selectize = TRUE,
+                      width = "100%"
                     )
                   ),
                   conditionalPanel(
@@ -227,8 +211,28 @@ dashboard_panel <- function() {
                       label = "Choose local authority:",
                       choices = la_list,
                       selected = las[1],
-                      selectize = TRUE
+                      selectize = TRUE,
+                      width = "100%"
                     )
+                  )
+                )
+              ),
+              fluidRow(
+                column(
+                  width = 3,
+                  p(strong("Download underlying data")),
+                  downloadButton(class = "btn", "downloadData2", label = "Download data", style = "width:100%;white-space:normal;")
+                ),
+                column(
+                  width = 3,
+                  p(strong("For more tables and metadata")),
+                  actionButton(
+                    class = "btn",
+                    inputId = "ees",
+                    label = "Visit Explore Education Statistics",
+                    icon = icon("th"),
+                    onclick = "window.open('https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools', '_blank')",
+                    style = "width:100%;white-space:normal;"
                   )
                 )
               )

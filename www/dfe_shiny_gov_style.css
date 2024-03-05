@@ -43,6 +43,15 @@ a:active {
   text-decoration: underline
 }
 
+a:focus{
+  outline: 3px solid rgba(0, 0, 0, 0);
+    /* color: #0b0c0c; */
+    background-color: #fd0;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+    color: #0b0c0c;
+    text-decoration: none;
+}
+
 .govuk-cookie-banner {
   padding: 6px 6px 6px 6px;
 }
@@ -55,26 +64,25 @@ template. 80% works well here to reduce white space on the right hand side.*/
   padding: 3.2px;
 }
 
+/* Setting styling for navpills*/
 .nav-pills > li.active > a {
   font-family: "GDS Transport", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 700;
   line-height: 1.1428571429;
-  background-color: #f3f2f1 !important;
+  background-color: #f3f2f1;
   color: #1d70b8;
   font-size: 15px;
   border-color: #1d70b8;
-  text-decoration: none
+  text-decoration: none;
 }
 
 .nav-pills > li.active > a,
-.nav-pills > li.active > a:focus,
 .nav-pills > li.active > a:hover {
-  color: #1d70b8 !important;
+  color: #1d70b8;
 }
 
-.nav-pills > li > a:focus,
 .nav-pills > li > a:hover {
    border-color: #1d70b8;
 }
@@ -91,18 +99,32 @@ template. 80% works well here to reduce white space on the right hand side.*/
   text-decoration: none
 }
 
+
+.nav-pills > li > a:focus{
+  outline: 3px solid rgba(0, 0, 0, 0)!important;
+    /* color: #0b0c0c; */
+    background-color: #fd0!important;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c!important;
+    color: #0b0c0c!important;
+    text-decoration: none;
+    border:none;
+}
+
 /* Tabs layout styling */
 
 .nav-tabs > li > a {
-  text-decoration: none
+  text-decoration: none;
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
 .nav-tabs > li.active > a,
-.nav-tabs > li.active > a:focus,
 .nav-tabs > li.active > a:hover {
   position: relative;
   margin-top: -5px;
   margin-bottom: -1px;
+  margin-left: 4px;
+  margin-right: 4px;
   padding-top: 14px;
   padding-right: 19px;
   padding-bottom: 16px;
@@ -113,6 +135,33 @@ template. 80% works well here to reduce white space on the right hand side.*/
   text-decoration: none
 }
 
+.nav-tabs > li.active > a:focus {
+    margin-left: 4px;
+    margin-right: 4px;
+    outline: 4px;
+    outline-style: solid;
+    outline-color: #fd0!important;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+    color: #0b0c0c!important;
+    background-color: #fff!important;
+}
+
+.paginate_button {
+    margin-left: 4px!important;
+    margin-right: 4px!important;
+}
+
+.paginate_button:focus {
+    margin-left: 4px;
+    margin-right: 4px;
+    outline: 4px!important;
+    outline-style: solid!important;
+    outline-color: #fd0!important;
+    background-color: #fff!important;
+    border: 1px solid #0b0c0c;
+}
+
+/* Wells styling */
 .well {
     min-height: 90vh;
     padding: 19px;
@@ -125,6 +174,46 @@ template. 80% works well here to reduce white space on the right hand side.*/
     color: #fff;
 }
 
+.well:focus {
+    min-height: 90vh;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #fd0!important;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%);
+    color: #0b0c0c!important;
+}
+
+/* Buttons styling */
+.btn {
+    background-color: #fff;
+    color: #0b0c0c;
+}
+
+.btn:focus {
+    outline: 4px;
+    outline-style: solid;
+    outline-color: #fd0!important;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+    color: #0b0c0c!important;
+    background-color: #fff!important;
+}
+
+/* Dropdowns styling */
+.selectize-input.focus {
+    -webkit-appearance: none;
+    border: none;
+    outline: 4px;
+    outline-style: solid;
+    outline-color: #fd0!important;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c!important;
+    color: #0b0c0c!important;
+    background-color: #fff!important;
+}
+
+/* Gov uk details and summary styling */
 .govuk-details {
     padding: 19px;
     font-family: GDS Transport, arial, sans-serif;
@@ -188,7 +277,6 @@ template. 80% works well here to reduce white space on the right hand side.*/
     z-index: 9999;
     overflow: hidden;
 }
-
 
 .small-box.bg-purple {
     background-color: 	#801650 !important;
@@ -338,4 +426,14 @@ template. 80% works well here to reduce white space on the right hand side.*/
   text-align: left;
   font-weight: bold;
   font-size: 28px;
+}
+
+/* LA map link removal */
+.leaflet-control-attribution.leaflet-control {
+    display: none;
+}
+
+/* Beta banner width adjustment */
+.govuk-phase-banner__content {
+  width: 95%!important;
 }

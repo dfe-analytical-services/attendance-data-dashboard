@@ -676,7 +676,8 @@ server <- function(input, output, session) {
         name = "Number of schools reporting",
         hovertemplate = "%{y:.1f}",
         mode = "markers"
-      )
+      ) %>%
+      config(displayModeBar = FALSE)
 
     response_rate_plot <- response_rate_plot %>% layout(
       xaxis = list(title = "Date", zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
@@ -749,7 +750,8 @@ server <- function(input, output, session) {
         name = "Unauthorised absence rate",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
-      )
+      ) %>%
+      config(displayModeBar = FALSE)
 
     ts_plot <- ts_plot %>% layout(
       xaxis = list(title = "Week commencing", tickvals = ~week_commencing, zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
@@ -833,7 +835,8 @@ server <- function(input, output, session) {
         name = "Unauthorised absence rate",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
-      )
+      ) %>%
+      config(displayModeBar = FALSE)
 
     ts_plot <- ts_plot %>% layout(
       xaxis = list(title = "Date", tickvals = ~attendance_date, zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
@@ -911,7 +914,8 @@ server <- function(input, output, session) {
         name = "Unauthorised other",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
-      )
+      ) %>%
+      config(displayModeBar = FALSE)
 
     reasons_ts_plot <- reasons_ts_plot %>% layout(
       xaxis = list(
@@ -1013,7 +1017,8 @@ server <- function(input, output, session) {
         name = "Unauthorised other",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
-      )
+      ) %>%
+      config(displayModeBar = FALSE)
 
     ts_plot <- ts_plot %>% layout(
       xaxis = list(title = "Date", tickvals = ~attendance_date, zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),

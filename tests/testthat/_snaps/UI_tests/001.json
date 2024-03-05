@@ -13,8 +13,8 @@
     "ts_choice": "latestweeks"
   },
   "output": {
-    "daily_schools_count": "18,850 schools provided information on the latest full day of data, i.e. 2024-01-26",
-    "headline_update_date": "Data was last updated on 2024-02-08.",
-    "homepage_update_dates": "Data was last updated on 2024-02-08 and is next expected to be updated on 2024-02-22. The latest full week of data was the week commencing 2024-01-22."
+    "daily_schools_count": "18,208 schools provided information on the latest full day of data, i.e. 2024-02-09",
+    "headline_update_date": "Data was last updated on 2024-02-22.",
+    "homepage_update_dates": "Data was last updated on 2024-02-22 and is next expected to be updated on 2024-03-07. The latest full week of data was the week commencing 2024-02-05."
   }
 }
