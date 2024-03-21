@@ -1157,6 +1157,24 @@ server <- function(input, output, session) {
     paste0("For this breakdown, in the latest week ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools submitted data, though this has varied throughout the year-to-date.")
   })
 
+  output$school_count_proportion_homepage <- renderText({
+    validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
+
+    count_prop_week <- attendance_data %>%
+      filter(
+        breakdown == "Weekly",
+        geographic_level == "National",
+        school_type == "Total",
+        time_period == max(time_period)
+      ) %>%
+      filter(time_identifier == max(time_identifier)) %>%
+      mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
+
+    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
+    paste0("This number is approximately ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of the number of schools participating in the School Census. As schools opt in to sharing of data, the number of schools reporting may change over time.")
+  })
+
   # Proportion of schools in census figures are generated from - year to date
   output$school_count_proportion_ytd <- renderText({
     validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
