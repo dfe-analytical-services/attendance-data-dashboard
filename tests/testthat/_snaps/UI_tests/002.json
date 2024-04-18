@@ -30,11 +30,10 @@
             "automargin": true,
             "title": "Date",
             "tickvals": [
-              "2024-03-18",
-              "2024-03-19",
-              "2024-03-20",
-              "2024-03-21",
-              "2024-03-22"
+              "2024-03-25",
+              "2024-03-26",
+              "2024-03-27",
+              "2024-03-28"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -107,18 +106,16 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2024-03-18",
-              "2024-03-19",
-              "2024-03-20",
-              "2024-03-21",
-              "2024-03-22"
+              "2024-03-25",
+              "2024-03-26",
+              "2024-03-27",
+              "2024-03-28"
             ],
             "y": [
-              5.8581624813827897,
-              5.3217129261656799,
-              5.2129875513998298,
-              5.2687128691654603,
-              6.4253647628953301
+              6.0731551829055803,
+              5.7236277171429499,
+              6.0054091255418696,
+              7.8554934487278301
             ],
             "line": {
               "color": "#12436D"
@@ -134,7 +131,6 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
-              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -151,18 +147,16 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2024-03-18",
-              "2024-03-19",
-              "2024-03-20",
-              "2024-03-21",
-              "2024-03-22"
+              "2024-03-25",
+              "2024-03-26",
+              "2024-03-27",
+              "2024-03-28"
             ],
             "y": [
-              4.48551733714398,
-              4.1737608536317303,
-              3.99325967188663,
-              3.94225125523998,
-              4.5984425633724904
+              4.4558295695459398,
+              4.1885427994544697,
+              4.1477754713669404,
+              4.8996474916348003
             ],
             "line": {
               "color": "#28A197"
@@ -178,7 +172,6 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
-              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -195,18 +188,16 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2024-03-18",
-              "2024-03-19",
-              "2024-03-20",
-              "2024-03-21",
-              "2024-03-22"
+              "2024-03-25",
+              "2024-03-26",
+              "2024-03-27",
+              "2024-03-28"
             ],
             "y": [
-              1.3726451442388099,
-              1.14795207253394,
-              1.2197278795132001,
-              1.3264616139254799,
-              1.82692219952284
+              1.6173256133596401,
+              1.53508491768848,
+              1.8576336541749401,
+              2.9558459570930302
             ],
             "line": {
               "color": "#F46A25"
@@ -219,7 +210,6 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
-              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
@@ -349,9 +339,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2024-03-18 to 2024-03-22: primary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 5.6% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 94.4% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "• 3.5% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2024-03-25 to 2024-03-28: primary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "• 6.4% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "• 93.6% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "• 3.6% of sessions were recorded as illness"
   }
 }
