@@ -3,6 +3,7 @@ run_data_update <- function() {
   # The input is the attendance_data df produced in global.R, so you'll need to
   # source global.R before running this script.
 
+  #### SECTION 1 - Databricks connections and processing functions ####
   conn <- odbcConnect("Attendance Project Warehouse")
   sqlQuery(conn, "USE CATALOG catalog_40_copper")
 
@@ -54,6 +55,7 @@ run_data_update <- function() {
   # create_ees_tables_summer(attendance_data_summer)
 }
 
+#### SECTION 2 - Processing daily, weekly and year to date ####
 process_attendance_data <- function(attendance_data_raw, start_date, end_date, pa_fullyear_file) {
   # Set up data for use across the app
   # Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
@@ -227,10 +229,12 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
     ) %>%
     distinct(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all = TRUE)
 
+  # If prior to week 2 publication, comment the line below out
   attendance_data_ytd <- left_join(attendance_data_ytd, dplyr::select(pa_data_raw, c(geographic_level, region_name, la_name, school_type, pa_flag, ytd_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "school_type"))
 
   attendance_data <- bind_rows(attendance_data_daily, attendance_data_weekly, attendance_data_ytd)
 
+  # If prior to week 2 publication, comment the line below out
   attendance_data <- attendance_data %>% mutate(pa_perc = (pa_flag / ytd_enrolments) * 100)
 
   # Prep for calculation of totals by doing rates X census counts
@@ -461,7 +465,7 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
   # )
 }
 
-# ## Processing autumn
+#### SECTION 3 - Processing Autumn ####
 process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, autumn_end, pa_autumn_file) {
   # Set up data for use across the app
   # Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
@@ -706,7 +710,7 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
   # )
 }
 
-## Processing Spring
+#### SECTION 4 - Processing Spring ####
 process_attendance_data_spring <- function(attendance_data_raw, spring_start, spring_end, pa_spring_file) {
   # Set up data for use across the app
   # Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
@@ -950,7 +954,7 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
   # )
 }
 #
-# ## Processing Summer
+#### SECTION 5 - Processing Summer ####
 # process_attendance_data_summer <- function(attendance_data_raw, summer_start, summer_end, pa_summer_file){
 #   #Set up data for use across the app
 #   #Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
@@ -1184,6 +1188,7 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
 #   # )
 # }
 
+#### SECTION 6 - Creating EES tables for daily, weekly and year to date ####
 create_ees_tables <- function(attendance_data) {
   # Set up data for download
   # EES daily data/download data
@@ -1571,6 +1576,7 @@ create_ees_tables <- function(attendance_data) {
   write.csv(EES_ytd_data, "data\\EES_ytd_data.csv", row.names = FALSE)
 }
 
+#### SECTION 7 - Creating EES table for Autumn ####
 create_ees_tables_autumn <- function(df_attendance_autumn) {
   # Set up data for download
   # EES ytd data
@@ -1707,6 +1713,7 @@ create_ees_tables_autumn <- function(df_attendance_autumn) {
   write.csv(EES_aut_data, "data\\EES_aut_data.csv", row.names = FALSE)
 }
 
+#### SECTION 8 - Creating EES table for Spring ####
 create_ees_tables_spring <- function(df_attendance_spring) {
   # Set up data for download
   # EES ytd data
@@ -1842,7 +1849,8 @@ create_ees_tables_spring <- function(df_attendance_spring) {
 
   write.csv(EES_spr_data, "data\\EES_spr_data.csv", row.names = FALSE)
 }
-#
+
+#### SECTION 9 - Creating EES table for Summer ####
 # create_ees_tables_summer<- function(df_attendance_summer){
 #   #Set up data for download
 #   #EES ytd data
@@ -1976,6 +1984,7 @@ create_ees_tables_spring <- function(df_attendance_spring) {
 #
 # }
 
+#### SECTION 10 - Using daily data to read in for app ####
 read_ees_daily <- function() {
   read.csv("data/EES_daily_data.csv", stringsAsFactors = FALSE)
 }

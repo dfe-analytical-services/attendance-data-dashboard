@@ -90,6 +90,7 @@ google_analytics_key <- "DG7P4WLB0Y"
 # Read in data
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 
+#### SECTION 1 - date filters ####
 start_date <- as.Date("2023-09-11")
 end_date <- as.Date("2024-04-05")
 # funeral_date <- as.Date("2022-09-19")
@@ -114,12 +115,14 @@ spring_end <- as.Date("2024-03-31")
 most_recent_week_dates <- paste0("Latest week -", as.Date(end_date) - 4, " to ", as.Date(end_date))
 ytd_dates <- paste0("Year to date -", as.Date(start_date), "to", as.Date(end_date))
 
+#### SECTION 2 - reading in csvs to run dashboard ####
 attendance_data <- read.csv("data/attendance_data_dashboard.csv")
 
 message(paste("Finished processing steps, ", Sys.time()))
 
 EES_daily_data <- read_ees_daily()
 
+#### SECTION 3 - Lookups ####
 # Add geog lookup
 geog_lookup <- attendance_data %>%
   dplyr::select(geographic_level, region_name, la_name) %>%
@@ -197,6 +200,7 @@ las <- geog_lookup %>%
   pull(la_name) %>%
   unique()
 
+#### SECTION 4 - Functions ####
 # Expandable dropdown function----------------------------------
 expandable <- function(inputId, label, contents) {
   govDetails <- shiny::tags$details(
@@ -229,6 +233,7 @@ roundFiveUp <- function(value, dp) {
   return(z * sign(value))
 }
 
+#### SECTION 5 - Map ####
 ## Reading in data ##########################################################
 
 # Read in shapefile and transform coordinates (because map reasons...)
