@@ -120,7 +120,7 @@ attendance_data <- read.csv("data/attendance_data_dashboard.csv")
 
 message(paste("Finished processing steps, ", Sys.time()))
 
-EES_daily_data <- read_ees_daily()
+EES_daily_data <- create_EES_daily_data(attendance_data)
 
 #### SECTION 3 - Lookups ####
 # Add geog lookup
