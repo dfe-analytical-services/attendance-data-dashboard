@@ -4,7 +4,7 @@ run_data_update <- function() {
   # source global.R before running this script.
 
   #### SECTION 1 - Databricks connections and processing functions ####
-  conn <- odbcConnect("Attendance Project Warehouse")
+  conn <- odbcConnect("Attendance Analyst Warehouse")
   sqlQuery(conn, "USE CATALOG catalog_40_copper")
 
   # school_freq_count <- fread("data/enrolments_schools_denominator_010224.csv")
