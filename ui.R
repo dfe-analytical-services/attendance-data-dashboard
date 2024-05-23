@@ -44,17 +44,8 @@ ui <- function(input, output, session) {
 
     customDisconnectMessage(),
     useShinydashboard(),
-    # Setting up cookie consent based on a cookie recording the consent:
-    # https://book.javascript-for-r.com/shiny-cookies.html
-    tags$head(
-      tags$script(
-        src = paste0(
-          "https://cdn.jsdelivr.net/npm/js-cookie@rc/",
-          "dist/js.cookie.min.js"
-        )
-      ),
-      tags$script(src = "cookie-consent.js")
-    ),
+    dfe_cookie_script(),
+    cookie_banner_ui("cookies", name = "DfE pupil attendance and absence in schools in England"),
     tags$head(includeHTML(("google-analytics.html"))),
     tags$head(
       tags$link(
@@ -63,7 +54,6 @@ ui <- function(input, output, session) {
         href = "dfe_shiny_gov_style.css"
       )
     ),
-    shinyGovstyle::cookieBanner("DfE pupil attendance and absence in schools in England"),
     shinyGovstyle::header(
       main_text = "",
       secondary_text = "DfE pupil attendance and absence in schools in England: data dashboard",

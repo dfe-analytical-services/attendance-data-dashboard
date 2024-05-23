@@ -25,11 +25,10 @@ jobs:
       RENV_PATHS_ROOT: ~/.local/share/renv
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-r@v2
         with:
-          r-version: 4.2.1
           use-public-rspm: true
 
       - name: Set env vars (dev)

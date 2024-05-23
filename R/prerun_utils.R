@@ -1189,9 +1189,7 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
 # }
 
 #### SECTION 6 - Creating EES tables for daily, weekly and year to date ####
-create_ees_tables <- function(attendance_data) {
-  # Set up data for download
-  # EES daily data/download data
+create_EES_daily_data <- function(attendance_data) {
   EES_daily_data <- attendance_data %>%
     dplyr::filter(breakdown == "Daily") %>%
     dplyr::select(
@@ -1314,7 +1312,12 @@ create_ees_tables <- function(attendance_data) {
       auth_other_perc
     ), ~
       replace(., geographic_level == "Local authority" & num_schools == 1, "c"))
+}
 
+create_ees_tables <- function(attendance_data) {
+  # Set up data for download
+  # EES daily data/download data
+  EES_daily_data <- create_EES_daily_data(attendance_data)
   # EES_daily_data[is.na(EES_daily_data)]<-"c"
 
   # EES weekly data
