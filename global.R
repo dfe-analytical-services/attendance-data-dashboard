@@ -92,7 +92,7 @@ google_analytics_key <- "DG7P4WLB0Y"
 
 #### SECTION 1 - date filters ####
 start_date <- as.Date("2023-09-11")
-end_date <- as.Date("2024-05-03")
+end_date <- as.Date("2024-05-17")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -120,7 +120,7 @@ attendance_data <- read.csv("data/attendance_data_dashboard.csv")
 
 message(paste("Finished processing steps, ", Sys.time()))
 
-EES_daily_data <- read_ees_daily()
+EES_daily_data <- create_EES_daily_data(attendance_data)
 
 #### SECTION 3 - Lookups ####
 # Add geog lookup

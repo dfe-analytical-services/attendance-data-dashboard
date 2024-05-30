@@ -36,12 +36,11 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup R
         uses: r-lib/actions/setup-r@4e1feaf90520ec1215d1882fdddfe3411c08e492
         with:
-          r-version: 4.2.1
           use-public-rspm: true
 
       - name: Cache R packages
