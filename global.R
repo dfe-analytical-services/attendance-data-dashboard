@@ -7,6 +7,54 @@
 #
 # ---------------------------------------------------------
 
+# Install packages -----------------------------------------------
+# (uncomment out and run manually - might only be needed first time running)
+
+# packages_to_install <- c(
+# "rsconnect",
+# "shinyGovstyle",
+# "shiny",
+# "shinyjs",
+# "tools",
+# "testthat",
+# "shinydashboard",
+# "shinyWidgets",
+# "shinyGovstyle",
+# "data.table",
+# "ggplot2",
+# "plotly",
+# "dplyr",
+# "shinycssloaders",
+# "tidyr",
+# "stringr",
+# "flexdashboard",
+# "scales",
+# "forcats",
+# "openxlsx",
+# "kableExtra",
+# "metathis",
+# "styler",
+# "bit64",
+# "DT",
+# "raster",
+# "leaflet",
+# "sf",
+# "checkmate",
+# "janitor",
+#   "shinytest2",
+#   "diffviewer",
+#   "RODBC"
+# )
+
+# Install each package using install.packages()
+# for (package in packages_to_install) {
+#   print(paste("Installing package:", package))
+#   install.packages(package)
+# }
+
+# Install "dfeshiny"
+# renv::install("dfe-analytical-services/dfeshiny")
+
 
 # Library calls ----------------------------------------------------------------------------------
 
@@ -92,7 +140,7 @@ google_analytics_key <- "DG7P4WLB0Y"
 
 #### SECTION 1 - date filters ####
 start_date <- as.Date("2023-09-11")
-end_date <- as.Date("2024-06-14")
+end_date <- as.Date("2024-06-28")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
