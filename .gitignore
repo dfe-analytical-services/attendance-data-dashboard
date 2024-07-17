@@ -3,12 +3,6 @@
 .RData
 .Ruserdata
 rsconnect
-data/EES_aut_data.csv
-data/EES_daily_data.csv
-data/EES_spr_data.csv
-data/EES_sum_data.csv
-data/EES_weekly_data.csv
-data/EES_ytd_data.csv
 data/sql_export*
 data/export*
 data/enrolment*
