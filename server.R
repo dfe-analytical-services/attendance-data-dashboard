@@ -1450,8 +1450,8 @@ server <- function(input, output, session) {
     # last_update_date <- as.Date(last_update_date) + 31
 
 
-    paste0("Data was last updated on ", last_update_date, ".")
-    # paste0("Data was last updated on 2024-06-13")
+    # paste0("Data was last updated on ", last_update_date, ".")
+    paste0("Data was last updated on 2024-08-08")
   })
 
   output$la_clarity_dates <- renderText({
@@ -1487,8 +1487,9 @@ server <- function(input, output, session) {
     # next_update_date <- as.Date(next_update_date) + 38
 
     # paste0("Data was last updated on 2024-06-13 and is next expected to be updated on 2024-06-27. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on 2024-08-08. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
   output$update_dates2 <- renderText({
@@ -1513,8 +1514,9 @@ server <- function(input, output, session) {
     # next_update_date <- as.Date(next_update_date) + 38
 
     # paste0("Data was last updated on 2024-06-13 and is next expected to be updated on 2024-06-27. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on 2024-08-08. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
 
@@ -1537,8 +1539,9 @@ server <- function(input, output, session) {
     # as.Date() + 38
 
     # paste0("Data was last updated on 2024-06-13 and is next expected to be updated on 2024-06-27. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on 2024-08-08. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
 
