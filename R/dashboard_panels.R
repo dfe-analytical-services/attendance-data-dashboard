@@ -485,6 +485,12 @@ dashboard_panel <- function() {
                         DTOutput("absence_unauth_reasons_table_ytd")
                       )
                     )
+                  ),
+                  fluidRow(
+                    column(
+                      12,
+                      reactableOutput("api_reasons_table")
+                    )
                   )
                 )
               )

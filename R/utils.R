@@ -132,8 +132,3 @@ customDisconnectMessage <- function(refresh = "Refresh page",
     ))
   )
 }
-
-
-roundFiveUp <- function(x) {
-  ceiling(x / 5) * 5
-}

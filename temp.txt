@@ -1,0 +1,30 @@
+{
+        "criteria": {
+           "and": [
+               {
+        "geographicLevels": {
+          "eq": ""
+        }
+      },{
+      "timePeriods": {
+        "in": [
+          {
+            "period": "2024",
+            "code": "W26"
+          }
+        ]
+      }
+    },  {
+        "filters": {
+          "eq": "0mST5"
+        }
+      }
+    ]
+  },
+  "indicators": [
+    "session_percent"
+  ],
+  "debug": true,
+  "page": 1,
+  "pageSize": 1000
+}

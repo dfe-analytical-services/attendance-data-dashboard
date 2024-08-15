@@ -60,10 +60,18 @@
 
 # Library calls ----------------------------------------------------------------------------------
 
+library(readr)
+library(curl)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(httr)
+library(xml2)
 library(rsconnect)
 library(shinyGovstyle)
 library(shiny)
 library(shinyjs)
+library(bslib)
 library(tools)
 library(testthat)
 library(shinydashboard)
@@ -91,6 +99,8 @@ library(dfeshiny)
 library(shinytest2)
 library(diffviewer)
 library(RODBC)
+library(reactable)
+library(jsonlite)
 
 # Functions ---------------------------------------------------------------------------------
 
