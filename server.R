@@ -200,8 +200,6 @@ server <- function(input, output, session) {
   # Creates data all measures are derived from
 
   # Daily data
-  rv <- reactiveValues(cache_daily = NULL)
-
   api_attendance_daily <- reactive({
     read_api_attendance(
       geographic_level = input$geography_choice,
