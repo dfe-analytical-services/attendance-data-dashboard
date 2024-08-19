@@ -44,8 +44,8 @@ read_api_attendance <- function(
     time_frame_query <- filter_query("time_frame", c("Daily", "Weekly"), filters)
   }
 
-  print(filter_query("establishment_phase", establishment_phase, filters))
-  print(time_frame_query)
+  #  print(filter_query("establishment_phase", establishment_phase, filters))
+  #  print(time_frame_query)
   # Create the query
   body <- paste0(
     '{
@@ -66,15 +66,15 @@ read_api_attendance <- function(
   "pageSize": 1000
 }'
   )
-  cat(body, file = "temp.txt")
-
+  # cat(body, file = "temp.txt")
+  message("I'm sending an API query")
   response <- httr::POST(
     url,
     body = body,
     encode = "json",
     content_type("application/json")
   )
-  print(response)
+  # print(response)
   output <- content(response)
   if (parse) {
     output <- parse_ees_api_query(output)

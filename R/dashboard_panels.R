@@ -409,6 +409,12 @@ dashboard_panel <- function() {
               ),
               fluidRow(
                 column(
+                  12,
+                  reactableOutput("api_reasons_table")
+                )
+              ),
+              fluidRow(
+                column(
                   width = 12,
                   conditionalPanel(
                     condition = paste0("input.ts_choice == 'latestweeks'"),
@@ -484,12 +490,6 @@ dashboard_panel <- function() {
                         p("Unauthorised absence"),
                         DTOutput("absence_unauth_reasons_table_ytd")
                       )
-                    )
-                  ),
-                  fluidRow(
-                    column(
-                      12,
-                      reactableOutput("api_reasons_table")
                     )
                   )
                 )

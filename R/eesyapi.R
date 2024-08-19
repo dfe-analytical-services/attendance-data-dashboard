@@ -95,7 +95,7 @@ filter_query <- function(colname, item, filter_meta) {
 # few lines of code.
 parse_ees_api_query <- function(api_output, clear_codes = TRUE) {
   results <- api_output$results
-  print(results)
+  # print(results)
   dfnames <- c(
     "time_period", "time_identifier", "geographic_level",
     names(results[[1]]$locations),

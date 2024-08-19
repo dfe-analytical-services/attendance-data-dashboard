@@ -3,7 +3,7 @@
            "and": [
                {
         "geographicLevels": {
-          "eq": ""
+          "eq": "NAT"
         }
       },{
       "timePeriods": {
@@ -16,7 +16,7 @@
       }
     },  {
         "filters": {
-          "eq": "0mST5"
+          "eq": "WZy2b"
         }
       }
     ]

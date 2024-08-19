@@ -200,19 +200,55 @@ server <- function(input, output, session) {
   # Creates data all measures are derived from
 
   # Daily data
-  api_attendance_daily <- reactive({
-    read_api_attendance(
-      geographic_level = input$geography_choice,
-      establishment_phase = input$school_choice
-    )
-  })
+  rv <- reactiveValues(cache_daily = NULL)
+
+  api_attendance_daily <- eventReactive(
+    c(input$geography_choice, input$school_choice),
+    {
+      run_query <- TRUE
+      if (!is.null(rv$cache_daily)) {
+        if (
+          input$geography_choice %in% rv$cache_daily$geographic_level &
+            input$school_choice %in% rv$cache_daily$establishment_phase
+        ) {
+          run_query <- FALSE
+        }
+      }
+      if (run_query) {
+        data <- read_api_attendance(
+          geographic_level = input$geography_choice,
+          establishment_phase = input$school_choice
+        ) %>%
+          mutate(
+            geographic_level = case_when(
+              geographic_level == "NAT" ~ "National",
+              .default = geographic_level
+            )
+          )
+        if (is.null(rv$cache_daily)) {
+          rv$cache_daily <- data
+        } else {
+          rv$cache_daily <- rv$cache_daily %>%
+            rbind(data)
+        }
+      } else {
+        data <- rv$cache_daily %>%
+          filter(
+            geographic_level == input$geography_choice,
+            establishment_phase == input$school_choice
+          )
+      }
+
+      data
+    }
+  )
 
   observe({
     message("API")
-    print(api_attendance_daily() %>%
-      filter(reason %in% c("G unauthorised holiday", "H authorised holiday", "I authorised illness", "N no reason yet")))
+    #    print(api_attendance_daily() %>%
+    #      filter(reason %in% c("G unauthorised holiday", "H authorised holiday", "I authorised illness", "N no reason yet")))
     message("File")
-    print(live_attendance_data_daily())
+    #    print(live_attendance_data_daily())
   })
 
 
