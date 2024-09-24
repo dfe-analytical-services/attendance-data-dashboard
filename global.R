@@ -162,8 +162,8 @@ end_date <- as.Date("2024-09-13")
 # summer_start <- as.Date("2024-04-01")
 # summer_end <- as.Date("2024-07-19")
 
-most_recent_week_dates <- paste0("Latest week -", as.Date(end_date) - 4, " to ", as.Date(end_date))
-ytd_dates <- paste0("Year to date -", as.Date(start_date), "to", as.Date(end_date))
+most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4, " to ", as.Date(end_date))
+ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date))
 
 #### SECTION 2 - reading in csvs to run dashboard ####
 attendance_data <- read.csv("data/attendance_data_dashboard.csv")
