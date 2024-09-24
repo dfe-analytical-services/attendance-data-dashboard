@@ -167,6 +167,8 @@ ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_
 
 #### SECTION 2 - reading in csvs to run dashboard ####
 attendance_data <- read.csv("data/attendance_data_dashboard.csv")
+attendance_data$attendance_date <- as.Date(attendance_data$attendance_date)
+attendance_data$week_commencing <- as.Date(attendance_data$week_commencing)
 
 message(paste("Finished processing steps, ", Sys.time()))
 
