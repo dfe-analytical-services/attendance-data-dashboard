@@ -25,14 +25,6 @@ server <- function(input, output, session) {
   hide(id = "loading-content", anim = TRUE, animType = "fade")
   show("app-content")
 
-  output$cookie_status <- dfeshiny::cookie_banner_server(
-    "cookies",
-    input_cookies = reactive(input$cookies),
-    input_clear = reactive(input$cookie_consent_clear),
-    parent_session = session,
-    google_analytics_key = google_analytics_key
-  )
-
   # Navigation with links
   observeEvent(input$link_to_headlines_tab, {
     updateTabsetPanel(session, "navlistPanel", selected = "dashboard")
@@ -68,7 +60,6 @@ server <- function(input, output, session) {
 
   # Setting up reactive levels for dropdown ------------------------------------------------------------
 
-  # Local authority geographies
 
   # NEW LA FILTERING
 
@@ -105,7 +96,6 @@ server <- function(input, output, session) {
     }
   })
 
-
   # School type updating based on geographic level
   observe({
     if (input$dash == "la comparisons") {
@@ -122,15 +112,6 @@ server <- function(input, output, session) {
       selected = input$school_choice
     )
   })
-
-  # observe({
-  #   if (input$dash == "la comparisons") {
-  #     updateSelectInput(session, "geography_choice",
-  #                       choices = c("National","Regional","Local authority"),
-  #                       selected = "National"
-  #     )
-  #   }
-  # })
 
   # Reactive dates for dropdown
 
@@ -195,6 +176,7 @@ server <- function(input, output, session) {
       paste0("Current selections: ", reactive_period_selected(), ", ", input$school_choice, ", ", input$geography_choice, ", ", input$region_choice, ", ", input$la_choice)
     }
   })
+
 
   # Defining reactive data ------------------------------------------------------------
   # Creates data all measures are derived from
@@ -307,9 +289,10 @@ server <- function(input, output, session) {
           appointments_perc = appointments_perc / 100,
           auth_religious_perc = auth_religious_perc / 100,
           auth_study_perc = auth_study_perc / 100,
-          auth_grt_perc = auth_grt_perc / 100,
-          auth_holiday_perc = auth_holiday_perc / 100,
+          auth_mob_perc = auth_mob_perc / 100,
+          # auth_holiday_perc = auth_holiday_perc / 100,
           auth_excluded_perc = auth_excluded_perc / 100,
+          auth_part_time_perc = auth_part_time_perc / 100,
           auth_other_perc = auth_other_perc / 100,
           unauth_hol_perc = unauth_hol_perc / 100,
           unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
@@ -330,9 +313,10 @@ server <- function(input, output, session) {
           appointments_perc = appointments_perc / 100,
           auth_religious_perc = auth_religious_perc / 100,
           auth_study_perc = auth_study_perc / 100,
-          auth_grt_perc = auth_grt_perc / 100,
-          auth_holiday_perc = auth_holiday_perc / 100,
+          auth_mob_perc = auth_mob_perc / 100,
+          # auth_holiday_perc = auth_holiday_perc / 100,
           auth_excluded_perc = auth_excluded_perc / 100,
+          auth_part_time_perc = auth_part_time_perc / 100,
           auth_other_perc = auth_other_perc / 100,
           unauth_hol_perc = unauth_hol_perc / 100,
           unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
@@ -354,9 +338,10 @@ server <- function(input, output, session) {
           appointments_perc = appointments_perc / 100,
           auth_religious_perc = auth_religious_perc / 100,
           auth_study_perc = auth_study_perc / 100,
-          auth_grt_perc = auth_grt_perc / 100,
-          auth_holiday_perc = auth_holiday_perc / 100,
+          auth_mob_perc = auth_mob_perc / 100,
+          # auth_holiday_perc = auth_holiday_perc / 100,
           auth_excluded_perc = auth_excluded_perc / 100,
+          auth_part_time_perc = auth_part_time_perc / 100,
           auth_other_perc = auth_other_perc / 100,
           unauth_hol_perc = unauth_hol_perc / 100,
           unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
@@ -381,15 +366,16 @@ server <- function(input, output, session) {
         appointments_perc = appointments_perc / 100,
         auth_religious_perc = auth_religious_perc / 100,
         auth_study_perc = auth_study_perc / 100,
-        auth_grt_perc = auth_grt_perc / 100,
-        auth_holiday_perc = auth_holiday_perc / 100,
+        auth_mob_perc = auth_mob_perc / 100,
+        # auth_holiday_perc = auth_holiday_perc / 100,
         auth_excluded_perc = auth_excluded_perc / 100,
+        auth_part_time_perc = auth_part_time_perc / 100,
         auth_other_perc = auth_other_perc / 100,
         unauth_hol_perc = unauth_hol_perc / 100,
         unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
         unauth_oth_perc = unauth_oth_perc / 100,
         unauth_not_yet_perc = unauth_not_yet_perc / 100
-        # pa_perc = pa_perc / 100
+        # ,pa_perc = pa_perc / 100
       )
     } else if (input$geography_choice == "Regional") {
       dplyr::filter(
@@ -403,15 +389,16 @@ server <- function(input, output, session) {
         appointments_perc = appointments_perc / 100,
         auth_religious_perc = auth_religious_perc / 100,
         auth_study_perc = auth_study_perc / 100,
-        auth_grt_perc = auth_grt_perc / 100,
-        auth_holiday_perc = auth_holiday_perc / 100,
+        auth_mob_perc = auth_mob_perc / 100,
+        # auth_holiday_perc = auth_holiday_perc / 100,
         auth_excluded_perc = auth_excluded_perc / 100,
+        auth_part_time_perc = auth_part_time_perc / 100,
         auth_other_perc = auth_other_perc / 100,
         unauth_hol_perc = unauth_hol_perc / 100,
         unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
         unauth_oth_perc = unauth_oth_perc / 100,
         unauth_not_yet_perc = unauth_not_yet_perc / 100
-        # pa_perc = pa_perc / 100
+        # ,pa_perc = pa_perc / 100
       )
     } else if (input$geography_choice == "Local authority") {
       dplyr::filter(
@@ -426,15 +413,17 @@ server <- function(input, output, session) {
         appointments_perc = appointments_perc / 100,
         auth_religious_perc = auth_religious_perc / 100,
         auth_study_perc = auth_study_perc / 100,
-        auth_grt_perc = auth_grt_perc / 100,
-        auth_holiday_perc = auth_holiday_perc / 100,
+        auth_mob_perc = auth_mob_perc / 100,
+        # auth_holiday_perc = auth_holiday_perc / 100,
         auth_excluded_perc = auth_excluded_perc / 100,
+        auth_performance_perc = auth_performance_perc / 100,
+        auth_part_time_perc = auth_part_time_perc / 100,
         auth_other_perc = auth_other_perc / 100,
         unauth_hol_perc = unauth_hol_perc / 100,
         unauth_late_registers_closed_perc = unauth_late_registers_closed_perc / 100,
         unauth_oth_perc = unauth_oth_perc / 100,
         unauth_not_yet_perc = unauth_not_yet_perc / 100
-        # pa_perc = pa_perc / 100
+        # ,pa_perc = pa_perc / 100
       )
     } else {
       NA
@@ -450,7 +439,7 @@ server <- function(input, output, session) {
       breakdown == "Weekly"
     ) %>%
       filter(time_identifier == max(time_identifier)) %>%
-      # filter(time_identifier == max(time_identifier) - 1) %>%
+      # filter(time_identifier == max(time_identifier)-1) %>%
       mutate(
         overall_absence_perc = overall_absence_perc / 100,
         authorised_absence_perc = authorised_absence_perc / 100,
@@ -786,7 +775,6 @@ server <- function(input, output, session) {
       paste0("Weekly summary of absence reasons for ", "<br>", str_to_lower(input$school_choice), " state-funded schools", " at ", str_to_lower(input$geography_choice), " level", "<br>", "(", input$region_choice, ", ", input$la_choice, ")")
     }
   })
-
   output$absence_reasons_timeseries_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_ts()) > 0, "There is no data available for this breakdown at present"))
     validate(need(live_attendance_data_ts()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
@@ -812,6 +800,15 @@ server <- function(input, output, session) {
         line = list(color = "#28A197"),
         marker = list(color = "#28A197"),
         name = "Medical appointments",
+        hovertemplate = "%{y:.1f}%",
+        mode = "markers"
+      ) %>%
+      add_trace(
+        x = ~week_commencing,
+        y = ~auth_part_time_perc,
+        line = list(color = "#FFBF47"),
+        marker = list(color = "#FFBF47"),
+        name = "Part-time timetable",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
       ) %>%
@@ -915,6 +912,15 @@ server <- function(input, output, session) {
         line = list(color = "#28A197"),
         marker = list(color = "#28A197"),
         name = "Medical appointments",
+        hovertemplate = "%{y:.1f}%",
+        mode = "markers"
+      ) %>%
+      add_trace(
+        x = ~attendance_date,
+        y = ~auth_part_time_perc,
+        line = list(color = "#FFBF47"),
+        marker = list(color = "#FFBF47"),
+        name = "Part-time timetable",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
       ) %>%
@@ -1042,8 +1048,8 @@ server <- function(input, output, session) {
     pull(attendance_date)
 
   output$daily_schools_count <- renderText({
-    # paste0(scales::comma(schools_count), " schools provided information on the latest full day of data prior to half-term, i.e. ", schools_count_date)
     paste0(scales::comma(schools_count), " schools provided information on the latest full day of data, i.e. ", schools_count_date)
+    # paste0(scales::comma(schools_count), " schools provided information on the latest full day of data prior to half-term, i.e. ", schools_count_date)
     # paste0(scales::comma(schools_count_pre_ht), " schools provided information on the last full day of data prior to half-term, i.e. ", schools_count_date_pre_ht)
   })
 
@@ -1090,7 +1096,7 @@ server <- function(input, output, session) {
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
     # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
-    paste0("This number is approximately ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of the number of schools participating in the School Census. As schools opt in to sharing of data, the number of schools reporting may change over time.")
+    paste0("This number is approximately ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of the number of schools participating in the School Census. From the 19 August 2024 it became mandatory for schools to share attendance data with the DfE. As more schools share their data, the number of schools reporting may change over time.")
   })
 
   # Proportion of schools in census figures are generated from - year to date
@@ -1391,47 +1397,47 @@ server <- function(input, output, session) {
 
   # Headline persistent absence ytd
   # Bullet for national level
-  output$ytd_pa_rate_nat <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>% pull(pa_perc) %>% round(digits = 1),
-      "% of pupils were recorded as persistently absent"
-    )
-  })
+  # output$ytd_pa_rate_nat <- renderText({
+  #   validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+  #   validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
+  #
+  #   paste0(
+  #     "• ", live_attendance_data_ytd() %>% pull(pa_perc) %>% round(digits = 1),
+  #     "% of pupils were recorded as persistently absent"
+  #   )
+  # })
 
   # Bullet for regional level
-  output$ytd_pa_rate_reg <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>%
-        pull(pa_perc) %>%
-        round(digits = 1),
-      "% of pupils were recorded as persistently absent in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
-        pull(pa_perc) %>%
-        round(digits = 1),
-      "% of pupils at national level)"
-    )
-  })
+  # output$ytd_pa_rate_reg <- renderText({
+  #   validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+  #   validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
+  #
+  #   paste0(
+  #     "• ", live_attendance_data_ytd() %>%
+  #       pull(pa_perc) %>%
+  #       round(digits = 1),
+  #     "% of pupils were recorded as persistently absent in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
+  #       pull(pa_perc) %>%
+  #       round(digits = 1),
+  #     "% of pupils at national level)"
+  #   )
+  # })
 
   # Bullet for LA level
-  output$ytd_pa_rate_la <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>%
-        pull(pa_perc) %>%
-        round(digits = 1),
-      "% of pupils were recorded as persistently absent in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
-        pull(pa_perc) %>%
-        round(digits = 1),
-      "% of pupils in ", input$region_choice, ")"
-    )
-  })
+  # output$ytd_pa_rate_la <- renderText({
+  #   validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+  #   validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
+  #
+  #   paste0(
+  #     "• ", live_attendance_data_ytd() %>%
+  #       pull(pa_perc) %>%
+  #       round(digits = 1),
+  #     "% of pupils were recorded as persistently absent in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
+  #       pull(pa_perc) %>%
+  #       round(digits = 1),
+  #     "% of pupils in ", input$region_choice, ")"
+  #   )
+  # })
 
 
   # Creating reactive dates for text ------------------------------------------------------------
@@ -1443,15 +1449,13 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     last_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date)
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 17
+    # as.Date(attendance_date) + 24
+    # as.Date(attendance_date) + 31
 
-    last_update_date <- as.Date(last_update_date) + 17
-    # last_update_date <- as.Date(last_update_date) + 24
-    # last_update_date <- as.Date(last_update_date) + 31
-
-
-    # paste0("Data was last updated on ", last_update_date, ".")
-    paste0("Data was last updated on 2024-08-08")
+    paste0("Data was last updated on ", last_update_date, ".")
+    # paste0("Data was last updated on 2024-08-08")
   })
 
   output$la_clarity_dates <- renderText({
@@ -1461,8 +1465,8 @@ server <- function(input, output, session) {
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(week_commencing)
 
-    # paste0("Data on this tab relates to the week commencing 2023-10-16")
     paste0("Data on this tab relates to the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data on this tab relates to the week commencing 2023-12-11.")
   })
 
   output$update_dates <- renderText({
@@ -1474,22 +1478,20 @@ server <- function(input, output, session) {
       pull(week_commencing)
 
     last_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date)
-
-    last_update_date <- as.Date(last_update_date) + 17
-    # last_update_date <- as.Date(last_update_date) + 24
-    # last_update_date <- as.Date(last_update_date) + 31
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 17
+    # as.Date(attendance_date) + 24
+    # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date)
-
-    next_update_date <- as.Date(next_update_date) + 31
-    # next_update_date <- as.Date(next_update_date) + 38
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 31
+    # as.Date(attendance_date) + 38
 
     # paste0("Data was last updated on 2024-06-13 and is next expected to be updated on 2024-06-27. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
-    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on 2024-08-08. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on 2024-08-08. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
   output$update_dates2 <- renderText({
@@ -1501,22 +1503,20 @@ server <- function(input, output, session) {
       pull(week_commencing)
 
     last_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date)
-
-    last_update_date <- as.Date(last_update_date) + 17
-    # last_update_date <- as.Date(last_update_date) + 24
-    # last_update_date <- as.Date(last_update_date) + 31
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 17
+    # as.Date(attendance_date) + 24
+    # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date)
+      pull(attendance_date) %>%
+      as.Date(attendance_date) + 31
+    # as.Date(attendance_date) + 38
 
-    next_update_date <- as.Date(next_update_date) + 31
-    # next_update_date <- as.Date(next_update_date) + 38
-
-    # paste0("Data was last updated on 2024-06-13 and is next expected to be updated on 2024-06-27. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
-    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on 2024-06-13 and is next expected to be updated on 2024-06-27. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on 2024-08-08. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on 2024-08-08. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
 
@@ -1529,19 +1529,19 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      as.Date() + 17
-    # as.Date() + 24
-    # as.Date() + 31
+      as.Date(attendance_date) + 17
+    # as.Date(attendance_date) + 24
+    # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      as.Date() + 31
-    # as.Date() + 38
+      as.Date(attendance_date) + 31
+    # as.Date(attendance_date) + 38
 
-    # paste0("Data was last updated on 2024-06-13 and is next expected to be updated on 2024-06-27. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on 2024-06-13 and is next expected to be updated on 2024-06-27. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on 2024-08-08. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on 2024-08-08. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
 
@@ -1562,7 +1562,7 @@ server <- function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(overall_absence_rate_weekly_headline, "%"),
-      paste0("Latest full week"),
+      paste0("latest full week"),
       color = "blue"
     )
   })
@@ -1599,7 +1599,7 @@ server <- function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(overall_auth_rate_weekly_headline, "%"),
-      paste0("Latest full week"),
+      paste0("latest full week"),
       color = "blue"
     )
   })
@@ -1636,7 +1636,7 @@ server <- function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(overall_unauth_rate_weekly_headline, "%"),
-      paste0("Latest full week"),
+      paste0("latest full week"),
       color = "blue"
     )
   })
@@ -1666,15 +1666,19 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_auth_reasons_dt <- live_attendance_data_weekly_reasons_tables() %>%
-      dplyr::select(illness_perc, appointments_perc, auth_religious_perc, auth_study_perc, auth_grt_perc, auth_holiday_perc, auth_excluded_perc, auth_other_perc) %>%
+      dplyr::select(
+        illness_perc, appointments_perc, auth_religious_perc, auth_study_perc, auth_mob_perc, # auth_holiday_perc
+        , auth_excluded_perc, auth_part_time_perc, auth_other_perc
+      ) %>%
       rename(
         "Illness" = illness_perc,
         "Medical or dental appointments" = appointments_perc,
         "Religious observance" = auth_religious_perc,
         "Study leave" = auth_study_perc,
-        "Traveller" = auth_grt_perc,
-        "Holiday" = auth_holiday_perc,
+        "Mobile students" = auth_mob_perc,
+        # "Holiday" = auth_holiday_perc,
         "Excluded" = auth_excluded_perc,
+        "Part-time timetable" = auth_part_time_perc,
         "Other" = auth_other_perc
       )
 
@@ -1701,15 +1705,19 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     absence_auth_reasons_ytd_dt <- live_attendance_data_ytd_reasons_tables() %>%
-      dplyr::select(illness_perc, appointments_perc, auth_religious_perc, auth_study_perc, auth_grt_perc, auth_holiday_perc, auth_excluded_perc, auth_other_perc) %>%
+      dplyr::select(
+        illness_perc, appointments_perc, auth_religious_perc, auth_study_perc, auth_mob_perc, # auth_holiday_perc,
+        auth_excluded_perc, auth_part_time_perc, auth_other_perc
+      ) %>%
       rename(
         "Illness" = illness_perc,
         "Medical or dental appointments" = appointments_perc,
         "Religious observance" = auth_religious_perc,
         "Study leave" = auth_study_perc,
-        "Traveller" = auth_grt_perc,
-        "Holiday" = auth_holiday_perc,
+        "Mobile students" = auth_mob_perc,
+        # "Holiday" = auth_holiday_perc,
         "Excluded" = auth_excluded_perc,
+        "Part-time timetable" = auth_part_time_perc,
         "Other" = auth_other_perc
       )
 
@@ -1854,6 +1862,7 @@ server <- function(input, output, session) {
       write.csv(underlying_data, con, row.names = FALSE)
     }
   )
+
 
   ## Create the map function ###############################################
 
