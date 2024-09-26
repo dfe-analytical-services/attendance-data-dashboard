@@ -32,13 +32,13 @@ homepage_panel <- function() {
                 tags$div(
                   title = "Headline information on overall and persistent absence",
                   h3(actionLink("link_to_headlines_tab", "Headlines")),
-                  p("The headlines tab includes information on attendance, overall absence (including  authorised and unauthorised absence) in the latest week and across the year to date, depending on dropdown selected."),
-                  p("• Charts on this tab display overall, authorised and unauthorised absence rates"),
-                  p("• Headline bullets show the overall attendance and absence rates, in addition to illness absence rate"),
-                  p("• This tab includes data relating to persistent absence (pupils missing 10% or more sessions). To view these, select “year to date” in the drop-down menu. Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods. Underlying data relating to the Summer, Spring and Autumn term and year to date is available at the link below:"),
-                  a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools"),
-                  # p("• This tab will be updated in early 2024 to display data relating to persistent absence (pupils missing 10% or more sessions). Underlying data relating to individual terms and the full academic year 2022/23 is available at the link below:"),
-                  # a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2023-week-29", "Pupil attendance in schools"),
+                  p("The headlines tab includes information on attendance, overall absence (including  authorised and unauthorised absence) in the latest week and across the year to date, depending on the dropdown selected."),
+                  p("• Charts on this tab display overall, authorised and unauthorised absence rates."),
+                  p("• Headline bullets show the overall attendance and absence rates, in addition to illness absence rate."),
+                  # p("• This tab includes data relating to persistent absence (pupils missing 10% or more sessions). To view these, select “year to date” in the drop-down menu. Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods. Underlying data relating to the Summer, Spring and Autumn term and year to date is available at the link below:"),
+                  # a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools"),
+                  p("• This tab will be updated in early 2025 to display data relating to persistent absence (pupils missing 10% or more sessions). Underlying data relating to individual terms and the full academic year 2023/24 is available at the link below:"),
+                  a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2024-week-29", "Pupil attendance in schools - 2023/24 academic year"),
                   br(),
                   br(),
                   # p("No figures for the day of teacher strikes have been provided in the dashboard and underlying data. Further information on attendance during these days available at the link below:"),
@@ -48,10 +48,10 @@ homepage_panel <- function() {
                 tags$div(
                   title = "Reasons for absence including authorised and unauthorised, in addition to breakdowns of the above",
                   h3(actionLink("link_to_reasons_tab", "Reasons")),
-                  p("The reasons tab includes information on authorised and unauthorised absence rates, alongside the individual reasons for absence, in the latest week and across the year to date, depending on dropdown selected."),
-                  p("• The chart on this tab displays absence rates associated with some of the most common absence reasons, including illness, holidays and medical appointments"),
-                  p("• Headline boxes show the latest authorised and unauthorised absence rates"),
-                  p("• Tables show absence rates associated with each of the individual reasons for absence"),
+                  p("The reasons tab includes information on authorised and unauthorised absence rates, alongside the individual reasons for absence, in the latest week and across the year to date, depending on the dropdown selected."),
+                  p("• The chart on this tab displays absence rates associated with some of the most common absence reasons, including illness, holidays and medical appointments."),
+                  p("• Headline boxes show the latest authorised and unauthorised absence rates."),
+                  p("• Tables show absence rates associated with each of the individual reasons for absence."),
                 ),
                 br(),
                 tags$div(
@@ -80,35 +80,39 @@ homepage_panel <- function() {
                 class = "panel-body",
                 tags$div(
                   p(
-                    "These figures are derived from regular data automatically submitted to the Department for Education (DfE) by participating schools. These are intended to continue the series that was previously sourced from the daily Educational Settings Survey (EdSet). Due to the timeliness of the data and that they are based on a subset of schools, the figures are estimates that we expect to change as registers are adjusted. They should be viewed as an early indicator for the more detailed but less regular",
+                    "These figures are derived from regular data automatically submitted to the Department for Education (DfE) by participating schools. Due to the timeliness of the data and that they are based on a subset of schools, the figures are estimates that we expect to change as registers are adjusted. They should be viewed as an early indicator for the more detailed but less regular",
                     a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england", "National Statistics"), "on pupil absence (which will include school level breakdowns)."
                   ),
                   br(),
                   h3("Coverage"),
                   p(textOutput("daily_schools_count")),
                   p(textOutput("school_count_proportion_homepage")),
-                  p("Absence rates are provided broken down by state-funded primary, secondary and special schools. At national and regional level, absence figures are also provided across all schools. In recognition that response rates are not equal across school types and, therefore, not representative of the total school population, the total absence figure for all schools has been weighted based on the Spring 2023 school census. Weighted total figures are not included at local authority level due to the low number of schools involved."),
+                  p("Absence rates are provided broken down by state-funded primary, secondary and special schools. At national and regional level, absence figures are also provided across all schools. In recognition that response rates are not equal across school types and, therefore, not representative of the total school population, the total absence figure for all schools has been weighted based on the Spring 2024 school census. Weighted total figures are not included at local authority level due to the low number of schools involved."),
                   br(),
                   h3("National statistics"),
+                  p("Data relating to pupil attendance is published at the link below:"),
+                  a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools"),
+                  br(),
+                  br(),
+                  p("For 2023/24 full academic year and termly pupil attendance data, including by characteristics, please see the historical publication at the link below:"),
+                  a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2024-week-29", "Pupil attendance in schools - 2023/24 academic year"),
+                  br(),
+                  br(),
                   p("This dashboard has been developed as an accompaniment to DFE's termly National statistics on pupil absence. You can access this publication through the link below:"),
                   a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england", "Pupil absence in schools in England"),
-                  br(),
-                  br(),
-                  p("From the 2022/23 academic year onwards, all data relating to pupil attendance will be published at the link below:"),
-                  a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools"),
                   br(),
                   br(),
                   p("Statistics presented in this dashboard are based on a smaller, non-random sample of schools in comparison to National statistics. Absence statistics are available on a termly basis in the National statistics, while this dashboard enables more timely daily and weekly data. They should, therefore, be viewed as an early indicator for the more detailed but less regular National Statistics (which will include school level breakdowns)."),
                   p("Data is lagged by 2 weeks in order to allow for any retrospective changes to the data in schools, for example changing an unauthorised absence to late. As a result, data presented may change between dashboard updates."),
                   textOutput("homepage_update_dates"),
-                  p("Data prior to 11 September 2023 has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level estimates covering the week commencing 4 September 2023 is available in the underlying data of the publication linked below: "),
-                  a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2023-week-37", "Pupil attendance in schools"),
+                  p("Data prior to 09 September 2024 has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level estimates covering the week commencing 02 September 2024 is available in the underlying data of the publication linked below: "),
+                  a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2024-week-37", "Pupil attendance in schools - First publication of 2024/25 academic year"),
                   br(),
                   br(),
                   p(
                     strong(
-                      "If you are a school that has not yet signed up to share your data, please visit ",
-                      a(href = "https://www.gov.uk/guidance/share-your-daily-school-attendance-data", "Share your daily school attendance data"), "for more information. This will also give you, your local authority and your multi-academy trust (if applicable)",
+                      "From the start of the 2024/25 academic year, it became mandatory for schools to ",
+                      a(href = "https://www.gov.uk/guidance/share-your-daily-school-attendance-data", "share attendance data"), " with the DfE. If you are a school that is not already sharing your daily attendance data, you need to approve this in your Wonde portal. This will also give you, your local authority and your multi-academy trust (if applicable)",
                       a(href = "https://www.gov.uk/guidance/access-your-school-attendance-data", "access to daily attendance reports"), "to help identify pupils needing attendance support earlier."
                     )
                   ),
@@ -305,24 +309,24 @@ dashboard_panel <- function() {
                     condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'Local authority'"),
                     textOutput("ytd_illness_rate_la")
                   ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate'"),
-                    br(),
-                    p(strong(paste0("Persistent absence across year to date"))),
-                    p("A pupil enrolment is identified as persistently absent if they have missed 10% or more of their possible sessions in the year to date.")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'National'"),
-                    textOutput("ytd_pa_rate_nat")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'Regional'"),
-                    textOutput("ytd_pa_rate_reg")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'Local authority'"),
-                    textOutput("ytd_pa_rate_la")
-                  ),
+                  # conditionalPanel(
+                  #   condition = paste0("input.ts_choice == 'yeartodate'"),
+                  #   br(),
+                  #   p(strong(paste0("Persistent absence across year to date"))),
+                  #   p("A pupil enrolment is identified as persistently absent if they have missed 10% or more of their possible sessions in the year to date.")
+                  # ),
+                  # conditionalPanel(
+                  #   condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'National'"),
+                  #   textOutput("ytd_pa_rate_nat")
+                  # ),
+                  # conditionalPanel(
+                  #   condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'Regional'"),
+                  #   textOutput("ytd_pa_rate_reg")
+                  # ),
+                  # conditionalPanel(
+                  #   condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'Local authority'"),
+                  #   textOutput("ytd_pa_rate_la")
+                  # ),
                   conditionalPanel(
                     condition = paste0("input.ts_choice == 'latestweeks'"),
                     p(strong(paste0("Attendance and absence in the latest week"))),
@@ -364,12 +368,12 @@ dashboard_panel <- function() {
                     condition = paste0("input.ts_choice == 'latestweeks' && input.geography_choice == 'Local authority'"),
                     textOutput("weekly_illness_rate_la")
                   ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'latestweeks'"),
-                    br(),
-                    p(strong(paste0("To view persistent absence figures, select “year to date” in the drop-down menu. Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods. Underlying data relating to the Summer, Spring and Autumn terms and year to date is available at the link below:"))),
-                    a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools")
-                  ),
+                  # conditionalPanel(
+                  #   condition = paste0("input.ts_choice == 'latestweeks'"),
+                  #   br(),
+                  #   p(strong(paste0("To view persistent absence figures, select “year to date” in the drop-down menu. Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods. Underlying data relating to the Summer, Spring and Autumn terms and year to date is available at the link below:"))),
+                  #   a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools")
+                  # ),
                   br(),
                   h5(textOutput("headline_ts_chart_title")),
                   conditionalPanel(
@@ -551,15 +555,15 @@ notes_panel <- function() {
           br("The dashboard provides data on attendance and absence at National, Regional and Local Authority geographic levels. Data is available across state-funded primary, secondary and special schools and can also be broken down by individual school type. Drop-down menus at the top of the page allow customisation of breakdowns."),
           br(),
           p("Users should be aware"),
-          p("• Estimates for non-response - In recognition that response rates are not equal across school types and, therefore, not representative of the total school population, the total rates for all schools has been weighted based on the Spring 2023 school census. Weighted total figures are not included at local authority level due to the low number of schools involved."),
+          p("• Estimates for non-response - In recognition that response rates are not equal across school types and, therefore, not representative of the total school population, the total rates for all schools has been weighted based on the Spring 2024 school census. Weighted total figures are not included at local authority level due to the low number of schools involved."),
           p("• Reporting lag - Schools update their registers continually and attendance codes change, resulting in absence rates for a particular day to decrease over time. Analysis of data from the Summer 2022 term suggests that this could be a decrease in the absence rate of around 1 percentage point before settling down. Historical figures will be recalculated in each publication."),
           # p("• Data prior to 12 September 2022 has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level data covering the week commencing 5th September is available on", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Explore Education Statistics"), ". Data at National and Regional level for the week commencing 19th December has not been included as very few Local Authorities have schools open during this week. Where Local Authorities were open during the week commending 19th December, this data has been shown at Local Authority level."),
-          p("• Data prior to 11 September 2023 has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level data covering the week commencing 4th September is available on", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Explore Education Statistics")),
+          p("• Data prior to 09 September 2024 has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level data covering the week commencing 02 September 2024 is available in the underlying data of ", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2024-week-37", "this publication", .noWS = c("after")), "."),
           # p("• No figures for the day of national teacher strikes have been provided in the dashboard and underlying data. No figures for the day of regional teacher strikes have been provided in the dashboard and underlying data for regions affected or at a national level, however figures are still available for regions not expected to be affected. Further information on attendance during these days is available at the link below:"),
           # a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools"),
           br(),
           br(),
-          p("Full information on methodologies and further technical notes are available through", a(href = "https://explore-education-statistics.service.gov.uk/methodology/pupil-attendance-in-schools", "Explore Education Statistics")),
+          p("Full information on methodologies and further technical notes are available through", a(href = "https://explore-education-statistics.service.gov.uk/methodology/pupil-attendance-in-schools", "Explore Education Statistics", .noWS = c("after")), "."),
           p(strong("Definitions for common attendance terms")),
           DTOutput("notesTableReasons"),
         )
@@ -577,12 +581,12 @@ accessibility_panel <- function() {
         column(
           width = 12,
           h2("Accessibility statement"),
-          br("This accessibility statement applies to the Pupil attendance in schools in England data dashboard.
-            This application is run by the Department for Education. We want as many people as possible to be able to use this application,
+          br("This accessibility statement applies to the Pupil attendance and absence in schools in England data dashboard.
+            This application is run by the Department for Education. We want as many people as possible to be able to use this application
             and have actively developed this application with accessibilty in mind."),
           h3("WCAG 2.1 compliance"),
-          br("We follow the reccomendations of the ", a(href = "https://www.w3.org/TR/WCAG21/", "WCAG 2.1 requirements. ", onclick = "ga('send', 'event', 'click', 'link', 'IKnow', 1)"), "This application has been checked using the ", a(href = "https://github.com/ewenme/shinya11y", "Shinya11y tool "), ", which did not detect accessibility issues.
-             This application also fully passes the accessibility audits checked by the ", a(href = "https://developers.google.com/web/tools/lighthouse", "Google Developer Lighthouse tool"), ". This means that this application:"),
+          br("We follow the reccomendations of the ", a(href = "https://www.w3.org/TR/WCAG21/", "WCAG 2.1 requirements", .noWS = c("after"), onclick = "ga('send', 'event', 'click', 'link', 'IKnow', 1)"), ". This application has been checked using the ", a(href = "https://github.com/ewenme/shinya11y", "Shinya11y tool", .noWS = c("after")), ", which did not detect accessibility issues.
+             This application also fully passes the accessibility audits checked by the ", a(href = "https://developers.google.com/web/tools/lighthouse", "Google Developer Lighthouse tool", .noWS = c("after")), ". This means that this application:"),
           tags$div(tags$ul(
             tags$li("uses colours that have sufficient contrast"),
             tags$li("allows you to zoom in up to 300% without the text spilling off the screen"),
@@ -594,7 +598,7 @@ accessibility_panel <- function() {
           h3("Feedback"),
           br(
             "If you have any feedback on how we could further improve the accessibility of this application, please contact us at",
-            a(href = "mailto:schools.statistics@education.gov.uk", "schools.statistics@education.gov.uk")
+            a(href = "mailto:schools.statistics@education.gov.uk", "schools.statistics@education.gov.uk", .noWS = c("after")), "."
           )
         )
       )

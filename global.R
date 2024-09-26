@@ -141,8 +141,8 @@ google_analytics_key <- "DG7P4WLB0Y"
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 
 #### SECTION 1 - date filters ####
-start_date <- as.Date("2023-09-11")
-end_date <- as.Date("2024-07-19")
+start_date <- as.Date("2024-09-09")
+end_date <- as.Date("2024-09-13")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -155,18 +155,20 @@ end_date <- as.Date("2024-07-19")
 # regional_strike_1 <- as.Date("2023-02-28")
 # regional_strike_2 <- as.Date("2023-03-01")
 # regional_strike_3 <- as.Date("2023-03-02")
-autumn_start <- as.Date("2023-09-11")
-autumn_end <- as.Date("2023-12-15")
-spring_start <- as.Date("2024-01-02")
-spring_end <- as.Date("2024-03-31")
-summer_start <- as.Date("2024-04-01")
-summer_end <- as.Date("2024-07-19")
+# autumn_start <- as.Date("2023-09-11")
+# autumn_end <- as.Date("2023-12-15")
+# spring_start <- as.Date("2024-01-02")
+# spring_end <- as.Date("2024-03-31")
+# summer_start <- as.Date("2024-04-01")
+# summer_end <- as.Date("2024-07-19")
 
-most_recent_week_dates <- paste0("Latest week -", as.Date(end_date) - 4, " to ", as.Date(end_date))
-ytd_dates <- paste0("Year to date -", as.Date(start_date), "to", as.Date(end_date))
+most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4, " to ", as.Date(end_date))
+ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date))
 
 #### SECTION 2 - reading in csvs to run dashboard ####
 attendance_data <- read.csv("data/attendance_data_dashboard.csv")
+attendance_data$attendance_date <- as.Date(attendance_data$attendance_date)
+attendance_data$week_commencing <- as.Date(attendance_data$week_commencing)
 
 message(paste("Finished processing steps, ", Sys.time()))
 
