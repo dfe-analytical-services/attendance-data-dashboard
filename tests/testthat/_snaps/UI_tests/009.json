@@ -29,7 +29,11 @@
             ],
             "automargin": true,
             "title": "Week commencing",
-            "tickvals": "2024-09-09",
+            "tickvals": [
+              "2024-09-09",
+              "2024-09-16",
+              "2024-09-23"
+            ],
             "zeroline": true,
             "zerolinewidth": 2,
             "zerolinecolor": "Grey",
@@ -103,8 +107,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2024-09-09",
-            "y": 1.6578294771017299,
+            "x": [
+              "2024-09-09",
+              "2024-09-16",
+              "2024-09-23"
+            ],
+            "y": [
+              1.66811416505826,
+              2.4652942896643002,
+              2.36202770807063
+            ],
             "line": {
               "color": "#12436D"
             },
@@ -115,7 +127,11 @@
               }
             },
             "name": "Illness",
-            "hovertemplate": "%{y:.1f}%",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
             "error_y": {
               "color": "rgba(255,127,14,1)"
             },
@@ -129,8 +145,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2024-09-09",
-            "y": 0.232579686772526,
+            "x": [
+              "2024-09-09",
+              "2024-09-16",
+              "2024-09-23"
+            ],
+            "y": [
+              0.23333468232243901,
+              0.24448347178774199,
+              0.248451530297292
+            ],
             "line": {
               "color": "#28A197"
             },
@@ -141,7 +165,11 @@
               }
             },
             "name": "Medical appointments",
-            "hovertemplate": "%{y:.1f}%",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
             "error_y": {
               "color": "rgba(44,160,44,1)"
             },
@@ -155,8 +183,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2024-09-09",
-            "y": 0.071982826554486498,
+            "x": [
+              "2024-09-09",
+              "2024-09-16",
+              "2024-09-23"
+            ],
+            "y": [
+              0.080172958781913606,
+              0.081733493546203295,
+              0.085293803485496103
+            ],
             "line": {
               "color": "#FFBF47"
             },
@@ -167,7 +203,11 @@
               }
             },
             "name": "Part-time timetable",
-            "hovertemplate": "%{y:.1f}%",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
             "error_y": {
               "color": "rgba(214,39,40,1)"
             },
@@ -181,8 +221,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2024-09-09",
-            "y": 0.57890959429577904,
+            "x": [
+              "2024-09-09",
+              "2024-09-16",
+              "2024-09-23"
+            ],
+            "y": [
+              0.58371989957786896,
+              0.50654744905348803,
+              0.532196378557665
+            ],
             "line": {
               "color": "#F46A25"
             },
@@ -193,7 +241,11 @@
               }
             },
             "name": "Unauthorised holiday",
-            "hovertemplate": "%{y:.1f}%",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
             "error_y": {
               "color": "rgba(148,103,189,1)"
             },
@@ -207,8 +259,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2024-09-09",
-            "y": 0.61585778248913703,
+            "x": [
+              "2024-09-09",
+              "2024-09-16",
+              "2024-09-23"
+            ],
+            "y": [
+              0.61044697596156505,
+              0.56240795398876997,
+              0.569859045906838
+            ],
             "line": {
               "color": "#801650"
             },
@@ -219,7 +279,11 @@
               }
             },
             "name": "Unauthorised other",
-            "hovertemplate": "%{y:.1f}%",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
             "error_y": {
               "color": "rgba(140,86,75,1)"
             },
@@ -345,13 +409,13 @@
       ]
     },
     "headline_auth_rate_ytd": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>2.3%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>2.9%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "headline_unauth_rate_ytd": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1.5%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1.4%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

@@ -29,7 +29,11 @@
             ],
             "automargin": true,
             "title": "Week commencing",
-            "tickvals": "2024-09-09",
+            "tickvals": [
+              "2024-09-09",
+              "2024-09-16",
+              "2024-09-23"
+            ],
             "zeroline": true,
             "zerolinewidth": 2,
             "zerolinecolor": "Grey",
@@ -103,8 +107,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2024-09-09",
-            "y": 5.8082493211512896,
+            "x": [
+              "2024-09-09",
+              "2024-09-16",
+              "2024-09-23"
+            ],
+            "y": [
+              5.9123901971184196,
+              7.06991963393956,
+              7.7088466159923996
+            ],
             "line": {
               "color": "#12436D"
             },
@@ -115,7 +127,11 @@
               }
             },
             "name": "Overall absence rate",
-            "hovertemplate": "%{y:.1f}%",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
             "error_y": {
               "color": "rgba(255,127,14,1)"
             },
@@ -129,8 +145,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2024-09-09",
-            "y": 3.3308818843536301,
+            "x": [
+              "2024-09-09",
+              "2024-09-16",
+              "2024-09-23"
+            ],
+            "y": [
+              3.4177123218995402,
+              4.5414590736998601,
+              5.0246153982580797
+            ],
             "line": {
               "color": "#28A197"
             },
@@ -141,7 +165,11 @@
               }
             },
             "name": "Authorised absence rate",
-            "hovertemplate": "%{y:.1f}%",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
             "error_y": {
               "color": "rgba(44,160,44,1)"
             },
@@ -155,8 +183,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2024-09-09",
-            "y": 2.4773674367976701,
+            "x": [
+              "2024-09-09",
+              "2024-09-16",
+              "2024-09-23"
+            ],
+            "y": [
+              2.4946778752188798,
+              2.5284605602396999,
+              2.6842312177343199
+            ],
             "line": {
               "color": "#F46A25"
             },
@@ -167,7 +203,11 @@
               }
             },
             "name": "Unauthorised absence rate",
-            "hovertemplate": "%{y:.1f}%",
+            "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%"
+            ],
             "error_y": {
               "color": "rgba(214,39,40,1)"
             },
@@ -292,9 +332,9 @@
         }
       ]
     },
-    "headline_bullet_title_reg": "Headline figures for the year to date - 2024-09-09 to 2024-09-13: secondary state-funded school attendance at regional level (East Midlands)",
-    "ytd_absence_rate_reg": "• 5.8% of sessions were recorded as absence in East Midlands (compared to 5.7% of sessions at national level)",
-    "ytd_attendance_rate_reg": "• 94.2% of sessions were recorded as attending in East Midlands (compared to 94.3% of sessions at national level)",
-    "ytd_illness_rate_reg": "• 2.2% of sessions were recorded as illness in East Midlands (compared to 2.1% of sessions at national level)"
+    "headline_bullet_title_reg": "Headline figures for the year to date - 2024-09-09 to 2024-09-27: secondary state-funded school attendance at regional level (East Midlands)",
+    "ytd_absence_rate_reg": "• 6.9% of sessions were recorded as absence in East Midlands (compared to 6.8% of sessions at national level)",
+    "ytd_attendance_rate_reg": "• 93.1% of sessions were recorded as attending in East Midlands (compared to 93.2% of sessions at national level)",
+    "ytd_illness_rate_reg": "• 3.1% of sessions were recorded as illness in East Midlands (compared to 3% of sessions at national level)"
   }
 }
