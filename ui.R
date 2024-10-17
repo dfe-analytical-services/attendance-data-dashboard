@@ -44,8 +44,10 @@ ui <- function(input, output, session) {
 
     customDisconnectMessage(),
     useShinydashboard(),
-    dfe_cookie_script(),
-    cookie_banner_ui("cookies", name = "DfE pupil attendance and absence in schools in England"),
+    dfeshiny::dfe_cookies_script(),
+    dfeshiny::cookies_banner_ui(
+      name = "DfE pupil attendance and absence in schools in England"
+    ),
     tags$head(includeHTML(("google-analytics.html"))),
     tags$head(
       tags$link(
@@ -79,12 +81,25 @@ ui <- function(input, output, session) {
       homepage_panel(),
       dashboard_panel(),
       notes_panel(),
-      dfeshiny::support_panel(
-        team_email = "schools.statistics@education.gov.uk",
-        repo_name = "https://github.com/dfe-analytical-services/attendance-data-dashboard",
-        publication_name = "Pupil attendance in schools",
-        publication_slug = "pupil-attendance-in-schools",
-        form_url = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-U4ie_t5E21MlsudeT67Fb5UQ0s1NFoxMUo4RjRYT080SFRMUUxVNUg5Uy4u"
+      shiny::tabPanel(
+        value = "cookies_panel_ui",
+        "Cookies",
+        gov_main_layout(
+          cookies_panel_ui(google_analytics_key = google_analytics_key)
+        )
+      ),
+      shiny::tabPanel(
+        value = "support_panel",
+        "Support and feedback",
+        gov_main_layout(
+          support_panel(
+            team_email = "schools.statistics@education.gov.uk",
+            repo_name = "https://github.com/dfe-analytical-services/attendance-data-dashboard",
+            publication_name = "Pupil attendance in schools",
+            publication_slug = "pupil-attendance-in-schools",
+            form_url = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-U4ie_t5E21MlsudeT67Fb5UQ0s1NFoxMUo4RjRYT080SFRMUUxVNUg5Uy4u"
+          )
+        )
       ),
       accessibility_panel()
     ),
