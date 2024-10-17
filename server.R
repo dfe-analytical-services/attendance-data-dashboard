@@ -25,6 +25,21 @@ server <- function(input, output, session) {
   hide(id = "loading-content", anim = TRUE, animType = "fade")
   show("app-content")
 
+  # Code for controlling cookie consent - do not delete. See dfeshiny guidance for how this works:
+  # https://dfe-analytical-services.github.io/dfeshiny/articles/implementing-cookies.html
+  # ==============================================================================================
+  output$cookies_status <- dfeshiny::cookies_banner_server(
+    input_cookies = shiny::reactive(input$cookies),
+    parent_session = session,
+    google_analytics_key = google_analytics_key
+  )
+
+  dfeshiny::cookies_panel_server(
+    input_cookies = shiny::reactive(input$cookies),
+    google_analytics_key = google_analytics_key
+  )
+  # ==============================================================================================
+
   # Navigation with links
   observeEvent(input$link_to_headlines_tab, {
     updateTabsetPanel(session, "navlistPanel", selected = "dashboard")

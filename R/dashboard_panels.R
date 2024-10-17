@@ -605,11 +605,3 @@ accessibility_panel <- function() {
     )
   )
 }
-
-# support panel
-support_panel <- function() {
-  tabPanel(
-    "Support and feedback",
-    support_links() # defined in R/supporting_links.R
-  )
-}
