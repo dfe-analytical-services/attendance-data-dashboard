@@ -32,7 +32,9 @@
             "tickvals": [
               "2024-09-09",
               "2024-09-16",
-              "2024-09-23"
+              "2024-09-23",
+              "2024-09-30",
+              "2024-10-07"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -110,12 +112,16 @@
             "x": [
               "2024-09-09",
               "2024-09-16",
-              "2024-09-23"
+              "2024-09-23",
+              "2024-09-30",
+              "2024-10-07"
             ],
             "y": [
-              6.1321595667278599,
-              7.4594737920478202,
-              8.2804099994638598
+              5.5767294173199504,
+              6.9111805314512704,
+              7.7339396110367904,
+              7.9885956392539503,
+              7.4659011077430204
             ],
             "line": {
               "color": "#12436D"
@@ -130,6 +136,8 @@
             "hovertemplate": [
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -148,12 +156,16 @@
             "x": [
               "2024-09-09",
               "2024-09-16",
-              "2024-09-23"
+              "2024-09-23",
+              "2024-09-30",
+              "2024-10-07"
             ],
             "y": [
-              3.74752453779326,
-              5.0034349350977996,
-              5.7751826525191197
+              3.7708211871389299,
+              5.04647306105133,
+              5.8212894123151404,
+              6.0942956505811798,
+              5.5768796019223199
             ],
             "line": {
               "color": "#28A197"
@@ -168,6 +180,8 @@
             "hovertemplate": [
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -186,12 +200,16 @@
             "x": [
               "2024-09-09",
               "2024-09-16",
-              "2024-09-23"
+              "2024-09-23",
+              "2024-09-30",
+              "2024-10-07"
             ],
             "y": [
-              2.3846350289345999,
-              2.4560388569500202,
-              2.5052273469447401
+              1.8059082301810201,
+              1.86470747039994,
+              1.91265019872165,
+              1.8942999886727601,
+              1.8890215058206901
             ],
             "line": {
               "color": "#F46A25"
@@ -204,6 +222,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%"
@@ -332,9 +352,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date - 2024-09-09 to 2024-09-27: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
-    "ytd_absence_rate_la": "• 7.3% of sessions were recorded as absence in Lincolnshire (compared to 6.9% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "• 92.7% of sessions were recorded as attending in Lincolnshire (compared to 93.1% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "• 3.5% of sessions were recorded as illness in Lincolnshire (compared to 3.1% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date - 2024-09-09 to 2024-10-11: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "ytd_absence_rate_la": "• 7.1% of sessions were recorded as absence in Lincolnshire (compared to 7.1% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 92.9% of sessions were recorded as attending in Lincolnshire (compared to 92.9% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 3.9% of sessions were recorded as illness in Lincolnshire (compared to 3.3% of sessions in East Midlands)"
   }
 }
