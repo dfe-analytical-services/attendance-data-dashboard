@@ -34,7 +34,9 @@
               "2024-09-16",
               "2024-09-23",
               "2024-09-30",
-              "2024-10-07"
+              "2024-10-07",
+              "2024-10-14",
+              "2024-10-21"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -114,14 +116,18 @@
               "2024-09-16",
               "2024-09-23",
               "2024-09-30",
-              "2024-10-07"
+              "2024-10-07",
+              "2024-10-14",
+              "2024-10-21"
             ],
             "y": [
-              5.91695540910841,
-              6.9333481695782799,
-              7.6037179777828197,
-              7.8173190984578902,
-              7.4295752484822097
+              5.9190031152648004,
+              6.9192641258574001,
+              7.5875982522852299,
+              7.7877625715205596,
+              7.26496927721342,
+              7.6250527401434498,
+              8.6708054105168006
             ],
             "line": {
               "color": "#12436D"
@@ -138,6 +144,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -158,14 +166,18 @@
               "2024-09-16",
               "2024-09-23",
               "2024-09-30",
-              "2024-10-07"
+              "2024-10-07",
+              "2024-10-14",
+              "2024-10-21"
             ],
             "y": [
-              2.8608148198473602,
-              4.0219205519083099,
-              4.6933801858988904,
-              4.7370502174772602,
-              4.2944364017143402
+              2.8745397904276402,
+              4.0081442375625098,
+              4.6872077933117602,
+              4.7461973374301696,
+              4.2624001439164401,
+              4.4922882190239601,
+              4.9013964834381696
             ],
             "line": {
               "color": "#28A197"
@@ -182,6 +194,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -202,14 +216,18 @@
               "2024-09-16",
               "2024-09-23",
               "2024-09-30",
-              "2024-10-07"
+              "2024-10-07",
+              "2024-10-14",
+              "2024-10-21"
             ],
             "y": [
-              3.0561405892610498,
-              2.91142761766997,
-              2.9103377918839302,
-              3.0802688809806198,
-              3.13513884676787
+              3.0444633248371602,
+              2.9111198882948801,
+              2.9003904589734701,
+              3.0415652340903798,
+              3.0025691332969799,
+              3.1327645211194999,
+              3.76940892707862
             ],
             "line": {
               "color": "#F46A25"
@@ -222,6 +240,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
@@ -352,9 +372,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date - 2024-09-09 to 2024-10-11: secondary state-funded school attendance at local authority level (East Midlands, Derby)",
-    "ytd_absence_rate_la": "• 7.1% of sessions were recorded as absence in Derby (compared to 7.1% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "• 92.9% of sessions were recorded as attending in Derby (compared to 92.9% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "• 3.1% of sessions were recorded as illness in Derby (compared to 3.3% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date - 2024-09-09 to 2024-10-25: secondary state-funded school attendance at local authority level (East Midlands, Derby)",
+    "ytd_absence_rate_la": "• 7.4% of sessions were recorded as absence in Derby (compared to 7.4% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 92.6% of sessions were recorded as attending in Derby (compared to 92.6% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 3.2% of sessions were recorded as illness in Derby (compared to 3.4% of sessions in East Midlands)"
   }
 }
