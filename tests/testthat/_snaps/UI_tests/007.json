@@ -35,7 +35,9 @@
               "2024-09-23",
               "2024-09-30",
               "2024-10-07",
-              "2024-10-14"
+              "2024-10-14",
+              "2024-10-28",
+              "2024-11-04"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -116,15 +118,19 @@
               "2024-09-23",
               "2024-09-30",
               "2024-10-07",
-              "2024-10-14"
+              "2024-10-14",
+              "2024-10-28",
+              "2024-11-04"
             ],
             "y": [
-              5.5697306570099299,
-              6.9017055384800798,
-              7.7307164632288998,
-              7.9856073496025903,
-              7.4758309359197304,
-              8.94985836450447
+              5.55232971369783,
+              6.8768999708299496,
+              7.7017180455708498,
+              7.9626393492015701,
+              7.4402249673208898,
+              8.9013617157521505,
+              7.0177296846651398,
+              7.2363147634672904
             ],
             "line": {
               "color": "#12436D"
@@ -142,6 +148,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -163,15 +171,19 @@
               "2024-09-23",
               "2024-09-30",
               "2024-10-07",
-              "2024-10-14"
+              "2024-10-14",
+              "2024-10-28",
+              "2024-11-04"
             ],
             "y": [
-              3.7704163624842502,
-              5.0445368528897703,
-              5.8211875827011701,
-              6.09735524203849,
-              5.5683497997265397,
-              6.31449148366519
+              3.7715846968203901,
+              5.0353295131012104,
+              5.81284269526014,
+              6.1013558300693003,
+              5.5663012073181903,
+              6.3224942635237698,
+              4.9591181967588396,
+              5.3162043371393297
             ],
             "line": {
               "color": "#28A197"
@@ -189,6 +201,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -210,15 +224,19 @@
               "2024-09-23",
               "2024-09-30",
               "2024-10-07",
-              "2024-10-14"
+              "2024-10-14",
+              "2024-10-28",
+              "2024-11-04"
             ],
             "y": [
-              1.7993142945256799,
-              1.85716868559031,
-              1.90952888052773,
-              1.8882521075640899,
-              1.90748113619319,
-              2.6353668808392801
+              1.7807450168774399,
+              1.84157045772874,
+              1.8888753503107101,
+              1.8612835191322701,
+              1.8739237600026999,
+              2.5788674522283701,
+              2.0586114879063002,
+              1.92011042632796
             ],
             "line": {
               "color": "#F46A25"
@@ -231,6 +249,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
@@ -362,9 +382,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date - 2024-09-09 to 2024-10-18: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
-    "ytd_absence_rate_la": "• 7.4% of sessions were recorded as absence in Lincolnshire (compared to 7.4% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "• 92.6% of sessions were recorded as attending in Lincolnshire (compared to 92.6% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "• 4% of sessions were recorded as illness in Lincolnshire (compared to 3.4% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date - 2024-09-09 to 2024-11-08: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "ytd_absence_rate_la": "• 7.3% of sessions were recorded as absence in Lincolnshire (compared to 7.4% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 92.7% of sessions were recorded as attending in Lincolnshire (compared to 92.6% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 3.9% of sessions were recorded as illness in Lincolnshire (compared to 3.4% of sessions in East Midlands)"
   }
 }

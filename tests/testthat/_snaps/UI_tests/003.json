@@ -30,11 +30,11 @@
             "automargin": true,
             "title": "Date",
             "tickvals": [
-              "2024-10-21",
-              "2024-10-22",
-              "2024-10-23",
-              "2024-10-24",
-              "2024-10-25"
+              "2024-11-04",
+              "2024-11-05",
+              "2024-11-06",
+              "2024-11-07",
+              "2024-11-08"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -107,18 +107,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2024-10-21",
-              "2024-10-22",
-              "2024-10-23",
-              "2024-10-24",
-              "2024-10-25"
+              "2024-11-04",
+              "2024-11-05",
+              "2024-11-06",
+              "2024-11-07",
+              "2024-11-08"
             ],
             "y": [
-              7.5255722596406001,
-              7.5466646522025602,
-              7.9139376435331901,
-              8.7595600349914893,
-              11.6775595381252
+              7.65853032720982,
+              7.1583939768602196,
+              7.2501159271177,
+              7.2551567749317698,
+              8.1017179485438504
             ],
             "line": {
               "color": "#12436D"
@@ -151,18 +151,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2024-10-21",
-              "2024-10-22",
-              "2024-10-23",
-              "2024-10-24",
-              "2024-10-25"
+              "2024-11-04",
+              "2024-11-05",
+              "2024-11-06",
+              "2024-11-07",
+              "2024-11-08"
             ],
             "y": [
-              4.60013853617468,
-              4.6578456382439999,
-              4.8058268108135804,
-              5.2021303829376802,
-              6.7856277559004301
+              4.3673215025338701,
+              4.3115528306699096,
+              4.4040533790288698,
+              4.45986960105951,
+              4.98676558432558
             ],
             "line": {
               "color": "#28A197"
@@ -195,18 +195,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2024-10-21",
-              "2024-10-22",
-              "2024-10-23",
-              "2024-10-24",
-              "2024-10-25"
+              "2024-11-04",
+              "2024-11-05",
+              "2024-11-06",
+              "2024-11-07",
+              "2024-11-08"
             ],
             "y": [
-              2.92543372346592,
-              2.8888190139585599,
-              3.1081108327196199,
-              3.5574296520537998,
-              4.8919317822248196
+              3.2912088246759601,
+              2.84684114619031,
+              2.84606254808882,
+              2.7952871738722598,
+              3.1149523642182699
             ],
             "line": {
               "color": "#F46A25"
@@ -349,9 +349,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2024-10-21 to 2024-10-25: secondary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 8.5% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 91.5% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "• 3.7% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2024-11-04 to 2024-11-08: secondary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "• 7.5% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "• 92.5% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "• 3.2% of sessions were recorded as illness"
   }
 }
