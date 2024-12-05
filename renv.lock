@@ -497,14 +497,14 @@
     },
     "dfeshiny": {
       "Package": "dfeshiny",
-      "Version": "0.5.2",
+      "Version": "0.5.1",
       "Source": "GitHub",
       "RemoteType": "github",
+      "RemoteHost": "api.github.com",
       "RemoteUsername": "dfe-analytical-services",
       "RemoteRepo": "dfeshiny",
-      "RemoteRef": "main",
-      "RemoteSha": "91f1eb3cbac6e1d2ba64300e22a36c95a73dda25",
-      "RemoteHost": "api.github.com",
+      "RemoteRef": "bff6fef6be5049c7a4a41b350244dba6320ecd7c",
+      "RemoteSha": "bff6fef6be5049c7a4a41b350244dba6320ecd7c",
       "Requirements": [
         "R",
         "RCurl",
@@ -518,7 +518,7 @@
         "stringr",
         "styler"
       ],
-      "Hash": "7735cc512edb4955f58dfa2ed4307dce"
+      "Hash": "5d235ed45e2b4c8a6892f157c3117b04"
     },
     "diffobj": {
       "Package": "diffobj",
@@ -1725,13 +1725,13 @@
       "Package": "terra",
       "Version": "1.7-78",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "Rcpp",
         "methods"
       ],
-      "Hash": "fbeffe988419d292225a57cf9c284802"
+      "Hash": "8f020def0792119cb98bd8f696dab22d"
     },
     "testthat": {
       "Package": "testthat",
