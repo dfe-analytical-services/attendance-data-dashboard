@@ -37,7 +37,9 @@
               "2024-10-07",
               "2024-10-14",
               "2024-10-21",
-              "2024-11-04"
+              "2024-11-04",
+              "2024-11-11",
+              "2024-11-18"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -120,17 +122,21 @@
               "2024-10-07",
               "2024-10-14",
               "2024-10-21",
-              "2024-11-04"
+              "2024-11-04",
+              "2024-11-11",
+              "2024-11-18"
             ],
             "y": [
-              5.8902510877447396,
-              6.8884932116625901,
-              7.5597576252260197,
-              7.7532342805491199,
-              7.1956807010520203,
-              7.4679879746130702,
-              8.4698184197611592,
-              7.62054348648853
+              5.8774234462764996,
+              6.8784776318718004,
+              7.54672062849661,
+              7.7430653635387801,
+              7.1878961766864604,
+              7.4579252982669102,
+              8.4585838889725,
+              7.5063004032258096,
+              7.4682152076910402,
+              9.2841396474073505
             ],
             "line": {
               "color": "#12436D"
@@ -150,6 +156,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -173,17 +181,21 @@
               "2024-10-07",
               "2024-10-14",
               "2024-10-21",
-              "2024-11-04"
+              "2024-11-04",
+              "2024-11-11",
+              "2024-11-18"
             ],
             "y": [
-              2.8728924945612802,
+              2.8735957601014701,
               4.0001112842198996,
-              4.6870837371968204,
-              4.7415400259872298,
-              4.2325571050465998,
-              4.4393720075715404,
-              4.8800916080484198,
-              4.2256452955870101
+              4.6887842150310899,
+              4.7437997853228602,
+              4.2336691799559603,
+              4.4365636534703601,
+              4.89049709802587,
+              4.2464717741935498,
+              4.6216883124284101,
+              5.6659907903962399
             ],
             "line": {
               "color": "#28A197"
@@ -203,6 +215,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -226,17 +240,21 @@
               "2024-10-07",
               "2024-10-14",
               "2024-10-21",
-              "2024-11-04"
+              "2024-11-04",
+              "2024-11-11",
+              "2024-11-18"
             ],
             "y": [
-              3.0173585931834701,
-              2.8883819274426901,
-              2.8726738880292002,
-              3.0116942545618901,
-              2.9631235960054298,
-              3.0286159670415298,
-              3.5897268117127399,
-              3.3948981909015199
+              3.0038276861750299,
+              2.8783663476518999,
+              2.8579364134655201,
+              2.9992655782159199,
+              2.9542269967305002,
+              3.0213616447965399,
+              3.5680867909466301,
+              3.2598286290322598,
+              2.8465268952626301,
+              3.6181488570111102
             ],
             "line": {
               "color": "#F46A25"
@@ -249,6 +267,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
@@ -382,9 +402,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date - 2024-09-09 to 2024-11-08: secondary state-funded school attendance at local authority level (East Midlands, Derby)",
-    "ytd_absence_rate_la": "• 7.3% of sessions were recorded as absence in Derby (compared to 7.4% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "• 92.7% of sessions were recorded as attending in Derby (compared to 92.6% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "• 3.2% of sessions were recorded as illness in Derby (compared to 3.4% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date - 2024-09-09 to 2024-11-22: secondary state-funded school attendance at local authority level (East Midlands, Derby)",
+    "ytd_absence_rate_la": "• 7.5% of sessions were recorded as absence in Derby (compared to 7.5% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 92.5% of sessions were recorded as attending in Derby (compared to 92.5% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 3.3% of sessions were recorded as illness in Derby (compared to 3.5% of sessions in East Midlands)"
   }
 }

@@ -93,7 +93,7 @@ google_analytics_key <- "DG7P4WLB0Y"
 
 #### SECTION 1 - date filters ####
 start_date <- as.Date("2024-09-09")
-end_date <- as.Date("2024-11-08")
+end_date <- as.Date("2024-11-22")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
