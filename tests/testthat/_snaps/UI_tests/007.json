@@ -39,7 +39,9 @@
               "2024-10-28",
               "2024-11-04",
               "2024-11-11",
-              "2024-11-18"
+              "2024-11-18",
+              "2024-11-25",
+              "2024-12-02"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -124,19 +126,23 @@
               "2024-10-28",
               "2024-11-04",
               "2024-11-11",
-              "2024-11-18"
+              "2024-11-18",
+              "2024-11-25",
+              "2024-12-02"
             ],
             "y": [
-              5.5511250424646601,
-              6.8749216512540601,
-              7.6964691719648997,
-              7.9556684680167997,
-              7.4356067914335302,
-              8.8932926163719994,
-              6.9698947289295603,
-              7.2188758909203603,
-              7.4284254200786002,
-              8.3605720122574105
+              5.5485555831271496,
+              6.8707755204365997,
+              7.6934510031334202,
+              7.9516835329247497,
+              7.4306123285656103,
+              8.8877516619816692,
+              6.9697601240890599,
+              7.2114267456721297,
+              7.4150846538061996,
+              8.3478430037449503,
+              8.6265131167445492,
+              9.0937270695246006
             ],
             "line": {
               "color": "#12436D"
@@ -158,6 +164,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -183,19 +191,23 @@
               "2024-10-28",
               "2024-11-04",
               "2024-11-11",
-              "2024-11-18"
+              "2024-11-18",
+              "2024-11-25",
+              "2024-12-02"
             ],
             "y": [
-              3.7711028283271202,
-              5.0352930966317304,
-              5.8122561574434002,
-              6.1008884625211497,
-              5.5657920123480604,
-              6.3209929246598797,
-              4.9454510665486699,
-              5.3307541834521199,
-              5.5972355725357996,
-              6.1778296609757302
+              3.7720348558474099,
+              5.03249414237641,
+              5.81291086561375,
+              6.0983633423388497,
+              5.5642774976306102,
+              6.3265657552951797,
+              4.9604876098847601,
+              5.33795166724759,
+              5.6044980013478396,
+              6.1901172121978503,
+              6.4657762733483004,
+              6.8463891236592902
             ],
             "line": {
               "color": "#28A197"
@@ -217,6 +229,8 @@
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%"
             ],
             "error_y": {
@@ -242,19 +256,23 @@
               "2024-10-28",
               "2024-11-04",
               "2024-11-11",
-              "2024-11-18"
+              "2024-11-18",
+              "2024-11-25",
+              "2024-12-02"
             ],
             "y": [
-              1.7800222141375399,
-              1.8396285546223301,
-              1.8842130145214999,
-              1.85478000549564,
-              1.86981477908547,
-              2.5722996917121299,
-              2.0244436623808801,
-              1.8881217074682399,
-              1.8311898475427999,
-              2.1827423512816799
+              1.7765207272797401,
+              1.8382813780601901,
+              1.88054013751968,
+              1.8533201905859,
+              1.8663348309350001,
+              2.5611859066864899,
+              2.0092725142043002,
+              1.87347507842454,
+              1.81058665245835,
+              2.1577257915471,
+              2.1607368433962502,
+              2.24733794586531
             ],
             "line": {
               "color": "#F46A25"
@@ -267,6 +285,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.1f}%",
+              "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
               "%{y:.1f}%",
@@ -402,9 +422,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date - 2024-09-09 to 2024-11-22: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
-    "ytd_absence_rate_la": "• 7.5% of sessions were recorded as absence in Lincolnshire (compared to 7.5% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "• 92.5% of sessions were recorded as attending in Lincolnshire (compared to 92.5% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "• 4% of sessions were recorded as illness in Lincolnshire (compared to 3.5% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date - 2024-09-09 to 2024-12-06: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "ytd_absence_rate_la": "• 7.7% of sessions were recorded as absence in Lincolnshire (compared to 7.7% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "• 92.3% of sessions were recorded as attending in Lincolnshire (compared to 92.3% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "• 4.2% of sessions were recorded as illness in Lincolnshire (compared to 3.6% of sessions in East Midlands)"
   }
 }
