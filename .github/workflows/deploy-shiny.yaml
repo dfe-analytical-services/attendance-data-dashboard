@@ -1,13 +1,19 @@
 name: Deploy Dashboard
-
 on:
   push:
     branches:
       - main
       - development
-
+  pull_request:
+    branches:
+      - main
+  
 jobs:
   deploy:
-    uses: dfe-analytical-services/dfeshiny/.github/workflows/deploy-dashboard-template.yaml@main
+    uses: dfe-analytical-services/dfeshiny/.github/workflows/dashboard_deploy_template.yaml@main
     with:
-      parameter_file: deploy_parameters.yaml
+      parameter_file: deploy-parameters.yaml
+    secrets:
+      SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
+      SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
+      
