@@ -1412,47 +1412,47 @@ server <- function(input, output, session) {
 
   # Headline persistent absence ytd
   # Bullet for national level
-  # output$ytd_pa_rate_nat <- renderText({
-  #   validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-  #   validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-  #
-  #   paste0(
-  #     "• ", live_attendance_data_ytd() %>% pull(pa_perc) %>% round(digits = 1),
-  #     "% of pupils were recorded as persistently absent"
-  #   )
-  # })
+  output$ytd_pa_rate_nat <- renderText({
+    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
+
+    paste0(
+      "• ", live_attendance_data_ytd() %>% pull(pa_perc) %>% round(digits = 1),
+      "% of pupils were recorded as persistently absent"
+    )
+  })
 
   # Bullet for regional level
-  # output$ytd_pa_rate_reg <- renderText({
-  #   validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-  #   validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-  #
-  #   paste0(
-  #     "• ", live_attendance_data_ytd() %>%
-  #       pull(pa_perc) %>%
-  #       round(digits = 1),
-  #     "% of pupils were recorded as persistently absent in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
-  #       pull(pa_perc) %>%
-  #       round(digits = 1),
-  #     "% of pupils at national level)"
-  #   )
-  # })
+  output$ytd_pa_rate_reg <- renderText({
+    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
+
+    paste0(
+      "• ", live_attendance_data_ytd() %>%
+        pull(pa_perc) %>%
+        round(digits = 1),
+      "% of pupils were recorded as persistently absent in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
+        pull(pa_perc) %>%
+        round(digits = 1),
+      "% of pupils at national level)"
+    )
+  })
 
   # Bullet for LA level
-  # output$ytd_pa_rate_la <- renderText({
-  #   validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-  #   validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-  #
-  #   paste0(
-  #     "• ", live_attendance_data_ytd() %>%
-  #       pull(pa_perc) %>%
-  #       round(digits = 1),
-  #     "% of pupils were recorded as persistently absent in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
-  #       pull(pa_perc) %>%
-  #       round(digits = 1),
-  #     "% of pupils in ", input$region_choice, ")"
-  #   )
-  # })
+  output$ytd_pa_rate_la <- renderText({
+    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
+
+    paste0(
+      "• ", live_attendance_data_ytd() %>%
+        pull(pa_perc) %>%
+        round(digits = 1),
+      "% of pupils were recorded as persistently absent in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
+        pull(pa_perc) %>%
+        round(digits = 1),
+      "% of pupils in ", input$region_choice, ")"
+    )
+  })
 
 
   # Creating reactive dates for text ------------------------------------------------------------
@@ -1469,8 +1469,8 @@ server <- function(input, output, session) {
     # as.Date(attendance_date) + 24
     # as.Date(attendance_date) + 31
 
-    # paste0("Data was last updated on ", last_update_date, ".")
-    paste0("Data was last updated on 2025-01-09")
+    paste0("Data was last updated on ", last_update_date, ".")
+    # paste0("Data was last updated on 2025-01-09")
   })
 
   output$la_clarity_dates <- renderText({
@@ -1503,8 +1503,8 @@ server <- function(input, output, session) {
       as.Date(attendance_date) + 31
     # as.Date(attendance_date) + 38
 
-    paste0("Data was last updated on 2025-01-09 and is next expected to be updated on 2025-01-23. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on 2025-01-09 and is next expected to be updated on 2025-01-23. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on 2024-08-08. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on 2025-01-09. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
@@ -1529,8 +1529,8 @@ server <- function(input, output, session) {
       as.Date(attendance_date) + 31
     # as.Date(attendance_date) + 38
 
-    paste0("Data was last updated on 2025-01-09 and is next expected to be updated on 2025-01-23. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on 2025-01-09 and is next expected to be updated on 2025-01-23. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on 2024-08-08. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on 2025-01-09. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
@@ -1555,8 +1555,8 @@ server <- function(input, output, session) {
       as.Date(attendance_date) + 31
     # as.Date(attendance_date) + 38
 
-    paste0("Data was last updated on 2025-01-09 and is next expected to be updated on 2025-01-23. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on 2025-01-09 and is next expected to be updated on 2025-01-23. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on ", next_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on 2024-08-08. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on 2025-01-09. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")

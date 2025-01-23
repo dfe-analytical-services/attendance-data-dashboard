@@ -93,7 +93,7 @@ google_analytics_key <- "DG7P4WLB0Y"
 
 #### SECTION 1 - date filters ####
 start_date <- as.Date("2024-09-09")
-end_date <- as.Date("2024-12-20")
+end_date <- as.Date("2025-01-10")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -106,9 +106,10 @@ end_date <- as.Date("2024-12-20")
 # regional_strike_1 <- as.Date("2023-02-28")
 # regional_strike_2 <- as.Date("2023-03-01")
 # regional_strike_3 <- as.Date("2023-03-02")
-# autumn_start <- as.Date("2023-09-11")
-# autumn_end <- as.Date("2023-12-15")
-# spring_start <- as.Date("2024-01-02")
+
+autumn_start <- as.Date("2024-09-09")
+autumn_end <- as.Date("2024-12-21")
+# spring_start <- as.Date("2025-01-06")
 # spring_end <- as.Date("2024-03-31")
 # summer_start <- as.Date("2024-04-01")
 # summer_end <- as.Date("2024-07-19")
