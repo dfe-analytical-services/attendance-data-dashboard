@@ -36,26 +36,42 @@ fetch_sqid_lookup <- function(
     dataset_id,
     version = NULL) {
   meta <- eesyapi::get_meta(reasons_dataset_id)
-  filter_lookup <- meta$filter_items |>
-    dplyr::mutate(
-      col_type = "filter"
-    ) |>
-    dplyr::select(
-      sqid = item_id,
-      label = item_label,
-      col_type
-    )
-  indicator_lookup <- meta$indicators |>
-    dplyr::mutate(
-      col_type = "indicator"
-    ) |>
-    dplyr::select(
-      sqid = col_id,
-      label,
-      col_type
-    )
-  sqid_lookup <- bind_rows(
-    filter_lookup,
-    indicator_lookup
+  sqid_lookup <- list(
+    filters = filter_item_sqid_list(
+      meta$filter_items |>
+        dplyr::left_join(meta$filter_columns)
+    ),
+    indicators = indicator_sqid_list(meta$indicators)
   )
+  return(sqid_lookup)
+}
+
+indicator_sqid_list <- function(indicator_meta) {
+  indicator_list <- as.list(
+    indicator_meta |>
+      pull(col_id)
+  )
+  names(indicator_list) <- indicator_meta |>
+    pull(col_name)
+  return(indicator_list)
+}
+
+
+filter_item_sqid_sublist <- function(col_name_ref, filter_lookup) {
+  filter_list <- as.list(filter_lookup |> filter(col_name == col_name_ref) |> pull(item_id))
+  names(filter_list) <- filter_lookup |>
+    filter(col_name == col_name_ref) |>
+    pull(item_label) |>
+    str_replace_all(" ", "") |>
+    tolower()
+  return(filter_list)
+}
+
+filter_item_sqid_list <- function(filter_lookup) {
+  col_names <- filter_lookup |>
+    pull(col_name) |>
+    unique()
+  filter_list <- lapply(col_names, filter_item_sqid_sublist, filter_lookup)
+  names(filter_list) <- col_names
+  return(filter_list)
 }
