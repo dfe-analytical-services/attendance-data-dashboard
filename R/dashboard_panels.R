@@ -8,8 +8,7 @@ homepage_panel <- function() {
         column(
           12,
           h1("Pupil attendance and absence in schools in England"),
-          textOutput("headline_update_date"),
-          br(),
+          textOutput("source_version_release")
         ),
 
         ## Left panel -------------------------------------------------------

@@ -40,6 +40,12 @@ server <- function(input, output, session) {
   )
   # ==============================================================================================
 
+  reasons_data_version <- eventReactive(input$geography_choice, {
+    eesyapi::get_dataset_versions(reasons_dataset_id) |>
+      dplyr::select(version, release_date, release_name) |>
+      filter(version == max(version))
+  })
+
   # Navigation with links
   observeEvent(input$link_to_headlines_tab, {
     updateTabsetPanel(session, "navlistPanel", selected = "dashboard")
@@ -1456,21 +1462,14 @@ server <- function(input, output, session) {
 
 
   # Creating reactive dates for text ------------------------------------------------------------
-
-  # latest full week
-  output$headline_update_date <- renderText({
-    validate(need(input$geography_choice != "", ""))
-    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-
-    last_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>%
-      as.Date(attendance_date) + 17
-    # as.Date(attendance_date) + 24
-    # as.Date(attendance_date) + 31
-
-    paste0("Data was last updated on ", last_update_date, ".")
-    # paste0("Data was last updated on 2025-01-09")
+  output$source_version_release <- renderText({
+    paste0(
+      "The data in this dashboard was released on ",
+      reasons_data_version()$release_date,
+      " as part of the ",
+      reasons_data_version()$release_name,
+      " release."
+    )
   })
 
   output$la_clarity_dates <- renderText({

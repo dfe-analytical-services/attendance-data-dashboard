@@ -43,6 +43,7 @@ library(dfeshiny)
 library(shinytest2)
 library(diffviewer)
 library(RODBC)
+library(eesyapi)
 
 # Functions ---------------------------------------------------------------------------------
 
@@ -82,10 +83,17 @@ appLoadingCSS <- "
 
 source("R/prerun_utils.R")
 
+site_title <- "Pupil attendance and absence in schools in England"
 site_primary <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
 site_overflow <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-overflow"
 site_c <- ""
 google_analytics_key <- "DG7P4WLB0Y"
+
+ees_pub_name <- "Pupil attendance in schools"
+ees_pub_slug <- "pupil-attendance-in-schools"
+team_email <- "schools.statistics@education.gov.uk"
+
+reasons_dataset_id <- "57b69201-033a-2c77-a19f-abcce2b11341"
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
