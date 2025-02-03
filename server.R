@@ -40,11 +40,35 @@ server <- function(input, output, session) {
   )
   # ==============================================================================================
 
-  reasons_data_version <- eventReactive(input$geography_choice, {
+  # Retrieving data from the API
+  reasons_data_version_info <- eventReactive(input$geography_choice, {
     eesyapi::get_dataset_versions(reasons_dataset_id) |>
-      dplyr::select(version, release_date, release_name) |>
       filter(version == max(version))
   })
+
+  reasons_data <- reactive({
+    eesyapi::query_dataset(
+      reasons_dataset_id,
+      indicators = unlist(reasons_sqids$indicators, use.names = FALSE),
+      geographies = geography_query(input$geography_choice, input$region_choice, input$la_choice),
+      filter_items = list(
+        school_phase = reasons_sqids$filters$education_phase |> magrittr::extract2(tolower(input$school_choice)),
+        attendance_status = reasons_sqids$filters$attendance_status$absence,
+        attendance_reason = reasons_sqids$filters$attendance_reason$hauthorisedholiday
+      )
+    )
+  }) |>
+    shiny::bindCache(
+      reasons_data_version_info()$version,
+      input$geography_choice,
+      input$region_choice,
+      input$la_choice,
+      input$school_choice
+    )
+
+  observe(
+    print(reasons_data())
+  )
 
   # Navigation with links
   observeEvent(input$link_to_headlines_tab, {
@@ -991,17 +1015,26 @@ server <- function(input, output, session) {
   })
 
   # headline bullet reactive titles
-  output$headline_bullet_title_nat <- renderText({
-    paste0("Headline figures for the ", str_to_lower(reactive_period_selected()), ": ", str_to_lower(input$school_choice), " state-funded school attendance at ", str_to_lower(input$geography_choice), " level")
+  output$headline_title <- renderText({
+    paste0(
+      "Headline figures for the ",
+      str_to_lower(reactive_period_selected()), ": ",
+      str_to_lower(input$school_choice),
+      " state-funded school attendance at ",
+      str_to_lower(input$geography_choice),
+      " level",
+      if (input$geography_choice != "National") {
+        paste0(" (", input$region_choice)
+      },
+      if (input$geography_choice == "Local authority") {
+        paste(",", input$la_choice)
+      },
+      if (input$geography_choice != "National") {
+        ")"
+      }
+    )
   })
 
-  output$headline_bullet_title_reg <- renderText({
-    paste0("Headline figures for the ", str_to_lower(reactive_period_selected()), ": ", str_to_lower(input$school_choice), " state-funded school attendance at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ")")
-  })
-
-  output$headline_bullet_title_la <- renderText({
-    paste0("Headline figures for the ", str_to_lower(reactive_period_selected()), ": ", str_to_lower(input$school_choice), " state-funded school attendance at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ", ", input$la_choice, ")")
-  })
 
 
   # reasons bullet reactive titles
@@ -1465,9 +1498,9 @@ server <- function(input, output, session) {
   output$source_version_release <- renderText({
     paste0(
       "The data in this dashboard was released on ",
-      reasons_data_version()$release_date,
+      reasons_data_version_info()$release_date,
       " as part of the ",
-      reasons_data_version()$release_name,
+      reasons_data_version_info()$release_name,
       " release."
     )
   })

@@ -23,7 +23,6 @@ library(shinyWidgets)
 library(data.table)
 library(ggplot2)
 library(plotly)
-library(dplyr)
 library(shinycssloaders)
 library(tidyr)
 library(stringr)
@@ -43,6 +42,7 @@ library(dfeshiny)
 library(shinytest2)
 library(diffviewer)
 library(RODBC)
+library(dplyr)
 library(eesyapi)
 
 # Functions ---------------------------------------------------------------------------------
@@ -82,6 +82,7 @@ appLoadingCSS <- "
 "
 
 source("R/prerun_utils.R")
+source("R/fetch_data.R")
 
 site_title <- "Pupil attendance and absence in schools in England"
 site_primary <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
@@ -94,6 +95,13 @@ ees_pub_slug <- "pupil-attendance-in-schools"
 team_email <- "schools.statistics@education.gov.uk"
 
 reasons_dataset_id <- "57b69201-033a-2c77-a19f-abcce2b11341"
+
+# Pull in original data set api id look-up lists.
+# This is fixed to a single reference point version and allows the code to use human readable
+# parameters for the API calls. This is a bit that could cause some issues if there's some breaking
+# changes to the data set. As long as there's no breaking changes, then the version number used
+# here should not be changed.
+reasons_sqids <- fetch_sqid_lookup(reasons_dataset_id, 1.0)
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data

@@ -15,23 +15,6 @@ fetch_headline_data <- function(
   )
 }
 
-geography_code <- function(geographic_level, region, local_authority) {
-  if (geographic_level == "National") {
-    geography <- "NAT"
-  } else if (geographies == "Regional") {
-    code <- dfeR::fetch_regions() |>
-      filter(region_name == region) |>
-      pull(region_code)
-    geography <- paste0("REG|code|", code)
-  } else if (geographies == "Local authority") {
-    code <- dfeR::fetch_las() |>
-      filter(region_name == local_authority) |>
-      pull(new_la_code)
-    geography <- paste0("LA|code|", code)
-  }
-  return(geography)
-}
-
 fetch_sqid_lookup <- function(
     dataset_id,
     version = NULL) {
@@ -74,4 +57,21 @@ filter_item_sqid_list <- function(filter_lookup) {
   filter_list <- lapply(col_names, filter_item_sqid_sublist, filter_lookup)
   names(filter_list) <- col_names
   return(filter_list)
+}
+
+geography_query <- function(input_geographic_level, input_region_name, input_la_name) {
+  message(input_geographic_level, input_region_name, input_la_name)
+  if (input_geographic_level == "National") {
+    return(input_geographic_level)
+  } else if (input_geographic_level == "Regional") {
+    reg_code <- dfeR::fetch_regions() |>
+      dplyr::filter(region_name == input_region_name) |>
+      dplyr::pull(region_code)
+    return(paste0("REG|code|", reg_code))
+  } else if (input_geographic_level == "Local authority") {
+    la_code <- dfeR::fetch_las() |>
+      dplyr::filter(la_name == input_la_name) |>
+      dplyr::pull(new_la_code)
+    return(paste0("LA|code|", la_code))
+  }
 }

@@ -243,18 +243,7 @@ dashboard_panel <- function() {
               fluidRow(
                 column(
                   width = 12,
-                  conditionalPanel(
-                    condition = "input.geography_choice == 'National'",
-                    h4(textOutput("headline_bullet_title_nat"))
-                  ),
-                  conditionalPanel(
-                    condition = "input.geography_choice == 'Regional'",
-                    h4(textOutput("headline_bullet_title_reg"))
-                  ),
-                  conditionalPanel(
-                    condition = "input.geography_choice == 'Local authority'",
-                    h4(textOutput("headline_bullet_title_la"))
-                  ),
+                  h4(textOutput("headline_title")),
                   conditionalPanel(
                     condition = paste0("input.ts_choice == 'latestweeks'"),
                     textOutput("school_count_proportion_weekly"),
