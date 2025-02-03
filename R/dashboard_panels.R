@@ -260,6 +260,7 @@ dashboard_panel <- function() {
                     p(strong(paste0("Attendance and absence across year to date"))),
                     p("Attendance and absence rates presented here are calculated across all sessions in the year to date.")
                   ),
+                  uiOutput("headline_bullet_attendance_rate"),
                   conditionalPanel(
                     condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'National'"),
                     textOutput("ytd_attendance_rate_nat")

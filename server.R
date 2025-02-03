@@ -47,15 +47,26 @@ server <- function(input, output, session) {
   })
 
   reasons_data <- reactive({
+    if (input$ts_choice == "latest_week") {
+      time_period_query <- reasons_data_version_info$time_period_end |>
+        stringr::str_replace("Week ", "W") |>
+        stringr::str_replace(" ", "|")
+    }
     eesyapi::query_dataset(
       reasons_dataset_id,
-      indicators = unlist(reasons_sqids$indicators, use.names = FALSE),
       geographies = geography_query(input$geography_choice, input$region_choice, input$la_choice),
       filter_items = list(
         school_phase = reasons_sqids$filters$education_phase |> magrittr::extract2(tolower(input$school_choice)),
-        attendance_status = reasons_sqids$filters$attendance_status$absence,
-        attendance_reason = reasons_sqids$filters$attendance_reason$hauthorisedholiday
-      )
+        attendance_status = c(
+          reasons_sqids$filters$attendance_status$attendance,
+          reasons_sqids$filters$attendance_status$absence
+        ),
+        attendance_reason = c(
+          reasons_sqids$filters$attendance_reason$iauthorisedillness,
+          reasons_sqids$filters$attendance_reason$total
+        )
+      ),
+      indicators = unlist(reasons_sqids$indicators, use.names = FALSE)
     )
   }) |>
     shiny::bindCache(
@@ -1211,6 +1222,22 @@ server <- function(input, output, session) {
         pull(attendance_perc) %>%
         round(digits = 1),
       "% of sessions in ", input$region_choice, ")"
+    )
+  })
+
+
+  output$headline_bullet_attendance_rate <- renderUI({
+    lines <- reasons_data() |>
+      dplyr::filter(attendance_reason %in% c("All absence", "All attendance", "I authorised illness", "Total"))
+    shiny::tags$ul(
+      shiny::tags$li(
+        paste0(
+          lines |>
+            dplyr::filter(attendance_status == "Attendance", attendance_type == "Not determined") |>
+            dplyr::pull(session_percent),
+          "% of sessions were recorded as attending"
+        )
+      )
     )
   })
 
