@@ -31,17 +31,21 @@ jobs:
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
       actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
 
+    container:
+      image: ghcr.io/dfe-analytical-services/dfe-r-base:latest
+      options: --user root
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup R
-        uses: r-lib/actions/setup-r@4e1feaf90520ec1215d1882fdddfe3411c08e492
-
-      - name: Setup lintr
-        uses: r-lib/actions/setup-r-dependencies@4e1feaf90520ec1215d1882fdddfe3411c08e492
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
         with:
-          extra-packages: lintr
+          use-public-rspm: true
+      
+      - name: Restore renv snapshot
+        shell: Rscript {0}
+        run: |
+          if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
+          renv::restore()
+          if (!requireNamespace("renv", quietly = TRUE)) install.packages("lintr")
 
       - name: Run lintr
         run: lintr::sarif_output(lintr::lint_dir("."), "lintr-results.sarif")
