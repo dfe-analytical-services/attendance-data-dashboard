@@ -23,23 +23,6 @@ jobs:
         with:
           use-public-rspm: true
       
-      - name: Read parameters
-        run: |
-          DASHBOARD_NAME=$(yq -r '.dashboard_name' ${{ inputs.parameter_file }})
-          DEPLOY_TARGET=$(yq -r '.deploy_target' ${{ inputs.parameter_file }})
-
-          echo "DASHBOARD_NAME=$DASHBOARD_NAME" >> $GITHUB_ENV
-          echo "DEPLOY_TARGET=$DEPLOY_TARGET" >> $GITHUB_ENV
-
-      - name: Set environment variables based on branch
-        shell: bash
-        run: |
-          if [ "${{ github.ref_name }}" == "main" ]; then
-            echo "SHINYAPP_NAME=$DASHBOARD_NAME" >> $GITHUB_ENV
-          else
-            echo "SHINYAPP_NAME=dev-$DASHBOARD_NAME" >> $GITHUB_ENV
-          fi
-
       - name: Restore renv snapshot
         shell: Rscript {0}
         run: |

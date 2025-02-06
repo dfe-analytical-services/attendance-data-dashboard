@@ -15,22 +15,17 @@ permissions:
 jobs:
   lintr:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read # for checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+
     container:
       image: ghcr.io/dfe-analytical-services/dfe-r-base:latest
       options: --user root
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-
-    
-    permissions:
-      contents: read # for checkout to fetch code
-      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-      
-    env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      RSPM: ${{ matrix.config.rspm }}
-      RENV_PATHS_ROOT: ~/.local/share/renv
 
     steps:
       - uses: actions/checkout@v4
