@@ -11,14 +11,18 @@ fetch_headline_data <- function(
     dataset_id = dataset_id,
     geographies = geography,
     filters = c(),
-    indicators = sqid_lookup$session_percent
+    indicators = sqid_lookup$session_percent,
+    ees_environment = api_environment
   )
 }
 
 fetch_sqid_lookup <- function(
     dataset_id,
     version = NULL) {
-  meta <- eesyapi::get_meta(reasons_dataset_id)
+  meta <- eesyapi::get_meta(
+    reasons_dataset_id,
+    ees_environment = api_environment
+  )
   sqid_lookup <- list(
     filters = filter_item_sqid_list(
       meta$filter_items |>
@@ -46,6 +50,8 @@ filter_item_sqid_sublist <- function(col_name_ref, filter_lookup) {
     filter(col_name == col_name_ref) |>
     pull(item_label) |>
     str_replace_all(" ", "") |>
+    str_replace_all("\\(", "_") |>
+    str_replace_all("\\)", "") |>
     tolower()
   return(filter_list)
 }

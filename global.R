@@ -94,7 +94,9 @@ ees_pub_name <- "Pupil attendance in schools"
 ees_pub_slug <- "pupil-attendance-in-schools"
 team_email <- "schools.statistics@education.gov.uk"
 
-reasons_dataset_id <- "57b69201-033a-2c77-a19f-abcce2b11341"
+
+api_environment <- "test"
+reasons_dataset_id <- "8e8c9301-55c5-3e71-abbb-73ac64420c4a"
 
 # Pull in original data set api id look-up lists.
 # This is fixed to a single reference point version and allows the code to use human readable

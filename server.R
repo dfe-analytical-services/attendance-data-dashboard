@@ -42,7 +42,10 @@ server <- function(input, output, session) {
 
   # Retrieving data from the API
   reasons_data_version_info <- eventReactive(input$geography_choice, {
-    eesyapi::get_dataset_versions(reasons_dataset_id) |>
+    eesyapi::get_dataset_versions(
+      reasons_dataset_id,
+      ees_environment = api_environment
+    ) |>
       filter(version == max(version))
   })
 
@@ -56,17 +59,20 @@ server <- function(input, output, session) {
       reasons_dataset_id,
       geographies = geography_query(input$geography_choice, input$region_choice, input$la_choice),
       filter_items = list(
-        school_phase = reasons_sqids$filters$education_phase |> magrittr::extract2(tolower(input$school_choice)),
+        school_phase = reasons_sqids$filters$education_phase |>
+          magrittr::extract2(tolower(input$school_choice)),
         attendance_status = c(
           reasons_sqids$filters$attendance_status$attendance,
           reasons_sqids$filters$attendance_status$absence
         ),
         attendance_reason = c(
-          reasons_sqids$filters$attendance_reason$iauthorisedillness,
-          reasons_sqids$filters$attendance_reason$total
+          reasons_sqids$filters$attendance_reason$authorisedillness_i,
+          reasons_sqids$filters$attendance_reason$allabsence,
+          reasons_sqids$filters$attendance_reason$allattendance
         )
       ),
-      indicators = unlist(reasons_sqids$indicators, use.names = FALSE)
+      indicators = unlist(reasons_sqids$indicators, use.names = FALSE),
+      ees_environment = api_environment
     )
   }) |>
     shiny::bindCache(
@@ -78,7 +84,10 @@ server <- function(input, output, session) {
     )
 
   observe(
-    print(reasons_data())
+    print(reasons_data() |>
+      dplyr::select(code, period, geographic_level, weekday) |>
+      dplyr::distinct() |>
+      arrange(code, period, weekday))
   )
 
   # Navigation with links
@@ -457,7 +466,7 @@ server <- function(input, output, session) {
         # ,pa_perc = pa_perc / 100
       )
     } else if (input$geography_choice == "Local authority") {
-      dplyr::filter(
+      x <- dplyr::filter(
         attendance_data, geographic_level == "Local authority",
         region_name == input$region_choice,
         la_name == input$la_choice,
@@ -481,6 +490,8 @@ server <- function(input, output, session) {
         unauth_not_yet_perc = unauth_not_yet_perc / 100
         # ,pa_perc = pa_perc / 100
       )
+      print(x)
+      x
     } else {
       NA
     }
