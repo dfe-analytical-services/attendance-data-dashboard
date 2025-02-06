@@ -8,21 +8,13 @@ name: shiny-tests
 
 jobs:
   automatedTests:
-    runs-on: ${{ matrix.config.os }}
-
-    name: shiny-tests
-
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-        # Running on mac as it's quicker to build
-          - {os: macOS-latest, r: 'release'}
-
-    env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      RSPM: ${{ matrix.config.rspm }}
-      RENV_PATHS_ROOT: ~/.local/share/renv
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/dfe-analytical-services/dfe-r-base:latest
+      options: --user root
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
@@ -30,28 +22,30 @@ jobs:
       - uses: r-lib/actions/setup-r@v2
         with:
           use-public-rspm: true
+      
+      - name: Read parameters
+        run: |
+          DASHBOARD_NAME=$(yq -r '.dashboard_name' ${{ inputs.parameter_file }})
+          DEPLOY_TARGET=$(yq -r '.deploy_target' ${{ inputs.parameter_file }})
 
-      - name: Cache R packages
-        if: runner.os != 'Windows'
-        uses: actions/cache@v1
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+          echo "DASHBOARD_NAME=$DASHBOARD_NAME" >> $GITHUB_ENV
+          echo "DEPLOY_TARGET=$DEPLOY_TARGET" >> $GITHUB_ENV
 
-      - name: Cache renv packages
-        uses: actions/cache@v1
-        with:
-          path: ${{ env.RENV_PATHS_ROOT }}
-          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-renv-
-        
+      - name: Set environment variables based on branch
+        shell: bash
+        run: |
+          if [ "${{ github.ref_name }}" == "main" ]; then
+            echo "SHINYAPP_NAME=$DASHBOARD_NAME" >> $GITHUB_ENV
+          else
+            echo "SHINYAPP_NAME=dev-$DASHBOARD_NAME" >> $GITHUB_ENV
+          fi
+
       - name: Restore renv snapshot
         shell: Rscript {0}
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
+
       - name: Run tests
         shell: Rscript {0}
         run: |
