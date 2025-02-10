@@ -88,9 +88,49 @@ server <- function(input, output, session) {
       input$school_choice
     )
 
+  time_frame_string <- reactive({
+    if (input$ts_choice == "latestweeks") {
+      dates <- reasons_data() |>
+        filter(time_frame != "Week") |>
+        pull(reference_date)
+      dates_minmax <- c(
+        dates |> min(),
+        dates |> max()
+      )
+      paste0(
+        "latest week (",
+        paste0(
+          dates_minmax |>
+            lubridate::ymd() |>
+            date_stamp(),
+          collapse = " to "
+        ),
+        ")"
+      )
+    } else {
+      dates <- reasons_data() |>
+        filter(time_frame != "Year to date") |>
+        pull(reference_date)
+      dates_minmax <- c(
+        dates |> min(),
+        dates |> max()
+      )
+      paste0(
+        "year to date (",
+        paste0(
+          dates_minmax |>
+            lubridate::ymd() |>
+            date_stamp(),
+          collapse = " to "
+        ),
+        ")"
+      )
+    }
+  })
+
   observe(
     print(reasons_data() |>
-      dplyr::select(code, period, geographic_level, time_frame) |>
+      dplyr::select(code, period, geographic_level, time_frame, reference_date) |>
       dplyr::distinct() |>
       arrange(code, period, time_frame))
   )
@@ -1037,28 +1077,48 @@ server <- function(input, output, session) {
   # Creating reactive titles ------------------------------------------------------------
 
   # timeseries chart reactive title
-  output$headline_ts_chart_title <- renderText({
-    paste0("Overall, authorised and unauthorised absence rates across the ", str_to_lower(reactive_period_selected()))
+  output$headline_ts_chart_title <- renderUI({
+    tagList(
+      tags$h4(
+        "Overall, authorised and unauthorised absence rates across the ",
+        time_frame_string()
+      ),
+      tags$p(
+        paste0(
+          "Absence rates presented here are calculated on a ",
+          ifelse(input$ts_choice == "latestweeks", "daily", "weekly"),
+          " basis. Each point on the chart shows an absence rate calculated across all sessions in the given ",
+          ifelse(input$ts_choice == "latestweeks", "day", "week"),
+          "."
+        )
+      )
+    )
   })
 
   # headline bullet reactive titles
   output$headline_title <- renderUI({
-    shiny::tags$h3(
-      "Headline figures for the ",
-      str_to_lower(reactive_period_selected()), ": ",
-      str_to_lower(input$school_choice),
-      " state-funded school attendance at ",
-      str_to_lower(input$geography_choice),
-      " level",
-      if (input$geography_choice != "National") {
-        paste0(" (", input$region_choice)
-      },
-      if (input$geography_choice == "Local authority") {
-        paste(",", input$la_choice)
-      },
-      if (input$geography_choice != "National") {
-        ")"
-      }
+    tagList(
+      shiny::tags$h2(
+        "Headline figures for the ",
+        str_to_lower(reactive_period_selected())
+      ),
+      shiny::tags$h3(
+        input$school_choice,
+        " state-funded school attendance at ",
+        str_to_lower(input$geography_choice),
+        " level",
+        paste0(
+          if (input$geography_choice == "Local authority") {
+            paste0(" (", input$la_choice)
+          },
+          if (input$geography_choice != "National") {
+            paste0(",", input$region_choice)
+          },
+          if (input$geography_choice != "National") {
+            ")"
+          }
+        )
+      )
     )
   })
 

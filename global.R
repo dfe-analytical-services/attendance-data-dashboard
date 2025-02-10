@@ -118,6 +118,7 @@ reasons_sqids <- fetch_sqid_lookup(reasons_dataset_id, reasons_dataset_ref_versi
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 
 #### SECTION 1 - date filters ####
+date_stamp <- lubridate::stamp_date("20 March 2025")
 start_date <- as.Date("2024-09-09")
 end_date <- as.Date("2025-01-24")
 # funeral_date <- as.Date("2022-09-19")
