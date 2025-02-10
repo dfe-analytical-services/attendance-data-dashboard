@@ -266,7 +266,7 @@ dashboard_panel <- function() {
               fluidRow(
                 column(
                   width = 12,
-                  h4(textOutput("headline_title")),
+                  uiOutput("headline_title"),
                   conditionalPanel(
                     condition = paste0("input.ts_choice == 'latestweeks'"),
                     textOutput("school_count_proportion_weekly"),
@@ -277,49 +277,7 @@ dashboard_panel <- function() {
                     textOutput("school_count_proportion_weekly2"),
                     textOutput("update_dates2"),
                   ),
-                  br(),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate'"),
-                    p(strong(paste0("Attendance and absence across year to date"))),
-                    p("Attendance and absence rates presented here are calculated across all sessions in the year to date.")
-                  ),
                   uiOutput("headline_bullet_attendance_rate"),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'National'"),
-                    textOutput("ytd_attendance_rate_nat")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'Regional'"),
-                    textOutput("ytd_attendance_rate_reg")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'Local authority'"),
-                    textOutput("ytd_attendance_rate_la")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'National'"),
-                    textOutput("ytd_absence_rate_nat")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'Regional'"),
-                    textOutput("ytd_absence_rate_reg")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'Local authority'"),
-                    textOutput("ytd_absence_rate_la")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'National'"),
-                    textOutput("ytd_illness_rate_nat")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'Regional'"),
-                    textOutput("ytd_illness_rate_reg")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'Local authority'"),
-                    textOutput("ytd_illness_rate_la")
-                  ),
                   conditionalPanel(
                     condition = paste0("input.ts_choice == 'yeartodate'"),
                     br(),
@@ -337,47 +295,6 @@ dashboard_panel <- function() {
                   conditionalPanel(
                     condition = paste0("input.ts_choice == 'yeartodate' && input.geography_choice == 'Local authority'"),
                     textOutput("ytd_pa_rate_la")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'latestweeks'"),
-                    p(strong(paste0("Attendance and absence in the latest week"))),
-                    p("Attendance and absence rates presented here are calculated across all sessions in the latest week.")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'latestweeks' && input.geography_choice == 'National'"),
-                    textOutput("weekly_attendance_rate_nat")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'latestweeks' && input.geography_choice == 'Regional'"),
-                    textOutput("weekly_attendance_rate_reg")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'latestweeks' && input.geography_choice == 'Local authority'"),
-                    textOutput("weekly_attendance_rate_la")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'latestweeks' && input.geography_choice == 'National'"),
-                    textOutput("weekly_absence_rate_nat")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'latestweeks' && input.geography_choice == 'Regional'"),
-                    textOutput("weekly_absence_rate_reg")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'latestweeks' && input.geography_choice == 'Local authority'"),
-                    textOutput("weekly_absence_rate_la")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'latestweeks' && input.geography_choice == 'National'"),
-                    textOutput("weekly_illness_rate_nat")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'latestweeks' && input.geography_choice == 'Regional'"),
-                    textOutput("weekly_illness_rate_reg")
-                  ),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'latestweeks' && input.geography_choice == 'Local authority'"),
-                    textOutput("weekly_illness_rate_la")
                   ),
                   conditionalPanel(
                     condition = paste0("input.ts_choice == 'latestweeks'"),

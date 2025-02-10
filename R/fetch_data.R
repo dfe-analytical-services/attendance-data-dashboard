@@ -67,17 +67,18 @@ filter_item_sqid_list <- function(filter_lookup) {
 
 geography_query <- function(input_geographic_level, input_region_name, input_la_name) {
   message(input_geographic_level, input_region_name, input_la_name)
-  if (input_geographic_level == "National") {
-    return(input_geographic_level)
-  } else if (input_geographic_level == "Regional") {
+  query <- "National"
+  if (input_geographic_level %in% c("Regional", "Local authority")) {
     reg_code <- dfeR::fetch_regions() |>
       dplyr::filter(region_name == input_region_name) |>
       dplyr::pull(region_code)
-    return(paste0("REG|code|", reg_code))
-  } else if (input_geographic_level == "Local authority") {
+    query <- c(query, paste0("REG|code|", reg_code))
+  }
+  if (input_geographic_level == "Local authority") {
     la_code <- dfeR::fetch_las() |>
       dplyr::filter(la_name == input_la_name) |>
       dplyr::pull(new_la_code)
-    return(paste0("LA|code|", la_code))
+    query <- c(query, paste0("LA|code|", la_code))
   }
+  return(query)
 }

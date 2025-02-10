@@ -50,13 +50,20 @@ server <- function(input, output, session) {
   })
 
   reasons_data <- reactive({
-    if (input$ts_choice == "latest_week") {
-      time_period_query <- reasons_data_version_info$time_period_end |>
+    message("Time period choice: ", input$ts_choice)
+    if (input$ts_choice == "latestweeks") {
+      time_period_query <- reasons_data_version_info()$time_period_end |>
         stringr::str_replace("Week ", "W") |>
         stringr::str_replace(" ", "|")
+      # !!! Overriding latest week for data QA purposes during development
+      time_period_query <- "2025|W2"
+      warning("Latest week time period set to ", time_period_query)
+    } else {
+      time_period_query <- "2025|W2"
     }
     eesyapi::query_dataset(
       reasons_dataset_id,
+      time_periods = time_period_query,
       geographies = geography_query(input$geography_choice, input$region_choice, input$la_choice),
       filter_items = list(
         school_phase = reasons_sqids$filters$education_phase |>
@@ -85,9 +92,9 @@ server <- function(input, output, session) {
 
   observe(
     print(reasons_data() |>
-      dplyr::select(code, period, geographic_level, weekday) |>
+      dplyr::select(code, period, geographic_level, time_frame) |>
       dplyr::distinct() |>
-      arrange(code, period, weekday))
+      arrange(code, period, time_frame))
   )
 
   # Navigation with links
@@ -1037,8 +1044,8 @@ server <- function(input, output, session) {
   })
 
   # headline bullet reactive titles
-  output$headline_title <- renderText({
-    paste0(
+  output$headline_title <- renderUI({
+    shiny::tags$h3(
       "Headline figures for the ",
       str_to_lower(reactive_period_selected()), ": ",
       str_to_lower(input$school_choice),
@@ -1140,8 +1147,8 @@ server <- function(input, output, session) {
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
-    paste0("For this breakdown, in the latest week ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools submitted data, though this has varied throughout the year-to-date.")
+    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 10), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
+    paste0("For this breakdown, in the latest week ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 1), "% of schools submitted data, though this has varied throughout the year-to-date.")
   })
 
   output$school_count_proportion_weekly2 <- renderText({
@@ -1153,8 +1160,8 @@ server <- function(input, output, session) {
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
-    paste0("For this breakdown, in the latest week ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools submitted data, though this has varied throughout the year-to-date.")
+    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 10), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
+    paste0("For this breakdown, in the latest week ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 10), "% of schools submitted data, though this has varied throughout the year-to-date.")
   })
 
   output$school_count_proportion_homepage <- renderText({
@@ -1171,8 +1178,8 @@ server <- function(input, output, session) {
       filter(time_identifier == max(time_identifier)) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
-    paste0("This number is approximately ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of the number of schools participating in the School Census. From the start of the 2024/25 academic year, it became mandatory for schools to share attendance data with the DfE. As more schools share their data, the number of schools reporting may change over time.")
+    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 10), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
+    paste0("This number is approximately ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 10), "% of the number of schools participating in the School Census. From the start of the 2024/25 academic year, it became mandatory for schools to share attendance data with the DfE. As more schools share their data, the number of schools reporting may change over time.")
   })
 
   # Proportion of schools in census figures are generated from - year to date
@@ -1184,7 +1191,7 @@ server <- function(input, output, session) {
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    paste0("For this breakdown, across the year-to-date there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in.")
+    paste0("For this breakdown, across the year-to-date there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 10), "% of schools opted-in.")
   })
 
   # Headline attendance latest week
@@ -1195,7 +1202,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
-      "• ", live_attendance_data_weekly() %>% pull(attendance_perc) %>% round(digits = 1),
+      "• ", live_attendance_data_weekly() %>% pull(attendance_perc) %>% dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as attending"
     )
   })
@@ -1212,10 +1219,10 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_weekly() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as attending in ", input$region_choice, " (compared to ", live_attendance_data_weekly_natcomp() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions at national level)"
     )
   })
@@ -1228,25 +1235,118 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_weekly() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as attending in ", input$la_choice, " (compared to ", live_attendance_data_weekly_regcomp() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions in ", input$region_choice, ")"
     )
   })
 
 
   output$headline_bullet_attendance_rate <- renderUI({
+    time_frame_text <- ifelse(
+      input$ts_choice == "latestweeks",
+      "in the latest week",
+      "across the year to date"
+    )
+    time_frame_data_string <- ifelse(
+      input$ts_choice == "latestweeks",
+      "Week",
+      "Year to date"
+    )
+    # Cut this bit out once eesyapi has been updated to convert geography labels
+    gc <- ifelse(
+      input$geography_choice == "Local authority",
+      "LA",
+      input$geography_choice |> str_trunc(3, ellipsis = "") |> toupper()
+    )
+    # --------------------------------------------------------------------------
     lines <- reasons_data() |>
-      dplyr::filter(attendance_reason %in% c("All absence", "All attendance", "I authorised illness", "Total"))
-    shiny::tags$ul(
-      shiny::tags$li(
-        paste0(
-          lines |>
-            dplyr::filter(attendance_status == "Attendance", attendance_type == "Not determined") |>
-            dplyr::pull(session_percent),
-          "% of sessions were recorded as attending"
+      filter(
+        time_frame == time_frame_data_string,
+        geographic_level == gc
+      )
+    print(lines)
+    if (input$geography_choice == "Local authority") {
+      comparator_level <- "REG"
+    } else if (input$geography_choice == "Regional") {
+      comparator_level <- "NAT"
+    } else {
+      comparator_level <- NULL
+    }
+
+    if (!is.null(comparator_level)) {
+      comparators <- reasons_data() |>
+        filter(
+          time_frame == time_frame_data_string,
+          geographic_level == comparator_level
+        )
+    }
+    tagList(
+      tags$h4("Attendance and absence", time_frame_text),
+      tags$p(
+        "Attendance and absence rates presented here are calculated across all sessions",
+        time_frame_text
+      ),
+      shiny::tags$ul(
+        shiny::tags$li(
+          headline_bullet(
+            lines |>
+              dplyr::filter(
+                attendance_status == "Attendance",
+                attendance_type == "All attendance"
+              ) |>
+              dplyr::pull(session_percent),
+            comparators |>
+              dplyr::filter(
+                attendance_status == "Attendance",
+                attendance_type == "All attendance"
+              ) |>
+              dplyr::pull(session_percent),
+            "attending",
+            input$geography_choice,
+            input$la_choice,
+            input$region_choice
+          )
+        ),
+        shiny::tags$li(
+          headline_bullet(
+            lines |>
+              dplyr::filter(
+                attendance_status == "Absence",
+                attendance_type == "All absence"
+              ) |>
+              dplyr::pull(session_percent),
+            comparators |>
+              dplyr::filter(
+                attendance_status == "Absence",
+                attendance_type == "All absence"
+              ) |>
+              dplyr::pull(session_percent),
+            "absence",
+            input$geography_choice,
+            input$la_choice,
+            input$region_choice
+          )
+        ),
+        shiny::tags$li(
+          headline_bullet(
+            lines |>
+              dplyr::filter(
+                attendance_reason == "Authorised illness (i)"
+              ) |>
+              dplyr::pull(session_percent),
+            comparators |>
+              dplyr::filter(
+                attendance_reason == "Authorised illness (i)"
+              ) |>
+              dplyr::pull(session_percent),
+            "illness",
+            input$geography_choice,
+            input$la_choice,
+            input$region_choice
+          )
         )
       )
     )
@@ -1260,7 +1360,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>% pull(attendance_perc) %>% round(digits = 1),
+      "• ", live_attendance_data_ytd() %>% pull(attendance_perc) %>% dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as attending"
     )
   })
@@ -1273,10 +1373,10 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_ytd() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as attending in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions at national level)"
     )
   })
@@ -1289,10 +1389,10 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_ytd() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as attending in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions in ", input$region_choice, ")"
     )
   })
@@ -1306,7 +1406,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_weekly() %>% pull(overall_absence_perc) %>% round(digits = 1),
+      "• ", live_attendance_data_weekly() %>% pull(overall_absence_perc) %>% dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as absence"
     )
   })
@@ -1327,10 +1427,10 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_weekly() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as absence in ", input$region_choice, " (compared to ", live_attendance_data_weekly_natcomp() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions at national level)"
     )
   })
@@ -1343,10 +1443,10 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_weekly() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as absence in ", input$la_choice, " (compared to ", live_attendance_data_weekly_regcomp() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions in ", input$region_choice, ")"
     )
   })
@@ -1359,7 +1459,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>% pull(overall_absence_perc) %>% round(digits = 1),
+      "• ", live_attendance_data_ytd() %>% pull(overall_absence_perc) %>% dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as absence"
     )
   })
@@ -1372,10 +1472,10 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_ytd() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as absence in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions at national level)"
     )
   })
@@ -1388,10 +1488,10 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_ytd() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as absence in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions in ", input$region_choice, ")"
     )
   })
@@ -1404,7 +1504,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_weekly() %>% pull(illness_perc) %>% round(digits = 1),
+      "• ", live_attendance_data_weekly() %>% pull(illness_perc) %>% dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as illness"
     )
   })
@@ -1417,10 +1517,10 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_weekly() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as illness in ", input$region_choice, " (compared to ", live_attendance_data_weekly_natcomp() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions at national level)"
     )
   })
@@ -1433,10 +1533,10 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_weekly() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as illness in ", input$la_choice, " (compared to ", live_attendance_data_weekly_regcomp() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions in ", input$region_choice, ")"
     )
   })
@@ -1449,7 +1549,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>% pull(illness_perc) %>% round(digits = 1),
+      "• ", live_attendance_data_ytd() %>% pull(illness_perc) %>% dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as illness"
     )
   })
@@ -1462,10 +1562,10 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_ytd() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as illness in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions at national level)"
     )
   })
@@ -1478,10 +1578,10 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_ytd() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions were recorded as illness in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of sessions in ", input$region_choice, ")"
     )
   })
@@ -1494,7 +1594,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>% pull(pa_perc) %>% round(digits = 1),
+      "• ", live_attendance_data_ytd() %>% pull(pa_perc) %>% dfeR::round_five_up(dp = 1),
       "% of pupils were recorded as persistently absent"
     )
   })
@@ -1507,10 +1607,10 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_ytd() %>%
         pull(pa_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of pupils were recorded as persistently absent in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
         pull(pa_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of pupils at national level)"
     )
   })
@@ -1523,10 +1623,10 @@ server <- function(input, output, session) {
     paste0(
       "• ", live_attendance_data_ytd() %>%
         pull(pa_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of pupils were recorded as persistently absent in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
         pull(pa_perc) %>%
-        round(digits = 1),
+        dfeR::round_five_up(dp = 1),
       "% of pupils in ", input$region_choice, ")"
     )
   })
@@ -1645,7 +1745,7 @@ server <- function(input, output, session) {
 
     overall_absence_rate_weekly_headline <- live_attendance_data_weekly()
     pull(overall_absence_perc) %>%
-      round(digits = 1)
+      dfeR::round_five_up(dp = 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -1662,7 +1762,7 @@ server <- function(input, output, session) {
 
     overall_absence_rate_ytd_headline <- live_attendance_data_ytd() %>%
       pull(overall_absence_perc) %>%
-      round(digits = 1)
+      dfeR::round_five_up(dp = 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -1682,7 +1782,7 @@ server <- function(input, output, session) {
 
     overall_auth_rate_weekly_headline <- live_attendance_data_weekly() %>%
       pull(authorised_absence_perc) %>%
-      round(digits = 1)
+      dfeR::round_five_up(dp = 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -1699,7 +1799,7 @@ server <- function(input, output, session) {
 
     overall_auth_rate_ytd_headline <- live_attendance_data_ytd() %>%
       pull(authorised_absence_perc) %>%
-      round(digits = 1)
+      dfeR::round_five_up(dp = 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -1719,7 +1819,7 @@ server <- function(input, output, session) {
 
     overall_unauth_rate_weekly_headline <- live_attendance_data_weekly() %>%
       pull(unauthorised_absence_perc) %>%
-      round(digits = 1)
+      dfeR::round_five_up(dp = 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -1736,7 +1836,7 @@ server <- function(input, output, session) {
 
     overall_unauth_rate_ytd_headline <- live_attendance_data_ytd() %>%
       pull(unauthorised_absence_perc) %>%
-      round(digits = 1)
+      dfeR::round_five_up(dp = 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -2068,11 +2168,5 @@ server <- function(input, output, session) {
     paste0(
       input$school_choice, " state-funded schools: ", str_to_lower(input$measure_choice), " absence rates by local authority"
     )
-  })
-
-  # Stop app ---------------------------------------------------------------------------------
-
-  session$onSessionEnded(function() {
-    stopApp()
   })
 }
