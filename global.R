@@ -112,7 +112,7 @@ reasons_sqids <- fetch_sqid_lookup(reasons_dataset_id, reasons_dataset_ref_versi
 
 #### SECTION 1 - date filters ####
 start_date <- as.Date("2024-09-09")
-end_date <- as.Date("2025-01-10")
+end_date <- as.Date("2025-01-24")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
