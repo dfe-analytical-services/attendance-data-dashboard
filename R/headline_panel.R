@@ -48,6 +48,10 @@ headline_panel <- function() {
           bslib::card(
             bslib::card_body(
               uiOutput("headline_ts_chart_title"),
+              ggiraph::girafeOutput(
+                "headline_absence_chart",
+                width = "100%", height = "100%"
+              ),
               conditionalPanel(
                 condition = paste0("input.ts_choice == 'yeartodate'"),
                 plotlyOutput("absence_rates_timeseries_plot")

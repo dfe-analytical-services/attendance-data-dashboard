@@ -55,8 +55,20 @@ server <- function(input, output, session) {
       time_period_query <- reasons_data_version_info()$time_period_end |>
         stringr::str_replace("Week ", "W") |>
         stringr::str_replace(" ", "|")
+      time_frame_query <- c(
+        reasons_sqids$filters$time_frame$week,
+        reasons_sqids$filters$time_frame$monday,
+        reasons_sqids$filters$time_frame$tuesday,
+        reasons_sqids$filters$time_frame$wednesday,
+        reasons_sqids$filters$time_frame$thursday,
+        reasons_sqids$filters$time_frame$friday
+      )
     } else {
-      time_period_query <- "2025|W2"
+      time_period_query <- NULL
+      time_frame_query <- c(
+        reasons_sqids$filters$time_frame$week,
+        reasons_sqids$filters$time_frame$yeartodate
+      )
     }
 
     eesyapi::query_dataset(
@@ -64,21 +76,33 @@ server <- function(input, output, session) {
       time_periods = time_period_query,
       geographies = geography_query(input$geography_choice, input$region_choice, input$la_choice),
       filter_items = list(
+        time_frame = time_frame_query,
         school_phase = reasons_sqids$filters$education_phase |>
           magrittr::extract2(tolower(input$school_choice)),
         attendance_status = c(
           reasons_sqids$filters$attendance_status$attendance,
           reasons_sqids$filters$attendance_status$absence
         ),
+        attendance_type = c(
+          reasons_sqids$filters$attendance_type$allattendance,
+          reasons_sqids$filters$attendance_type$allabsence,
+          reasons_sqids$filters$attendance_type$authorised,
+          reasons_sqids$filters$attendance_type$unauthorised
+        ),
         attendance_reason = c(
           reasons_sqids$filters$attendance_reason$authorisedillness_i,
+          reasons_sqids$filters$attendance_reason$allattendance,
           reasons_sqids$filters$attendance_reason$allabsence,
-          reasons_sqids$filters$attendance_reason$allattendance
+          reasons_sqids$filters$attendance_reason$allunauthorised,
+          reasons_sqids$filters$attendance_reason$allauthorised
         )
       ),
       indicators = unlist(reasons_sqids$indicators, use.names = FALSE),
       ees_environment = api_environment
-    )
+    ) |>
+      mutate(
+        reference_date = lubridate::ymd(reference_date)
+      )
   }) |>
     shiny::bindCache(
       reasons_data_version_info()$version,
@@ -130,7 +154,11 @@ server <- function(input, output, session) {
 
   observe(
     print(reasons_data() |>
-      dplyr::select(code, period, geographic_level, time_frame, reference_date) |>
+      dplyr::select(
+        code, period, time_frame, reference_date,
+        geographic_level,
+        attendance_status, attendance_type, attendance_reason
+      ) |>
       dplyr::distinct() |>
       arrange(code, period, time_frame))
   )
@@ -809,6 +837,16 @@ server <- function(input, output, session) {
     } else if (input$geography_choice == "Local authority") {
       paste0("Daily summary of absence rates for ", "<br>", str_to_lower(input$school_choice), " state-funded schools ", "<br>", "(", input$region_choice, ", ", input$la_choice, ")")
     }
+  })
+
+
+  output$headline_absence_chart <- ggiraph::renderGirafe({
+    ggiraph::girafe(
+      ggobj = headline_absence_ggplot(
+        reasons_data(),
+        input$ts_choice
+      )
+    )
   })
 
   output$absence_rates_daily_plot <- renderPlotly({
