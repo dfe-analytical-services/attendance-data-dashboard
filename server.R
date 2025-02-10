@@ -55,12 +55,10 @@ server <- function(input, output, session) {
       time_period_query <- reasons_data_version_info()$time_period_end |>
         stringr::str_replace("Week ", "W") |>
         stringr::str_replace(" ", "|")
-      # !!! Overriding latest week for data QA purposes during development
-      time_period_query <- "2025|W2"
-      warning("Latest week time period set to ", time_period_query)
     } else {
       time_period_query <- "2025|W2"
     }
+
     eesyapi::query_dataset(
       reasons_dataset_id,
       time_periods = time_period_query,

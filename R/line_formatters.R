@@ -3,15 +3,20 @@ headline_bullet <- function(
     comparator_value,
     statistic_name,
     geographic_level,
-    la_name,
-    region_name) {
+    la_name_in,
+    region_name_in) {
   if (geographic_level == "Local authority") {
-    area_string <- paste("in", area_name)
+    area_string <- paste("in", la_name_in)
     comparator_level <- "REG"
-    comparator_name <- paste("the", region_name) |>
+    comparator_name <- paste(
+      "the",
+      region_la_lookup |>
+        filter(la_name == la_name_in) |>
+        pull(region_name)
+    ) |>
       stringr::str_replace("the London", "London")
   } else if (geographic_level == "Regional") {
-    area_string <- paste("in the", region_name) |>
+    area_string <- paste("in the", region_name_in) |>
       stringr::str_replace("the London", "London")
     comparator_level <- "NAT"
     comparator_name <- "England"

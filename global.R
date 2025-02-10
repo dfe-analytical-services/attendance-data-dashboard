@@ -94,6 +94,13 @@ ees_pub_name <- "Pupil attendance in schools"
 ees_pub_slug <- "pupil-attendance-in-schools"
 team_email <- "schools.statistics@education.gov.uk"
 
+# Some standard geography lookups
+region_la_lookup <- dfeR::wd_pcon_lad_la_rgn_ctry |>
+  filter(country_name == "England") |>
+  select(region_name, region_code, la_name, new_la_code) |>
+  distinct() |>
+  arrange(region_name)
+
 
 api_environment <- "test"
 reasons_dataset_id <- "8e8c9301-55c5-3e71-abbb-73ac64420c4a"
