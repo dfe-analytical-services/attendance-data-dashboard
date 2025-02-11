@@ -53,7 +53,7 @@ headline_absence_ggplot <- function(reasons, scope) {
     ) +
     scale_x_date(date_breaks = date_breaks, date_labels = "%d %b") +
     afcharts::theme_af() +
-    theme(text = element_text(family = "")) + # This line is to get around the af font not being recognised
+    theme(text = element_text(family = "sans")) +
     scale_colour_manual(values = c("#12436D", "#28A197", "#801650")) +
     labs(
       x = year(dates) |>

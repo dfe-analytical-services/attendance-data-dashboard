@@ -840,7 +840,8 @@ server <- function(input, output, session) {
         reasons_data() |>
           filter(geographic_level == input$geography_choice),
         input$ts_choice
-      )
+      ),
+      fonts = list(sans = "Open Sans")
     )
   })
 
