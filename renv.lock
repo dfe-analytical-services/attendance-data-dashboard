@@ -1675,11 +1675,11 @@
       "Author": "Rich Bielby [aut, cre] (<https://orcid.org/0000-0001-9070-9969>), Cam Race [aut], Laura Selby [ctb]",
       "Maintainer": "Rich Bielby <richard.bielby@education.gov.uk>",
       "RemoteType": "github",
+      "RemoteHost": "api.github.com",
       "RemoteUsername": "dfe-analytical-services",
-      "RemoteRepo": "eesyapi.R",
-      "RemoteRef": "main",
-      "RemoteSha": "cc85c11aba8fcdef298d6d0f9f3157c37bae3eee",
-      "RemoteHost": "api.github.com"
+      "RemoteRepo": "eesyapi",
+      "RemoteRef": "new-feature/convert-geographic_level-output",
+      "RemoteSha": "f76d823c28e5f43dee53a95fd4b3d42f891732f3"
     },
     "emoji": {
       "Package": "emoji",

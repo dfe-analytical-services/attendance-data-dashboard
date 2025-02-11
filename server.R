@@ -113,6 +113,11 @@ server <- function(input, output, session) {
       input$school_choice
     )
 
+  observe({
+    message("Reasons data")
+    print(reasons_data())
+  })
+
   time_frame_string <- reactive({
     if (input$ts_choice == "latestweeks") {
       dates <- reasons_data() |>
@@ -833,7 +838,7 @@ server <- function(input, output, session) {
     ggiraph::girafe(
       ggobj = headline_absence_ggplot(
         reasons_data() |>
-          filter(geographic_level == str_trunc(toupper(input$geography_choice), 3, ellipsis = "")),
+          filter(geographic_level == input$geography_choice),
         input$ts_choice
       )
     )
@@ -1341,17 +1346,11 @@ server <- function(input, output, session) {
       "Week",
       "Year to date"
     )
-    # Cut this bit out once eesyapi has been updated to convert geography labels
-    gc <- ifelse(
-      input$geography_choice == "Local authority",
-      "LA",
-      input$geography_choice |> str_trunc(3, ellipsis = "") |> toupper()
-    )
     # --------------------------------------------------------------------------
     lines <- reasons_data() |>
       filter(
         time_frame == time_frame_data_string,
-        geographic_level == gc
+        geographic_level == input$geography_choice
       )
     if (input$geography_choice == "Local authority") {
       comparator_level <- "REG"
