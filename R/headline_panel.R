@@ -4,7 +4,8 @@ headline_panel <- function() {
       column(
         width = 12,
         uiOutput("headline_title"),
-        bslib::layout_column_wrap(
+        bslib::layout_columns(
+          col_widths = c(12, 12),
           bslib::card(
             bslib::card_body(
               tags$h4("School return rate"),
@@ -51,14 +52,6 @@ headline_panel <- function() {
               ggiraph::girafeOutput(
                 "headline_absence_chart",
                 width = "100%", height = "100%"
-              ),
-              conditionalPanel(
-                condition = paste0("input.ts_choice == 'yeartodate'"),
-                plotlyOutput("absence_rates_timeseries_plot")
-              ),
-              conditionalPanel(
-                condition = paste0("input.ts_choice == 'latestweeks'"),
-                plotlyOutput("absence_rates_daily_plot")
               )
             )
           )

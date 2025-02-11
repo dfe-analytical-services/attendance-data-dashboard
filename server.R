@@ -70,7 +70,6 @@ server <- function(input, output, session) {
         reasons_sqids$filters$time_frame$yeartodate
       )
     }
-
     eesyapi::query_dataset(
       reasons_dataset_id,
       time_periods = time_period_query,
@@ -98,7 +97,8 @@ server <- function(input, output, session) {
         )
       ),
       indicators = unlist(reasons_sqids$indicators, use.names = FALSE),
-      ees_environment = api_environment
+      ees_environment = api_environment,
+      verbose = api_verbose
     ) |>
       mutate(
         reference_date = lubridate::ymd(reference_date)
@@ -106,6 +106,7 @@ server <- function(input, output, session) {
   }) |>
     shiny::bindCache(
       reasons_data_version_info()$version,
+      input$ts_choice,
       input$geography_choice,
       input$region_choice,
       input$la_choice,
@@ -152,16 +153,15 @@ server <- function(input, output, session) {
     }
   })
 
-  observe(
+  observe({
+    print("time_frames present in reasons_data: ")
     print(reasons_data() |>
       dplyr::select(
-        code, period, time_frame, reference_date,
-        geographic_level,
-        attendance_status, attendance_type, attendance_reason
+        code, period, time_frame
       ) |>
       dplyr::distinct() |>
       arrange(code, period, time_frame))
-  )
+  })
 
   # Navigation with links
   observeEvent(input$link_to_headlines_tab, {
