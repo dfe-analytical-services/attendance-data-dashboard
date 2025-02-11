@@ -153,16 +153,6 @@ server <- function(input, output, session) {
     }
   })
 
-  observe({
-    print("time_frames present in reasons_data: ")
-    print(reasons_data() |>
-      dplyr::select(
-        code, period, time_frame
-      ) |>
-      dplyr::distinct() |>
-      arrange(code, period, time_frame))
-  })
-
   # Navigation with links
   observeEvent(input$link_to_headlines_tab, {
     updateTabsetPanel(session, "navlistPanel", selected = "dashboard")
@@ -563,7 +553,6 @@ server <- function(input, output, session) {
         unauth_not_yet_perc = unauth_not_yet_perc / 100
         # ,pa_perc = pa_perc / 100
       )
-      print(x)
       x
     } else {
       NA
@@ -843,7 +832,8 @@ server <- function(input, output, session) {
   output$headline_absence_chart <- ggiraph::renderGirafe({
     ggiraph::girafe(
       ggobj = headline_absence_ggplot(
-        reasons_data(),
+        reasons_data() |>
+          filter(geographic_level == str_trunc(toupper(input$geography_choice), 3, ellipsis = "")),
         input$ts_choice
       )
     )
@@ -1363,7 +1353,6 @@ server <- function(input, output, session) {
         time_frame == time_frame_data_string,
         geographic_level == gc
       )
-    print(lines)
     if (input$geography_choice == "Local authority") {
       comparator_level <- "REG"
     } else if (input$geography_choice == "Regional") {

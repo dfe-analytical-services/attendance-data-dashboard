@@ -103,7 +103,7 @@ region_la_lookup <- dfeR::wd_pcon_lad_la_rgn_ctry |>
   arrange(region_name)
 
 
-api_verbose <- TRUE
+api_verbose <- FALSE
 api_environment <- "test"
 reasons_dataset_id <- "8e8c9301-55c5-3e71-abbb-73ac64420c4a"
 reasons_dataset_ref_version <- 2.0
