@@ -48,6 +48,14 @@ library(eesyapi)
 
 # Functions ---------------------------------------------------------------------------------
 
+print(
+  systemfonts::system_fonts() |>
+    dplyr::filter(style == "Regular") |>
+    dplyr::select(name, family) |>
+    distinct(),
+  n = 420
+)
+
 # Here's an example function for simplifying the code needed to commas separate numbers:
 
 # cs_num ----------------------------------------------------------------------------
