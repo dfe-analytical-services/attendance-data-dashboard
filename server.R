@@ -841,7 +841,7 @@ server <- function(input, output, session) {
           filter(geographic_level == input$geography_choice),
         input$ts_choice
       ),
-      fonts = list(sans = "Open Sans")
+      fonts = list(sans = plotting_font_family)
     )
   })
 

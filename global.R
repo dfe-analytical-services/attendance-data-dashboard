@@ -48,13 +48,15 @@ library(eesyapi)
 
 # Functions ---------------------------------------------------------------------------------
 
-print(
+plotting_font_family <- intersect(
+  c("Gills Sans MT", "Helvetica", "Arial", "Noto Sans", "Open Sans", "FreeSans"),
   systemfonts::system_fonts() |>
     dplyr::filter(style == "Regular") |>
-    dplyr::select(name, family) |>
-    distinct(),
-  n = 420
-)
+    dplyr::pull(family) |>
+    unique()
+) |>
+  magrittr::extract(1)
+
 
 # Here's an example function for simplifying the code needed to commas separate numbers:
 

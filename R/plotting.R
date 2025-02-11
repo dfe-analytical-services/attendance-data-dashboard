@@ -53,7 +53,6 @@ headline_absence_ggplot <- function(reasons, scope) {
     ) +
     scale_x_date(date_breaks = date_breaks, date_labels = "%d %b") +
     afcharts::theme_af() +
-    theme(text = element_text(family = "sans")) +
     scale_colour_manual(values = c("#12436D", "#28A197", "#801650")) +
     labs(
       x = year(dates) |>
@@ -63,6 +62,6 @@ headline_absence_ggplot <- function(reasons, scope) {
       y = "%",
       colour = NULL
     ) +
-    theme(legend.position = "bottom", text = element_text(size = 12)) +
+    theme(legend.position = "bottom", text = element_text(family = plotting_font_family)) +
     guides(color = guide_legend(nrow = 3, byrow = TRUE))
 }
