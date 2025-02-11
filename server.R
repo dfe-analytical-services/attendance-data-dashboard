@@ -55,45 +55,103 @@ server <- function(input, output, session) {
       time_period_query <- reasons_data_version_info()$time_period_end |>
         stringr::str_replace("Week ", "W") |>
         stringr::str_replace(" ", "|")
+      time_frame_query <- c(
+        reasons_sqids$filters$time_frame$week,
+        reasons_sqids$filters$time_frame$monday,
+        reasons_sqids$filters$time_frame$tuesday,
+        reasons_sqids$filters$time_frame$wednesday,
+        reasons_sqids$filters$time_frame$thursday,
+        reasons_sqids$filters$time_frame$friday
+      )
     } else {
-      time_period_query <- "2025|W2"
+      time_period_query <- NULL
+      time_frame_query <- c(
+        reasons_sqids$filters$time_frame$week,
+        reasons_sqids$filters$time_frame$yeartodate
+      )
     }
-
     eesyapi::query_dataset(
       reasons_dataset_id,
       time_periods = time_period_query,
       geographies = geography_query(input$geography_choice, input$region_choice, input$la_choice),
       filter_items = list(
+        time_frame = time_frame_query,
         school_phase = reasons_sqids$filters$education_phase |>
           magrittr::extract2(tolower(input$school_choice)),
         attendance_status = c(
           reasons_sqids$filters$attendance_status$attendance,
           reasons_sqids$filters$attendance_status$absence
         ),
+        attendance_type = c(
+          reasons_sqids$filters$attendance_type$allattendance,
+          reasons_sqids$filters$attendance_type$allabsence,
+          reasons_sqids$filters$attendance_type$authorised,
+          reasons_sqids$filters$attendance_type$unauthorised
+        ),
         attendance_reason = c(
           reasons_sqids$filters$attendance_reason$authorisedillness_i,
+          reasons_sqids$filters$attendance_reason$allattendance,
           reasons_sqids$filters$attendance_reason$allabsence,
-          reasons_sqids$filters$attendance_reason$allattendance
+          reasons_sqids$filters$attendance_reason$allunauthorised,
+          reasons_sqids$filters$attendance_reason$allauthorised
         )
       ),
       indicators = unlist(reasons_sqids$indicators, use.names = FALSE),
-      ees_environment = api_environment
-    )
+      ees_environment = api_environment,
+      verbose = api_verbose
+    ) |>
+      mutate(
+        reference_date = lubridate::ymd(reference_date)
+      )
   }) |>
     shiny::bindCache(
       reasons_data_version_info()$version,
+      input$ts_choice,
       input$geography_choice,
       input$region_choice,
       input$la_choice,
       input$school_choice
     )
 
-  observe(
-    print(reasons_data() |>
-      dplyr::select(code, period, geographic_level, time_frame) |>
-      dplyr::distinct() |>
-      arrange(code, period, time_frame))
-  )
+  time_frame_string <- reactive({
+    if (input$ts_choice == "latestweeks") {
+      dates <- reasons_data() |>
+        filter(time_frame != "Week") |>
+        pull(reference_date)
+      dates_minmax <- c(
+        dates |> min(),
+        dates |> max()
+      )
+      paste0(
+        "latest week (",
+        paste0(
+          dates_minmax |>
+            lubridate::ymd() |>
+            date_stamp(),
+          collapse = " to "
+        ),
+        ")"
+      )
+    } else {
+      dates <- reasons_data() |>
+        filter(time_frame != "Year to date") |>
+        pull(reference_date)
+      dates_minmax <- c(
+        dates |> min(),
+        dates |> max()
+      )
+      paste0(
+        "year to date (",
+        paste0(
+          dates_minmax |>
+            lubridate::ymd() |>
+            date_stamp(),
+          collapse = " to "
+        ),
+        ")"
+      )
+    }
+  })
 
   # Navigation with links
   observeEvent(input$link_to_headlines_tab, {
@@ -495,7 +553,6 @@ server <- function(input, output, session) {
         unauth_not_yet_perc = unauth_not_yet_perc / 100
         # ,pa_perc = pa_perc / 100
       )
-      print(x)
       x
     } else {
       NA
@@ -771,6 +828,17 @@ server <- function(input, output, session) {
     }
   })
 
+
+  output$headline_absence_chart <- ggiraph::renderGirafe({
+    ggiraph::girafe(
+      ggobj = headline_absence_ggplot(
+        reasons_data() |>
+          filter(geographic_level == str_trunc(toupper(input$geography_choice), 3, ellipsis = "")),
+        input$ts_choice
+      )
+    )
+  })
+
   output$absence_rates_daily_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_daily()) > 0, "There is no data available for this breakdown at present"))
     validate(need(live_attendance_data_daily()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
@@ -1037,28 +1105,48 @@ server <- function(input, output, session) {
   # Creating reactive titles ------------------------------------------------------------
 
   # timeseries chart reactive title
-  output$headline_ts_chart_title <- renderText({
-    paste0("Overall, authorised and unauthorised absence rates across the ", str_to_lower(reactive_period_selected()))
+  output$headline_ts_chart_title <- renderUI({
+    tagList(
+      tags$h4(
+        "Overall, authorised and unauthorised absence rates across the ",
+        time_frame_string()
+      ),
+      tags$p(
+        paste0(
+          "Absence rates presented here are calculated on a ",
+          ifelse(input$ts_choice == "latestweeks", "daily", "weekly"),
+          " basis. Each point on the chart shows an absence rate calculated across all sessions in the given ",
+          ifelse(input$ts_choice == "latestweeks", "day", "week"),
+          "."
+        )
+      )
+    )
   })
 
   # headline bullet reactive titles
   output$headline_title <- renderUI({
-    shiny::tags$h3(
-      "Headline figures for the ",
-      str_to_lower(reactive_period_selected()), ": ",
-      str_to_lower(input$school_choice),
-      " state-funded school attendance at ",
-      str_to_lower(input$geography_choice),
-      " level",
-      if (input$geography_choice != "National") {
-        paste0(" (", input$region_choice)
-      },
-      if (input$geography_choice == "Local authority") {
-        paste(",", input$la_choice)
-      },
-      if (input$geography_choice != "National") {
-        ")"
-      }
+    tagList(
+      shiny::tags$h2(
+        "Headline figures for the ",
+        str_to_lower(reactive_period_selected())
+      ),
+      shiny::tags$h3(
+        input$school_choice,
+        " state-funded school attendance at ",
+        str_to_lower(input$geography_choice),
+        " level",
+        paste0(
+          if (input$geography_choice == "Local authority") {
+            paste0(" (", input$la_choice)
+          },
+          if (input$geography_choice != "National") {
+            paste0(",", input$region_choice)
+          },
+          if (input$geography_choice != "National") {
+            ")"
+          }
+        )
+      )
     )
   })
 
@@ -1265,7 +1353,6 @@ server <- function(input, output, session) {
         time_frame == time_frame_data_string,
         geographic_level == gc
       )
-    print(lines)
     if (input$geography_choice == "Local authority") {
       comparator_level <- "REG"
     } else if (input$geography_choice == "Regional") {

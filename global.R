@@ -23,6 +23,7 @@ library(shinyWidgets)
 library(data.table)
 library(ggplot2)
 library(plotly)
+library(ggiraph)
 library(shinycssloaders)
 library(tidyr)
 library(stringr)
@@ -102,6 +103,7 @@ region_la_lookup <- dfeR::wd_pcon_lad_la_rgn_ctry |>
   arrange(region_name)
 
 
+api_verbose <- FALSE
 api_environment <- "test"
 reasons_dataset_id <- "8e8c9301-55c5-3e71-abbb-73ac64420c4a"
 reasons_dataset_ref_version <- 2.0
@@ -118,6 +120,7 @@ reasons_sqids <- fetch_sqid_lookup(reasons_dataset_id, reasons_dataset_ref_versi
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 
 #### SECTION 1 - date filters ####
+date_stamp <- lubridate::stamp_date("20 March 2025")
 start_date <- as.Date("2024-09-09")
 end_date <- as.Date("2025-01-24")
 # funeral_date <- as.Date("2022-09-19")
