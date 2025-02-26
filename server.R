@@ -40,6 +40,16 @@ server <- function(input, output, session) {
   )
   # ==============================================================================================
 
+  time_frame_descriptors <- reactive(
+    if (input$ts_choice == "latestweeks") {
+      list(filter_string = "Week", display_string = "Latest week")
+    } else {
+      list(filter_string = "Year to date", display_string = "Year to date")
+    }
+  )
+
+
+
   # Retrieving data from the API
   reasons_data_version_info <- eventReactive(input$geography_choice, {
     eesyapi::get_dataset_versions(
@@ -78,16 +88,6 @@ server <- function(input, output, session) {
         time_frame = time_frame_query,
         school_phase = reasons_sqids$filters$education_phase |>
           magrittr::extract2(tolower(input$school_choice)),
-        attendance_status = c(
-          reasons_sqids$filters$attendance_status$attendance,
-          reasons_sqids$filters$attendance_status$absence
-        ),
-        attendance_type = c(
-          reasons_sqids$filters$attendance_type$allattendance,
-          reasons_sqids$filters$attendance_type$allabsence,
-          reasons_sqids$filters$attendance_type$authorised,
-          reasons_sqids$filters$attendance_type$unauthorised
-        ),
         attendance_reason = c(
           reasons_sqids$filters$attendance_reason$allattendance,
           reasons_sqids$filters$attendance_reason$allabsence,
@@ -99,6 +99,7 @@ server <- function(input, output, session) {
           reasons_sqids$filters$attendance_reason$authorisedmobilechildilechild_t,
           reasons_sqids$filters$attendance_reason$authorisedexcluded_e,
           reasons_sqids$filters$attendance_reason$part_time,
+          reasons_sqids$filters$attendance_reason$authorisedother_c,
           reasons_sqids$filters$attendance_reason$authorisedother_c,
           reasons_sqids$filters$attendance_reason$allunauthorised,
           reasons_sqids$filters$attendance_reason$allunauthorised,
@@ -872,72 +873,6 @@ server <- function(input, output, session) {
     )
   })
 
-
-  output$absence_rates_daily_plot <- renderPlotly({
-    validate(need(nrow(live_attendance_data_daily()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_daily()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    absence_rates_weekly <- live_attendance_data_daily() %>%
-      arrange(attendance_date)
-
-    ts_plot <- plot_ly(
-      absence_rates_weekly,
-      type = "scatter", mode = "lines+markers"
-    ) %>%
-      add_trace(
-        x = ~attendance_date,
-        y = ~overall_absence_perc,
-        # line = list(color = "black"),
-        line = list(color = "#12436D"),
-        # marker = list(color = "black"),
-        marker = list(color = "#12436D"),
-        name = "Overall absence rate",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      add_trace(
-        x = ~attendance_date,
-        y = ~authorised_absence_perc,
-        # line = list(color = "steelblue"),
-        line = list(color = "#28A197"),
-        # marker = list(color = "steelblue"),
-        marker = list(color = "#28A197"),
-        name = "Authorised absence rate",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      add_trace(
-        x = ~attendance_date,
-        y = ~unauthorised_absence_perc,
-        # line = list(color = "orangered"),
-        line = list(color = "#F46A25"),
-        # marker = list(color = "orangered"),
-        marker = list(color = "#F46A25"),
-        name = "Unauthorised absence rate",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      config(displayModeBar = FALSE)
-
-    ts_plot <- ts_plot %>% layout(
-      xaxis = list(title = "Date", tickvals = ~attendance_date, zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
-      yaxis = list(rangemode = "tozero", title = "Absence rate (%)", zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
-      hovermode = "x unified",
-      legend = list(
-        font = list(size = 11),
-        orientation = "h",
-        yanchor = "top",
-        y = -0.5,
-        xanchor = "center",
-        x = 0.5
-      ),
-      margin = list(t = 80),
-      title = newtitle_daily(),
-      font = t
-    )
-  })
-
-
   # Reasons for absence - ytd chart
 
   newtitle_reasonsweekly <- renderText({
@@ -1060,82 +995,6 @@ server <- function(input, output, session) {
     } else if (input$geography_choice == "Local authority") {
       paste0("Daily absence reasons for ", str_to_lower(input$school_choice), " state-funded schools", "<br>", "(", input$region_choice, ", ", input$la_choice, ")")
     }
-  })
-
-  output$absence_reasons_daily_plot <- renderPlotly({
-    validate(need(nrow(live_attendance_data_daily()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_daily()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    absence_rates_weekly <- live_attendance_data_daily() %>%
-      arrange(attendance_date)
-
-    ts_plot <- plot_ly(
-      absence_rates_weekly,
-      type = "scatter", mode = "lines+markers"
-    ) %>%
-      add_trace(
-        x = ~attendance_date,
-        y = ~illness_perc,
-        line = list(color = "#12436D"),
-        marker = list(color = "#12436D"),
-        name = "Illness",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      add_trace(
-        x = ~attendance_date,
-        y = ~appointments_perc,
-        line = list(color = "#28A197"),
-        marker = list(color = "#28A197"),
-        name = "Medical appointments",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      add_trace(
-        x = ~attendance_date,
-        y = ~auth_part_time_perc,
-        line = list(color = "#FFBF47"),
-        marker = list(color = "#FFBF47"),
-        name = "Part-time timetable",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      add_trace(
-        x = ~attendance_date,
-        y = ~unauth_hol_perc,
-        line = list(color = "#F46A25"),
-        marker = list(color = "#F46A25"),
-        name = "Unauthorised holiday",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      add_trace(
-        x = ~attendance_date,
-        y = ~unauth_oth_perc,
-        line = list(color = "#801650"),
-        marker = list(color = "#801650"),
-        name = "Unauthorised other",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      config(displayModeBar = FALSE)
-
-    ts_plot <- ts_plot %>% layout(
-      xaxis = list(title = "Date", tickvals = ~attendance_date, zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
-      yaxis = list(rangemode = "tozero", title = "Absence rate (%)", zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
-      hovermode = "x unified",
-      legend = list(
-        font = list(size = 11),
-        orientation = "h",
-        yanchor = "top",
-        y = -0.5,
-        xanchor = "center",
-        x = 0.5
-      ),
-      margin = list(t = 80),
-      title = newtitle_reasonsdaily(),
-      font = t
-    )
   })
 
   # Creating reactive titles ------------------------------------------------------------
@@ -1894,149 +1753,75 @@ server <- function(input, output, session) {
     )
   })
 
-  output$headline_auth_rate_value <- renderText({
-  })
-
   # Creating reactive reasons and la comparison table ------------------------------------------------------------
 
-  # authorised reasons weekly
-  output$absence_auth_reasons_table <- renderDT({
-    validate(need(nrow(live_attendance_data_weekly_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_weekly_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
+  output$absence_auth_table_title <- renderUI(
+    shiny::tags$h3("Reasons for absence in the", tolower(time_frame_descriptors()$display_string))
+  )
 
-    absence_auth_reasons_dt <- live_attendance_data_weekly_reasons_tables() %>%
-      dplyr::select(
-        illness_perc, appointments_perc, auth_religious_perc, auth_study_perc, auth_mob_perc, # auth_holiday_perc
-        , auth_excluded_perc, auth_part_time_perc, auth_other_perc
-      ) %>%
-      rename(
-        "Illness" = illness_perc,
-        "Medical or dental appointments" = appointments_perc,
-        "Religious observance" = auth_religious_perc,
-        "Study leave" = auth_study_perc,
-        "Mobile students" = auth_mob_perc,
-        # "Holiday" = auth_holiday_perc,
-        "Excluded" = auth_excluded_perc,
-        "Part-time timetable" = auth_part_time_perc,
-        "Other" = auth_other_perc
-      )
-
-    absence_auth_reasons_dt <- datatable(absence_auth_reasons_dt,
-      selection = "none",
-      escape = FALSE,
-      rownames = FALSE,
-      class = "cell-border stripe",
-      options = list(
-        scrollX = TRUE,
-        ordering = F,
-        searching = FALSE,
-        lengthChange = FALSE,
-        dom = "t",
-        columnDefs = list(list(className = "dt-center", targets = 0:7))
-      )
-    ) %>%
-      formatPercentage(c(0:7), 1)
+  output$absence_auth_reasons_reactable <- renderReactable({
+    dfeshiny::dfe_reactable(
+      reasons_data() |>
+        filter(
+          geographic_level == input$geography_choice,
+          time_frame == time_frame_descriptors()$filter_string,
+          attendance_reason %in% c(
+            "Authorised illness (i)",
+            "Authorised medical dental (m)",
+            "Authorised religious observance (r)",
+            "Authorised study leave (s)",
+            "Authorised mobile childile child (t)",
+            "Authorised excluded (e)",
+            "Part_time",
+            "Authorised other (c)"
+          )
+        ) |>
+        select(attendance_reason, session_percent) |>
+        mutate(
+          attendance_reason = attendance_reason |>
+            stringr::str_replace("Authorised ", "") |>
+            stringr::str_to_sentence(),
+          session_percent = session_percent |>
+            as.numeric() |>
+            dfeR::round_five_up(dp = 1) |>
+            paste0("%")
+        ) |>
+        tidyr::pivot_wider(
+          names_from = attendance_reason,
+          values_from = session_percent
+        )
+    )
   })
 
-  # authorised reasons ytd
-  output$absence_auth_reasons_table_ytd <- renderDT({
-    validate(need(nrow(live_attendance_data_ytd_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_ytd_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    absence_auth_reasons_ytd_dt <- live_attendance_data_ytd_reasons_tables() %>%
-      dplyr::select(
-        illness_perc, appointments_perc, auth_religious_perc, auth_study_perc, auth_mob_perc, # auth_holiday_perc,
-        auth_excluded_perc, auth_part_time_perc, auth_other_perc
-      ) %>%
-      rename(
-        "Illness" = illness_perc,
-        "Medical or dental appointments" = appointments_perc,
-        "Religious observance" = auth_religious_perc,
-        "Study leave" = auth_study_perc,
-        "Mobile students" = auth_mob_perc,
-        # "Holiday" = auth_holiday_perc,
-        "Excluded" = auth_excluded_perc,
-        "Part-time timetable" = auth_part_time_perc,
-        "Other" = auth_other_perc
+  output$absence_unauth_reasons_reactable <- renderReactable({
+    unauth_data <- reasons_data() |>
+      filter(
+        geographic_level == input$geography_choice,
+        time_frame == time_frame_descriptors()$filter_string,
+        attendance_reason %in% c(
+          "Unauthorised holiday (g)",
+          "Unauthorised late after registers closed (u)",
+          "Other unauthorised (o)",
+          "No reason yet (n)"
+        )
+      ) |>
+      select(attendance_reason, session_percent) |>
+      mutate(
+        attendance_reason = attendance_reason |>
+          stringr::str_replace("Unauthorised ", "") |>
+          stringr::str_to_sentence(),
+        session_percent = session_percent |>
+          as.numeric() |>
+          dfeR::round_five_up(dp = 1) |>
+          paste0("%")
+      ) |>
+      tidyr::pivot_wider(
+        names_from = attendance_reason,
+        values_from = session_percent
       )
-
-    absence_auth_reasons_ytd_dt <- datatable(absence_auth_reasons_ytd_dt,
-      selection = "none",
-      escape = FALSE,
-      rownames = FALSE,
-      class = "cell-border stripe",
-      options = list(
-        scrollX = TRUE,
-        ordering = F,
-        searching = FALSE,
-        lengthChange = FALSE,
-        dom = "t",
-        columnDefs = list(list(className = "dt-center", targets = 0:7))
-      )
-    ) %>%
-      formatPercentage(c(0:7), 1)
-  })
-
-  # unauthorised reasons weekly
-  output$absence_unauth_reasons_table <- renderDT({
-    validate(need(nrow(live_attendance_data_weekly_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_weekly_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    absence_unauth_reasons_dt <- live_attendance_data_weekly_reasons_tables() %>%
-      dplyr::select(unauth_hol_perc, unauth_late_registers_closed_perc, unauth_oth_perc, unauth_not_yet_perc) %>%
-      rename(
-        "Holiday" = unauth_hol_perc,
-        "Late after registers closed" = unauth_late_registers_closed_perc,
-        "Other" = unauth_oth_perc,
-        "No reason yet" = unauth_not_yet_perc
-      )
-
-    absence_unauth_reasons_dt <- datatable(absence_unauth_reasons_dt,
-      selection = "none",
-      escape = FALSE,
-      rownames = FALSE,
-      class = "cell-border stripe",
-      options = list(
-        scrollX = TRUE,
-        ordering = F,
-        searching = FALSE,
-        lengthChange = FALSE,
-        dom = "t",
-        columnDefs = list(list(className = "dt-center", targets = 0:3))
-      )
-    ) %>%
-      formatPercentage(c(0:3), 1)
-  })
-
-  # unauthorised reasons ytd
-  output$absence_unauth_reasons_table_ytd <- renderDT({
-    validate(need(nrow(live_attendance_data_ytd_reasons_tables()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_ytd_reasons_tables()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    absence_unauth_reasons_ytd_dt <- live_attendance_data_ytd_reasons_tables() %>%
-      dplyr::select(unauth_hol_perc, unauth_late_registers_closed_perc, unauth_oth_perc, unauth_not_yet_perc) %>%
-      rename(
-        "Holiday" = unauth_hol_perc,
-        "Late after registers closed" = unauth_late_registers_closed_perc,
-        "Other" = unauth_oth_perc,
-        "No reason yet" = unauth_not_yet_perc
-      )
-
-    absence_unauth_reasons_ytd_dt <- datatable(absence_unauth_reasons_ytd_dt,
-      selection = "none",
-      escape = FALSE,
-      rownames = FALSE,
-      class = "cell-border stripe",
-      options = list(
-        scrollX = TRUE,
-        ordering = F,
-        searching = FALSE,
-        lengthChange = FALSE,
-        dom = "t",
-        columnDefs = list(list(className = "dt-center", targets = 0:3))
-      )
-    ) %>%
-      formatPercentage(c(0:3), 1)
+    dfeshiny::dfe_reactable(
+      unauth_data
+    )
   })
 
   # absence reasons by local authority
