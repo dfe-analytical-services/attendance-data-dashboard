@@ -10,39 +10,43 @@
 # Run renv::restore()
 # If it doesn't work first time, maybe try renv::activate() and then renv::restore()
 
-# Library calls ----------------------------------------------------------------------------------
 
+# Packages to work towards removing from the dashboard:
+library(DT)
+library(openxlsx)
+library(kableExtra)
+library(plotly)
+library(shinydashboard)
+library(shinyWidgets)
+library(RODBC)
+
+
+# Library calls ----------------------------------------------------------------------------------
 library(rsconnect)
 library(shinyGovstyle)
 library(shiny)
 library(shinyjs)
 library(tools)
 library(testthat)
-library(shinydashboard)
-library(shinyWidgets)
 library(data.table)
 library(ggplot2)
-library(plotly)
 library(ggiraph)
 library(shinycssloaders)
 library(tidyr)
 library(stringr)
 library(scales)
 library(forcats)
-library(openxlsx)
-library(kableExtra)
 library(metathis)
 library(styler)
 library(bit64)
-library(DT)
 library(raster)
 library(leaflet)
 library(sf)
 library(checkmate)
 library(dfeshiny)
+library(reactable)
 library(shinytest2)
 library(diffviewer)
-library(RODBC)
 library(dplyr)
 library(eesyapi)
 
@@ -96,8 +100,7 @@ source("R/prerun_utils.R")
 source("R/fetch_data.R")
 
 site_title <- "Pupil attendance and absence in schools in England"
-site_primary <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
-site_overflow <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-overflow"
+site_primary <- "https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
 site_c <- ""
 google_analytics_key <- "DG7P4WLB0Y"
 

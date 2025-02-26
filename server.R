@@ -89,11 +89,23 @@ server <- function(input, output, session) {
           reasons_sqids$filters$attendance_type$unauthorised
         ),
         attendance_reason = c(
-          reasons_sqids$filters$attendance_reason$authorisedillness_i,
           reasons_sqids$filters$attendance_reason$allattendance,
           reasons_sqids$filters$attendance_reason$allabsence,
+          reasons_sqids$filters$attendance_reason$allauthorised,
+          reasons_sqids$filters$attendance_reason$authorisedillness_i,
+          reasons_sqids$filters$attendance_reason$authorisedreligiousobservance_r,
+          reasons_sqids$filters$attendance_reason$authorisedmedicaldental_m,
+          reasons_sqids$filters$attendance_reason$authorisedstudyleave_s,
+          reasons_sqids$filters$attendance_reason$authorisedmobilechildilechild_t,
+          reasons_sqids$filters$attendance_reason$authorisedexcluded_e,
+          reasons_sqids$filters$attendance_reason$part_time,
+          reasons_sqids$filters$attendance_reason$authorisedother_c,
           reasons_sqids$filters$attendance_reason$allunauthorised,
-          reasons_sqids$filters$attendance_reason$allauthorised
+          reasons_sqids$filters$attendance_reason$allunauthorised,
+          reasons_sqids$filters$attendance_reason$unauthorisedholiday_g,
+          reasons_sqids$filters$attendance_reason$unauthorisedlateafterregistersclosed_u,
+          reasons_sqids$filters$attendance_reason$otherunauthorised_o,
+          reasons_sqids$filters$attendance_reason$noreasonyet_n
         )
       ),
       indicators = unlist(reasons_sqids$indicators, use.names = FALSE),
@@ -113,10 +125,12 @@ server <- function(input, output, session) {
       input$school_choice
     )
 
+
   observe({
     message("Reasons data")
     print(reasons_data())
   })
+
 
   time_frame_string <- reactive({
     if (input$ts_choice == "latestweeks") {
@@ -845,6 +859,20 @@ server <- function(input, output, session) {
     )
   })
 
+  output$absence_reasons_timeseries <- ggiraph::renderGirafe({
+    ggiraph::girafe(
+      ggobj = reasons_ggplot(
+        reasons_data() |>
+          filter(geographic_level == input$geography_choice),
+        input$ts_choice
+      ),
+      fonts = list(sans = plotting_font_family),
+      height_svg = 6,
+      width_svg = 9
+    )
+  })
+
+
   output$absence_rates_daily_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_daily()) > 0, "There is no data available for this breakdown at present"))
     validate(need(live_attendance_data_daily()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
@@ -921,6 +949,8 @@ server <- function(input, output, session) {
       paste0("Weekly summary of absence reasons for ", "<br>", str_to_lower(input$school_choice), " state-funded schools", " at ", str_to_lower(input$geography_choice), " level", "<br>", "(", input$region_choice, ", ", input$la_choice, ")")
     }
   })
+
+
   output$absence_reasons_timeseries_plot <- renderPlotly({
     validate(need(nrow(live_attendance_data_ts()) > 0, "There is no data available for this breakdown at present"))
     validate(need(live_attendance_data_ts()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
@@ -1859,6 +1889,52 @@ server <- function(input, output, session) {
 
   # daily, weekly and ytd auth absence rate
 
+  output$absence_rates_value_boxes <- renderUI({
+    if (input$ts_choice == "latestweeks") {
+      time_frame_text <- "Latest full week"
+      time_frame_filter <- "Week"
+    } else {
+      time_frame_text <- "Year to date"
+      time_frame_filter <- "Year to date"
+    }
+    tagList(
+      p(strong(paste0("Authorised absence rate:"))),
+      shinyGovstyle::value_box(
+        "headline_auth_rate",
+        text = time_frame_text,
+        value = reasons_data() |>
+          filter(
+            geographic_level == input$geography_choice,
+            attendance_reason == "All authorised",
+            time_frame == time_frame_filter
+          ) |>
+          pull(session_percent) |>
+          as.numeric() |>
+          dfeR::round_five_up(dp = 1) |>
+          paste("%"),
+        colour = "blue"
+      ),
+      p(strong(paste0("Unauthorised absence rate:"))),
+      shinyGovstyle::value_box(
+        "headline_auth_rate",
+        text = time_frame_text,
+        value = reasons_data() |>
+          filter(
+            geographic_level == input$geography_choice,
+            attendance_reason == "All unauthorised",
+            time_frame == time_frame_filter
+          ) |>
+          pull(session_percent) |>
+          as.numeric() |>
+          dfeR::round_five_up(dp = 1) |>
+          paste("%"),
+        colour = "blue"
+      )
+    )
+  })
+
+  output$headline_auth_rate_value <- renderText({
+  })
 
   # weekly auth absence rate
   output$headline_auth_rate_weekly <- shinydashboard::renderValueBox({

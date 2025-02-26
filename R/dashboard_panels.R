@@ -292,48 +292,27 @@ dashboard_panel <- function() {
                     condition = paste0("input.ts_choice == 'latestweeks'"),
                     p("Absence rates presented on the chart below are calculated on a daily basis. Each point on the chart shows an absence rate calculated across all sessions in the given day."),
                     p("Absence rates presented in the blue boxes and tables below are calculated across all sessions in the latest week."),
-                    column(
-                      9,
-                      br(),
-                      plotlyOutput("absence_reasons_daily_plot")
-                    ),
-                    column(
-                      3,
-                      fluidRow(
-                        br(),
-                        p(strong(paste0("Authorised absence rate:"))),
-                        shinydashboard::valueBoxOutput("headline_auth_rate_weekly", width = 12)
-                      ),
-                      fluidRow(
-                        br(),
-                        p(strong(paste0("Unauthorised absence rate:"))),
-                        shinydashboard::valueBoxOutput("headline_unauth_rate_weekly", width = 12)
-                      )
-                    )
                   ),
                   conditionalPanel(
                     condition = paste0("input.ts_choice == 'yeartodate'"),
                     p("Absence rates presented on the chart below are calculated on a weekly basis. Each point on the chart shows an absence rate calculated across all sessions in the given week."),
-                    p("Absence rates presented in the blue boxes and tables below are calculated across all sessions in the year to date."),
-                    column(
-                      9,
-                      br(),
-                      plotlyOutput("absence_reasons_timeseries_plot")
-                    ),
-                    column(
-                      3,
-                      fluidRow(
-                        br(),
-                        p(strong(paste0("Authorised absence rate:"))),
-                        shinydashboard::valueBoxOutput("headline_auth_rate_ytd", width = 12)
-                      ),
-                      fluidRow(
-                        br(),
-                        p(strong(paste0("Unauthorised absence rate:"))),
-                        shinydashboard::valueBoxOutput("headline_unauth_rate_ytd", width = 12)
-                      )
-                    )
-                  ),
+                    p("Absence rates presented in the blue boxes and tables below are calculated across all sessions in the year to date.")
+                  )
+                )
+              ),
+              fluidRow(
+                column(
+                  width = 9,
+                  girafeOutput("absence_reasons_timeseries")
+                ),
+                column(
+                  width = 3,
+                  uiOutput("absence_rates_value_boxes")
+                )
+              ),
+              fluidRow(
+                column(
+                  width = 12,
                   conditionalPanel(
                     condition = paste0("input.ts_choice == 'latestweeks'"),
                     column(
