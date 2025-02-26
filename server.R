@@ -1850,45 +1850,6 @@ server <- function(input, output, session) {
 
   # Creating reactive boxes ------------------------------------------------------------
 
-  # daily, weekly and ytd overall absence rate
-
-
-  # weekly overall absence rate
-  output$headline_absence_rate_weekly <- shinydashboard::renderValueBox({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
-
-    overall_absence_rate_weekly_headline <- live_attendance_data_weekly()
-    pull(overall_absence_perc) %>%
-      dfeR::round_five_up(dp = 1)
-
-    # Put value into box to plug into app
-    shinydashboard::valueBox(
-      paste0(overall_absence_rate_weekly_headline, "%"),
-      paste0("latest full week"),
-      color = "blue"
-    )
-  })
-
-  # ytd overall absence rate
-  output$headline_absence_rate_ytd <- shinydashboard::renderValueBox({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-
-    overall_absence_rate_ytd_headline <- live_attendance_data_ytd() %>%
-      pull(overall_absence_perc) %>%
-      dfeR::round_five_up(dp = 1)
-
-    # Put value into box to plug into app
-    shinydashboard::valueBox(
-      paste0(overall_absence_rate_ytd_headline, "%"),
-      paste0("Year to date"),
-      color = "blue"
-    )
-  })
-
-  # daily, weekly and ytd auth absence rate
-
   output$absence_rates_value_boxes <- renderUI({
     if (input$ts_choice == "latestweeks") {
       time_frame_text <- "Latest full week"
@@ -1934,77 +1895,6 @@ server <- function(input, output, session) {
   })
 
   output$headline_auth_rate_value <- renderText({
-  })
-
-  # weekly auth absence rate
-  output$headline_auth_rate_weekly <- shinydashboard::renderValueBox({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
-
-    overall_auth_rate_weekly_headline <- live_attendance_data_weekly() %>%
-      pull(authorised_absence_perc) %>%
-      dfeR::round_five_up(dp = 1)
-
-    # Put value into box to plug into app
-    shinydashboard::valueBox(
-      paste0(overall_auth_rate_weekly_headline, "%"),
-      paste0("latest full week"),
-      color = "blue"
-    )
-  })
-
-  # ytd auth absence rate
-  output$headline_auth_rate_ytd <- shinydashboard::renderValueBox({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-
-    overall_auth_rate_ytd_headline <- live_attendance_data_ytd() %>%
-      pull(authorised_absence_perc) %>%
-      dfeR::round_five_up(dp = 1)
-
-    # Put value into box to plug into app
-    shinydashboard::valueBox(
-      paste0(overall_auth_rate_ytd_headline, "%"),
-      paste0("Year to date"),
-      color = "blue"
-    )
-  })
-
-  # daily, weekly and ytd unauth absence rate
-
-
-  # weekly unauth absence rate
-  output$headline_unauth_rate_weekly <- shinydashboard::renderValueBox({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
-
-    overall_unauth_rate_weekly_headline <- live_attendance_data_weekly() %>%
-      pull(unauthorised_absence_perc) %>%
-      dfeR::round_five_up(dp = 1)
-
-    # Put value into box to plug into app
-    shinydashboard::valueBox(
-      paste0(overall_unauth_rate_weekly_headline, "%"),
-      paste0("latest full week"),
-      color = "blue"
-    )
-  })
-
-  # ytd unauth absence rate
-  output$headline_unauth_rate_ytd <- shinydashboard::renderValueBox({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-
-    overall_unauth_rate_ytd_headline <- live_attendance_data_ytd() %>%
-      pull(unauthorised_absence_perc) %>%
-      dfeR::round_five_up(dp = 1)
-
-    # Put value into box to plug into app
-    shinydashboard::valueBox(
-      paste0(overall_unauth_rate_ytd_headline, "%"),
-      paste0("Year to date"),
-      color = "blue"
-    )
   })
 
   # Creating reactive reasons and la comparison table ------------------------------------------------------------
