@@ -129,7 +129,13 @@ server <- function(input, output, session) {
     time_period_query <- reasons_data_version_info()$time_period_end |>
       stringr::str_replace("Week ", "W") |>
       stringr::str_replace(" ", "|")
-    eesyapi::query_dataset(
+    if (input$measure_choice == "Overall") {
+      reason <- reasons_sqids$filters$attendance_reason$allabsence
+    } else {
+      reason <- reasons_sqids$filters$attendance_reason |>
+        magrittr::extract2(paste0("all", tolower(input$measure_choice)))
+    }
+    api_data <- eesyapi::query_dataset(
       reasons_dataset_id,
       time_periods = time_period_query,
       geographies = "Local authority",
@@ -137,29 +143,32 @@ server <- function(input, output, session) {
         time_frame = reasons_sqids$filters$time_frame$week,
         school_phase = reasons_sqids$filters$education_phase |>
           magrittr::extract2(tolower(input$school_choice)),
-        attendance_reason = c(
-          reasons_sqids$filters$attendance_reason$allabsence,
-          reasons_sqids$filters$attendance_reason$allauthorised,
-          reasons_sqids$filters$attendance_reason$allunauthorised
-        )
+        attendance_reason = reason
       ),
-      indicators = unlist(reasons_sqids$indicators, use.names = FALSE),
+      indicators = reasons_sqids$indicators$session_percent,
       ees_environment = api_environment,
       verbose = api_verbose
+    )
+    merge(
+      mapshape |> rename("la_code" = "CTYUA23CD"),
+      api_data,
+      by = "la_code", duplicateGeoms = TRUE
     ) |>
       mutate(
-        reference_date = lubridate::ymd(reference_date)
+        session_percent = as.numeric(session_percent),
+        label = paste(
+          la_name,
+          input$measure_choice,
+          "absence rate:",
+          paste0(as.character(dfeR::round_five_up(session_percent, dp = 1)), "%")
+        )
       )
   }) |>
     shiny::bindCache(
       reasons_data_version_info()$version,
-      input$school_choice
+      input$school_choice,
+      input$measure_choice
     )
-
-  observe({
-    message("Reasons data")
-    print(reasons_data())
-  })
 
   time_frame_string <- reactive({
     if (input$ts_choice == "latestweeks") {
@@ -1928,95 +1937,40 @@ server <- function(input, output, session) {
   # Create map function
 
   output$rates_map <- renderLeaflet({
-    if (input$measure_choice == "Overall") {
-      rate_map <- mapdata_shaped_type() %>%
-        leaflet() %>%
-        addProviderTiles(providers$CartoDB.Positron) %>%
-        addPolygons(
-          fillColor = ~ overall_abs_pal(overall_absence_perc),
-          weight = 1,
-          opacity = 1,
-          color = "black",
-          dashArray = "0",
+    pallette_scale <- colorQuantile(
+      map_gov_colours,
+      map_data() |>
+        dplyr::pull(session_percent),
+      n = 5
+    )
+    rate_map <- map_data() %>%
+      leaflet() %>%
+      addProviderTiles(providers$CartoDB.Positron) %>%
+      addPolygons(
+        fillColor = ~ pallette_scale(session_percent),
+        weight = 1,
+        opacity = 1,
+        color = "black",
+        dashArray = "0",
+        fillOpacity = 0.7,
+        highlight = highlightOptions(
+          weight = 5,
+          color = "#666",
+          dashArray = "",
           fillOpacity = 0.7,
-          highlight = highlightOptions(
-            weight = 5,
-            color = "#666",
-            dashArray = "",
-            fillOpacity = 0.7,
-            bringToFront = TRUE
+          bringToFront = TRUE
+        ),
+        label = ~label,
+        labelOptions = labelOptions(
+          style = list(
+            "font-weight" = "normal",
+            padding = "3px 8px",
+            "background-color" = "white"
           ),
-          label = ~overall_label,
-          labelOptions = labelOptions(
-            style = list(
-              "font-weight" = "normal",
-              padding = "3px 8px",
-              "background-color" = "white"
-            ),
-            textsize = "15px",
-            direction = "auto"
-          )
+          textsize = "15px",
+          direction = "auto"
         )
-    } else if (input$measure_choice == "Authorised") {
-      rate_map <- mapdata_shaped_type() %>%
-        leaflet() %>%
-        addProviderTiles(providers$CartoDB.Positron) %>%
-        addPolygons(
-          fillColor = ~ auth_abs_pal(authorised_absence_perc),
-          weight = 1,
-          opacity = 1,
-          color = "black",
-          dashArray = "0",
-          fillOpacity = 0.7,
-          highlight = highlightOptions(
-            weight = 5,
-            color = "#666",
-            dashArray = "",
-            fillOpacity = 0.7,
-            bringToFront = TRUE
-          ),
-          label = ~auth_label,
-          labelOptions = labelOptions(
-            style = list(
-              "font-weight" = "normal",
-              padding = "3px 8px",
-              "background-color" = "white"
-            ),
-            textsize = "15px",
-            direction = "auto"
-          )
-        )
-    } else if (input$measure_choice == "Unauthorised") {
-      rate_map <- mapdata_shaped_type() %>%
-        leaflet() %>%
-        addProviderTiles(providers$CartoDB.Positron) %>%
-        addPolygons(
-          fillColor = ~ unauth_abs_pal(unauthorised_absence_perc),
-          weight = 1,
-          opacity = 1,
-          color = "black",
-          dashArray = "0",
-          fillOpacity = 0.7,
-          highlight = highlightOptions(
-            weight = 5,
-            color = "#666",
-            dashArray = "",
-            fillOpacity = 0.7,
-            bringToFront = TRUE
-          ),
-          label = ~unauth_label,
-          labelOptions = labelOptions(
-            style = list(
-              "font-weight" = "normal",
-              padding = "3px 8px",
-              "background-color" = "white"
-            ),
-            textsize = "15px",
-            direction = "auto"
-          )
-        )
-    }
-
+      )
     rate_map <- rate_map %>%
       addLegend(
         colors = c("#FFBF47", "#EC933D", "#D86733", "#C53A28", "#B10E1E", "#808080"),
