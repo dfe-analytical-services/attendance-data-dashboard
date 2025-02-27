@@ -285,48 +285,5 @@ roundFiveUp <- function(value, dp) {
 # Read in shapefile and transform coordinates (because map reasons...)
 mapshape <- st_read("data/CTYUA_MAY_2023_UK_BUC.shp") %>% st_transform(crs = 4326) # %>% mutate(CTYUA23CD = case_when(CTYUA23NM == "Somerset" ~ "E10000027", CTYUA23NM != "Somerset" ~ CTYUA23CD)) TEMP addition working around Somerset LA code change
 
-# Process the joined files to refine our 'mapdata', not pretty yet and mostly done just cos it's how its done in global...
-
-mapdata0 <- attendance_data %>%
-  mutate(time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))) %>%
-  filter(time_period == max(time_period)) %>%
-  filter(time_identifier == max(time_identifier)) %>%
-  # filter(time_identifier == max(time_identifier) - 1) %>%
-  filter(geographic_level == "Local authority") %>%
-  filter(breakdown == "Weekly")
-
-
-mapdata <- mapdata0 %>%
-  mutate(CTYUA23CD = new_la_code) %>% # renaming to match to shapefile later
-  filter(!is.na(region_name), !is.na(la_name))
-
-mapdata <- mapdata %>%
-  group_by(time_period, time_identifier, geographic_level, region_name, la_name, CTYUA23CD, school_type) %>%
-  mutate(
-    overall_label_LA = paste(la_name),
-    overall_label_rate = paste(as.character(roundFiveUp(overall_absence_perc, 1)), "%", sep = ""),
-    overall_label = paste0(overall_label_LA, " overall absence rate: ", overall_label_rate),
-    auth_label_LA = paste(la_name),
-    auth_label_rate = paste(as.character(roundFiveUp(authorised_absence_perc, 1)), "%", sep = ""),
-    auth_label = paste0(auth_label_LA, " authorised absence rate: ", auth_label_rate),
-    unauth_label_LA = paste(la_name),
-    unauth_label_rate = paste(as.character(roundFiveUp(unauthorised_absence_perc, 1)), "%", sep = ""),
-    unauth_label = paste0(unauth_label_LA, " unauthorised absence rate: ", unauth_label_rate)
-  )
-
-## Combine shapefile and data into mapdata ###############################################
-
-# Merge the transformed shapefile with the processed source data ---------------
-mapdata_shaped <- merge(mapshape, mapdata, by = "CTYUA23CD", duplicateGeoms = TRUE)
-
-# Create colour bins and palette labels --------------------------------------
-
 # Pull in the colours from another script
 source("R/gov_colours.R")
-
-# Create bins
-overall_abs_pal <- colorQuantile(map_gov_colours, mapdata_shaped$overall_abs_perc, n = 5)
-
-auth_abs_pal <- colorQuantile(map_gov_colours, mapdata_shaped$auth_abs_perc, n = 5)
-
-unauth_abs_pal <- colorQuantile(map_gov_colours, mapdata_shaped$unauth_abs_perc, n = 5)

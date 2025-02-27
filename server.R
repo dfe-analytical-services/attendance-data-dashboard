@@ -129,12 +129,6 @@ server <- function(input, output, session) {
     time_period_query <- reasons_data_version_info()$time_period_end |>
       stringr::str_replace("Week ", "W") |>
       stringr::str_replace(" ", "|")
-    if (input$measure_choice == "Overall") {
-      reason <- reasons_sqids$filters$attendance_reason$allabsence
-    } else {
-      reason <- reasons_sqids$filters$attendance_reason |>
-        magrittr::extract2(paste0("all", tolower(input$measure_choice)))
-    }
     api_data <- eesyapi::query_dataset(
       reasons_dataset_id,
       time_periods = time_period_query,
@@ -143,7 +137,11 @@ server <- function(input, output, session) {
         time_frame = reasons_sqids$filters$time_frame$week,
         school_phase = reasons_sqids$filters$education_phase |>
           magrittr::extract2(tolower(input$school_choice)),
-        attendance_reason = reason
+        attendance_reason = c(
+          reasons_sqids$filters$attendance_reason$allabsence,
+          reasons_sqids$filters$attendance_reason$allauthorised,
+          reasons_sqids$filters$attendance_reason$allunauthorised
+        )
       ),
       indicators = reasons_sqids$indicators$session_percent,
       ees_environment = api_environment,
@@ -166,8 +164,7 @@ server <- function(input, output, session) {
   }) |>
     shiny::bindCache(
       reasons_data_version_info()$version,
-      input$school_choice,
-      input$measure_choice
+      input$school_choice
     )
 
   time_frame_string <- reactive({
@@ -365,38 +362,6 @@ server <- function(input, output, session) {
 
   # Defining reactive data ------------------------------------------------------------
   # Creates data all measures are derived from
-
-  # Daily data
-  live_attendance_data_daily <- reactive({
-    if (input$geography_choice == "National") {
-      dplyr::filter(
-        attendance_data, geographic_level == "National",
-        school_type == input$school_choice,
-        time_period == max(time_period),
-        breakdown == "Daily"
-      ) %>% filter(time_identifier == max(time_identifier))
-    } else if (input$geography_choice == "Regional") {
-      dplyr::filter(
-        attendance_data, geographic_level == "Regional",
-        region_name == input$region_choice,
-        school_type == input$school_choice,
-        time_period == max(time_period),
-        breakdown == "Daily"
-      ) %>% filter(time_identifier == max(time_identifier))
-    } else if (input$geography_choice == "Local authority") {
-      dplyr::filter(
-        attendance_data, geographic_level == "Local authority",
-        region_name == input$region_choice,
-        la_name == input$la_choice,
-        school_type == input$school_choice,
-        time_period == max(time_period),
-        breakdown == "Daily"
-      ) %>% filter(time_identifier == max(time_identifier))
-    } else {
-      NA
-    }
-  })
-
 
   # Weekly data
   live_attendance_data_weekly <- reactive({
@@ -1363,241 +1328,6 @@ server <- function(input, output, session) {
     )
   })
 
-  # Headline attendance ytd
-  # Read in weekly data at reactively selected level and compare against weekly data at level above (compare reg to nat, la to reg)
-  # Bullet for national level
-  output$ytd_attendance_rate_nat <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>% pull(attendance_perc) %>% dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as attending"
-    )
-  })
-
-  # Bullet for regional level
-  output$ytd_attendance_rate_reg <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>%
-        pull(attendance_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as attending in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
-        pull(attendance_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions at national level)"
-    )
-  })
-
-  # Bullet for LA level
-  output$ytd_attendance_rate_la <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>%
-        pull(attendance_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as attending in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
-        pull(attendance_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions in ", input$region_choice, ")"
-    )
-  })
-
-
-  # Headline absence latest week
-  # Read in weekly data at reactively selected level and compare against weekly data at level above (compare reg to nat, la to reg)
-  # Bullet for national level
-  output$weekly_absence_rate_nat <- renderText({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_weekly() %>% pull(overall_absence_perc) %>% dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as absence"
-    )
-  })
-
-  # Bullet for regional level
-  output$weekly_absence_rate_reg <- renderText({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
-
-    weekly_headline_abs <- live_attendance_data_weekly() %>%
-      group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
-      mutate(weekly_overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) * 100)
-
-    weekly_headline_abs_comp_nat <- live_attendance_data_weekly_natcomp() %>%
-      group_by(time_period, time_identifier, geographic_level) %>%
-      mutate(weekly_overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) * 100)
-
-    paste0(
-      "• ", live_attendance_data_weekly() %>%
-        pull(overall_absence_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as absence in ", input$region_choice, " (compared to ", live_attendance_data_weekly_natcomp() %>%
-        pull(overall_absence_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions at national level)"
-    )
-  })
-
-  # Bullet for LA level
-  output$weekly_absence_rate_la <- renderText({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_weekly() %>%
-        pull(overall_absence_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as absence in ", input$la_choice, " (compared to ", live_attendance_data_weekly_regcomp() %>%
-        pull(overall_absence_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions in ", input$region_choice, ")"
-    )
-  })
-
-
-  # Headline absence ytd
-  # Bullet for national level
-  output$ytd_absence_rate_nat <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>% pull(overall_absence_perc) %>% dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as absence"
-    )
-  })
-
-  # Bullet for regional level
-  output$ytd_absence_rate_reg <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>%
-        pull(overall_absence_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as absence in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
-        pull(overall_absence_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions at national level)"
-    )
-  })
-
-  # Bullet for LA level
-  output$ytd_absence_rate_la <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>%
-        pull(overall_absence_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as absence in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
-        pull(overall_absence_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions in ", input$region_choice, ")"
-    )
-  })
-
-
-  # Headline illness absence latest week
-  # Bullet for national level
-  output$weekly_illness_rate_nat <- renderText({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_weekly() %>% pull(illness_perc) %>% dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as illness"
-    )
-  })
-
-  # Bullet for regional level
-  output$weekly_illness_rate_reg <- renderText({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_weekly() %>%
-        pull(illness_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as illness in ", input$region_choice, " (compared to ", live_attendance_data_weekly_natcomp() %>%
-        pull(illness_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions at national level)"
-    )
-  })
-
-  # Bullet for LA level
-  output$weekly_illness_rate_la <- renderText({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_weekly() %>%
-        pull(illness_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as illness in ", input$la_choice, " (compared to ", live_attendance_data_weekly_regcomp() %>%
-        pull(illness_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions in ", input$region_choice, ")"
-    )
-  })
-
-
-  # Headline illness absence ytd
-  # Bullet for national level
-  output$ytd_illness_rate_nat <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>% pull(illness_perc) %>% dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as illness"
-    )
-  })
-
-  # Bullet for regional level
-  output$ytd_illness_rate_reg <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>%
-        pull(illness_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as illness in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
-        pull(illness_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions at national level)"
-    )
-  })
-
-  # Bullet for LA level
-  output$ytd_illness_rate_la <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>%
-        pull(illness_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as illness in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
-        pull(illness_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions in ", input$region_choice, ")"
-    )
-  })
-
-
   # Headline persistent absence ytd
   # Bullet for national level
   output$ytd_pa_rate_nat <- renderText({
@@ -1937,13 +1667,23 @@ server <- function(input, output, session) {
   # Create map function
 
   output$rates_map <- renderLeaflet({
+    if (input$measure_choice == "Overall") {
+      rate_choice <- "All absence"
+    } else {
+      rate_choice <- paste("All", tolower(input$measure_choice))
+    }
+
+    data <- map_data() |>
+      filter(attendance_reason == rate_choice)
+    print(rate_choice)
+    print(data)
     pallette_scale <- colorQuantile(
       map_gov_colours,
-      map_data() |>
+      data |>
         dplyr::pull(session_percent),
       n = 5
     )
-    rate_map <- map_data() %>%
+    rate_map <- data %>%
       leaflet() %>%
       addProviderTiles(providers$CartoDB.Positron) %>%
       addPolygons(
