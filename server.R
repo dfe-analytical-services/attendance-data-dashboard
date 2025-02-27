@@ -296,15 +296,6 @@ server <- function(input, output, session) {
   })
 
   # Reactive dates for dropdown
-
-  regionReactive <- reactive({
-    list(input$geography_choice, input$region_choice)
-  })
-
-  laReactive <- reactive({
-    list(input$geography_choice, input$la_choice)
-  })
-
   reactive_latestweeks_string <- reactive({
     latestweek_line <- most_recent_week_lookup %>%
       filter(geographic_level == input$geography_choice)
@@ -1177,56 +1168,6 @@ server <- function(input, output, session) {
     paste0("For this breakdown, across the year-to-date there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 10), "% of schools opted-in.")
   })
 
-  # Headline attendance latest week
-  # Read in weekly data at reactively selected level and compare against weekly data at level above (compare reg to nat, la to reg)
-  # Bullet for national level
-  output$weekly_attendance_rate_nat <- renderText({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    paste0(
-      "• ", live_attendance_data_weekly() %>% pull(attendance_perc) %>% dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as attending"
-    )
-  })
-
-  # Bullet for regional level
-  output$weekly_attendance_rate_reg <- renderText({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    weekly_headline_att <- live_attendance_data_weekly() %>%
-      group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
-      mutate(weekly_overall_attendance_perc = (sum(present_sessions) / sum(possible_sessions)) * 100)
-
-    paste0(
-      "• ", live_attendance_data_weekly() %>%
-        pull(attendance_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as attending in ", input$region_choice, " (compared to ", live_attendance_data_weekly_natcomp() %>%
-        pull(attendance_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions at national level)"
-    )
-  })
-
-  # Bullet for LA level
-  output$weekly_attendance_rate_la <- renderText({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    paste0(
-      "• ", live_attendance_data_weekly() %>%
-        pull(attendance_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions were recorded as attending in ", input$la_choice, " (compared to ", live_attendance_data_weekly_regcomp() %>%
-        pull(attendance_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of sessions in ", input$region_choice, ")"
-    )
-  })
-
-
   output$headline_bullet_attendance_rate <- renderUI({
     time_frame_text <- ifelse(
       input$ts_choice == "latestweeks",
@@ -1675,8 +1616,6 @@ server <- function(input, output, session) {
 
     data <- map_data() |>
       filter(attendance_reason == rate_choice)
-    print(rate_choice)
-    print(data)
     pallette_scale <- colorQuantile(
       map_gov_colours,
       data |>
