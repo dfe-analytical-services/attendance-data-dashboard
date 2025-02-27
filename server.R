@@ -102,7 +102,6 @@ server <- function(input, output, session) {
           reasons_sqids$filters$attendance_reason$authorisedother_c,
           reasons_sqids$filters$attendance_reason$authorisedother_c,
           reasons_sqids$filters$attendance_reason$allunauthorised,
-          reasons_sqids$filters$attendance_reason$allunauthorised,
           reasons_sqids$filters$attendance_reason$unauthorisedholiday_g,
           reasons_sqids$filters$attendance_reason$unauthorisedlateafterregistersclosed_u,
           reasons_sqids$filters$attendance_reason$otherunauthorised_o,
@@ -126,12 +125,41 @@ server <- function(input, output, session) {
       input$school_choice
     )
 
+  map_data <- reactive({
+    time_period_query <- reasons_data_version_info()$time_period_end |>
+      stringr::str_replace("Week ", "W") |>
+      stringr::str_replace(" ", "|")
+    eesyapi::query_dataset(
+      reasons_dataset_id,
+      time_periods = time_period_query,
+      geographies = "Local authority",
+      filter_items = list(
+        time_frame = reasons_sqids$filters$time_frame$week,
+        school_phase = reasons_sqids$filters$education_phase |>
+          magrittr::extract2(tolower(input$school_choice)),
+        attendance_reason = c(
+          reasons_sqids$filters$attendance_reason$allabsence,
+          reasons_sqids$filters$attendance_reason$allauthorised,
+          reasons_sqids$filters$attendance_reason$allunauthorised
+        )
+      ),
+      indicators = unlist(reasons_sqids$indicators, use.names = FALSE),
+      ees_environment = api_environment,
+      verbose = api_verbose
+    ) |>
+      mutate(
+        reference_date = lubridate::ymd(reference_date)
+      )
+  }) |>
+    shiny::bindCache(
+      reasons_data_version_info()$version,
+      input$school_choice
+    )
 
   observe({
     message("Reasons data")
     print(reasons_data())
   })
-
 
   time_frame_string <- reactive({
     if (input$ts_choice == "latestweeks") {
