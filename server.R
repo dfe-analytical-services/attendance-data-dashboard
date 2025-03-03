@@ -53,8 +53,7 @@ server <- function(input, output, session) {
   # Retrieving data from the API
   reasons_data_version_info <- eventReactive(input$geography_choice, {
     eesyapi::get_dataset_versions(
-      reasons_dataset_id,
-      ees_environment = api_environment
+      reasons_dataset_id
     ) |>
       filter(version == max(version))
   })
@@ -125,11 +124,11 @@ server <- function(input, output, session) {
       input$school_choice
     )
 
-  map_data <- reactive({
+  la_data <- reactive({
     time_period_query <- reasons_data_version_info()$time_period_end |>
       stringr::str_replace("Week ", "W") |>
       stringr::str_replace(" ", "|")
-    api_data <- eesyapi::query_dataset(
+    eesyapi::query_dataset(
       reasons_dataset_id,
       time_periods = time_period_query,
       geographies = "Local authority",
@@ -143,13 +142,19 @@ server <- function(input, output, session) {
           reasons_sqids$filters$attendance_reason$allunauthorised
         )
       ),
-      indicators = reasons_sqids$indicators$session_percent,
+      indicators = c(
+        reasons_sqids$indicators$session_percent,
+        reasons_sqids$indicators$reference_date
+      ),
       ees_environment = api_environment,
       verbose = api_verbose
     )
+  })
+
+  map_data <- reactive({
     merge(
       mapshape |> rename("la_code" = "CTYUA23CD"),
-      api_data,
+      la_data(),
       by = "la_code", duplicateGeoms = TRUE
     ) |>
       mutate(
@@ -1558,6 +1563,33 @@ server <- function(input, output, session) {
       formatPercentage(c(6:8), 1)
   })
 
+  output$absence_reasons_la_reactable <- renderReactable({
+    dfe_reactable(
+      la_data() |>
+        select(-all_of(c("attendance_status", "attendance_type"))) |>
+        mutate(session_percent = render_percents(session_percent)) |>
+        tidyr::pivot_wider(
+          names_from = "attendance_reason",
+          values_from = "session_percent"
+        ) |>
+        select(
+          Year = period,
+          `Week commencing` = reference_date,
+          Region = reg_name,
+          `Local authority` = la_name,
+          `Overall absence rate` = "All absence",
+          `Authorised absence rate` = "All authorised",
+          `Unauthorised absence rate` = "All unauthorised"
+        ),
+      searchable = TRUE,
+      defaultSorted = list(
+        `Overall absence rate` = "desc",
+        `Authorised absence rate` = "desc",
+        `Unauthorised absence rate` = "desc",
+        `Local authority` = "asc"
+      )
+    )
+  })
 
   # Tech guidance tables ----------------------------------------------------
 

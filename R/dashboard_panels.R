@@ -349,7 +349,7 @@ dashboard_panel <- function() {
                   leafletOutput("rates_map"),
                   br(),
                   h4(textOutput("la_comparison_title")),
-                  DTOutput("absence_reasons_la_table")
+                  reactableOutput("absence_reasons_la_reactable")
                 )
               )
             )

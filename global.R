@@ -126,7 +126,10 @@ reasons_dataset_ref_version <- 2.0
 # parameters for the API calls. This is a bit that could cause some issues if there's some breaking
 # changes to the data set. As long as there's no breaking changes, then the version number used
 # here should not be changed.
-reasons_sqids <- fetch_sqid_lookup(reasons_dataset_id, reasons_dataset_ref_version)
+reasons_sqids <- fetch_sqid_lookup(
+  reasons_dataset_id,
+  version = reasons_dataset_ref_version
+)
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data

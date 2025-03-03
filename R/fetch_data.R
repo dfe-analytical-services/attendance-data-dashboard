@@ -1,27 +1,12 @@
-fetch_headline_data <- function(
-    establishment_phase,
-    time_frame,
-    geographic_level,
-    region,
-    local_authority,
-    sqid_lookup,
-    dataset_id = "") {
-  geography <- geography_code(geographic_level, region, local_authority)
-  eesyapi::query_data(
-    dataset_id = dataset_id,
-    geographies = geography,
-    filters = c(),
-    indicators = sqid_lookup$session_percent,
-    ees_environment = api_environment
-  )
-}
-
 fetch_sqid_lookup <- function(
     dataset_id,
-    version = NULL) {
+    version = NULL,
+    ees_environment = "test",
+    verbose = FALSE) {
   meta <- eesyapi::get_meta(
     reasons_dataset_id,
-    ees_environment = api_environment
+    ees_environment = ees_environment,
+    verbose = verbose
   )
   sqid_lookup <- list(
     filters = filter_item_sqid_list(
