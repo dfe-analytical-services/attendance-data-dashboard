@@ -149,7 +149,46 @@ server <- function(input, output, session) {
       ees_environment = ees_api_env,
       verbose = api_verbose
     )
+  }) |>
+    shiny::bindCache(
+      reasons_data_version_info()$version,
+      input$school_choice
+    )
+
+  pa_data_version_info <- eventReactive(input$geography_choice, {
+    eesyapi::get_dataset_versions(
+      persistent_absence_dataset_id,
+      ees_environment = ees_api_env
+    ) |>
+      filter(version == max(version))
   })
+
+  pa_data <- reactive({
+    eesyapi::query_dataset(
+      persistent_absence_dataset_id,
+      geographies = geography_query(input$geography_choice, input$region_choice, input$la_choice),
+      filter_items = list(
+        school_phase = persistent_absence_sqids$filters$education_phase |>
+          magrittr::extract2(tolower(input$school_choice) |> str_replace("total", "allschools"))
+      ),
+      indicators = unlist(persistent_absence_sqids$indicators, use.names = FALSE),
+      ees_environment = ees_api_env,
+      verbose = api_verbose
+    )
+  }) |>
+    shiny::bindCache(
+      reasons_data_version_info()$version,
+      input$ts_choice,
+      input$geography_choice,
+      input$region_choice,
+      input$la_choice,
+      input$school_choice
+    )
+
+  observe({
+    print(pa_data())
+  })
+
 
   map_data <- reactive({
     merge(
@@ -1091,9 +1130,9 @@ server <- function(input, output, session) {
         geographic_level == input$geography_choice
       )
     if (input$geography_choice == "Local authority") {
-      comparator_level <- "REG"
+      comparator_level <- "Regional"
     } else if (input$geography_choice == "Regional") {
-      comparator_level <- "NAT"
+      comparator_level <- "National"
     } else {
       comparator_level <- NULL
     }
@@ -1172,6 +1211,65 @@ server <- function(input, output, session) {
         )
       )
     )
+  })
+
+  output$headline_persistent_absence <- renderUI({
+    if (input$ts_choice == "latestweeks") {
+      tagList(
+        tags$p(
+          "To view persistent absence figures, select \"year to date\" in the drop-down menu.",
+          "Figures are not provided in the weekly or daily data because persistent absence is a",
+          "measure over time and not valid for short time periods. Underlying data relating to",
+          "the Summer, Spring and Autumn terms and year to date is available at the ",
+          dfeshiny::external_link(
+            paste0(
+              "https://explore-education-statistics.service.gov.uk/find-statistics/",
+              ees_pub_slug
+            ),
+            paste(ees_pub_name, "publication on Explore education statistics")
+          ),
+          "."
+        )
+      )
+    } else {
+      lines <- pa_data() |>
+        filter(
+          geographic_level == input$geography_choice
+        )
+      if (input$geography_choice == "Local authority") {
+        comparator_level <- "Regional"
+      } else if (input$geography_choice == "Regional") {
+        comparator_level <- "National"
+      } else {
+        comparator_level <- NULL
+      }
+
+      if (!is.null(comparator_level)) {
+        comparators <- pa_data() |>
+          filter(
+            geographic_level == comparator_level
+          )
+      }
+      tagList(
+        tags$p(
+          "A pupil enrolment is identified as persistently absent if they have missed",
+          "10% or more of their possible sessions in the year to date."
+        ),
+        shiny::tags$ul(
+          shiny::tags$li(
+            headline_bullet(
+              lines |> magrittr::extract2("persistent_absence_percent"),
+              comparators |> magrittr::extract2("persistent_absence_percent"),
+              "persistently absent",
+              input$geography_choice,
+              input$la_choice,
+              input$region_choice,
+              subject = "pupils"
+            )
+          )
+        )
+      )
+    }
   })
 
 

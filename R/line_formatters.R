@@ -4,7 +4,8 @@ headline_bullet <- function(
     statistic_name,
     geographic_level,
     la_name_in,
-    region_name_in) {
+    region_name_in,
+    subject = "sessions") {
   if (geographic_level == "Local authority") {
     area_string <- paste("in", la_name_in)
     comparator_level <- "REG"
@@ -30,7 +31,9 @@ headline_bullet <- function(
         as.numeric() |>
         dfeR::round_five_up(dp = 1), "%"
     ),
-    "of sessions were recorded as",
+    "of",
+    subject,
+    "were recorded as",
     statistic_name,
     area_string,
     ifelse(
