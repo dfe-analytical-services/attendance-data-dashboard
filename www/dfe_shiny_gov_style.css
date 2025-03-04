@@ -316,41 +316,6 @@ template. 80% works well here to reduce white space on the right hand side.*/
      color: #ffffff;
 }
 
-#ss-connect-dialog { display: none !important; }
-#shiny-disconnected-overlay { display: none !important; }
-        
-#ss-overlay {
-             background-color: #000000 !important;
-             opacity: 0.6 !important;
-             position: fixed !important;
-             top: 0 !important;
-             left: 0 !important;
-             bottom: 0 !important;
-             right: 0 !important;
-             z-index: 99998 !important;
-             overflow: hidden !important;
-             cursor: not-allowed !important;
-          }
-          
-#custom-disconnect-dialog {
-             background: #000000 !important;
-             color: #FFFFFF !important;
-             width: full !important;
-             transform: translateX(-50%) translateY(-50%) !important;
-             font-size: 16px !important;
-             top: 50% !important;
-             position: fixed !important;
-             bottom: auto !important;
-             left: 50% !important;
-             padding: 0.8em 1.5em !important;
-             text-align: center !important;
-             height: auto !important;
-             opacity: 1 !important;
-             z-index: 99999 !important;
-             border-radius: 3px !important;
-             box-shadow: rgba(0, 0, 0, 0.3) 3px 3px 10px !important;
-          }
-
 .govuk-width-container {
     width: 100% !important;
     max-width: 100% !important;
