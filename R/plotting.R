@@ -15,16 +15,15 @@ headline_absence_ggplot <- function(reasons, scope) {
   }
   plot_data <- plot_data |>
     filter(
-      attendance_type %in% c("Authorised", "Unauthorised", "All absence"),
-      attendance_reason %in% c("All authorised", "All unauthorised", "All absence")
+      attendance_reason %in% c("All authorised absence", "All unauthorised absence", "Overall absence")
     ) |>
     arrange(attendance_type, reference_date) |>
     mutate(
       session_percent = as.numeric(session_percent),
       attendance_reason = case_when(
-        attendance_reason == "All absence" ~ "Overall absence rate",
-        attendance_reason == "Authorised" ~ "Authorised absence rate",
-        attendance_reason == "Unauthorised" ~ "Unauthorised absence rate"
+        attendance_reason == "Overall absence" ~ "Overall absence rate",
+        attendance_reason == "All authorised absence" ~ "Authorised absence rate",
+        attendance_reason == "All unauthorised absence" ~ "Unauthorised absence rate"
       )
     )
   dates <- plot_data |>
@@ -84,9 +83,9 @@ reasons_ggplot <- function(reasons, scope) {
   plot_data <- plot_data |>
     filter(
       attendance_reason %in% c(
-        "Authorised illness (i)",
-        "Authorised medical dental (m)",
-        "Part_time",
+        "Illness (i)",
+        "Medical dental (m)",
+        "Temporary reduced timetable (c2)",
         "Unauthorised holiday (g)",
         "Other unauthorised (o)"
       )

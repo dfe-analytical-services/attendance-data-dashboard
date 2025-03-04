@@ -53,7 +53,8 @@ server <- function(input, output, session) {
   # Retrieving data from the API
   reasons_data_version_info <- eventReactive(input$geography_choice, {
     eesyapi::get_dataset_versions(
-      reasons_dataset_id
+      reasons_dataset_id,
+      ees_environment = ees_api_env
     ) |>
       filter(version == max(version))
   })
@@ -86,29 +87,28 @@ server <- function(input, output, session) {
       filter_items = list(
         time_frame = time_frame_query,
         school_phase = reasons_sqids$filters$education_phase |>
-          magrittr::extract2(tolower(input$school_choice)),
+          magrittr::extract2(tolower(input$school_choice) |> str_replace("total", "allschools")),
         attendance_reason = c(
-          reasons_sqids$filters$attendance_reason$allattendance,
-          reasons_sqids$filters$attendance_reason$allabsence,
-          reasons_sqids$filters$attendance_reason$allauthorised,
-          reasons_sqids$filters$attendance_reason$authorisedillness_i,
-          reasons_sqids$filters$attendance_reason$authorisedreligiousobservance_r,
-          reasons_sqids$filters$attendance_reason$authorisedmedicaldental_m,
-          reasons_sqids$filters$attendance_reason$authorisedstudyleave_s,
-          reasons_sqids$filters$attendance_reason$authorisedmobilechildilechild_t,
-          reasons_sqids$filters$attendance_reason$authorisedexcluded_e,
-          reasons_sqids$filters$attendance_reason$part_time,
-          reasons_sqids$filters$attendance_reason$authorisedother_c,
-          reasons_sqids$filters$attendance_reason$authorisedother_c,
-          reasons_sqids$filters$attendance_reason$allunauthorised,
+          reasons_sqids$filters$attendance_reason$overallattendance,
+          reasons_sqids$filters$attendance_reason$overallabsence,
+          reasons_sqids$filters$attendance_reason$allauthorisedabsence,
+          reasons_sqids$filters$attendance_reason$illness_i,
+          reasons_sqids$filters$attendance_reason$religiousobservance_r,
+          reasons_sqids$filters$attendance_reason$medicaldental_m,
+          reasons_sqids$filters$attendance_reason$studyleave_s,
+          reasons_sqids$filters$attendance_reason$mobilechild_t,
+          reasons_sqids$filters$attendance_reason$excluded_e,
+          reasons_sqids$filters$attendance_reason$temporaryreducedtimetable_c2,
+          reasons_sqids$filters$attendance_reason$otherauthorised_c,
+          reasons_sqids$filters$attendance_reason$allunauthorisedabsence,
           reasons_sqids$filters$attendance_reason$unauthorisedholiday_g,
-          reasons_sqids$filters$attendance_reason$unauthorisedlateafterregistersclosed_u,
+          reasons_sqids$filters$attendance_reason$lateafterregistersclosed_u,
           reasons_sqids$filters$attendance_reason$otherunauthorised_o,
           reasons_sqids$filters$attendance_reason$noreasonyet_n
         )
       ),
       indicators = unlist(reasons_sqids$indicators, use.names = FALSE),
-      ees_environment = api_environment,
+      ees_environment = ees_api_env,
       verbose = api_verbose
     ) |>
       mutate(
@@ -137,16 +137,16 @@ server <- function(input, output, session) {
         school_phase = reasons_sqids$filters$education_phase |>
           magrittr::extract2(tolower(input$school_choice)),
         attendance_reason = c(
-          reasons_sqids$filters$attendance_reason$allabsence,
-          reasons_sqids$filters$attendance_reason$allauthorised,
-          reasons_sqids$filters$attendance_reason$allunauthorised
+          reasons_sqids$filters$attendance_reason$overallabsence,
+          reasons_sqids$filters$attendance_reason$allauthorisedabsence,
+          reasons_sqids$filters$attendance_reason$allunauthorisedabsence
         )
       ),
       indicators = c(
         reasons_sqids$indicators$session_percent,
         reasons_sqids$indicators$reference_date
       ),
-      ees_environment = api_environment,
+      ees_environment = ees_api_env,
       verbose = api_verbose
     )
   })
@@ -883,107 +883,6 @@ server <- function(input, output, session) {
     }
   })
 
-
-  output$absence_reasons_timeseries_plot <- renderPlotly({
-    validate(need(nrow(live_attendance_data_ts()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_ts()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    absence_reasons_ytd <- live_attendance_data_ts()
-
-    reasons_ts_plot <- plot_ly(
-      absence_reasons_ytd,
-      type = "scatter", mode = "lines+markers"
-    ) %>%
-      add_trace(
-        x = ~week_commencing,
-        y = ~illness_perc,
-        line = list(color = "#12436D"),
-        marker = list(color = "#12436D"),
-        name = "Illness",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      add_trace(
-        x = ~week_commencing,
-        y = ~appointments_perc,
-        line = list(color = "#28A197"),
-        marker = list(color = "#28A197"),
-        name = "Medical appointments",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      add_trace(
-        x = ~week_commencing,
-        y = ~auth_part_time_perc,
-        line = list(color = "#FFBF47"),
-        marker = list(color = "#FFBF47"),
-        name = "Part-time timetable",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      add_trace(
-        x = ~week_commencing,
-        y = ~unauth_hol_perc,
-        line = list(color = "#F46A25"),
-        marker = list(color = "#F46A25"),
-        name = "Unauthorised holiday",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      add_trace(
-        x = ~week_commencing,
-        y = ~unauth_oth_perc,
-        line = list(color = "#801650"),
-        marker = list(color = "#801650"),
-        name = "Unauthorised other",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      config(displayModeBar = FALSE)
-
-    reasons_ts_plot <- reasons_ts_plot %>% layout(
-      xaxis = list(
-        title = "Week commencing",
-        tickvals = ~week_commencing,
-        zeroline = T,
-        zerolinewidth = 2,
-        zerolinecolor = "Grey",
-        zerolinecolor = "#ffff",
-        zerolinewidth = 2
-      ),
-      yaxis = list(
-        rangemode = "tozero",
-        title = "Absence rate (%)",
-        zeroline = T, zerolinewidth = 2,
-        zerolinecolor = "Grey",
-        zerolinecolor = "#ffff",
-        zerolinewidth = 2
-      ),
-      hovermode = "x unified",
-      legend = list(
-        font = list(size = 11),
-        orientation = "h",
-        yanchor = "top",
-        y = -0.5,
-        xanchor = "center",
-        x = 0.5
-      ),
-      title = newtitle_reasonsweekly(),
-      font = t
-    )
-
-    reasons_ts_plot <- reasons_ts_plot %>% layout(
-      xaxis = list(
-        tickmode = "linear",
-        tick0 = "2022-09-12",
-        # dtick = "M1"
-        dtick = 86400000 * 14
-      ),
-      margin = list(t = 80)
-    )
-  })
-
-
   # Reasons for absence - latest week chart
   newtitle_reasonsdaily <- renderText({
     if (input$geography_choice == "National") {
@@ -1217,13 +1116,13 @@ server <- function(input, output, session) {
             lines |>
               dplyr::filter(
                 attendance_status == "Attendance",
-                attendance_type == "All attendance"
+                attendance_type == "Overall attendance"
               ) |>
               dplyr::pull(session_percent),
             comparators |>
               dplyr::filter(
                 attendance_status == "Attendance",
-                attendance_type == "All attendance"
+                attendance_type == "Overall attendance"
               ) |>
               dplyr::pull(session_percent),
             "attending",
@@ -1237,13 +1136,13 @@ server <- function(input, output, session) {
             lines |>
               dplyr::filter(
                 attendance_status == "Absence",
-                attendance_type == "All absence"
+                attendance_type == "Overall absence"
               ) |>
               dplyr::pull(session_percent),
             comparators |>
               dplyr::filter(
                 attendance_status == "Absence",
-                attendance_type == "All absence"
+                attendance_type == "Overall absence"
               ) |>
               dplyr::pull(session_percent),
             "absence",
@@ -1256,12 +1155,12 @@ server <- function(input, output, session) {
           headline_bullet(
             lines |>
               dplyr::filter(
-                attendance_reason == "Authorised illness (i)"
+                attendance_reason == "Illness (i)"
               ) |>
               dplyr::pull(session_percent),
             comparators |>
               dplyr::filter(
-                attendance_reason == "Authorised illness (i)"
+                attendance_reason == "Illness (i)"
               ) |>
               dplyr::pull(session_percent),
             "illness",
@@ -1271,50 +1170,6 @@ server <- function(input, output, session) {
           )
         )
       )
-    )
-  })
-
-  # Headline persistent absence ytd
-  # Bullet for national level
-  output$ytd_pa_rate_nat <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>% pull(pa_perc) %>% dfeR::round_five_up(dp = 1),
-      "% of pupils were recorded as persistently absent"
-    )
-  })
-
-  # Bullet for regional level
-  output$ytd_pa_rate_reg <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>%
-        pull(pa_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of pupils were recorded as persistently absent in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
-        pull(pa_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of pupils at national level)"
-    )
-  })
-
-  # Bullet for LA level
-  output$ytd_pa_rate_la <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
-
-    paste0(
-      "• ", live_attendance_data_ytd() %>%
-        pull(pa_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of pupils were recorded as persistently absent in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
-        pull(pa_perc) %>%
-        dfeR::round_five_up(dp = 1),
-      "% of pupils in ", input$region_choice, ")"
     )
   })
 
@@ -1479,21 +1334,18 @@ server <- function(input, output, session) {
           geographic_level == input$geography_choice,
           time_frame == time_frame_descriptors()$filter_string,
           attendance_reason %in% c(
-            "Authorised illness (i)",
-            "Authorised medical dental (m)",
-            "Authorised religious observance (r)",
-            "Authorised study leave (s)",
-            "Authorised mobile childile child (t)",
-            "Authorised excluded (e)",
-            "Part_time",
-            "Authorised other (c)"
+            "Illness (i)",
+            "Medical dental (m)",
+            "Religious observance (r)",
+            "Study leave (s)",
+            "Mobile child (t)",
+            "Excluded (e)",
+            "Temporary reduced timetable (c2)",
+            "Other authorised (c)"
           )
         ) |>
         select(attendance_reason, session_percent) |>
         mutate(
-          attendance_reason = attendance_reason |>
-            stringr::str_replace("Authorised ", "") |>
-            stringr::str_to_sentence(),
           session_percent = session_percent |>
             as.numeric() |>
             dfeR::round_five_up(dp = 1) |>
@@ -1513,7 +1365,7 @@ server <- function(input, output, session) {
         time_frame == time_frame_descriptors()$filter_string,
         attendance_reason %in% c(
           "Unauthorised holiday (g)",
-          "Unauthorised late after registers closed (u)",
+          "Late after registers closed (u)",
           "Other unauthorised (o)",
           "No reason yet (n)"
         )
@@ -1573,13 +1425,13 @@ server <- function(input, output, session) {
           values_from = "session_percent"
         ) |>
         select(
-          Year = period,
+          Year = time_period,
           `Week commencing` = reference_date,
           Region = reg_name,
           `Local authority` = la_name,
-          `Overall absence rate` = "All absence",
-          `Authorised absence rate` = "All authorised",
-          `Unauthorised absence rate` = "All unauthorised"
+          `Overall absence rate` = "Overall absence",
+          `Authorised absence rate` = "All authorised absence",
+          `Unauthorised absence rate` = "All unauthorised absence"
         ),
       searchable = TRUE,
       defaultSorted = list(
@@ -1641,9 +1493,9 @@ server <- function(input, output, session) {
 
   output$rates_map <- renderLeaflet({
     if (input$measure_choice == "Overall") {
-      rate_choice <- "All absence"
+      rate_choice <- "Overall absence"
     } else {
-      rate_choice <- paste("All", tolower(input$measure_choice))
+      rate_choice <- paste("All", tolower(input$measure_choice), "absence")
     }
 
     data <- map_data() |>

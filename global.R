@@ -96,6 +96,39 @@ appLoadingCSS <- "
 }
 "
 
+ees_api_env <- "dev"
+
+if (ees_api_env == "prod") {
+  api_verbose <- TRUE
+  api_environment <- "prod"
+  reasons_dataset_id <- ""
+  reasons_dataset_ref_version <- 1.0
+  presistent_absence_dataset_id <- ""
+  presistent_absence_ref_version <- 1.0
+  submitting_schools_dataset_id <- ""
+  submitting_schools_ref_version <- 1.0
+} else if (ees_api_env == "dev") {
+  api_verbose <- FALSE
+  api_environment <- "dev"
+  reasons_dataset_id <- "ab619501-50cf-1b70-b276-76d72a3c141c"
+  reasons_dataset_ref_version <- 1.0
+  presistent_absence_dataset_id <- "3b299501-2ab1-de76-a9b5-a3ae26ac0bcd"
+  presistent_absence_ref_version <- 2.0
+  submitting_schools_dataset_id <- "ac619501-eb0a-ff71-b03c-5330fe30349a"
+  submitting_schools_ref_version <- 1.0
+} else if (ees_api_env == "test") {
+  api_verbose <- TRUE
+  api_environment <- "test"
+  reasons_dataset_id <- "8e8c9301-55c5-3e71-abbb-73ac64420c4a"
+  reasons_dataset_ref_version <- 2.0
+  presistent_absence_dataset_id <- ""
+  presistent_absence_ref_version <- 1.0
+  submitting_schools_dataset_id <- ""
+  submitting_schools_ref_version <- 1.0
+} else {
+  stop("Invalid environment given in ees_api_env variable.")
+}
+
 source("R/prerun_utils.R")
 source("R/fetch_data.R")
 
@@ -116,11 +149,6 @@ region_la_lookup <- dfeR::wd_pcon_lad_la_rgn_ctry |>
   arrange(region_name)
 
 
-api_verbose <- FALSE
-api_environment <- "test"
-reasons_dataset_id <- "8e8c9301-55c5-3e71-abbb-73ac64420c4a"
-reasons_dataset_ref_version <- 2.0
-
 # Pull in original data set api id look-up lists.
 # This is fixed to a single reference point version and allows the code to use human readable
 # parameters for the API calls. This is a bit that could cause some issues if there's some breaking
@@ -128,8 +156,17 @@ reasons_dataset_ref_version <- 2.0
 # here should not be changed.
 reasons_sqids <- fetch_sqid_lookup(
   reasons_dataset_id,
-  version = reasons_dataset_ref_version
+  version = reasons_dataset_ref_version,
+  ees_environment = ees_api_env
 )
+
+persistent_absence_sqids <- fetch_sqid_lookup(
+  reasons_dataset_id,
+  version = reasons_dataset_ref_version,
+  ees_environment = ees_api_env
+)
+
+
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
