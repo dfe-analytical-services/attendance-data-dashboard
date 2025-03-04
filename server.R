@@ -985,16 +985,22 @@ server <- function(input, output, session) {
 
 
   # reasons bullet reactive titles
-  output$reasons_chart_title_nat <- renderText({
-    paste0(input$school_choice, " state-funded schools: absence at ", str_to_lower(input$geography_choice), " level")
-  })
-
-  output$reasons_chart_title_reg <- renderText({
-    paste0(input$school_choice, " state-funded schools: absence at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ")")
-  })
-
-  output$reasons_chart_title_la <- renderText({
-    paste0(input$school_choice, " state-funded schools: absence at ", str_to_lower(input$geography_choice), " level (", input$region_choice, ", ", input$la_choice, ")")
+  output$reasons_chart_title <- renderText({
+    paste0(
+      input$school_choice,
+      " state-funded schools: absence at ",
+      str_to_lower(input$geography_choice),
+      " level",
+      if (input$geography_choice %in% c("Regional", "Local authority")) {
+        " ("
+      },
+      if (input$geography_choice %in% c("Local authority")) {
+        paste(input$la_choice, ", ")
+      },
+      if (input$geography_choice %in% c("Regional", "Local authority")) {
+        paste0(input$region_choice, ")")
+      }
+    )
   })
 
   # la comparison table reactive title
@@ -1004,8 +1010,6 @@ server <- function(input, output, session) {
 
 
   # Creating reactive embedded stats ------------------------------------------------------------
-
-
   schools_count <- attendance_data %>%
     filter(
       time_period == max(time_period),
@@ -1385,10 +1389,9 @@ server <- function(input, output, session) {
       time_frame_filter <- "Year to date"
     }
     tagList(
-      p(strong(paste0("Authorised absence rate:"))),
-      shinyGovstyle::value_box(
-        "headline_auth_rate",
-        text = time_frame_text,
+      tags$h5(paste0("Authorised absence rate:")),
+      bslib::value_box(
+        title = time_frame_text,
         value = reasons_data() |>
           filter(
             geographic_level == input$geography_choice,
@@ -1399,12 +1402,11 @@ server <- function(input, output, session) {
           as.numeric() |>
           dfeR::round_five_up(dp = 1) |>
           paste("%"),
-        colour = "blue"
+        theme = "primary"
       ),
-      p(strong(paste0("Unauthorised absence rate:"))),
-      shinyGovstyle::value_box(
-        "headline_auth_rate",
-        text = time_frame_text,
+      tags$h5(paste0("Unauthorised absence rate:")),
+      bslib::value_box(
+        title = time_frame_text,
         value = reasons_data() |>
           filter(
             geographic_level == input$geography_choice,
@@ -1415,7 +1417,7 @@ server <- function(input, output, session) {
           as.numeric() |>
           dfeR::round_five_up(dp = 1) |>
           paste("%"),
-        colour = "blue"
+        theme = "primary"
       )
     )
   })
@@ -1423,7 +1425,7 @@ server <- function(input, output, session) {
   # Creating reactive reasons and la comparison table ------------------------------------------------------------
 
   output$absence_auth_table_title <- renderUI(
-    shiny::tags$h3("Reasons for absence in the", tolower(time_frame_descriptors()$display_string))
+    shiny::tags$h4("Reasons for absence in the", tolower(time_frame_descriptors()$display_string))
   )
 
   output$absence_auth_reasons_reactable <- renderReactable({

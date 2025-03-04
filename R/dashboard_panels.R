@@ -271,23 +271,7 @@ dashboard_panel <- function() {
               fluidRow(
                 column(
                   width = 12,
-                  conditionalPanel(
-                    condition = "input.geography_choice == 'National'",
-                    h4(textOutput("reasons_chart_title_nat"))
-                  ),
-                  conditionalPanel(
-                    condition = "input.geography_choice == 'Regional'",
-                    h4(textOutput("reasons_chart_title_reg"))
-                  ),
-                  conditionalPanel(
-                    condition = "input.geography_choice == 'Local authority'",
-                    h4(textOutput("reasons_chart_title_la"))
-                  )
-                )
-              ),
-              fluidRow(
-                column(
-                  width = 12,
+                  h3(textOutput("reasons_chart_title")),
                   conditionalPanel(
                     condition = paste0("input.ts_choice == 'latestweeks'"),
                     p("Absence rates presented on the chart below are calculated on a daily basis. Each point on the chart shows an absence rate calculated across all sessions in the given day."),
@@ -314,9 +298,9 @@ dashboard_panel <- function() {
                 column(
                   width = 12,
                   uiOutput("absence_auth_table_title"),
-                  tags$h4("Authorised"),
+                  tags$h5("Authorised"),
                   reactableOutput("absence_auth_reasons_reactable"),
-                  tags$h4("Unauthorised"),
+                  tags$h5("Unauthorised"),
                   reactableOutput("absence_unauth_reasons_reactable"),
                 )
               )
