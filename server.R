@@ -1594,7 +1594,7 @@ server <- function(input, output, session) {
     if (input$measure_choice == "Overall") {
       rate_choice <- "Overall absence"
     } else {
-      rate_choice <- paste("All", tolower(input$measure_choice), "absence")
+      rate_choice <- paste("All", tolower(input$measure_choice))
     }
 
     data <- map_data() |>
