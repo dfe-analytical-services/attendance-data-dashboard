@@ -91,7 +91,7 @@ server <- function(input, output, session) {
         attendance_reason = c(
           reasons_sqids$filters$attendance_reason$overallattendance,
           reasons_sqids$filters$attendance_reason$overallabsence,
-          reasons_sqids$filters$attendance_reason$allauthorisedabsence,
+          reasons_sqids$filters$attendance_reason$allauthorised,
           reasons_sqids$filters$attendance_reason$illness_i,
           reasons_sqids$filters$attendance_reason$religiousobservance_r,
           reasons_sqids$filters$attendance_reason$medicaldental_m,
@@ -100,7 +100,7 @@ server <- function(input, output, session) {
           reasons_sqids$filters$attendance_reason$excluded_e,
           reasons_sqids$filters$attendance_reason$temporaryreducedtimetable_c2,
           reasons_sqids$filters$attendance_reason$otherauthorised_c,
-          reasons_sqids$filters$attendance_reason$allunauthorisedabsence,
+          reasons_sqids$filters$attendance_reason$allunauthorised,
           reasons_sqids$filters$attendance_reason$unauthorisedholiday_g,
           reasons_sqids$filters$attendance_reason$lateafterregistersclosed_u,
           reasons_sqids$filters$attendance_reason$otherunauthorised_o,
@@ -138,8 +138,8 @@ server <- function(input, output, session) {
           magrittr::extract2(tolower(input$school_choice)),
         attendance_reason = c(
           reasons_sqids$filters$attendance_reason$overallabsence,
-          reasons_sqids$filters$attendance_reason$allauthorisedabsence,
-          reasons_sqids$filters$attendance_reason$allunauthorisedabsence
+          reasons_sqids$filters$attendance_reason$allauthorised,
+          reasons_sqids$filters$attendance_reason$allunauthorised
         )
       ),
       indicators = c(
@@ -173,6 +173,7 @@ server <- function(input, output, session) {
     )
 
   time_frame_string <- reactive({
+    print(reasons_data())
     if (input$ts_choice == "latestweeks") {
       dates <- reasons_data() |>
         filter(time_frame != "Week") |>
@@ -1430,8 +1431,8 @@ server <- function(input, output, session) {
           Region = reg_name,
           `Local authority` = la_name,
           `Overall absence rate` = "Overall absence",
-          `Authorised absence rate` = "All authorised absence",
-          `Unauthorised absence rate` = "All unauthorised absence"
+          `Authorised absence rate` = "All authorised",
+          `Unauthorised absence rate` = "All unauthorised"
         ),
       searchable = TRUE,
       defaultSorted = list(

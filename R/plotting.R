@@ -15,15 +15,15 @@ headline_absence_ggplot <- function(reasons, scope) {
   }
   plot_data <- plot_data |>
     filter(
-      attendance_reason %in% c("All authorised absence", "All unauthorised absence", "Overall absence")
+      attendance_reason %in% c("All authorised", "All unauthorised", "Overall absence")
     ) |>
     arrange(attendance_type, reference_date) |>
     mutate(
       session_percent = as.numeric(session_percent),
       attendance_reason = case_when(
         attendance_reason == "Overall absence" ~ "Overall absence rate",
-        attendance_reason == "All authorised absence" ~ "Authorised absence rate",
-        attendance_reason == "All unauthorised absence" ~ "Unauthorised absence rate"
+        attendance_reason == "All authorised" ~ "Authorised absence rate",
+        attendance_reason == "All unauthorised" ~ "Unauthorised absence rate"
       )
     )
   dates <- plot_data |>

@@ -101,30 +101,30 @@ ees_api_env <- "dev"
 if (ees_api_env == "prod") {
   api_verbose <- TRUE
   api_environment <- "prod"
-  reasons_dataset_id <- ""
+  reasons_dataset_id <- "63629501-d3ca-c471-9780-ec4cb6fdf172"
   reasons_dataset_ref_version <- 1.0
-  presistent_absence_dataset_id <- ""
-  presistent_absence_ref_version <- 1.0
-  submitting_schools_dataset_id <- ""
-  submitting_schools_ref_version <- 1.0
+  persistent_absence_dataset_id <- "55629501-e98b-0c75-adba-f95a0cfbb5e9"
+  persistent_absence_ref_version <- 1.0
+  schools_submitting_dataset_id <- "55629501-1945-0174-956c-594f21c90404"
+  schools_submitting_ref_version <- 1.0
 } else if (ees_api_env == "dev") {
   api_verbose <- FALSE
   api_environment <- "dev"
   reasons_dataset_id <- "ab619501-50cf-1b70-b276-76d72a3c141c"
-  reasons_dataset_ref_version <- 1.0
-  presistent_absence_dataset_id <- "3b299501-2ab1-de76-a9b5-a3ae26ac0bcd"
-  presistent_absence_ref_version <- 2.0
-  submitting_schools_dataset_id <- "ac619501-eb0a-ff71-b03c-5330fe30349a"
-  submitting_schools_ref_version <- 1.0
+  reasons_dataset_ref_version <- 1.1
+  persistent_absence_dataset_id <- "3b299501-2ab1-de76-a9b5-a3ae26ac0bcd"
+  persistent_absence_ref_version <- 3.0
+  schools_submitting_dataset_id <- "ac619501-eb0a-ff71-b03c-5330fe30349a"
+  schools_submitting_ref_version <- 1.1
 } else if (ees_api_env == "test") {
   api_verbose <- TRUE
   api_environment <- "test"
   reasons_dataset_id <- "8e8c9301-55c5-3e71-abbb-73ac64420c4a"
   reasons_dataset_ref_version <- 2.0
-  presistent_absence_dataset_id <- ""
-  presistent_absence_ref_version <- 1.0
-  submitting_schools_dataset_id <- ""
-  submitting_schools_ref_version <- 1.0
+  persistent_absence_dataset_id <- ""
+  persistent_absence_ref_version <- 1.0
+  schools_submitting_dataset_id <- ""
+  schools_submitting_ref_version <- 1.0
 } else {
   stop("Invalid environment given in ees_api_env variable.")
 }
@@ -161,11 +161,16 @@ reasons_sqids <- fetch_sqid_lookup(
 )
 
 persistent_absence_sqids <- fetch_sqid_lookup(
-  reasons_dataset_id,
-  version = reasons_dataset_ref_version,
+  persistent_absence_dataset_id,
+  version = persistent_absence_ref_version,
   ees_environment = ees_api_env
 )
 
+schools_submitting_sqids <- fetch_sqid_lookup(
+  schools_submitting_dataset_id,
+  version = schools_submitting_ref_version,
+  ees_environment = ees_api_env
+)
 
 
 # Data manipulation ----------------------------------------------------------------------------

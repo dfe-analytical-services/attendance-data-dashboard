@@ -4,14 +4,14 @@ fetch_sqid_lookup <- function(
     ees_environment = "test",
     verbose = FALSE) {
   meta <- eesyapi::get_meta(
-    reasons_dataset_id,
+    dataset_id,
     ees_environment = ees_environment,
     verbose = verbose
   )
   sqid_lookup <- list(
     filters = filter_item_sqid_list(
       meta$filter_items |>
-        dplyr::left_join(meta$filter_columns)
+        dplyr::left_join(meta$filter_columns, by = join_by(col_id))
     ),
     indicators = indicator_sqid_list(meta$indicators)
   )
