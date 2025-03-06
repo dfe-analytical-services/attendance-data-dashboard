@@ -56,7 +56,12 @@ server <- function(input, output, session) {
       reasons_dataset_id,
       ees_environment = ees_api_env
     ) |>
-      filter(version == max(version))
+      filter(version == max(version)) |>
+      mutate(time_period_end = if_else(
+        time_period_end == "2025 Week 8",
+        "2025 Week 7",
+        time_period_end
+      ))
   })
 
   reasons_data <- reactive({
@@ -80,6 +85,7 @@ server <- function(input, output, session) {
         reasons_sqids$filters$time_frame$yeartodate
       )
     }
+    print(time_period_query)
     eesyapi::query_dataset(
       reasons_dataset_id,
       time_periods = time_period_query,
