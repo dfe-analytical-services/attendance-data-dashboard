@@ -96,10 +96,10 @@ appLoadingCSS <- "
 }
 "
 
-ees_api_env <- "dev"
+ees_api_env <- "prod"
 
 if (ees_api_env == "prod") {
-  api_verbose <- TRUE
+  api_verbose <- FALSE
   api_environment <- "prod"
   reasons_dataset_id <- "63629501-d3ca-c471-9780-ec4cb6fdf172"
   reasons_dataset_ref_version <- 1.0
