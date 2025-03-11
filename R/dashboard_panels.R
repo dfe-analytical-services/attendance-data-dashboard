@@ -376,7 +376,7 @@ notes_panel <- function() {
           br(),
           p("Full information on methodologies and further technical notes are available through", a(href = "https://explore-education-statistics.service.gov.uk/methodology/pupil-attendance-in-schools", "Explore Education Statistics", .noWS = c("after")), "."),
           p(strong("Definitions for common attendance terms")),
-          DTOutput("notesTableReasons"),
+          reactableOutput("notesTableReasons"),
         )
       )
     )

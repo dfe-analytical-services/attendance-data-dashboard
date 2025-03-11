@@ -52,7 +52,6 @@ ui <- function(input, output, session) {
       ),
       support_contact = team_email
     ),
-    useShinydashboard(),
     dfeshiny::dfe_cookies_script(),
     dfeshiny::cookies_banner_ui(
       name = site_title

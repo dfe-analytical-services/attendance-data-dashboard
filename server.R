@@ -752,44 +752,6 @@ server <- function(input, output, session) {
 
   # Creating reactive charts ------------------------------------------------------------
 
-  # Reporting schools number chart
-  output$response_rates <- renderPlotly({
-    response_rates_figs <- response_rates %>%
-      group_by(attendance_date) %>%
-      mutate(overall_school_num = sum(num_schools))
-
-    response_rate_plot <- plot_ly(
-      response_rates_figs,
-      type = "scatter", mode = "lines+markers"
-    ) %>%
-      add_trace(
-        x = ~attendance_date,
-        y = ~overall_school_num,
-        line = list(color = "black"),
-        marker = list(color = "black"),
-        name = "Number of schools reporting",
-        hovertemplate = "%{y:.1f}",
-        mode = "markers"
-      ) %>%
-      config(displayModeBar = FALSE)
-
-    response_rate_plot <- response_rate_plot %>% layout(
-      xaxis = list(title = "Date", zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
-      yaxis = list(rangemode = "tozero", title = "Number of schools reporting", zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
-      hovermode = "x unified",
-      legend = list(
-        font = list(size = 11),
-        orientation = "h",
-        yanchor = "top",
-        y = -0.5,
-        xanchor = "center",
-        x = 0.5
-      ),
-      title = "Summary of schools responding",
-      font = t
-    )
-  })
-
 
   # Headline absence rates - ytd chart
   newtitle_weekly <- renderText({
@@ -801,79 +763,6 @@ server <- function(input, output, session) {
       paste0("Weekly summary of absence rates for ", "<br>", str_to_lower(input$school_choice), " state-funded schools ", "<br>", "(", input$region_choice, ", ", input$la_choice, ")")
     }
   })
-
-  output$absence_rates_timeseries_plot <- renderPlotly({
-    validate(need(nrow(live_attendance_data_ts()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_ts()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    absence_rates_ytd <- live_attendance_data_ts()
-
-    ts_plot <- plot_ly(
-      absence_rates_ytd,
-      type = "scatter", mode = "lines+markers"
-    ) %>%
-      add_trace(
-        x = ~week_commencing,
-        y = ~overall_absence_perc,
-        # line = list(color = "black"),
-        line = list(color = "#12436D"),
-        # marker = list(color = "black"),
-        marker = list(color = "#12436D"),
-        name = "Overall absence rate",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      add_trace(
-        x = ~week_commencing,
-        y = ~authorised_absence_perc,
-        # line = list(color = "steelblue"),
-        line = list(color = "#28A197"),
-        # marker = list(color = "steelblue"),
-        marker = list(color = "#28A197"),
-        name = "Authorised absence rate",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      add_trace(
-        x = ~week_commencing,
-        y = ~unauthorised_absence_perc,
-        # line = list(color = "orangered"),
-        line = list(color = "#F46A25"),
-        # marker = list(color = "orangered"),
-        marker = list(color = "#F46A25"),
-        name = "Unauthorised absence rate",
-        hovertemplate = "%{y:.1f}%",
-        mode = "markers"
-      ) %>%
-      config(displayModeBar = FALSE)
-
-    ts_plot <- ts_plot %>% layout(
-      xaxis = list(title = "Week commencing", tickvals = ~week_commencing, zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
-      yaxis = list(rangemode = "tozero", title = "Absence rate (%)", zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
-      hovermode = "x unified",
-      legend = list(
-        font = list(size = 11),
-        orientation = "h",
-        yanchor = "top",
-        y = -0.5,
-        xanchor = "center",
-        x = 0.5
-      ),
-      margin = list(t = 80),
-      title = newtitle_weekly(),
-      font = t
-    )
-
-    ts_plot <- ts_plot %>% layout(
-      xaxis = list(
-        tickmode = "linear",
-        tick0 = "2022-09-12",
-        # dtick = "M1"
-        dtick = 86400000 * 14
-      )
-    )
-  })
-
 
   # Headline absence rates - latest week chart
   newtitle_daily <- renderText({
@@ -1488,32 +1377,6 @@ server <- function(input, output, session) {
     )
   })
 
-  # absence reasons by local authority
-  output$absence_reasons_la_table <- renderDT({
-    absence_reasons_la <- live_attendance_data_weekly_las() %>%
-      dplyr::select(time_period, time_identifier, week_commencing, region_name, la_name, overall_absence_perc, authorised_absence_perc, unauthorised_absence_perc) %>%
-      arrange(desc(overall_absence_perc)) %>%
-      rename(
-        "Year" = time_period,
-        "Week number" = time_identifier,
-        "Week commencing" = week_commencing,
-        "Region name" = region_name,
-        "Local authority name" = la_name,
-        "Overall absence rate" = overall_absence_perc,
-        "Authorised absence rate" = authorised_absence_perc,
-        "Unauthorised absence rate" = unauthorised_absence_perc
-      )
-
-
-    absence_reasons_la <- datatable(absence_reasons_la,
-      selection = "none",
-      escape = FALSE,
-      rownames = FALSE,
-      options = list(scrollX = TRUE, columnDefs = list(list(className = "dt-center", targets = 0:7), list(targets = 1, searchable = FALSE, visible = FALSE)))
-    ) %>%
-      formatPercentage(c(6:8), 1)
-  })
-
   output$absence_reasons_la_reactable <- renderReactable({
     dfe_reactable(
       la_data() |>
@@ -1553,8 +1416,8 @@ server <- function(input, output, session) {
       column_spec(2, width_max = "40em")
   }
 
-  output$notesTableReasons <- renderDT({
-    datatable(notesTableReasons, options = list(pageLength = 15))
+  output$notesTableReasons <- renderReactable({
+    dfe_reactable(notesTableReasons, defaultPageSize = 15)
   })
 
   # Data download button ---------------------------------------------------------------------------------
