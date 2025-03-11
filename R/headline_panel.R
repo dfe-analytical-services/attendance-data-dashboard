@@ -9,14 +9,13 @@ headline_panel <- function() {
           bslib::card(
             bslib::card_body(
               tags$h4("School return rate"),
+              textOutput("school_count_proportion"),
               conditionalPanel(
                 condition = paste0("input.ts_choice == 'latestweeks'"),
-                textOutput("school_count_proportion_weekly"),
                 textOutput("update_dates")
               ),
               conditionalPanel(
                 condition = paste0("input.ts_choice == 'yeartodate'"),
-                textOutput("school_count_proportion_weekly2"),
                 textOutput("update_dates2")
               ),
               uiOutput("headline_bullet_attendance_rate"),

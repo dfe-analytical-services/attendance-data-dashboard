@@ -48,23 +48,7 @@ server <- function(input, output, session) {
     }
   )
 
-
-
-  # Retrieving data from the API
-  reasons_data_version_info <- eventReactive(input$geography_choice, {
-    eesyapi::get_dataset_versions(
-      reasons_dataset_id,
-      ees_environment = ees_api_env
-    ) |>
-      filter(version == max(version)) |>
-      mutate(time_period_end = if_else(
-        time_period_end == "2025 Week 8",
-        "2025 Week 7",
-        time_period_end
-      ))
-  })
-
-  reasons_data <- reactive({
+  time_query <- reactive({
     message("Time period choice: ", input$ts_choice)
     if (input$ts_choice == "latestweeks") {
       time_period_query <- reasons_data_version_info()$time_period_end |>
@@ -85,13 +69,75 @@ server <- function(input, output, session) {
         reasons_sqids$filters$time_frame$yeartodate
       )
     }
-    print(time_period_query)
+    message(paste(time_period_query, collapse = ", "))
+    return(list(time_period_query = time_period_query, time_frame_query = time_frame_query))
+  })
+
+  # Retrieving data from the API
+  school_numbers_data <- reactive({
+    time_period_query <- reasons_data_version_info()$time_period_end |>
+      stringr::str_replace("Week ", "W") |>
+      stringr::str_replace(" ", "|")
+    print(input$geography_choice)
+    print(input$region_choice)
+    if (input$geography_choice == "National") {
+      query <- "National"
+    } else if (input$geography_choice == "Regional") {
+      reg_code <- dfeR::fetch_regions() |>
+        dplyr::filter(region_name == input$region_choice) |>
+        dplyr::pull(region_code)
+      query <- paste0("REG|code|", reg_code)
+    } else if (input$geography_choice == "Local authority") {
+      la_code <- dfeR::fetch_las() |>
+        dplyr::filter(la_name == input$la_choice) |>
+        dplyr::pull(new_la_code)
+      query <- paste0("LA|code|", la_code)
+    }
+    message("This is the query: ", query)
+    result <- eesyapi::query_dataset(
+      schools_submitting_dataset_id,
+      time_periods = time_period_query,
+      geographies = query,
+      filter_items = list(
+        time_frame = schools_submitting_sqids$filters$time_frame$week,
+        school_phase = schools_submitting_sqids$filters$education_phase |>
+          magrittr::extract2(tolower(input$school_choice) |>
+            str_replace("total", "allschools"))
+      ),
+      ees_environment = ees_api_env
+    )
+    print(result)
+    return(result)
+  }) |>
+    shiny::bindCache(
+      reasons_data_version_info()$version,
+      input$ts_choice,
+      input$geography_choice,
+      input$region_choice,
+      input$la_choice,
+      input$school_choice
+    )
+
+  reasons_data_version_info <- eventReactive(input$geography_choice, {
+    eesyapi::get_dataset_versions(
+      reasons_dataset_id,
+      ees_environment = ees_api_env
+    ) |>
+      filter(version == max(version)) |>
+      mutate(time_period_end = if_else(
+        time_period_end == "2025 Week 8",
+        "2025 Week 7",
+        time_period_end
+      ))
+  })
+
+  reasons_data <- reactive({
     eesyapi::query_dataset(
       reasons_dataset_id,
-      time_periods = time_period_query,
+      time_periods = time_query()$time_period_query,
       geographies = geography_query(input$geography_choice, input$region_choice, input$la_choice),
       filter_items = list(
-        time_frame = time_frame_query,
+        time_frame = time_query()$time_frame_query,
         school_phase = reasons_sqids$filters$education_phase |>
           magrittr::extract2(tolower(input$school_choice) |> str_replace("total", "allschools")),
         attendance_reason = c(
@@ -700,30 +746,21 @@ server <- function(input, output, session) {
 
 
   # Proportion of schools in census figures are generated from - latest week
-  output$school_count_proportion_weekly <- renderText({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    count_prop_week <- live_attendance_data_weekly() %>%
-      # count_prop_week <- live_attendance_data_weekly_pre_ht() %>%
-      group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
-      mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
-
-    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 10), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
-    paste0("For this breakdown, in the latest week ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 1), "% of schools submitted data, though this has varied throughout the year-to-date.")
-  })
-
-  output$school_count_proportion_weekly2 <- renderText({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    count_prop_week <- live_attendance_data_weekly() %>%
-      # count_prop_week <- live_attendance_data_weekly_pre_ht() %>%
-      group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
-      mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
-
-    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 10), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
-    paste0("For this breakdown, in the latest week ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 10), "% of schools submitted data, though this has varied throughout the year-to-date.")
+  output$school_count_proportion <- renderText({
+    validate(
+      need(
+        school_numbers_data()$school_submitted_count > 1,
+        "This data has been suppressed due to a low number of schools at this breakdown"
+      )
+    )
+    school_submitted_percent <- as.numeric(school_numbers_data()$school_submitted_count) /
+      as.numeric(school_numbers_data()$school_all_count) * 100.
+    paste0(
+      "For this breakdown, in the latest week ",
+      school_submitted_percent |>
+        dfeR::round_five_up(dp = 1),
+      "% of schools submitted data, though this has varied throughout the year-to-date."
+    )
   })
 
   output$school_count_proportion_homepage <- renderText({
