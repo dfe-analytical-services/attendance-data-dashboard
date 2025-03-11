@@ -76,44 +76,6 @@
       "Maintainer": "Kirill Müller <kirill@cynkra.com>",
       "Repository": "RSPM"
     },
-    "DT": {
-      "Package": "DT",
-      "Version": "0.33",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "A Wrapper of the JavaScript Library 'DataTables'",
-      "Authors@R": "c( person(\"Yihui\", \"Xie\", role = \"aut\"), person(\"Joe\", \"Cheng\", email = \"joe@posit.co\", role = c(\"aut\", \"cre\")), person(\"Xianying\", \"Tan\", role = \"aut\"), person(\"JJ\", \"Allaire\", role = \"ctb\"), person(\"Maximilian\", \"Girlich\", role = \"ctb\"), person(\"Greg\", \"Freedman Ellis\", role = \"ctb\"), person(\"Johannes\", \"Rauh\", role = \"ctb\"), person(\"SpryMedia Limited\", role = c(\"ctb\", \"cph\"), comment = \"DataTables in htmlwidgets/lib\"), person(\"Brian\", \"Reavis\", role = c(\"ctb\", \"cph\"), comment = \"selectize.js in htmlwidgets/lib\"), person(\"Leon\", \"Gersen\", role = c(\"ctb\", \"cph\"), comment = \"noUiSlider in htmlwidgets/lib\"), person(\"Bartek\", \"Szopka\", role = c(\"ctb\", \"cph\"), comment = \"jquery.highlight.js in htmlwidgets/lib\"), person(\"Alex\", \"Pickering\", role = c(\"ctb\")), person(\"William\", \"Holmes\", role = c(\"ctb\")), person(\"Mikko\", \"Marttila\", role = c(\"ctb\")), person(\"Andres\", \"Quintero\", role = c(\"ctb\")), person(\"Stéphane\", \"Laurent\", role = c(\"ctb\")), person(given = \"Posit Software, PBC\", role = c(\"cph\", \"fnd\")) )",
-      "Description": "Data objects in R can be rendered as HTML tables using the JavaScript library 'DataTables' (typically via R Markdown or Shiny). The 'DataTables' library has been included in this R package. The package name 'DT' is an abbreviation of 'DataTables'.",
-      "URL": "https://github.com/rstudio/DT",
-      "BugReports": "https://github.com/rstudio/DT/issues",
-      "License": "GPL-3 | file LICENSE",
-      "Imports": [
-        "htmltools (>= 0.3.6)",
-        "htmlwidgets (>= 1.3)",
-        "httpuv",
-        "jsonlite (>= 0.9.16)",
-        "magrittr",
-        "crosstalk",
-        "jquerylib",
-        "promises"
-      ],
-      "Suggests": [
-        "knitr (>= 1.8)",
-        "rmarkdown",
-        "shiny (>= 1.6)",
-        "bslib",
-        "future",
-        "testit",
-        "tibble"
-      ],
-      "VignetteBuilder": "knitr",
-      "RoxygenNote": "7.3.1",
-      "Encoding": "UTF-8",
-      "NeedsCompilation": "no",
-      "Author": "Yihui Xie [aut], Joe Cheng [aut, cre], Xianying Tan [aut], JJ Allaire [ctb], Maximilian Girlich [ctb], Greg Freedman Ellis [ctb], Johannes Rauh [ctb], SpryMedia Limited [ctb, cph] (DataTables in htmlwidgets/lib), Brian Reavis [ctb, cph] (selectize.js in htmlwidgets/lib), Leon Gersen [ctb, cph] (noUiSlider in htmlwidgets/lib), Bartek Szopka [ctb, cph] (jquery.highlight.js in htmlwidgets/lib), Alex Pickering [ctb], William Holmes [ctb], Mikko Marttila [ctb], Andres Quintero [ctb], Stéphane Laurent [ctb], Posit Software, PBC [cph, fnd]",
-      "Maintainer": "Joe Cheng <joe@posit.co>",
-      "Repository": "RSPM"
-    },
     "KernSmooth": {
       "Package": "KernSmooth",
       "Version": "2.23-26",
@@ -178,10 +140,10 @@
     },
     "Matrix": {
       "Package": "Matrix",
-      "Version": "1.7-3",
+      "Version": "1.7-2",
       "Source": "Repository",
       "VersionNote": "do also bump src/version.h, inst/include/Matrix/version.h",
-      "Date": "2025-03-05",
+      "Date": "2025-01-20",
       "Priority": "recommended",
       "Title": "Sparse and Dense Matrix Classes and Methods",
       "Description": "A rich hierarchy of sparse and dense matrix classes, including general, symmetric, triangular, and diagonal matrices with numeric, logical, or pattern entries.  Efficient methods for operating on such matrices, often wrapping the 'BLAS', 'LAPACK', and 'SuiteSparse' libraries.",
@@ -398,30 +360,6 @@
       "NeedsCompilation": "no",
       "Repository": "RSPM",
       "Encoding": "UTF-8"
-    },
-    "RODBC": {
-      "Package": "RODBC",
-      "Version": "1.3-26",
-      "Source": "Repository",
-      "Revision": "$Rev: 3674 $",
-      "Date": "2024-12-12",
-      "Authors@R": "c(person(\"Brian\", \"Ripley\", role = c(\"aut\", \"cre\"), email = \"Brian.Ripley@R-project.org\"), person(\"Michael\", \"Lapsley\", role = \"aut\",  comment = \"1999 to Oct 2002\"))",
-      "Title": "ODBC Database Access",
-      "Description": "An ODBC database interface.",
-      "SystemRequirements": "An ODBC3 driver manager and drivers.",
-      "Depends": [
-        "R (>= 4.0.0)"
-      ],
-      "Imports": [
-        "stats"
-      ],
-      "LazyLoad": "yes",
-      "Biarch": "yes",
-      "License": "GPL-2 | GPL-3",
-      "NeedsCompilation": "yes",
-      "Author": "Brian Ripley [aut, cre], Michael Lapsley [aut] (1999 to Oct 2002)",
-      "Maintainer": "Brian Ripley <Brian.Ripley@R-project.org>",
-      "Repository": "CRAN"
     },
     "Rcpp": {
       "Package": "Rcpp",
@@ -2904,55 +2842,6 @@
       "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>), Duncan Temple Lang [ctb], Lloyd Hilaiel [cph] (author of bundled libyajl)",
       "Repository": "CRAN"
     },
-    "kableExtra": {
-      "Package": "kableExtra",
-      "Version": "1.4.0",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Construct Complex Table with 'kable' and Pipe Syntax",
-      "Authors@R": "c( person('Hao', 'Zhu', email = 'haozhu233@gmail.com', role = c('aut', 'cre'), comment = c(ORCID = '0000-0002-3386-6076')), person('Thomas', 'Travison', role = 'ctb'), person('Timothy', 'Tsai', role = 'ctb'), person('Will', 'Beasley', email = 'wibeasley@hotmail.com', role = 'ctb'), person('Yihui', 'Xie', email = 'xie@yihui.name', role = 'ctb'), person('GuangChuang', 'Yu', email = 'guangchuangyu@gmail.com', role = 'ctb'), person('Stéphane', 'Laurent', role = 'ctb'), person('Rob', 'Shepherd', role = 'ctb'), person('Yoni', 'Sidi', role = 'ctb'),  person('Brian', 'Salzer', role = 'ctb'), person('George', 'Gui', role = 'ctb'), person('Yeliang', 'Fan', role = 'ctb'), person('Duncan', 'Murdoch', role = 'ctb'), person('Vincent', 'Arel-Bundock', role = 'ctb'), person('Bill', 'Evans',  role = 'ctb') )",
-      "Description": "Build complex HTML or 'LaTeX' tables using 'kable()' from 'knitr'  and the piping syntax from 'magrittr'. Function 'kable()' is a light weight  table generator coming from 'knitr'. This package simplifies the way to  manipulate the HTML or 'LaTeX' codes generated by 'kable()' and allows  users to construct complex tables and customize styles using a readable  syntax.",
-      "License": "MIT + file LICENSE",
-      "URL": "http://haozhu233.github.io/kableExtra/, https://github.com/haozhu233/kableExtra",
-      "BugReports": "https://github.com/haozhu233/kableExtra/issues",
-      "Depends": [
-        "R (>= 3.1.0)"
-      ],
-      "Imports": [
-        "knitr (>= 1.33)",
-        "magrittr",
-        "stringr (>= 1.0)",
-        "xml2 (>= 1.1.1)",
-        "rmarkdown (>= 1.6.0)",
-        "scales",
-        "viridisLite",
-        "stats",
-        "grDevices",
-        "htmltools",
-        "rstudioapi",
-        "tools",
-        "digest",
-        "graphics",
-        "svglite"
-      ],
-      "Suggests": [
-        "testthat",
-        "magick",
-        "tinytex",
-        "formattable",
-        "sparkline",
-        "webshot2"
-      ],
-      "Config/testthat/edition": "3",
-      "VignetteBuilder": "knitr",
-      "Encoding": "UTF-8",
-      "RoxygenNote": "7.2.3",
-      "Language": "en-US",
-      "NeedsCompilation": "no",
-      "Author": "Hao Zhu [aut, cre] (<https://orcid.org/0000-0002-3386-6076>), Thomas Travison [ctb], Timothy Tsai [ctb], Will Beasley [ctb], Yihui Xie [ctb], GuangChuang Yu [ctb], Stéphane Laurent [ctb], Rob Shepherd [ctb], Yoni Sidi [ctb], Brian Salzer [ctb], George Gui [ctb], Yeliang Fan [ctb], Duncan Murdoch [ctb], Vincent Arel-Bundock [ctb], Bill Evans [ctb]",
-      "Maintainer": "Hao Zhu <haozhu233@gmail.com>",
-      "Repository": "CRAN"
-    },
     "knitr": {
       "Package": "knitr",
       "Version": "1.49",
@@ -3544,51 +3433,6 @@
       "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
       "Repository": "CRAN"
     },
-    "openxlsx": {
-      "Package": "openxlsx",
-      "Version": "4.2.8",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Read, Write and Edit xlsx Files",
-      "Date": "2025-01-25",
-      "Authors@R": "c(person(given = \"Philipp\", family = \"Schauberger\", role = \"aut\", email = \"philipp@schauberger.co.at\"), person(given = \"Alexander\", family = \"Walker\", role = \"aut\", email = \"Alexander.Walker1989@gmail.com\"), person(given = \"Luca\", family = \"Braglia\", role = \"ctb\"), person(given = \"Joshua\", family = \"Sturm\", role = \"ctb\"), person(given = \"Jan Marvin\", family = \"Garbuszus\", role = c(\"ctb\", \"cre\"), email = \"jan.garbuszus@ruhr-uni-bochum.de\"), person(given = \"Jordan Mark\", family = \"Barbone\", role = \"ctb\", email = \"jmbarbone@gmail.com\", comment = c(ORCID = \"0000-0001-9788-3628\")), person(given = \"David\", family = \"Zimmermann\", role = \"ctb\", email = \"david_j_zimmermann@hotmail.com\"), person(given = \"Reinhold\", family = \"Kainhofer\", role = \"ctb\", email = \"reinhold@kainhofer.com\"))",
-      "Description": "Simplifies the creation of Excel .xlsx files by providing a high level interface to writing, styling and editing worksheets. Through the use of 'Rcpp', read/write times are comparable to the 'xlsx' and 'XLConnect' packages with the added benefit of removing the dependency on Java.",
-      "License": "MIT + file LICENSE",
-      "URL": "https://ycphs.github.io/openxlsx/index.html, https://github.com/ycphs/openxlsx",
-      "BugReports": "https://github.com/ycphs/openxlsx/issues",
-      "Depends": [
-        "R (>= 3.3.0)"
-      ],
-      "Imports": [
-        "grDevices",
-        "methods",
-        "Rcpp",
-        "stats",
-        "stringi",
-        "utils",
-        "zip"
-      ],
-      "Suggests": [
-        "curl",
-        "formula.tools",
-        "knitr",
-        "rmarkdown",
-        "testthat"
-      ],
-      "LinkingTo": [
-        "Rcpp"
-      ],
-      "VignetteBuilder": "knitr",
-      "Encoding": "UTF-8",
-      "Language": "en-US",
-      "RoxygenNote": "7.3.2",
-      "Collate": "'CommentClass.R' 'HyperlinkClass.R' 'RcppExports.R' 'class_definitions.R' 'StyleClass.R' 'WorkbookClass.R' 'asserts.R' 'baseXML.R' 'borderFunctions.R' 'build_workbook.R' 'chartsheet_class.R' 'conditional_formatting.R' 'data-fontSizeLookupTables.R' 'helperFunctions.R' 'loadWorkbook.R' 'onUnload.R' 'openXL.R' 'openxlsx-package.R' 'openxlsx.R' 'openxlsxCoerce.R' 'readWorkbook.R' 'setWindowSize.R' 'sheet_data_class.R' 'utils.R' 'workbook_column_widths.R' 'workbook_read_workbook.R' 'workbook_write_data.R' 'worksheet_class.R' 'wrappers.R' 'writeData.R' 'writeDataTable.R' 'writexlsx.R' 'zzz.R'",
-      "LazyData": "true",
-      "NeedsCompilation": "yes",
-      "Author": "Philipp Schauberger [aut], Alexander Walker [aut], Luca Braglia [ctb], Joshua Sturm [ctb], Jan Marvin Garbuszus [ctb, cre], Jordan Mark Barbone [ctb] (<https://orcid.org/0000-0001-9788-3628>), David Zimmermann [ctb], Reinhold Kainhofer [ctb]",
-      "Maintainer": "Jan Marvin Garbuszus <jan.garbuszus@ruhr-uni-bochum.de>",
-      "Repository": "CRAN"
-    },
     "packrat": {
       "Package": "packrat",
       "Version": "0.9.2",
@@ -3821,82 +3665,6 @@
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [aut], Winston Chang [aut], Jim Hester [aut], Lionel Henry [aut, cre], Posit Software, PBC [cph, fnd], R Core team [ctb] (Some namespace and vignette code extracted from base R)",
       "Maintainer": "Lionel Henry <lionel@posit.co>",
-      "Repository": "CRAN"
-    },
-    "plotly": {
-      "Package": "plotly",
-      "Version": "4.10.4",
-      "Source": "Repository",
-      "Title": "Create Interactive Web Graphics via 'plotly.js'",
-      "Authors@R": "c(person(\"Carson\", \"Sievert\", role = c(\"aut\", \"cre\"), email = \"cpsievert1@gmail.com\", comment = c(ORCID = \"0000-0002-4958-2844\")), person(\"Chris\", \"Parmer\", role = \"aut\", email = \"chris@plot.ly\"), person(\"Toby\", \"Hocking\", role = \"aut\", email = \"tdhock5@gmail.com\"), person(\"Scott\", \"Chamberlain\", role = \"aut\", email = \"myrmecocystus@gmail.com\"), person(\"Karthik\", \"Ram\", role = \"aut\", email = \"karthik.ram@gmail.com\"), person(\"Marianne\", \"Corvellec\", role = \"aut\", email = \"marianne.corvellec@igdore.org\", comment = c(ORCID = \"0000-0002-1994-3581\")), person(\"Pedro\", \"Despouy\", role = \"aut\", email = \"pedro@plot.ly\"), person(\"Salim\", \"Brüggemann\", role = \"ctb\", email = \"salim-b@pm.me\", comment = c(ORCID = \"0000-0002-5329-5987\")), person(\"Plotly Technologies Inc.\", role = \"cph\"))",
-      "License": "MIT + file LICENSE",
-      "Description": "Create interactive web graphics from 'ggplot2' graphs and/or a custom interface to the (MIT-licensed) JavaScript library 'plotly.js' inspired by the grammar of graphics.",
-      "URL": "https://plotly-r.com, https://github.com/plotly/plotly.R, https://plotly.com/r/",
-      "BugReports": "https://github.com/plotly/plotly.R/issues",
-      "Depends": [
-        "R (>= 3.2.0)",
-        "ggplot2 (>= 3.0.0)"
-      ],
-      "Imports": [
-        "tools",
-        "scales",
-        "httr (>= 1.3.0)",
-        "jsonlite (>= 1.6)",
-        "magrittr",
-        "digest",
-        "viridisLite",
-        "base64enc",
-        "htmltools (>= 0.3.6)",
-        "htmlwidgets (>= 1.5.2.9001)",
-        "tidyr (>= 1.0.0)",
-        "RColorBrewer",
-        "dplyr",
-        "vctrs",
-        "tibble",
-        "lazyeval (>= 0.2.0)",
-        "rlang (>= 0.4.10)",
-        "crosstalk",
-        "purrr",
-        "data.table",
-        "promises"
-      ],
-      "Suggests": [
-        "MASS",
-        "maps",
-        "hexbin",
-        "ggthemes",
-        "GGally",
-        "ggalluvial",
-        "testthat",
-        "knitr",
-        "shiny (>= 1.1.0)",
-        "shinytest (>= 1.3.0)",
-        "curl",
-        "rmarkdown",
-        "Cairo",
-        "broom",
-        "webshot",
-        "listviewer",
-        "dendextend",
-        "sf",
-        "png",
-        "IRdisplay",
-        "processx",
-        "plotlyGeoAssets",
-        "forcats",
-        "withr",
-        "palmerpenguins",
-        "rversions",
-        "reticulate",
-        "rsvg"
-      ],
-      "LazyData": "true",
-      "RoxygenNote": "7.2.3",
-      "Encoding": "UTF-8",
-      "Config/Needs/check": "tidyverse/ggplot2, rcmdcheck, devtools, reshape2",
-      "NeedsCompilation": "no",
-      "Author": "Carson Sievert [aut, cre] (<https://orcid.org/0000-0002-4958-2844>), Chris Parmer [aut], Toby Hocking [aut], Scott Chamberlain [aut], Karthik Ram [aut], Marianne Corvellec [aut] (<https://orcid.org/0000-0002-1994-3581>), Pedro Despouy [aut], Salim Brüggemann [ctb] (<https://orcid.org/0000-0002-5329-5987>), Plotly Technologies Inc. [cph]",
-      "Maintainer": "Carson Sievert <cpsievert1@gmail.com>",
       "Repository": "CRAN"
     },
     "png": {
@@ -4959,45 +4727,6 @@
       "Maintainer": "Ross Wyatt <ross.wyatt@justice.gov.uk>",
       "Repository": "RSPM"
     },
-    "shinyWidgets": {
-      "Package": "shinyWidgets",
-      "Version": "0.9.0",
-      "Source": "Repository",
-      "Title": "Custom Inputs Widgets for Shiny",
-      "Authors@R": "c( person(\"Victor\", \"Perrier\", email = \"victor.perrier@dreamrs.fr\", role = c(\"aut\", \"cre\", \"cph\")), person(\"Fanny\", \"Meyer\", role = \"aut\"), person(\"David\", \"Granjon\", role = \"aut\"), person(\"Ian\", \"Fellows\", role = \"ctb\", comment = \"Methods for mutating vertical tabs & updateMultiInput\"), person(\"Wil\", \"Davis\", role = \"ctb\", comment = \"numericRangeInput function\"), person(\"Spencer\", \"Matthews\", role = \"ctb\", comment = \"autoNumeric methods\"), person(family = \"JavaScript and CSS libraries authors\", role = c(\"ctb\", \"cph\"), comment = \"All authors are listed in LICENSE.md\") )",
-      "Description": "Collection of custom input controls and user interface components for 'Shiny' applications.  Give your applications a unique and colorful style !",
-      "URL": "https://github.com/dreamRs/shinyWidgets, https://dreamrs.github.io/shinyWidgets/",
-      "BugReports": "https://github.com/dreamRs/shinyWidgets/issues",
-      "License": "GPL-3",
-      "Encoding": "UTF-8",
-      "LazyData": "true",
-      "RoxygenNote": "7.3.2",
-      "Depends": [
-        "R (>= 3.1.0)"
-      ],
-      "Imports": [
-        "bslib",
-        "sass",
-        "shiny (>= 1.6.0)",
-        "htmltools (>= 0.5.1)",
-        "jsonlite",
-        "grDevices",
-        "rlang"
-      ],
-      "Suggests": [
-        "testthat",
-        "covr",
-        "ggplot2",
-        "DT",
-        "scales",
-        "shinydashboard",
-        "shinydashboardPlus"
-      ],
-      "NeedsCompilation": "no",
-      "Author": "Victor Perrier [aut, cre, cph], Fanny Meyer [aut], David Granjon [aut], Ian Fellows [ctb] (Methods for mutating vertical tabs & updateMultiInput), Wil Davis [ctb] (numericRangeInput function), Spencer Matthews [ctb] (autoNumeric methods), JavaScript and CSS libraries authors [ctb, cph] (All authors are listed in LICENSE.md)",
-      "Maintainer": "Victor Perrier <victor.perrier@dreamrs.fr>",
-      "Repository": "CRAN"
-    },
     "shinycssloaders": {
       "Package": "shinycssloaders",
       "Version": "1.1.0",
@@ -5028,31 +4757,6 @@
       "NeedsCompilation": "no",
       "Author": "Dean Attali [aut, cre] (Maintainer/developer of shinycssloaders since 2019, <https://orcid.org/0000-0002-5645-3493>), Andras Sali [aut] (Original creator of shinycssloaders package), Luke Hass [ctb, cph] (Author of included CSS loader code)",
       "Maintainer": "Dean Attali <daattali@gmail.com>",
-      "Repository": "CRAN"
-    },
-    "shinydashboard": {
-      "Package": "shinydashboard",
-      "Version": "0.7.2",
-      "Source": "Repository",
-      "Title": "Create Dashboards with 'Shiny'",
-      "Authors@R": "c( person(\"Winston\", \"Chang\", role = c(\"aut\", \"cre\"), email = \"winston@rstudio.com\"), person(\"Barbara\", \"Borges Ribeiro\", role = \"aut\", email = \"barbara@rstudio.com\"), person(family = \"RStudio\", role = \"cph\"), person(family = \"Almasaeed Studio\", role = c(\"ctb\", \"cph\"), comment = \"AdminLTE theme for Bootstrap\"), person(family = \"Adobe Systems Incorporated\", role = c(\"ctb\", \"cph\"), comment = \"Source Sans Pro font\") )",
-      "Description": "Create dashboards with 'Shiny'. This package provides a theme on top of 'Shiny', making it easy to create attractive dashboards.",
-      "URL": "http://rstudio.github.io/shinydashboard/",
-      "Depends": [
-        "R (>= 3.0)"
-      ],
-      "License": "GPL (>= 2) | file LICENSE",
-      "Imports": [
-        "utils",
-        "shiny (>= 1.0.0)",
-        "htmltools (>= 0.2.6)",
-        "promises"
-      ],
-      "BugReports": "https://github.com/rstudio/shinydashboard",
-      "RoxygenNote": "6.0.1.9000",
-      "NeedsCompilation": "no",
-      "Author": "Winston Chang [aut, cre], Barbara Borges Ribeiro [aut], RStudio [cph], Almasaeed Studio [ctb, cph] (AdminLTE theme for Bootstrap), Adobe Systems Incorporated [ctb, cph] (Source Sans Pro font)",
-      "Maintainer": "Winston Chang <winston@rstudio.com>",
       "Repository": "CRAN"
     },
     "shinyjs": {
@@ -5149,6 +4853,65 @@
       "Author": "Barret Schloerke [cre, aut] (<https://orcid.org/0000-0001-9986-114X>), Posit Software, PBC [cph, fnd], Winston Chang [ctb] (Original author to rstudio/shinytest), Gábor Csárdi [ctb] (Original author to rstudio/shinytest), Hadley Wickham [ctb] (Original author to rstudio/shinytest), Mango Solutions [cph, ccp] (Original author to rstudio/shinytest)",
       "Maintainer": "Barret Schloerke <barret@posit.co>",
       "Repository": "RSPM"
+    },
+    "showtext": {
+      "Package": "showtext",
+      "Version": "0.9-7",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Using Fonts More Easily in R Graphs",
+      "Date": "2024-03-02",
+      "Author": "Yixuan Qiu and authors/contributors of the included software. See file AUTHORS for details.",
+      "Maintainer": "Yixuan Qiu <yixuan.qiu@cos.name>",
+      "Description": "Making it easy to use various types of fonts ('TrueType', 'OpenType', Type 1, web fonts, etc.) in R graphs, and supporting most output formats of R graphics including PNG, PDF and SVG. Text glyphs will be converted into polygons or raster images, hence after the plot has been created, it no longer relies on the font files. No external software such as 'Ghostscript' is needed to use this package.",
+      "Depends": [
+        "sysfonts (>= 0.7.1)",
+        "showtextdb (>= 2.0)"
+      ],
+      "Imports": [
+        "grDevices"
+      ],
+      "Suggests": [
+        "knitr",
+        "rmarkdown",
+        "prettydoc",
+        "curl",
+        "jsonlite"
+      ],
+      "SystemRequirements": "zlib, libpng, FreeType",
+      "URL": "https://github.com/yixuan/showtext",
+      "BugReports": "https://github.com/yixuan/showtext/issues",
+      "License": "Apache License (>= 2.0)",
+      "Copyright": "see file COPYRIGHTS",
+      "VignetteBuilder": "knitr, rmarkdown",
+      "RoxygenNote": "7.3.1",
+      "Encoding": "UTF-8",
+      "NeedsCompilation": "yes",
+      "Repository": "RSPM"
+    },
+    "showtextdb": {
+      "Package": "showtextdb",
+      "Version": "3.0",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Font Files for the 'showtext' Package",
+      "Date": "2020-05-31",
+      "Author": "Yixuan Qiu and authors/contributors of the included fonts. See file AUTHORS for details.",
+      "Maintainer": "Yixuan Qiu <yixuan.qiu@cos.name>",
+      "Description": "Providing font files that can be used by the 'showtext' package.",
+      "Imports": [
+        "sysfonts (>= 0.7)",
+        "utils"
+      ],
+      "Suggests": [
+        "curl"
+      ],
+      "License": "Apache License (>= 2.0)",
+      "Copyright": "see file COPYRIGHTS",
+      "RoxygenNote": "7.1.0",
+      "NeedsCompilation": "no",
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "sourcetools": {
       "Package": "sourcetools",
@@ -5334,46 +5097,6 @@
       "Maintainer": "Lorenz Walthert <lorenz.walthert@icloud.com>",
       "Repository": "CRAN"
     },
-    "svglite": {
-      "Package": "svglite",
-      "Version": "2.1.3",
-      "Source": "Repository",
-      "Title": "An 'SVG' Graphics Device",
-      "Authors@R": "c( person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\"), person(\"Lionel\", \"Henry\", , \"lionel@posit.co\", role = \"aut\"), person(\"Thomas Lin\", \"Pedersen\", , \"thomas.pedersen@posit.co\", role = c(\"cre\", \"aut\"), comment = c(ORCID = \"0000-0002-5147-4711\")), person(\"T Jake\", \"Luciani\", , \"jake@apache.org\", role = \"aut\"), person(\"Matthieu\", \"Decorde\", , \"matthieu.decorde@ens-lyon.fr\", role = \"aut\"), person(\"Vaudor\", \"Lise\", , \"lise.vaudor@ens-lyon.fr\", role = \"aut\"), person(\"Tony\", \"Plate\", role = \"ctb\", comment = \"Early line dashing code\"), person(\"David\", \"Gohel\", role = \"ctb\", comment = \"Line dashing code and early raster code\"), person(\"Yixuan\", \"Qiu\", role = \"ctb\", comment = \"Improved styles; polypath implementation\"), person(\"Håkon\", \"Malmedal\", role = \"ctb\", comment = \"Opacity code\"), person(\"Posit, PBC\", role = c(\"cph\", \"fnd\")) )",
-      "Description": "A graphics device for R that produces 'Scalable Vector Graphics'. 'svglite' is a fork of the older 'RSvgDevice' package.",
-      "License": "GPL (>= 2)",
-      "URL": "https://svglite.r-lib.org, https://github.com/r-lib/svglite",
-      "BugReports": "https://github.com/r-lib/svglite/issues",
-      "Depends": [
-        "R (>= 3.5.0)"
-      ],
-      "Imports": [
-        "systemfonts (>= 1.0.0)"
-      ],
-      "Suggests": [
-        "covr",
-        "fontquiver (>= 0.2.0)",
-        "htmltools",
-        "knitr",
-        "rmarkdown",
-        "testthat (>= 3.0.0)",
-        "xml2 (>= 1.0.0)"
-      ],
-      "LinkingTo": [
-        "cpp11",
-        "systemfonts"
-      ],
-      "VignetteBuilder": "knitr",
-      "Config/Needs/website": "tidyverse/tidytemplate",
-      "Encoding": "UTF-8",
-      "RoxygenNote": "7.2.3",
-      "SystemRequirements": "libpng",
-      "Config/testthat/edition": "3",
-      "NeedsCompilation": "yes",
-      "Author": "Hadley Wickham [aut], Lionel Henry [aut], Thomas Lin Pedersen [cre, aut] (<https://orcid.org/0000-0002-5147-4711>), T Jake Luciani [aut], Matthieu Decorde [aut], Vaudor Lise [aut], Tony Plate [ctb] (Early line dashing code), David Gohel [ctb] (Line dashing code and early raster code), Yixuan Qiu [ctb] (Improved styles; polypath implementation), Håkon Malmedal [ctb] (Opacity code), Posit, PBC [cph, fnd]",
-      "Maintainer": "Thomas Lin Pedersen <thomas.pedersen@posit.co>",
-      "Repository": "CRAN"
-    },
     "sys": {
       "Package": "sys",
       "Version": "3.4.3",
@@ -5397,6 +5120,30 @@
       "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>), Gábor Csárdi [ctb]",
       "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
       "Repository": "CRAN"
+    },
+    "sysfonts": {
+      "Package": "sysfonts",
+      "Version": "0.8.9",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Loading Fonts into R",
+      "Date": "2024-03-02",
+      "Author": "Yixuan Qiu and authors/contributors of the included fonts. See file AUTHORS for details.",
+      "Maintainer": "Yixuan Qiu <yixuan.qiu@cos.name>",
+      "Description": "Loading system fonts and Google Fonts <https://fonts.google.com/> into R, in order to support other packages such as 'R2SWF' and 'showtext'.",
+      "Suggests": [
+        "curl",
+        "jsonlite"
+      ],
+      "Copyright": "see file COPYRIGHTS",
+      "SystemRequirements": "zlib, libpng, FreeType",
+      "URL": "https://github.com/yixuan/sysfonts",
+      "BugReports": "https://github.com/yixuan/sysfonts/issues",
+      "License": "GPL-2",
+      "RoxygenNote": "7.3.1",
+      "Encoding": "UTF-8",
+      "NeedsCompilation": "yes",
+      "Repository": "RSPM"
     },
     "systemfonts": {
       "Package": "systemfonts",
@@ -6355,47 +6102,6 @@
       "NeedsCompilation": "yes",
       "Author": "Yihui Xie [aut, cre, cph] (<https://orcid.org/0000-0003-0645-5666>, https://yihui.org), Wush Wu [ctb], Daijiang Li [ctb], Xianying Tan [ctb], Salim Brüggemann [ctb] (<https://orcid.org/0000-0002-5329-5987>), Christophe Dervieux [ctb]",
       "Maintainer": "Yihui Xie <xie@yihui.name>",
-      "Repository": "CRAN"
-    },
-    "xml2": {
-      "Package": "xml2",
-      "Version": "1.3.7",
-      "Source": "Repository",
-      "Title": "Parse XML",
-      "Authors@R": "c( person(\"Hadley\", \"Wickham\", role = \"aut\"), person(\"Jim\", \"Hester\", role = \"aut\"), person(\"Jeroen\", \"Ooms\", email = \"jeroenooms@gmail.com\", role = c(\"aut\", \"cre\")), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")), person(\"R Foundation\", role = \"ctb\", comment = \"Copy of R-project homepage cached as example\") )",
-      "Description": "Bindings to 'libxml2' for working with XML data using a simple,  consistent interface based on 'XPath' expressions. Also supports XML schema validation; for 'XSLT' transformations see the 'xslt' package.",
-      "License": "MIT + file LICENSE",
-      "URL": "https://xml2.r-lib.org, https://r-lib.r-universe.dev/xml2",
-      "BugReports": "https://github.com/r-lib/xml2/issues",
-      "Depends": [
-        "R (>= 3.6.0)"
-      ],
-      "Imports": [
-        "cli",
-        "methods",
-        "rlang (>= 1.1.0)"
-      ],
-      "Suggests": [
-        "covr",
-        "curl",
-        "httr",
-        "knitr",
-        "magrittr",
-        "mockery",
-        "rmarkdown",
-        "testthat (>= 3.2.0)",
-        "xslt"
-      ],
-      "VignetteBuilder": "knitr",
-      "Config/Needs/website": "tidyverse/tidytemplate",
-      "Encoding": "UTF-8",
-      "RoxygenNote": "7.2.3",
-      "SystemRequirements": "libxml2: libxml2-dev (deb), libxml2-devel (rpm)",
-      "Collate": "'S4.R' 'as_list.R' 'xml_parse.R' 'as_xml_document.R' 'classes.R' 'format.R' 'import-standalone-obj-type.R' 'import-standalone-purrr.R' 'import-standalone-types-check.R' 'init.R' 'nodeset_apply.R' 'paths.R' 'utils.R' 'xml2-package.R' 'xml_attr.R' 'xml_children.R' 'xml_document.R' 'xml_find.R' 'xml_missing.R' 'xml_modify.R' 'xml_name.R' 'xml_namespaces.R' 'xml_node.R' 'xml_nodeset.R' 'xml_path.R' 'xml_schema.R' 'xml_serialize.R' 'xml_structure.R' 'xml_text.R' 'xml_type.R' 'xml_url.R' 'xml_write.R' 'zzz.R'",
-      "Config/testthat/edition": "3",
-      "NeedsCompilation": "yes",
-      "Author": "Hadley Wickham [aut], Jim Hester [aut], Jeroen Ooms [aut, cre], Posit Software, PBC [cph, fnd], R Foundation [ctb] (Copy of R-project homepage cached as example)",
-      "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
       "Repository": "CRAN"
     },
     "xtable": {

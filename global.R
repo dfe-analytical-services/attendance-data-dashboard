@@ -10,17 +10,6 @@
 # Run renv::restore()
 # If it doesn't work first time, maybe try renv::activate() and then renv::restore()
 
-
-# Packages to work towards removing from the dashboard:
-library(DT)
-library(openxlsx)
-library(kableExtra)
-library(plotly)
-library(shinydashboard)
-library(shinyWidgets)
-library(RODBC)
-
-
 # Library calls ----------------------------------------------------------------------------------
 library(rsconnect)
 library(shinyGovstyle)
@@ -52,8 +41,12 @@ library(eesyapi)
 # Few things to manage fonts
 library(gfonts)
 library(gdtools)
+library(showtext)
 # Functions ---------------------------------------------------------------------------------
+
 gdtools::register_gfont("Noto Sans")
+sysfonts::font_add_google("Noto Sans")
+showtext::showtext_auto()
 dfe_font <- "Noto Sans"
 message("Selected ", dfe_font, " for plots")
 
