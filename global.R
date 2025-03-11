@@ -13,6 +13,7 @@
 # Library calls ----------------------------------------------------------------------------------
 library(rsconnect)
 library(shinyGovstyle)
+library(bslib)
 library(shiny)
 library(shinyjs)
 library(tools)
@@ -38,34 +39,16 @@ library(shinytest2)
 library(diffviewer)
 library(dplyr)
 library(eesyapi)
+
 # Few things to manage fonts
 library(gfonts)
 library(gdtools)
 library(showtext)
-# Functions ---------------------------------------------------------------------------------
-
 gdtools::register_gfont("Noto Sans")
 sysfonts::font_add_google("Noto Sans")
 showtext::showtext_auto()
 dfe_font <- "Noto Sans"
 message("Selected ", dfe_font, " for plots")
-
-# Here's an example function for simplifying the code needed to commas separate numbers:
-
-# cs_num ----------------------------------------------------------------------------
-# Comma separating function
-
-cs_num <- function(value) {
-  format(value, big.mark = ",", trim = TRUE)
-}
-
-# Source scripts ---------------------------------------------------------------------------------
-
-# Source any scripts here. Scripts may be needed to process data before it gets to the server file.
-# It's best to do this here instead of the server file, to improve performance.
-
-# source("R/filename.r")
-
 
 # appLoadingCSS ----------------------------------------------------------------------------
 # Set up loading screen
@@ -296,27 +279,16 @@ expandable <- function(inputId, label, contents) {
 }
 
 
-# Map ---------------------------------------------------------------------------------
-
-## Custom rounding function ################################################
-
-roundFiveUp <- function(value, dp) {
-  if (!is.numeric(value) && !is.numeric(dp)) stop("both inputs must be numeric")
-  if (!is.numeric(value)) stop("the value to be rounded must be numeric")
-  if (!is.numeric(dp)) stop("the decimal places value must be numeric")
-
-  z <- abs(value) * 10^dp
-  z <- z + 0.5 + sqrt(.Machine$double.eps)
-  z <- trunc(z)
-  z <- z / 10^dp
-  return(z * sign(value))
-}
-
 #### SECTION 5 - Map ####
 ## Reading in data ##########################################################
 
 # Read in shapefile and transform coordinates (because map reasons...)
-mapshape <- st_read("data/CTYUA_MAY_2023_UK_BUC.shp") %>% st_transform(crs = 4326) # %>% mutate(CTYUA23CD = case_when(CTYUA23NM == "Somerset" ~ "E10000027", CTYUA23NM != "Somerset" ~ CTYUA23CD)) TEMP addition working around Somerset LA code change
+mapshape <- st_read("data/CTYUA_MAY_2023_UK_BUC.shp") %>%
+  st_transform(crs = 4326) # %>%
+#  mutate(CTYUA23CD = case_when(
+#    CTYUA23NM == "Somerset" ~ "E10000027",
+#    CTYUA23NM != "Somerset" ~ CTYUA23CD)
+#  ) # TEMP addition working around Somerset LA code change
 
 # Pull in the colours from another script
 source("R/gov_colours.R")

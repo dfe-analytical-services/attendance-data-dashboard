@@ -1289,7 +1289,7 @@ server <- function(input, output, session) {
           as.numeric() |>
           dfeR::round_five_up(dp = 1) |>
           paste("%"),
-        theme = "primary"
+        theme = value_box_theme(bg = "#1d70b8")
       ),
       tags$h5(paste0("Unauthorised absence rate:")),
       bslib::value_box(
@@ -1304,7 +1304,7 @@ server <- function(input, output, session) {
           as.numeric() |>
           dfeR::round_five_up(dp = 1) |>
           paste("%"),
-        theme = "primary"
+        theme = value_box_theme(bg = "#1d70b8")
       )
     )
   })
