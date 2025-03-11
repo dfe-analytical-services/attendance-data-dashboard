@@ -49,11 +49,11 @@ library(shinytest2)
 library(diffviewer)
 library(dplyr)
 library(eesyapi)
-
+# Few things to manage fonts
+library(gfonts)
+library(gdtools)
 # Functions ---------------------------------------------------------------------------------
 gdtools::register_gfont("Noto Sans")
-font_add_google("Noto Sans", "notosans")
-showtext_auto()
 dfe_font <- "Noto Sans"
 message("Selected ", dfe_font, " for plots")
 
