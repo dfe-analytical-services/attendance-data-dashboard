@@ -191,11 +191,6 @@ server <- function(input, output, session) {
       input$school_choice
     )
 
-  observe({
-    print(pa_data())
-  })
-
-
   map_data <- reactive({
     merge(
       mapshape |> rename("la_code" = "CTYUA23CD"),
@@ -218,7 +213,6 @@ server <- function(input, output, session) {
     )
 
   time_frame_string <- reactive({
-    print(reasons_data())
     if (input$ts_choice == "latestweeks") {
       dates <- reasons_data() |>
         filter(time_frame != "Week") |>

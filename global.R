@@ -51,15 +51,10 @@ library(dplyr)
 library(eesyapi)
 
 # Functions ---------------------------------------------------------------------------------
-
-dfe_font <- intersect(
-  c("Comic Sans MS", "Gills Sans MT", "Helvetica", "Arial", "Noto Sans", "Open Sans", "FreeSans"),
-  systemfonts::system_fonts() |>
-    dplyr::filter(style == "Regular") |>
-    dplyr::pull(family) |>
-    unique()
-) |>
-  magrittr::extract(1)
+gdtools::register_gfont("Noto Sans")
+font_add_google("Noto Sans", "notosans")
+showtext_auto()
+dfe_font <- "Noto Sans"
 message("Selected ", dfe_font, " for plots")
 
 # Here's an example function for simplifying the code needed to commas separate numbers:
