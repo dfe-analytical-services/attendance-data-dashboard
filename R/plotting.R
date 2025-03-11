@@ -61,7 +61,10 @@ headline_absence_ggplot <- function(reasons, scope) {
       y = "%",
       colour = NULL
     ) +
-    theme(legend.position = "bottom", text = element_text(family = plotting_font_family)) +
+    theme(
+      legend.position = "bottom",
+      text = element_text(family = dfe_font)
+    ) +
     guides(color = guide_legend(nrow = 3, byrow = TRUE))
 }
 
@@ -134,6 +137,6 @@ reasons_ggplot <- function(reasons, scope) {
       y = "%",
       colour = NULL
     ) +
-    theme(legend.position = "bottom", text = element_text(family = plotting_font_family)) +
-    guides(color = guide_legend(nrow = 3, byrow = TRUE))
+    theme(legend.position = "bottom", text = element_text(family = dfe_font)) +
+    guides(color = guide_legend(nrow = 2, byrow = TRUE))
 }

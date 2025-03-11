@@ -52,15 +52,15 @@ library(eesyapi)
 
 # Functions ---------------------------------------------------------------------------------
 
-plotting_font_family <- intersect(
-  c("Gills Sans MT", "Helvetica", "Arial", "Noto Sans", "Open Sans", "FreeSans"),
+dfe_font <- intersect(
+  c("Comic Sans MS", "Gills Sans MT", "Helvetica", "Arial", "Noto Sans", "Open Sans", "FreeSans"),
   systemfonts::system_fonts() |>
     dplyr::filter(style == "Regular") |>
     dplyr::pull(family) |>
     unique()
 ) |>
   magrittr::extract(1)
-
+message("Selected ", dfe_font, " for plots")
 
 # Here's an example function for simplifying the code needed to commas separate numbers:
 

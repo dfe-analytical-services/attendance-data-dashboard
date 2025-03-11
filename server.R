@@ -899,8 +899,7 @@ server <- function(input, output, session) {
         reasons_data() |>
           filter(geographic_level == input$geography_choice),
         input$ts_choice
-      ),
-      fonts = list(sans = plotting_font_family)
+      )
     )
   })
 
@@ -911,8 +910,7 @@ server <- function(input, output, session) {
           filter(geographic_level == input$geography_choice),
         input$ts_choice
       ),
-      fonts = list(sans = plotting_font_family),
-      height_svg = 6,
+      height_svg = 5.6,
       width_svg = 9
     )
   })
