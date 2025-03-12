@@ -73,7 +73,29 @@ server <- function(input, output, session) {
     return(list(time_period_query = time_period_query, time_frame_query = time_frame_query))
   })
 
+
   # Retrieving data from the API
+  latest_schools_count <- reactive({
+    time_period_query <- reasons_data_version_info()$time_period_end |>
+      stringr::str_replace("Week ", "W") |>
+      stringr::str_replace(" ", "|")
+    result <- eesyapi::query_dataset(
+      schools_submitting_dataset_id,
+      time_periods = time_period_query,
+      geographies = "National",
+      filter_items = list(
+        time_frame = schools_submitting_sqids$filters$time_frame$friday,
+        school_phase = schools_submitting_sqids$filters$education_phase$allschools
+      ),
+      ees_environment = ees_api_env
+    )
+    print(result)
+    return(result)
+  }) |>
+    shiny::bindCache(
+      reasons_data_version_info()$version
+    )
+
   school_numbers_data <- reactive({
     time_period_query <- reasons_data_version_info()$time_period_end |>
       stringr::str_replace("Week ", "W") |>
@@ -476,37 +498,6 @@ server <- function(input, output, session) {
     }
   })
 
-  live_attendance_data_weekly_pre_ht <- reactive({
-    if (input$geography_choice == "National") {
-      dplyr::filter(
-        attendance_data, geographic_level == "National",
-        school_type == input$school_choice,
-        time_period == max(time_period),
-        breakdown == "Weekly"
-      ) %>% filter(time_identifier == "6")
-    } else if (input$geography_choice == "Regional") {
-      dplyr::filter(
-        attendance_data, geographic_level == "Regional",
-        region_name == input$region_choice,
-        school_type == input$school_choice,
-        time_period == max(time_period),
-        breakdown == "Weekly"
-      ) %>% filter(time_identifier == "6")
-    } else if (input$geography_choice == "Local authority") {
-      dplyr::filter(
-        attendance_data, geographic_level == "Local authority",
-        region_name == input$region_choice,
-        la_name == input$la_choice,
-        school_type == input$school_choice,
-        time_period == max(time_period),
-        breakdown == "Weekly"
-      ) %>% filter(time_identifier == "6")
-    } else {
-      NA
-    }
-  })
-
-
   # Full timeseries for latest year
   live_attendance_data_ytd <- reactive({
     if (input$geography_choice == "National") {
@@ -538,19 +529,7 @@ server <- function(input, output, session) {
     }
   })
 
-
-  # Full timeseries for latest year response rates - non-reactive
-  response_rates <- filter(
-    attendance_data, geographic_level == "National",
-    time_period == max(time_period),
-    school_type %in% c("Total"),
-    breakdown == "Daily"
-  ) %>%
-    arrange(attendance_date)
-
-
   # Creating reactive charts ------------------------------------------------------------
-
 
   # Headline absence rates - ytd chart
   newtitle_weekly <- renderText({
@@ -696,54 +675,32 @@ server <- function(input, output, session) {
 
 
   # Creating reactive embedded stats ------------------------------------------------------------
-  schools_count <- attendance_data %>%
-    filter(
-      time_period == max(time_period),
-      geographic_level == "National",
-      school_type == "Total",
-      day_number == "5"
-    ) %>%
-    filter(time_identifier == max(time_identifier)) %>%
-    pull(num_schools) %>%
-    sum()
-
-  schools_count_date <- attendance_data %>%
-    filter(
-      time_period == max(time_period),
-      geographic_level == "National",
-      school_type == "Total",
-      day_number == "5"
-    ) %>%
-    filter(time_identifier == max(time_identifier)) %>%
-    pull(attendance_date)
-
-  schools_count_pre_ht <- attendance_data %>%
-    filter(
-      time_period == max(time_period),
-      geographic_level == "National",
-      school_type == "Total",
-      day_number == "5"
-    ) %>%
-    filter(time_identifier == "6") %>%
-    pull(num_schools) %>%
-    sum()
-
-  schools_count_date_pre_ht <- attendance_data %>%
-    filter(
-      time_period == max(time_period),
-      geographic_level == "National",
-      school_type == "Total",
-      day_number == "5"
-    ) %>%
-    filter(time_identifier == "6") %>%
-    pull(attendance_date)
-
   output$daily_schools_count <- renderText({
-    paste0(scales::comma(schools_count), " schools provided information on the latest full day of data, i.e. ", schools_count_date)
+    paste0(
+      "On the latest full day of data (i.e. ",
+      latest_schools_count()$reference_date,
+      "), ",
+      scales::comma(latest_schools_count()$school_submitted_count |> as.numeric()),
+      " schools provided information."
+    )
     # paste0(scales::comma(schools_count), " schools provided information on the latest full day of data prior to half-term, i.e. ", schools_count_date)
     # paste0(scales::comma(schools_count_pre_ht), " schools provided information on the last full day of data prior to half-term, i.e. ", schools_count_date_pre_ht)
   })
 
+  output$school_count_proportion_homepage <- renderText({
+    validate(need(nrow(latest_schools_count()) > 0, "There is no data available for this breakdown at present"))
+    validate(need(latest_schools_count()$school_submitted_count > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
+
+    percent_submitted <- as.numeric(latest_schools_count()$school_submitted_count) / as.numeric(latest_schools_count()$school_all_count) * 100.
+    paste0(
+      "This number is approximately ",
+      percent_submitted |> dfeR::round_five_up(dp = 1),
+      "% of the number of schools participating in the School Census. From the start of the ",
+      "2024/25 academic year, it became mandatory for schools to share attendance data with the ",
+      "DfE. As more schools share their data, the number of schools reporting may change over ",
+      "time."
+    )
+  })
 
   # Proportion of schools in census figures are generated from - latest week
   output$school_count_proportion <- renderText({
@@ -761,36 +718,6 @@ server <- function(input, output, session) {
         dfeR::round_five_up(dp = 1),
       "% of schools submitted data, though this has varied throughout the year-to-date."
     )
-  })
-
-  output$school_count_proportion_homepage <- renderText({
-    validate(need(nrow(live_attendance_data_weekly()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    count_prop_week <- attendance_data %>%
-      filter(
-        breakdown == "Weekly",
-        geographic_level == "National",
-        school_type == "Total",
-        time_period == max(time_period)
-      ) %>%
-      filter(time_identifier == max(time_identifier)) %>%
-      mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
-
-    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 10), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
-    paste0("This number is approximately ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 10), "% of the number of schools participating in the School Census. From the start of the 2024/25 academic year, it became mandatory for schools to share attendance data with the DfE. As more schools share their data, the number of schools reporting may change over time.")
-  })
-
-  # Proportion of schools in census figures are generated from - year to date
-  output$school_count_proportion_ytd <- renderText({
-    validate(need(nrow(live_attendance_data_ytd()) > 0, "There is no data available for this breakdown at present"))
-    validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
-
-    count_prop_week <- live_attendance_data_ytd() %>%
-      group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
-      mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
-
-    paste0("For this breakdown, across the year-to-date there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% dfeR::round_five_up(dp = 10), "% of schools opted-in.")
   })
 
   output$headline_bullet_attendance_rate <- renderUI({
