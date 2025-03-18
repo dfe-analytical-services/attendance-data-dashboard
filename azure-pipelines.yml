@@ -23,7 +23,7 @@ extends:
     appName: pra-pupil-attendance-in-schools
     environments:
     - name: Pre-Production
-      appId: none
+      appId: 989
     - name: Production
       appId: none
     approvers: |
