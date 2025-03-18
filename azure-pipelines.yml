@@ -1,0 +1,32 @@
+name: Release-$(rev:r)
+
+pool:
+  name: RSConnect
+
+trigger:
+  branches:
+    include:
+    - eesp/connect-eesyapi
+  paths:
+    exclude:
+    - azure-pipelines.yml
+
+resources:
+  repositories:
+    - repository: posit-deploy
+      type: git
+      name: ESFA-Data-Science/posit-deploy
+
+extends:
+  template: deploy.yml@posit-deploy
+  parameters:
+    appName: pra-pupil-attendance-in-schools
+    environments:
+    - name: Pre-Production
+      appId: none
+    - name: Production
+      appId: none
+    approvers: |
+      richard.bielby@education.gov.uk
+      tom.curd@education.gov.uk
+      Tia-Mae.SURTEES@EDUCATION.GOV.UK
