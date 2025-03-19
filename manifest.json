@@ -1185,7 +1185,7 @@
         "Package": "curl",
         "Type": "Package",
         "Title": "A Modern and Flexible Web Client for R",
-        "Version": "6.2.1",
+        "Version": "6.2.0",
         "Authors@R": "c(\n    person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), email = \"jeroenooms@gmail.com\",\n      comment = c(ORCID = \"0000-0002-4035-0289\")),\n    person(\"Hadley\", \"Wickham\", role = \"ctb\"),\n    person(\"Posit Software, PBC\", role = \"cph\"))",
         "Description": "Bindings to 'libcurl' <https://curl.se/libcurl/> for performing fully\n    configurable HTTP/FTP requests where responses can be processed in memory, on\n    disk, or streaming via the callback or connection interfaces. Some knowledge\n    of 'libcurl' is recommended; for a more-user-friendly web client see the \n    'httr2' package which builds on this package with http specific tools and logic.",
         "License": "MIT + file LICENSE",
@@ -1199,20 +1199,20 @@
         "Encoding": "UTF-8",
         "Language": "en-US",
         "NeedsCompilation": "yes",
-        "Packaged": "2025-02-18 18:23:19 UTC; jeroen",
+        "Packaged": "2025-01-23 12:31:51 UTC; jeroen",
         "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>),\n  Hadley Wickham [ctb],\n  Posit Software, PBC [cph]",
         "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
         "Repository": "CRAN",
-        "Date/Publication": "2025-02-19 06:00:02 UTC",
-        "Built": "R 4.4.2; x86_64-w64-mingw32; 2025-02-20 00:53:03 UTC; windows",
+        "Date/Publication": "2025-01-23 18:40:02 UTC",
+        "Built": "R 4.4.2; x86_64-w64-mingw32; 2025-01-24 16:36:17 UTC; windows",
         "Archs": "x64",
         "RemoteType": "standard",
         "RemotePkgRef": "curl",
         "RemoteRef": "curl",
         "RemoteRepos": "https://cran.rstudio.com",
         "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "x86_64-w64-mingw32",
-        "RemoteSha": "6.2.1"
+        "RemotePkgPlatform": "source",
+        "RemoteSha": "6.2.0"
       }
     },
     "data.table": {
@@ -2483,14 +2483,14 @@
       "description": {
         "Package": "httr2",
         "Title": "Perform HTTP Requests and Process the Responses",
-        "Version": "1.1.1",
+        "Version": "1.1.0",
         "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")),\n    person(\"Maximilian\", \"Girlich\", role = \"ctb\")\n  )",
         "Description": "Tools for creating and modifying HTTP requests, then\n    performing them and processing the results. 'httr2' is a modern\n    re-imagining of 'httr' that uses a pipe-based interface and solves\n    more of the problems that API wrapping packages face.",
         "License": "MIT + file LICENSE",
         "URL": "https://httr2.r-lib.org, https://github.com/r-lib/httr2",
         "BugReports": "https://github.com/r-lib/httr2/issues",
         "Depends": "R (>= 4.0)",
-        "Imports": "cli (>= 3.0.0), curl (>= 6.2.1), glue, lifecycle, magrittr,\nopenssl, R6, rappdirs, rlang (>= 1.1.0), vctrs (>= 0.6.3),\nwithr",
+        "Imports": "cli (>= 3.0.0), curl (>= 6.1.0), glue, lifecycle, magrittr,\nopenssl, R6, rappdirs, rlang (>= 1.1.0), vctrs (>= 0.6.3),\nwithr",
         "Suggests": "askpass, bench, clipr, covr, docopt, httpuv, jose, jsonlite,\nknitr, later (>= 1.4.0), paws.common, promises, rmarkdown,\ntestthat (>= 3.1.8), tibble, webfakes, xml2",
         "VignetteBuilder": "knitr",
         "Config/Needs/website": "tidyverse/tidytemplate",
@@ -2500,19 +2500,19 @@
         "Encoding": "UTF-8",
         "RoxygenNote": "7.3.2",
         "NeedsCompilation": "no",
-        "Packaged": "2025-03-05 14:50:50 UTC; hadleywickham",
+        "Packaged": "2025-01-18 14:13:16 UTC; hadleywickham",
         "Author": "Hadley Wickham [aut, cre],\n  Posit Software, PBC [cph, fnd],\n  Maximilian Girlich [ctb]",
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
-        "Repository": "RSPM",
-        "Date/Publication": "2025-03-08 07:10:02 UTC",
-        "Built": "R 4.4.0; ; 2025-03-09 05:08:06 UTC; windows",
+        "Repository": "CRAN",
+        "Date/Publication": "2025-01-18 16:20:02 UTC",
+        "Built": "R 4.4.2; ; 2025-01-20 14:39:35 UTC; windows",
         "RemoteType": "standard",
         "RemotePkgRef": "httr2",
         "RemoteRef": "httr2",
-        "RemoteRepos": "https://packagemanager.posit.co/cran/latest",
+        "RemoteRepos": "http://cran.rstudio.com",
         "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "x86_64-w64-mingw32",
-        "RemoteSha": "1.1.1"
+        "RemotePkgPlatform": "source",
+        "RemoteSha": "1.1.0"
       }
     },
     "ini": {
@@ -5540,10 +5540,10 @@
       "checksum": "11d9c081aaca7bec662cf2f64b2336f4"
     },
     ".Rprofile": {
-      "checksum": "008f7a2b3b063bee82e0b7ce1a72067e"
+      "checksum": "4be48ac30dfc7c478c2faaa06e0eb74d"
     },
     "azure-pipelines.yml": {
-      "checksum": "7e9821af4dd5175db5a6885bc0c3dda9"
+      "checksum": "16893968d59f261bd87ea749cf2ec9e8"
     },
     "CODE_OF_CONDUCT.md": {
       "checksum": "7dcf9b0b5bac78fc7d7fe45f8c5102b1"
@@ -5672,7 +5672,7 @@
       "checksum": "83120f3d4bfdc3bd81493340f50b06d6"
     },
     "renv.lock": {
-      "checksum": "f34fb1f9e891d0bda31d5a768efd3076"
+      "checksum": "a8b5f081766efbf20451b3c9c8c1f92d"
     },
     "server.R": {
       "checksum": "23ef5c0ee7be1a85efa2a9523f33265c"
