@@ -10,6 +10,7 @@
 # Run renv::restore()
 # If it doesn't work first time, maybe try renv::activate() and then renv::restore()
 
+message("Loading packages")
 # Library calls ----------------------------------------------------------------------------------
 library(rsconnect)
 library(shinyGovstyle)

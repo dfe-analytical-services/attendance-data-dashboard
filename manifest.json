@@ -3802,7 +3802,7 @@
         "Package": "renv",
         "Type": "Package",
         "Title": "Project Environments",
-        "Version": "1.1.2",
+        "Version": "1.1.3",
         "Authors@R": "c(\n    person(\"Kevin\", \"Ushey\", role = c(\"aut\", \"cre\"), email = \"kevin@rstudio.com\",\n           comment = c(ORCID = \"0000-0003-2880-7407\")),\n    person(\"Hadley\", \"Wickham\", role = c(\"aut\"), email = \"hadley@rstudio.com\",\n           comment = c(ORCID = \"0000-0003-4757-117X\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n    )",
         "Description": "A dependency management toolkit for R. Using 'renv', you can create\n    and manage project-local R libraries, save the state of these libraries to\n    a 'lockfile', and later restore your library as required. Together, these\n    tools can help make your projects more isolated, portable, and reproducible.",
         "License": "MIT + file LICENSE",
@@ -3818,19 +3818,19 @@
         "Config/testthat/parallel": "true",
         "Config/testthat/start-first": "bioconductor,python,install,restore,snapshot,retrieve,remotes",
         "NeedsCompilation": "no",
-        "Packaged": "2025-03-02 23:50:06 UTC; kevin",
+        "Packaged": "2025-03-17 20:30:29 UTC; kevin",
         "Author": "Kevin Ushey [aut, cre] (<https://orcid.org/0000-0003-2880-7407>),\n  Hadley Wickham [aut] (<https://orcid.org/0000-0003-4757-117X>),\n  Posit Software, PBC [cph, fnd]",
         "Maintainer": "Kevin Ushey <kevin@rstudio.com>",
         "Repository": "CRAN",
-        "Date/Publication": "2025-03-03 00:30:02 UTC",
-        "Built": "R 4.4.2; ; 2025-03-03 13:14:56 UTC; windows",
+        "Date/Publication": "2025-03-18 10:50:02 UTC",
+        "Built": "R 4.4.3; ; 2025-03-19 00:51:02 UTC; windows",
         "RemoteType": "standard",
         "RemotePkgRef": "renv",
         "RemoteRef": "renv",
         "RemoteRepos": "https://cran.rstudio.com",
         "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "source",
-        "RemoteSha": "1.1.2"
+        "RemotePkgPlatform": "x86_64-w64-mingw32",
+        "RemoteSha": "1.1.3"
       }
     },
     "rlang": {
@@ -5540,7 +5540,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "fb13d79463d3f4284ba5a592803f2dc4"
+      "checksum": "0c70425ecec4200e8d9bc691a9fe0fbd"
     },
     "azure-pipelines.yml": {
       "checksum": "46a69aced6b4fba53a715d5375a0aedc"
@@ -5612,7 +5612,7 @@
       "checksum": "12ec8a8981de38a0c0e149b9e67ae51c"
     },
     "global.R": {
-      "checksum": "395aed10e81f343a84075c37675ec345"
+      "checksum": "a97620c72a03d9fff56f09c477d8b06b"
     },
     "google-analytics.html": {
       "checksum": "855e3945a86e1daf8ffd6db9e84fefb1"
@@ -5672,7 +5672,7 @@
       "checksum": "83120f3d4bfdc3bd81493340f50b06d6"
     },
     "renv.lock": {
-      "checksum": "8d630495f464475d3a54aadf6ad9bc98"
+      "checksum": "cf62efc63583bba4474cdb1d5149a9ea"
     },
     "server.R": {
       "checksum": "736f7672383d4f198c8469d16bec6d39"

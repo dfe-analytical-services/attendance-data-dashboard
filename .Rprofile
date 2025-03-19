@@ -14,6 +14,8 @@ if (system.file(package = "renv") == "") {
   install.packages("renv")
 }
 
+message("renv location: ", system.file(package = "renv"))
+
 source("renv/activate.R")
 renv_status <- renv::status()
 if (!renv_status$synchronized) {
@@ -31,4 +33,8 @@ run_tests_locally <- function() {
 
 
 # Install commit-hooks locally
-statusWriteCommit <- file.copy(".hooks/pre-commit.R", ".git/hooks/pre-commit", overwrite = TRUE)
+if (file.exists(".git")) {
+  statusWriteCommit <- file.copy(".hooks/pre-commit.R", ".git/hooks/pre-commit", overwrite = TRUE)
+}
+
+message("End of .Rprofile")
