@@ -10,8 +10,16 @@
 
 cat("Sourcing .Rprofile.", fill = TRUE)
 
+if (system.file(package = "renv") == "") {
+  install.packages("renv")
+}
+
 source("renv/activate.R")
-renv::status()
+renv_status <- renv::status()
+if (!renv_status$synchronized) {
+  renv::restore()
+}
+
 
 # Run UI tests ------------------------------------------------------------
 

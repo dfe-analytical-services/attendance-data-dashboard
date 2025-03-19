@@ -25,7 +25,7 @@ extends:
     - name: Pre-Production
       appId: 989
     - name: Production
-      appId: none
+      appId: 406
     approvers: |
       richard.bielby@education.gov.uk
       tom.curd@education.gov.uk

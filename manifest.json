@@ -5540,10 +5540,10 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "146d5fc07d8e2d0569256cc2922128f5"
+      "checksum": "fb13d79463d3f4284ba5a592803f2dc4"
     },
     "azure-pipelines.yml": {
-      "checksum": "16893968d59f261bd87ea749cf2ec9e8"
+      "checksum": "46a69aced6b4fba53a715d5375a0aedc"
     },
     "CODE_OF_CONDUCT.md": {
       "checksum": "7dcf9b0b5bac78fc7d7fe45f8c5102b1"
@@ -5675,7 +5675,7 @@
       "checksum": "8d630495f464475d3a54aadf6ad9bc98"
     },
     "server.R": {
-      "checksum": "23ef5c0ee7be1a85efa2a9523f33265c"
+      "checksum": "736f7672383d4f198c8469d16bec6d39"
     },
     "tests/testthat.R": {
       "checksum": "12e9b09de5275bdc13bde6ae5a82f8b1"
