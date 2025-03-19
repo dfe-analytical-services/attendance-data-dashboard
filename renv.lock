@@ -765,8 +765,8 @@
     },
     "chromote": {
       "Package": "chromote",
-      "Version": "0.4.0",
-      "Source": "Repository",
+      "Version": "0.4.0.9000",
+      "Source": "GitHub",
       "Title": "Headless Chrome Web Browser Interface",
       "Authors@R": "c( person(\"Winston\", \"Chang\", , \"winston@posit.co\", role = c(\"aut\", \"cre\")), person(\"Barret\", \"Schloerke\", , \"barret@posit.co\", role = \"aut\", comment = c(ORCID = \"0000-0001-9986-114X\")), person(\"Garrick\", \"Aden-Buie\", , \"garrick@posit.co\", role = \"aut\", comment = c(ORCID = \"0000-0002-7111-0077\")), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")) )",
       "Description": "An implementation of the 'Chrome DevTools Protocol', for controlling a headless Chrome web browser.",
@@ -774,6 +774,7 @@
       "URL": "https://rstudio.github.io/chromote/, https://github.com/rstudio/chromote",
       "BugReports": "https://github.com/rstudio/chromote/issues",
       "Imports": [
+        "cli",
         "curl",
         "fastmap",
         "jsonlite",
@@ -782,24 +783,36 @@
         "processx",
         "promises (>= 1.1.1)",
         "R6",
-        "rlang",
+        "rlang (>= 1.1.0)",
         "utils",
-        "websocket (>= 1.2.0)"
+        "websocket (>= 1.2.0)",
+        "withr",
+        "zip"
       ],
       "Suggests": [
+        "knitr",
+        "rmarkdown",
         "showimage",
         "testthat (>= 3.0.0)"
       ],
       "Config/Needs/website": "tidyverse/tidytemplate",
       "Config/testthat/edition": "3",
+      "Config/testthat/parallel": "FALSE",
+      "Config/testthat/start-first": "chromote_session",
       "Encoding": "UTF-8",
       "Language": "en-US",
+      "Roxygen": "list(markdown = TRUE)",
       "RoxygenNote": "7.3.2",
       "SystemRequirements": "Google Chrome or other Chromium-based browser. chromium: chromium (rpm) or chromium-browser (deb)",
-      "NeedsCompilation": "no",
+      "VignetteBuilder": "knitr",
       "Author": "Winston Chang [aut, cre], Barret Schloerke [aut] (<https://orcid.org/0000-0001-9986-114X>), Garrick Aden-Buie [aut] (<https://orcid.org/0000-0002-7111-0077>), Posit Software, PBC [cph, fnd]",
       "Maintainer": "Winston Chang <winston@posit.co>",
-      "Repository": "CRAN"
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "rstudio",
+      "RemoteRepo": "chromote",
+      "RemoteRef": "main",
+      "RemoteSha": "bdc390f55189057ade6ae8d50b1e5e5a9300059a"
     },
     "class": {
       "Package": "class",

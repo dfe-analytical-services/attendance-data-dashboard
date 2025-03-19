@@ -13,6 +13,6 @@
     "ts_choice": "latestweeks"
   },
   "output": {
-
+    "school_count_proportion": "For this breakdown, in the latest week 96.6% of schools submitted data, though this has varied throughout the year-to-date."
   }
 }

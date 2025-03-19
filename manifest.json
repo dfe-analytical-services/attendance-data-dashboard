@@ -754,39 +754,43 @@
       }
     },
     "chromote": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
+      "Source": "github",
+      "Repository": null,
       "description": {
         "Package": "chromote",
         "Title": "Headless Chrome Web Browser Interface",
-        "Version": "0.4.0",
+        "Version": "0.4.0.9000",
         "Authors@R": "c(\n    person(\"Winston\", \"Chang\", , \"winston@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Barret\", \"Schloerke\", , \"barret@posit.co\", role = \"aut\",\n           comment = c(ORCID = \"0000-0001-9986-114X\")),\n    person(\"Garrick\", \"Aden-Buie\", , \"garrick@posit.co\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-7111-0077\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
         "Description": "An implementation of the 'Chrome DevTools Protocol', for\n    controlling a headless Chrome web browser.",
         "License": "GPL-2",
         "URL": "https://rstudio.github.io/chromote/,\nhttps://github.com/rstudio/chromote",
         "BugReports": "https://github.com/rstudio/chromote/issues",
-        "Imports": "curl, fastmap, jsonlite, later (>= 1.1.0), magrittr, processx,\npromises (>= 1.1.1), R6, rlang, utils, websocket (>= 1.2.0)",
-        "Suggests": "showimage, testthat (>= 3.0.0)",
+        "Imports": "cli,\ncurl,\nfastmap,\njsonlite,\nlater (>= 1.1.0),\nmagrittr,\nprocessx,\npromises (>= 1.1.1),\nR6,\nrlang (>= 1.1.0),\nutils,\nwebsocket (>= 1.2.0),\nwithr,\nzip",
+        "Suggests": "knitr,\nrmarkdown,\nshowimage,\ntestthat (>= 3.0.0)",
         "Config/Needs/website": "tidyverse/tidytemplate",
         "Config/testthat/edition": "3",
+        "Config/testthat/parallel": "FALSE",
+        "Config/testthat/start-first": "chromote_session",
         "Encoding": "UTF-8",
         "Language": "en-US",
+        "Roxygen": "list(markdown = TRUE)",
         "RoxygenNote": "7.3.2",
         "SystemRequirements": "Google Chrome or other Chromium-based browser.\nchromium: chromium (rpm) or chromium-browser (deb)",
-        "NeedsCompilation": "no",
-        "Packaged": "2025-01-24 16:36:51 UTC; garrick",
+        "VignetteBuilder": "knitr",
         "Author": "Winston Chang [aut, cre],\n  Barret Schloerke [aut] (<https://orcid.org/0000-0001-9986-114X>),\n  Garrick Aden-Buie [aut] (<https://orcid.org/0000-0002-7111-0077>),\n  Posit Software, PBC [cph, fnd]",
         "Maintainer": "Winston Chang <winston@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-01-25 00:20:02 UTC",
-        "Built": "R 4.4.2; ; 2025-01-25 00:52:15 UTC; windows",
-        "RemoteType": "standard",
-        "RemotePkgRef": "chromote",
-        "RemoteRef": "chromote",
-        "RemoteRepos": "https://cran.rstudio.com",
-        "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "x86_64-w64-mingw32",
-        "RemoteSha": "0.4.0"
+        "Built": "R 4.4.2; ; 2025-03-19 17:08:37 UTC; windows",
+        "RemoteType": "github",
+        "RemoteHost": "api.github.com",
+        "RemoteUsername": "rstudio",
+        "RemoteRepo": "chromote",
+        "RemoteRef": "main",
+        "RemoteSha": "bdc390f55189057ade6ae8d50b1e5e5a9300059a",
+        "GithubHost": "api.github.com",
+        "GithubRepo": "chromote",
+        "GithubUsername": "rstudio",
+        "GithubRef": "main",
+        "GithubSHA1": "bdc390f55189057ade6ae8d50b1e5e5a9300059a"
       }
     },
     "class": {
@@ -5540,7 +5544,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "a2134ec46d794b1dcf2165f7a80eacdd"
+      "checksum": "fbc2f3aa8dcbbec5605317f81e5f761f"
     },
     "azure-pipelines.yml": {
       "checksum": "46a69aced6b4fba53a715d5375a0aedc"
@@ -5672,97 +5676,97 @@
       "checksum": "83120f3d4bfdc3bd81493340f50b06d6"
     },
     "renv.lock": {
-      "checksum": "cf62efc63583bba4474cdb1d5149a9ea"
+      "checksum": "c7c7d55960b9dbfc071f7702b407ef50"
     },
     "server.R": {
       "checksum": "736f7672383d4f198c8469d16bec6d39"
     },
     "tests/testthat.R": {
-      "checksum": "12e9b09de5275bdc13bde6ae5a82f8b1"
+      "checksum": "935f216b013d0914cf23ab906e88f3a8"
     },
     "tests/testthat/_snaps/UI_tests/001.json": {
-      "checksum": "154a830ddf88e969671caaaa3f62d0fe"
+      "checksum": "c31ba31c8d9a56e02d79d55321add8c4"
     },
     "tests/testthat/_snaps/UI_tests/001_.png": {
-      "checksum": "31bd6ccc60c84144af8a7f1e22fd0e97"
+      "checksum": "73a7432be3e83b5493c950ae38988a64"
     },
     "tests/testthat/_snaps/UI_tests/002.json": {
-      "checksum": "429c3dedc7e319fb30f4bef5f0fd633f"
+      "checksum": "dba45c2f33efda4fc6b8e7d12de59387"
     },
     "tests/testthat/_snaps/UI_tests/002_.png": {
-      "checksum": "586eec1e06d1b974e8a44b1616ae1ce8"
+      "checksum": "36c376ec041a4d2ba2f7831e89255e8a"
     },
     "tests/testthat/_snaps/UI_tests/003.json": {
-      "checksum": "f6f5a3b7ff11abaa1ba3b3dd0a90f608"
+      "checksum": "576091e4b4af4b1b487f0890461b967e"
     },
     "tests/testthat/_snaps/UI_tests/003_.png": {
-      "checksum": "bf8ab456e5aef66e18937c95158afb5a"
+      "checksum": "de3ae37f6c8d0dd01425dfbac295bc45"
     },
     "tests/testthat/_snaps/UI_tests/004.json": {
-      "checksum": "e793e495a78b7f4b3f77f45b9fee7846"
+      "checksum": "527ee94f55cfd90790427c29a58c0c7f"
     },
     "tests/testthat/_snaps/UI_tests/004_.png": {
-      "checksum": "23613815f7bae39e1c68fb92c1f9ec2f"
+      "checksum": "698fac0404dd9071cb24b84db9eb8ee6"
     },
     "tests/testthat/_snaps/UI_tests/005.json": {
-      "checksum": "277b5eba9d43234eca4306aea59889be"
+      "checksum": "fe25b4cd699c83d04aa85f1ae1b7a168"
     },
     "tests/testthat/_snaps/UI_tests/005_.png": {
-      "checksum": "3bc87984b202f7c3dc2669b5e3612c6f"
+      "checksum": "ec47284ed4742f8d71d223c6a4f1aae7"
     },
     "tests/testthat/_snaps/UI_tests/006.json": {
-      "checksum": "84cae57b69b0f345a95317f0454ef451"
+      "checksum": "169ab2010aaa4ea74ceafe62f9306770"
     },
     "tests/testthat/_snaps/UI_tests/006_.png": {
-      "checksum": "f6ab3b25672060f931c9ce169438394f"
+      "checksum": "f4514fd814f15221896c7e6ab1e651e6"
     },
     "tests/testthat/_snaps/UI_tests/007.json": {
-      "checksum": "a9d1d466d72cd7cc65bc715c497889f1"
+      "checksum": "3d5fb3e9d8cd8ee826d9f9e53a34222c"
     },
     "tests/testthat/_snaps/UI_tests/007_.png": {
-      "checksum": "3e8ff1b33e5fea4846a5b1dca389d209"
+      "checksum": "1f05071cbe523c145024f5fbe3b7b576"
     },
     "tests/testthat/_snaps/UI_tests/008.json": {
-      "checksum": "1f1c37f23aae02550ff8a73b8c800cba"
+      "checksum": "8c34a6e15cc338ba99653c10bbe0e42f"
     },
     "tests/testthat/_snaps/UI_tests/008_.png": {
-      "checksum": "34637443f57798e15fd3b49c63eec8ee"
+      "checksum": "1d32a16094938856e8865b8918065dae"
     },
     "tests/testthat/_snaps/UI_tests/009.json": {
-      "checksum": "4a720da1e587805f10822ef0d1fafacd"
+      "checksum": "f252398af788c8670e2cdd954e773df1"
     },
     "tests/testthat/_snaps/UI_tests/009_.png": {
-      "checksum": "63d812c1f2372aec328ce8db9816acd5"
+      "checksum": "4237005e67814e095cc9fab2894f15a9"
     },
     "tests/testthat/_snaps/UI_tests/010.json": {
-      "checksum": "15c7910af9f35dbecf2539edefeccaea"
+      "checksum": "652b72f70d9c6dc96efc209fcd4bf7c6"
     },
     "tests/testthat/_snaps/UI_tests/010_.png": {
-      "checksum": "0f1a5c0827345504e039080fc6f8749e"
+      "checksum": "60794c4e6098163f8c52be2c1a014e1a"
     },
     "tests/testthat/_snaps/UI_tests/011.json": {
-      "checksum": "a38cfce6049760031c95eb2d6cddc2b0"
+      "checksum": "d1d4a7292d1df7cd2c8d1019bb75e62b"
     },
     "tests/testthat/_snaps/UI_tests/011_.png": {
-      "checksum": "3031f51819f9f871fabd284dee4abfa6"
+      "checksum": "761444f85bc76c8b5e4991f09f81b13d"
     },
     "tests/testthat/_snaps/UI_tests/012.json": {
-      "checksum": "a0c863b02f2a185e5b3c577e70a48b77"
+      "checksum": "e222bce96c11ffe09c1994a669ff097f"
     },
     "tests/testthat/_snaps/UI_tests/012_.png": {
-      "checksum": "f4cb9f92bf1b0ad1ee6e3db5512f3349"
+      "checksum": "b3cc2be664c638b4361b4e967a1be190"
     },
     "tests/testthat/_snaps/UI_tests/013.json": {
       "checksum": "95d79a4444aa0acce66412962227b39c"
     },
     "tests/testthat/_snaps/UI_tests/013_.png": {
-      "checksum": "8347e25c35cf51db2bbde316c1990b9f"
+      "checksum": "30f25184abf900e11755f9556f4fa082"
     },
     "tests/testthat/_snaps/UI_tests/014.json": {
       "checksum": "d2c1c7306f51fde4c8bf2691f6db1204"
     },
     "tests/testthat/_snaps/UI_tests/014_.png": {
-      "checksum": "6ae8411e080d21c79d9261d40b71bc41"
+      "checksum": "3d1ae8c8c8d50ff41d1c1d649b999ac8"
     },
     "tests/testthat/setup-shinytest2.R": {
       "checksum": "d3e71278de0398bd2acaa6e00ad59114"
