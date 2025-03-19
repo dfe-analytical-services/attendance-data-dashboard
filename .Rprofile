@@ -10,17 +10,12 @@
 
 cat("Sourcing .Rprofile.", fill = TRUE)
 
+print(Sys.info())
 source("renv/activate.R")
-renv::status()
-
-# Run UI tests ------------------------------------------------------------
-
-run_tests_locally <- function() {
-  library(shinytest2)
-  Sys.unsetenv("HTTP_PROXY")
-  test_app()
-}
-
 
 # Install commit-hooks locally
-statusWriteCommit <- file.copy(".hooks/pre-commit.R", ".git/hooks/pre-commit", overwrite = TRUE)
+if (file.exists(".git")) {
+  statusWriteCommit <- file.copy(".hooks/pre-commit.R", ".git/hooks/pre-commit", overwrite = TRUE)
+}
+
+message("End of .Rprofile")

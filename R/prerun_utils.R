@@ -27,6 +27,14 @@ run_data_update <- function() {
   )
 
   # Write out dashboard data for the dashboard to use
+
+  attendance_data <- attendance_data %>%
+    mutate(old_la_code = as.character(old_la_code)) %>%
+    mutate(old_la_code = case_when(
+      is.na(old_la_code) ~ "",
+      TRUE ~ old_la_code
+    ))
+
   write.csv(attendance_data, "data/attendance_data_dashboard.csv", row.names = FALSE)
 
   # Process and write out further data for EES tables
@@ -501,6 +509,8 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
       pa_perc_scaled
     ), ~
       replace(., geographic_level == "Local authority" & num_schools == 1, NA))
+
+  attendance_data
 
   # return(
   #   list(
@@ -1753,6 +1763,27 @@ create_ees_tables <- function(attendance_data) {
 
   # EES_ytd_data[is.na(EES_ytd_data)]<-"c"
 
+  EES_daily_data <- EES_daily_data %>%
+    mutate(old_la_code = as.character(old_la_code)) %>%
+    mutate(old_la_code = case_when(
+      is.na(old_la_code) ~ "",
+      TRUE ~ old_la_code
+    ))
+
+  EES_weekly_data <- EES_weekly_data %>%
+    mutate(old_la_code = as.character(old_la_code)) %>%
+    mutate(old_la_code = case_when(
+      is.na(old_la_code) ~ "",
+      TRUE ~ old_la_code
+    ))
+
+  EES_ytd_data <- EES_ytd_data %>%
+    mutate(old_la_code = as.character(old_la_code)) %>%
+    mutate(old_la_code = case_when(
+      is.na(old_la_code) ~ "",
+      TRUE ~ old_la_code
+    ))
+
   write.csv(EES_daily_data, "data\\EES_daily_data.csv", row.names = FALSE)
   write.csv(EES_weekly_data, "data\\EES_weekly_data.csv", row.names = FALSE)
   write.csv(EES_ytd_data, "data\\EES_ytd_data.csv", row.names = FALSE)
@@ -1899,6 +1930,13 @@ create_ees_tables_autumn <- function(df_attendance_autumn) {
       replace(., geographic_level == "Local authority" & num_schools == 1, "c"))
 
   # EES_aut_data[is.na(EES_aut_data)]<-"c"
+
+  EES_aut_data <- EES_aut_data %>%
+    mutate(old_la_code = as.character(old_la_code)) %>%
+    mutate(old_la_code = case_when(
+      is.na(old_la_code) ~ "",
+      TRUE ~ old_la_code
+    ))
 
   write.csv(EES_aut_data, "data\\EES_aut_data.csv", row.names = FALSE)
 }

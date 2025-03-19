@@ -238,8 +238,12 @@ server <- function(input, output, session) {
   })
 
   pa_data <- reactive({
+    time_period_query <- pa_data_version_info()$time_period_end |>
+      stringr::str_replace("Week ", "W") |>
+      stringr::str_replace(" ", "|")
     eesyapi::query_dataset(
       persistent_absence_dataset_id,
+      time_periods = time_period_query,
       geographies = geography_query(input$geography_choice, input$region_choice, input$la_choice),
       filter_items = list(
         school_phase = persistent_absence_sqids$filters$education_phase |>
