@@ -10,6 +10,7 @@
 
 cat("Sourcing .Rprofile.", fill = TRUE)
 
+print(Sys.info())
 source("renv/activate.R")
 
 # Install commit-hooks locally
