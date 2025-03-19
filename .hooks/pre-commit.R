@@ -2,9 +2,8 @@
 cat("Running commit hooks...", fill = TRUE)
 shhh <- suppressPackageStartupMessages # It's a library, so shhh!
 shhh(library(dplyr))
-shhh(library(dfeshiny))
 shhh(library(xfun))
-
+shhh(library(dfeshiny))
 
 error_flag <- FALSE
 
@@ -28,8 +27,6 @@ if (ncol(ign_files) > 1) {
     }
   }
 }
-
-
 
 suffixes <- "xlsx$|dat$|csv$|tex$|pdf$"
 
@@ -69,7 +66,7 @@ if (error_flag) {
   quit(save = "no", status = 1, runLast = FALSE)
 }
 
-tidy_output <- tidy_code()
+tidy_output <- dfeshiny::tidy_code()
 if (any(tidy_output)) {
   error_flag <- TRUE
 }
@@ -79,5 +76,21 @@ if (error_flag) {
       please check your files and the dashboard still works and then re-stage and try committing again.")
   quit(save = "no", status = 1, runLast = FALSE)
 }
+
+cat("\n")
+
+cat("\n2. Rebuilding manifest.json...", fill = TRUE)
+if (system.file(package = "git2r") == "") {
+  renv::install("git2r")
+}
+shhh(library(git2r))
+if (system.file(package = "rsconnect") != "" & system.file(package = "git2r") != "") {
+  if (!any(grepl("manifest.json", git2r::status()))) {
+    rsconnect::writeManifest()
+    git2r::add(path = "manifest.json")
+  }
+  cat("...manifest.json rebuilt\n")
+}
+cat("\n")
 
 # End of hooks

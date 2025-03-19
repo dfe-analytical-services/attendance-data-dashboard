@@ -10,58 +10,46 @@
 # Run renv::restore()
 # If it doesn't work first time, maybe try renv::activate() and then renv::restore()
 
+message("Loading packages")
 # Library calls ----------------------------------------------------------------------------------
-
 library(rsconnect)
 library(shinyGovstyle)
+library(bslib)
 library(shiny)
 library(shinyjs)
 library(tools)
 library(testthat)
-library(shinydashboard)
-library(shinyWidgets)
 library(data.table)
 library(ggplot2)
-library(plotly)
-library(dplyr)
+library(ggiraph)
 library(shinycssloaders)
 library(tidyr)
 library(stringr)
 library(scales)
 library(forcats)
-library(openxlsx)
-library(kableExtra)
 library(metathis)
 library(styler)
 library(bit64)
-library(DT)
 library(raster)
 library(leaflet)
 library(sf)
 library(checkmate)
 library(dfeshiny)
+library(reactable)
 library(shinytest2)
 library(diffviewer)
-library(RODBC)
+library(dplyr)
+library(eesyapi)
 
-# Functions ---------------------------------------------------------------------------------
-
-# Here's an example function for simplifying the code needed to commas separate numbers:
-
-# cs_num ----------------------------------------------------------------------------
-# Comma separating function
-
-cs_num <- function(value) {
-  format(value, big.mark = ",", trim = TRUE)
-}
-
-# Source scripts ---------------------------------------------------------------------------------
-
-# Source any scripts here. Scripts may be needed to process data before it gets to the server file.
-# It's best to do this here instead of the server file, to improve performance.
-
-# source("R/filename.r")
-
+# Few things to manage fonts
+library(gfonts)
+library(gdtools)
+library(showtext)
+gdtools::register_gfont("Noto Sans")
+sysfonts::font_add_google("Noto Sans")
+showtext::showtext_auto()
+dfe_font <- "Noto Sans"
+message("Selected ", dfe_font, " for plots")
 
 # appLoadingCSS ----------------------------------------------------------------------------
 # Set up loading screen
@@ -80,20 +68,91 @@ appLoadingCSS <- "
 }
 "
 
-source("R/prerun_utils.R")
+ees_api_env <- "prod"
 
-site_primary <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
-site_overflow <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-overflow"
+if (ees_api_env == "prod") {
+  api_verbose <- FALSE
+  api_environment <- "prod"
+  reasons_dataset_id <- "63629501-d3ca-c471-9780-ec4cb6fdf172"
+  reasons_dataset_ref_version <- 1.0
+  persistent_absence_dataset_id <- "55629501-e98b-0c75-adba-f95a0cfbb5e9"
+  persistent_absence_ref_version <- 1.0
+  schools_submitting_dataset_id <- "55629501-1945-0174-956c-594f21c90404"
+  schools_submitting_ref_version <- 1.0
+} else if (ees_api_env == "dev") {
+  api_verbose <- FALSE
+  api_environment <- "dev"
+  reasons_dataset_id <- "ab619501-50cf-1b70-b276-76d72a3c141c"
+  reasons_dataset_ref_version <- 1.1
+  persistent_absence_dataset_id <- "3b299501-2ab1-de76-a9b5-a3ae26ac0bcd"
+  persistent_absence_ref_version <- 3.0
+  schools_submitting_dataset_id <- "ac619501-eb0a-ff71-b03c-5330fe30349a"
+  schools_submitting_ref_version <- 1.1
+} else if (ees_api_env == "test") {
+  api_verbose <- TRUE
+  api_environment <- "test"
+  reasons_dataset_id <- "8e8c9301-55c5-3e71-abbb-73ac64420c4a"
+  reasons_dataset_ref_version <- 2.0
+  persistent_absence_dataset_id <- ""
+  persistent_absence_ref_version <- 1.0
+  schools_submitting_dataset_id <- ""
+  schools_submitting_ref_version <- 1.0
+} else {
+  stop("Invalid environment given in ees_api_env variable.")
+}
+
+source("R/prerun_utils.R")
+source("R/fetch_data.R")
+
+site_title <- "Pupil attendance and absence in schools in England"
+site_primary <- "https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
 site_c <- ""
 google_analytics_key <- "DG7P4WLB0Y"
+
+ees_pub_name <- "Pupil attendance in schools"
+ees_pub_slug <- "pupil-attendance-in-schools"
+team_email <- "schools.statistics@education.gov.uk"
+
+# Some standard geography lookups
+region_la_lookup <- dfeR::wd_pcon_lad_la_rgn_ctry |>
+  filter(country_name == "England") |>
+  select(region_name, region_code, la_name, new_la_code) |>
+  distinct() |>
+  arrange(region_name)
+
+
+# Pull in original data set api id look-up lists.
+# This is fixed to a single reference point version and allows the code to use human readable
+# parameters for the API calls. This is a bit that could cause some issues if there's some breaking
+# changes to the data set. As long as there's no breaking changes, then the version number used
+# here should not be changed.
+reasons_sqids <- fetch_sqid_lookup(
+  reasons_dataset_id,
+  version = reasons_dataset_ref_version,
+  ees_environment = ees_api_env
+)
+
+persistent_absence_sqids <- fetch_sqid_lookup(
+  persistent_absence_dataset_id,
+  version = persistent_absence_ref_version,
+  ees_environment = ees_api_env
+)
+
+schools_submitting_sqids <- fetch_sqid_lookup(
+  schools_submitting_dataset_id,
+  version = schools_submitting_ref_version,
+  ees_environment = ees_api_env
+)
+
 
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 
 #### SECTION 1 - date filters ####
+date_stamp <- lubridate::stamp_date("20 March 2025")
 start_date <- as.Date("2024-09-09")
-end_date <- as.Date("2025-02-14")
+end_date <- as.Date("2025-01-24")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -119,17 +178,12 @@ ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_
 
 #### SECTION 2 - reading in csvs to run dashboard ####
 attendance_data <- read.csv("data/attendance_data_dashboard.csv")
-# attendance_data$attendance_date <- as.Date(attendance_data$attendance_date)
-# attendance_data$week_commencing <- as.Date(attendance_data$week_commencing)
-attendance_data$attendance_date <- as.Date(attendance_data$attendance_date, format = "%d/%m/%Y")
-attendance_data$week_commencing <- as.Date(attendance_data$week_commencing, format = "%d/%m/%Y")
-
+attendance_data$attendance_date <- as.Date(attendance_data$attendance_date)
+attendance_data$week_commencing <- as.Date(attendance_data$week_commencing)
 
 message(paste("Finished processing steps, ", Sys.time()))
 
-# EES_daily_data <- create_EES_daily_data(attendance_data)
-EES_daily_data <- read.csv("data/EES_daily_data.csv")
-
+EES_daily_data <- create_EES_daily_data(attendance_data)
 
 #### SECTION 3 - Lookups ####
 # Add geog lookup
@@ -226,70 +280,16 @@ expandable <- function(inputId, label, contents) {
 }
 
 
-# Map ---------------------------------------------------------------------------------
-
-## Custom rounding function ################################################
-
-roundFiveUp <- function(value, dp) {
-  if (!is.numeric(value) && !is.numeric(dp)) stop("both inputs must be numeric")
-  if (!is.numeric(value)) stop("the value to be rounded must be numeric")
-  if (!is.numeric(dp)) stop("the decimal places value must be numeric")
-
-  z <- abs(value) * 10^dp
-  z <- z + 0.5 + sqrt(.Machine$double.eps)
-  z <- trunc(z)
-  z <- z / 10^dp
-  return(z * sign(value))
-}
-
 #### SECTION 5 - Map ####
 ## Reading in data ##########################################################
 
 # Read in shapefile and transform coordinates (because map reasons...)
-mapshape <- st_read("data/CTYUA_MAY_2023_UK_BUC.shp") %>% st_transform(crs = 4326) # %>% mutate(CTYUA23CD = case_when(CTYUA23NM == "Somerset" ~ "E10000027", CTYUA23NM != "Somerset" ~ CTYUA23CD)) TEMP addition working around Somerset LA code change
-
-# Process the joined files to refine our 'mapdata', not pretty yet and mostly done just cos it's how its done in global...
-
-mapdata0 <- attendance_data %>%
-  mutate(time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))) %>%
-  filter(time_period == max(time_period)) %>%
-  # filter(time_identifier == max(time_identifier)) %>%
-  filter(time_identifier == max(time_identifier) - 1) %>%
-  filter(geographic_level == "Local authority") %>%
-  filter(breakdown == "Weekly")
-
-
-mapdata <- mapdata0 %>%
-  mutate(CTYUA23CD = new_la_code) %>% # renaming to match to shapefile later
-  filter(!is.na(region_name), !is.na(la_name))
-
-mapdata <- mapdata %>%
-  group_by(time_period, time_identifier, geographic_level, region_name, la_name, CTYUA23CD, school_type) %>%
-  mutate(
-    overall_label_LA = paste(la_name),
-    overall_label_rate = paste(as.character(roundFiveUp(overall_absence_perc, 1)), "%", sep = ""),
-    overall_label = paste0(overall_label_LA, " overall absence rate: ", overall_label_rate),
-    auth_label_LA = paste(la_name),
-    auth_label_rate = paste(as.character(roundFiveUp(authorised_absence_perc, 1)), "%", sep = ""),
-    auth_label = paste0(auth_label_LA, " authorised absence rate: ", auth_label_rate),
-    unauth_label_LA = paste(la_name),
-    unauth_label_rate = paste(as.character(roundFiveUp(unauthorised_absence_perc, 1)), "%", sep = ""),
-    unauth_label = paste0(unauth_label_LA, " unauthorised absence rate: ", unauth_label_rate)
-  )
-
-## Combine shapefile and data into mapdata ###############################################
-
-# Merge the transformed shapefile with the processed source data ---------------
-mapdata_shaped <- merge(mapshape, mapdata, by = "CTYUA23CD", duplicateGeoms = TRUE)
-
-# Create colour bins and palette labels --------------------------------------
+mapshape <- st_read("data/CTYUA_MAY_2023_UK_BUC.shp") %>%
+  st_transform(crs = 4326) # %>%
+#  mutate(CTYUA23CD = case_when(
+#    CTYUA23NM == "Somerset" ~ "E10000027",
+#    CTYUA23NM != "Somerset" ~ CTYUA23CD)
+#  ) # TEMP addition working around Somerset LA code change
 
 # Pull in the colours from another script
 source("R/gov_colours.R")
-
-# Create bins
-overall_abs_pal <- colorQuantile(map_gov_colours, mapdata_shaped$overall_abs_perc, n = 5)
-
-auth_abs_pal <- colorQuantile(map_gov_colours, mapdata_shaped$auth_abs_perc, n = 5)
-
-unauth_abs_pal <- colorQuantile(map_gov_colours, mapdata_shaped$unauth_abs_perc, n = 5)
