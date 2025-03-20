@@ -93,7 +93,7 @@ google_analytics_key <- "DG7P4WLB0Y"
 
 #### SECTION 1 - date filters ####
 start_date <- as.Date("2024-09-09")
-end_date <- as.Date("2025-02-14")
+end_date <- as.Date("2025-03-07")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -121,8 +121,8 @@ ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_
 attendance_data <- read.csv("data/attendance_data_dashboard.csv")
 # attendance_data$attendance_date <- as.Date(attendance_data$attendance_date)
 # attendance_data$week_commencing <- as.Date(attendance_data$week_commencing)
-attendance_data$attendance_date <- as.Date(attendance_data$attendance_date, format = "%d/%m/%Y")
-attendance_data$week_commencing <- as.Date(attendance_data$week_commencing, format = "%d/%m/%Y")
+attendance_data$attendance_date <- as.Date(attendance_data$attendance_date) # , format = "%d/%m/%Y")
+attendance_data$week_commencing <- as.Date(attendance_data$week_commencing) # , format = "%d/%m/%Y")
 
 
 message(paste("Finished processing steps, ", Sys.time()))
@@ -253,8 +253,8 @@ mapshape <- st_read("data/CTYUA_MAY_2023_UK_BUC.shp") %>% st_transform(crs = 432
 mapdata0 <- attendance_data %>%
   mutate(time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))) %>%
   filter(time_period == max(time_period)) %>%
-  # filter(time_identifier == max(time_identifier)) %>%
-  filter(time_identifier == max(time_identifier) - 1) %>%
+  filter(time_identifier == max(time_identifier)) %>%
+  # filter(time_identifier == max(time_identifier) - 1) %>%
   filter(geographic_level == "Local authority") %>%
   filter(breakdown == "Weekly")
 
