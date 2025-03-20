@@ -318,11 +318,17 @@
     },
     "chromote": {
       "Package": "chromote",
-      "Version": "0.3.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Version": "0.4.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "rstudio",
+      "RemoteRepo": "chromote",
+      "RemoteRef": "main",
+      "RemoteSha": "bdc390f55189057ade6ae8d50b1e5e5a9300059a",
       "Requirements": [
         "R6",
+        "cli",
         "curl",
         "fastmap",
         "jsonlite",
@@ -332,9 +338,11 @@
         "promises",
         "rlang",
         "utils",
-        "websocket"
+        "websocket",
+        "withr",
+        "zip"
       ],
-      "Hash": "5532726015b620830baae59aa689ea52"
+      "Hash": "e2bf9a6a1cd00e4872d1d345a9cecd2f"
     },
     "class": {
       "Package": "class",

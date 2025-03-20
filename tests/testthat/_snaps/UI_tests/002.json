@@ -30,11 +30,11 @@
             "automargin": true,
             "title": "Date",
             "tickvals": [
-              "2025-02-03",
-              "2025-02-04",
-              "2025-02-05",
-              "2025-02-06",
-              "2025-02-07"
+              "2025-03-03",
+              "2025-03-04",
+              "2025-03-05",
+              "2025-03-06",
+              "2025-03-07"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -107,18 +107,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2025-02-03",
-              "2025-02-04",
-              "2025-02-05",
-              "2025-02-06",
-              "2025-02-07"
+              "2025-03-03",
+              "2025-03-04",
+              "2025-03-05",
+              "2025-03-06",
+              "2025-03-07"
             ],
             "y": [
-              5.5845166613794301,
-              5.1635699555756203,
-              4.8889513073240103,
-              4.8638066790104704,
-              5.4927757796073697
+              4.7027298346600999,
+              4.1696594432355596,
+              4.0202650416740298,
+              3.51174663997846,
+              5.0013485702793998
             ],
             "line": {
               "color": "#12436D"
@@ -151,18 +151,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2025-02-03",
-              "2025-02-04",
-              "2025-02-05",
-              "2025-02-06",
-              "2025-02-07"
+              "2025-03-03",
+              "2025-03-04",
+              "2025-03-05",
+              "2025-03-06",
+              "2025-03-07"
             ],
             "y": [
-              4.3687803023205198,
-              4.1289435615426404,
-              3.8479322661423501,
-              3.7813745854224199,
-              4.2022413127264402
+              3.5268990971265199,
+              3.2152359967978601,
+              3.0842447204537899,
+              2.6242724017877799,
+              3.7471087680956301
             ],
             "line": {
               "color": "#28A197"
@@ -195,18 +195,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2025-02-03",
-              "2025-02-04",
-              "2025-02-05",
-              "2025-02-06",
-              "2025-02-07"
+              "2025-03-03",
+              "2025-03-04",
+              "2025-03-05",
+              "2025-03-06",
+              "2025-03-07"
             ],
             "y": [
-              1.2157363590589001,
-              1.0346263940329701,
-              1.04101904118166,
-              1.08243209358805,
-              1.29053446688092
+              1.1758307375335699,
+              0.95442344643770305,
+              0.93602032122024204,
+              0.88747423819068405,
+              1.25423980218377
             ],
             "line": {
               "color": "#F46A25"
@@ -349,9 +349,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2025-02-03 to 2025-02-07: primary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 5.2% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 94.8% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "• 3.4% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2025-03-03 to 2025-03-07: primary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "• 4.3% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "• 95.7% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "• 2.6% of sessions were recorded as illness"
   }
 }
