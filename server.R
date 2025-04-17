@@ -820,10 +820,10 @@ server <- function(input, output, session) {
       ) %>%
       add_trace(
         x = ~week_commencing,
-        y = ~auth_part_time_perc,
+        y = ~auth_religious_perc,
         line = list(color = "#FFBF47"),
         marker = list(color = "#FFBF47"),
-        name = "Part-time timetable",
+        name = "Religious observance",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
       ) %>%
@@ -932,10 +932,10 @@ server <- function(input, output, session) {
       ) %>%
       add_trace(
         x = ~attendance_date,
-        y = ~auth_part_time_perc,
+        y = ~auth_religious_perc,
         line = list(color = "#FFBF47"),
         marker = list(color = "#FFBF47"),
-        name = "Part-time timetable",
+        name = "Religious observance",
         hovertemplate = "%{y:.1f}%",
         mode = "markers"
       ) %>%
