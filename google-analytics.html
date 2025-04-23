@@ -18,5 +18,22 @@
       });
     });
   
+  $(document).on('click', 'ul#navlistPanel', function(e) {
+    gtag('event', 'navlistPanel', {'event_category' : 'navlist click',
+    'event_label' : document.querySelector(
+      'ul#navlistPanel > li.active > a'
+    ).getAttribute('data-value')
+    });
+  });
+  
+  $(document).on('click', 'ul#dash', function(e) {
+    gtag('event', 'tabsetPanel', {'event_category' : 'tabset click',
+    'event_label' : document.querySelector(
+      'ul#dash > li.active > a'
+    ).getAttribute('data-value')
+    });
+  });
+  
+  
   </script>
       

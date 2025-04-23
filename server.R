@@ -65,13 +65,15 @@ server <- function(input, output, session) {
     } else {
       time_period_query <- NULL
       time_frame_query <- c(
-        reasons_sqids$filters$time_frame$week,
-        reasons_sqids$filters$time_frame$yeartodate
+        reasons_sqids$filters$time_frame$yeartodate,
+        reasons_sqids$filters$time_frame$week
       )
     }
     message(paste(time_period_query, collapse = ", "))
     return(list(time_period_query = time_period_query, time_frame_query = time_frame_query))
   })
+
+
 
 
   # Retrieving data from the API
@@ -145,12 +147,7 @@ server <- function(input, output, session) {
       reasons_dataset_id,
       ees_environment = ees_api_env
     ) |>
-      filter(version == max(version)) |>
-      mutate(time_period_end = if_else(
-        time_period_end == "2025 Week 8",
-        "2025 Week 7",
-        time_period_end
-      ))
+      filter(version == max(version))
   })
 
   reasons_data <- reactive({
@@ -284,6 +281,8 @@ server <- function(input, output, session) {
       input$school_choice
     )
 
+  # Base time frame string to show the latest week dates or year to date range coverage.
+  # This is derived direcrtly from the data as downloaded bia the API.
   time_frame_string <- reactive({
     if (input$ts_choice == "latestweeks") {
       dates <- reasons_data() |>
@@ -309,7 +308,7 @@ server <- function(input, output, session) {
         pull(reference_date)
       dates_minmax <- c(
         dates |> min(),
-        dates |> max()
+        dates |> max() + 4
       )
       paste0(
         "year to date (",
