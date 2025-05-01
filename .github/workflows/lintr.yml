@@ -13,6 +13,11 @@ jobs:
   lintr:
     runs-on: ubuntu-latest
 
+    permissions:
+      packages: write
+      contents: read
+      security-events: write
+      
     container:
       image: ghcr.io/dfe-analytical-services/dfe-r-base:latest
       options: --user root
