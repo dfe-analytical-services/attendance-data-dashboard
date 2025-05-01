@@ -11,14 +11,14 @@ name: lintr
 
 permissions:
   contents: read
+  actions: read
+  issues: read
+  pull-requests: read
+  security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
 
 jobs:
   lintr:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read # for checkout to fetch code
-      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
 
     container:
       image: ghcr.io/dfe-analytical-services/dfe-r-base:latest
