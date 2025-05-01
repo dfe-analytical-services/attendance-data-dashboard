@@ -9,13 +9,6 @@ on:
 
 name: lintr
 
-permissions:
-  contents: read
-  actions: read
-  issues: read
-  pull-requests: read
-  security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-
 jobs:
   lintr:
     runs-on: ubuntu-latest
