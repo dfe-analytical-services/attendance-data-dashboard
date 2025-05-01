@@ -48,12 +48,39 @@ server <- function(input, output, session) {
     }
   )
 
+  latest_time_period <- reactive({
+    eesyapi::query_dataset(
+      schools_submitting_dataset_id,
+      geographies = geography_query(input$geography_choice, input$region_choice, input$la_choice),
+      filter_items = list(
+        time_frame = schools_submitting_sqids$filters$time_frame$friday,
+        school_phase = schools_submitting_sqids$filters$education_phase$allschools
+      ),
+      ees_environment = ees_api_env
+    ) |>
+      filter(time_period == max(time_period)) |>
+      mutate(week = str_replace_all(time_identifier, "Week ", "") |> as.numeric()) |>
+      filter(week == max(week)) |>
+      mutate(query = paste(
+        time_period,
+        time_identifier |>
+          stringr::str_replace("Week ", "W"),
+        sep = "|"
+      )) |>
+      pull(query)
+  }) |>
+    shiny::bindCache(
+      reasons_data_version_info()$version,
+      input$geography_choice,
+      input$region_choice,
+      input$la_choice
+    )
+
   time_query <- reactive({
     message("Time period choice: ", input$ts_choice)
     if (input$ts_choice == "latestweeks") {
-      time_period_query <- reasons_data_version_info()$time_period_end |>
-        stringr::str_replace("Week ", "W") |>
-        stringr::str_replace(" ", "|")
+      time_period_query <- latest_time_period()
+      message(time_period_query, latest_time_period())
       time_frame_query <- c(
         reasons_sqids$filters$time_frame$week,
         reasons_sqids$filters$time_frame$monday,
@@ -102,8 +129,6 @@ server <- function(input, output, session) {
     time_period_query <- reasons_data_version_info()$time_period_end |>
       stringr::str_replace("Week ", "W") |>
       stringr::str_replace(" ", "|")
-    print(input$geography_choice)
-    print(input$region_choice)
     if (input$geography_choice == "National") {
       query <- "National"
     } else if (input$geography_choice == "Regional") {
