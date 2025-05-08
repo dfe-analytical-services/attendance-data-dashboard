@@ -215,7 +215,7 @@
       "Repository": "https://cran.rstudio.com",
       "description": {
         "Package": "R.cache",
-        "Version": "0.16.0",
+        "Version": "0.17.0",
         "Depends": "R (>= 2.14.0)",
         "Imports": "utils, R.methodsS3 (>= 1.8.1), R.oo (>= 1.24.0), R.utils (>=\n2.10.1), digest (>= 0.6.13)",
         "Title": "Fast and Light-Weight Caching (Memoization) of Objects and\nResults to Speed Up Computations",
@@ -227,13 +227,19 @@
         "LazyLoad": "TRUE",
         "URL": "https://github.com/HenrikBengtsson/R.cache",
         "BugReports": "https://github.com/HenrikBengtsson/R.cache/issues",
-        "RoxygenNote": "7.2.1",
-        "NeedsCompilation": "no",
-        "Packaged": "2022-07-21 13:19:33 UTC; hb",
-        "Repository": "RSPM",
-        "Date/Publication": "2022-07-21 16:20:02 UTC",
         "Encoding": "UTF-8",
-        "Built": "R 4.4.0; ; 2024-04-25 19:48:03 UTC; windows"
+        "NeedsCompilation": "no",
+        "Packaged": "2025-05-02 21:22:23 UTC; henrik",
+        "Repository": "CRAN",
+        "Date/Publication": "2025-05-02 22:20:02 UTC",
+        "Built": "R 4.4.3; ; 2025-05-03 23:51:01 UTC; windows",
+        "RemoteType": "standard",
+        "RemoteRef": "R.cache",
+        "RemotePkgRef": "R.cache",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteReposName": "CRAN",
+        "RemotePkgPlatform": "x86_64-w64-mingw32",
+        "RemoteSha": "0.17.0"
       }
     },
     "R.methodsS3": {
@@ -267,7 +273,7 @@
       "Repository": "https://cran.rstudio.com",
       "description": {
         "Package": "R.oo",
-        "Version": "1.27.0",
+        "Version": "1.27.1",
         "Depends": "R (>= 2.13.0), R.methodsS3 (>= 1.8.2)",
         "Imports": "methods, utils",
         "Suggests": "tools",
@@ -278,14 +284,20 @@
         "Description": "Methods and classes for object-oriented programming in R with or without references.  Large effort has been made on making definition of methods as simple as possible with a minimum of maintenance for package developers.  The package has been developed since 2001 and is now considered very stable.  This is a cross-platform package implemented in pure R that defines standard S3 classes without any tricks.",
         "License": "LGPL (>= 2.1)",
         "LazyLoad": "TRUE",
-        "URL": "https://github.com/HenrikBengtsson/R.oo",
+        "URL": "https://henrikbengtsson.github.io/R.oo/,\nhttps://github.com/HenrikBengtsson/R.oo",
         "BugReports": "https://github.com/HenrikBengtsson/R.oo/issues",
         "NeedsCompilation": "no",
-        "Packaged": "2024-11-01 17:26:30 UTC; henrik",
-        "Repository": "RSPM",
-        "Date/Publication": "2024-11-01 18:00:02 UTC",
-        "Encoding": "UTF-8",
-        "Built": "R 4.4.0; ; 2024-11-02 04:31:04 UTC; windows"
+        "Packaged": "2025-05-02 20:29:15 UTC; henrik",
+        "Repository": "CRAN",
+        "Date/Publication": "2025-05-02 21:00:05 UTC",
+        "Built": "R 4.4.3; ; 2025-05-03 23:50:46 UTC; windows",
+        "RemoteType": "standard",
+        "RemoteRef": "R.oo",
+        "RemotePkgRef": "R.oo",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteReposName": "CRAN",
+        "RemotePkgPlatform": "x86_64-w64-mingw32",
+        "RemoteSha": "1.27.1"
       }
     },
     "R.utils": {
@@ -1323,18 +1335,18 @@
         "RoxygenNote": "7.3.2",
         "Author": "Rich Bielby [aut, cre] (<https://orcid.org/0000-0001-9070-9969>),\n  Charlotte Foster [aut],\n  Cam Race [aut]",
         "Maintainer": "Rich Bielby <richard.bielby@education.gov.uk>",
-        "Built": "R 4.4.2; ; 2025-05-02 09:01:24 UTC; windows",
+        "Built": "R 4.4.2; ; 2025-05-08 09:11:38 UTC; windows",
         "RemoteType": "github",
         "RemoteUsername": "dfe-analytical-services",
         "RemoteRepo": "dfeshiny",
         "RemoteRef": "main",
-        "RemoteSha": "8ae015011cb2ae097034c7917b3edecc6f9fd5d2",
+        "RemoteSha": "d034b5cbbbe774c85d029f50a1e35d420c524c67",
         "RemoteHost": "api.github.com",
         "GithubHost": "api.github.com",
         "GithubRepo": "dfeshiny",
         "GithubUsername": "dfe-analytical-services",
         "GithubRef": "main",
-        "GithubSHA1": "8ae015011cb2ae097034c7917b3edecc6f9fd5d2"
+        "GithubSHA1": "d034b5cbbbe774c85d029f50a1e35d420c524c67"
       }
     },
     "diffobj": {
@@ -5585,7 +5597,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "47a451409a2c84e9fcc63e066d20e081"
+      "checksum": "d641226e415aca352988de71c931dee4"
     },
     "azure-pipelines.yml": {
       "checksum": "161e6e3c4a8af841144c1f338c7049d8"
@@ -5657,7 +5669,7 @@
       "checksum": "12ec8a8981de38a0c0e149b9e67ae51c"
     },
     "global.R": {
-      "checksum": "19307e95efa753bf1a3b2f6093f05840"
+      "checksum": "42e975b731a2b44589b0332a76d48df4"
     },
     "google-analytics.html": {
       "checksum": "c6848bc54d17ba53262714266256e5c2"
@@ -5675,7 +5687,7 @@
       "checksum": "9be1336acc013a3a3955e470ff31fe0e"
     },
     "R/fetch_data.R": {
-      "checksum": "a747408972d8ecfcce954292a8d06afc"
+      "checksum": "98cac2a2a4e280827d6b20f9c1ae81e2"
     },
     "R/gov_colours.R": {
       "checksum": "0883f1ed86b35a5d9125dd93654d59bf"
@@ -5717,7 +5729,7 @@
       "checksum": "83120f3d4bfdc3bd81493340f50b06d6"
     },
     "renv.lock": {
-      "checksum": "a7f1ee7f94a05aff020ed0fcf476a2de"
+      "checksum": "5516fed389e157c760098f235440d97a"
     },
     "server.R": {
       "checksum": "3a1503f48a75f613f2b7bd531a1166a5"

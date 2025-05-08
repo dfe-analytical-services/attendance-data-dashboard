@@ -1,3 +1,4 @@
+# fetch sqid lookup creates a lookup list of IDs for each filter and indicator entry
 fetch_sqid_lookup <- function(
     dataset_id,
     version = NULL,
@@ -9,10 +10,7 @@ fetch_sqid_lookup <- function(
     verbose = verbose
   )
   sqid_lookup <- list(
-    filters = filter_item_sqid_list(
-      meta$filter_items |>
-        dplyr::left_join(meta$filter_columns, by = join_by(col_id))
-    ),
+    filters = filter_item_sqid_list(meta$filter_items),
     indicators = indicator_sqid_list(meta$indicators)
   )
   return(sqid_lookup)
@@ -30,7 +28,9 @@ indicator_sqid_list <- function(indicator_meta) {
 
 
 filter_item_sqid_sublist <- function(col_name_ref, filter_lookup) {
-  filter_list <- as.list(filter_lookup |> filter(col_name == col_name_ref) |> pull(item_id))
+  filter_list <- as.list(
+    filter_lookup |> filter(col_name == col_name_ref) |> pull(item_id)
+  )
   names(filter_list) <- filter_lookup |>
     filter(col_name == col_name_ref) |>
     pull(item_label) |>
@@ -50,7 +50,10 @@ filter_item_sqid_list <- function(filter_lookup) {
   return(filter_list)
 }
 
-geography_query <- function(input_geographic_level, input_region_name, input_la_name) {
+geography_query <- function(
+    input_geographic_level,
+    input_region_name,
+    input_la_name) {
   message(input_geographic_level, input_region_name, input_la_name)
   query <- "National"
   if (input_geographic_level == "Regional") {

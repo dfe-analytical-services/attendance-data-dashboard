@@ -101,9 +101,13 @@ if (ees_api_env == "prod") {
   stop("Invalid environment given in ees_api_env variable.")
 }
 
+message("Sourcing prerun utils")
 source("R/prerun_utils.R")
+message("Sourcing fetch data")
 source("R/fetch_data.R")
 
+
+message("Setting site global variables")
 site_title <- "Pupil attendance and absence in schools in England"
 site_primary <- "https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
 site_c <- ""
@@ -126,6 +130,7 @@ region_la_lookup <- dfeR::wd_pcon_lad_la_rgn_ctry |>
 # parameters for the API calls. This is a bit that could cause some issues if there's some breaking
 # changes to the data set. As long as there's no breaking changes, then the version number used
 # here should not be changed.
+message("Pulling in SQID lookups from API")
 reasons_sqids <- fetch_sqid_lookup(
   reasons_dataset_id,
   version = reasons_dataset_ref_version,
@@ -150,6 +155,7 @@ schools_submitting_sqids <- fetch_sqid_lookup(
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 
 #### SECTION 1 - date filters ####
+message("Setting dates")
 date_stamp <- lubridate::stamp_date("20 March 2025")
 start_date <- as.Date("2024-09-09")
 end_date <- as.Date("2025-01-24")
@@ -173,8 +179,18 @@ autumn_end <- as.Date("2024-12-21")
 # summer_start <- as.Date("2024-04-01")
 # summer_end <- as.Date("2024-07-19")
 
-most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4, " to ", as.Date(end_date))
-ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date))
+most_recent_week_dates <- paste0(
+  "Latest week - ",
+  as.Date(end_date) - 4,
+  " to ",
+  as.Date(end_date)
+)
+ytd_dates <- paste0(
+  "Year to date - ",
+  as.Date(start_date),
+  " to ",
+  as.Date(end_date)
+)
 
 #### SECTION 2 - reading in csvs to run dashboard ####
 attendance_data <- read.csv("data/attendance_data_dashboard.csv")
@@ -191,10 +207,12 @@ geog_lookup <- attendance_data %>%
   dplyr::select(geographic_level, region_name, la_name) %>%
   unique() %>%
   arrange(region_name, la_name) %>%
-  mutate(la_name = case_when(
-    geographic_level == "Regioinal" ~ "All",
-    geographic_level != "Regional" ~ la_name
-  ))
+  mutate(
+    la_name = case_when(
+      geographic_level == "Regioinal" ~ "All",
+      geographic_level != "Regional" ~ la_name
+    )
+  )
 
 school_type_lookup <- attendance_data %>%
   dplyr::select(geographic_level, school_type) %>%
@@ -229,7 +247,13 @@ most_recent_week_lookup <- attendance_data %>%
     week_start = min(attendance_date),
     week_end = max(attendance_date)
   ) %>%
-  dplyr::select(geographic_level, region_name, la_name, week_start, week_end) %>%
+  dplyr::select(
+    geographic_level,
+    region_name,
+    la_name,
+    week_start,
+    week_end
+  ) %>%
   distinct()
 
 year_lookup <- attendance_data %>%
@@ -238,7 +262,13 @@ year_lookup <- attendance_data %>%
     year_start = min(attendance_date),
     year_end = max(attendance_date)
   ) %>%
-  dplyr::select(geographic_level, region_name, la_name, year_start, year_end) %>%
+  dplyr::select(
+    geographic_level,
+    region_name,
+    la_name,
+    year_start,
+    year_end
+  ) %>%
   distinct()
 
 # Notes tables----------------------------------
@@ -267,7 +297,8 @@ las <- geog_lookup %>%
 # Expandable dropdown function----------------------------------
 expandable <- function(inputId, label, contents) {
   govDetails <- shiny::tags$details(
-    class = "govuk-details", id = inputId,
+    class = "govuk-details",
+    id = inputId,
     shiny::tags$summary(
       class = "govuk-details__summary",
       shiny::tags$span(
