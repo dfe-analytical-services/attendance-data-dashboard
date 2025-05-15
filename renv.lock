@@ -318,14 +318,14 @@
     },
     "chromote": {
       "Package": "chromote",
-      "Version": "0.4.0.9000",
+      "Version": "0.5.1.9000",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "rstudio",
       "RemoteRepo": "chromote",
       "RemoteRef": "main",
-      "RemoteSha": "bdc390f55189057ade6ae8d50b1e5e5a9300059a",
+      "RemoteSha": "13a789a2c2f9bae17687cb11b724e6c26ff46ada",
       "Requirements": [
         "R6",
         "cli",
@@ -342,7 +342,7 @@
         "withr",
         "zip"
       ],
-      "Hash": "e2bf9a6a1cd00e4872d1d345a9cecd2f"
+      "Hash": "a1b7c99b64a1ae2137ae0f50236d6895"
     },
     "class": {
       "Package": "class",
@@ -452,13 +452,13 @@
     },
     "curl": {
       "Package": "curl",
-      "Version": "6.0.1",
+      "Version": "6.2.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "e8ba62486230951fcd2b881c5be23f96"
+      "Hash": "e4f9e10b18f453a1b7eaf38247dad4fe"
     },
     "data.table": {
       "Package": "data.table",
@@ -1736,7 +1736,7 @@
     },
     "testthat": {
       "Package": "testthat",
-      "Version": "3.2.2",
+      "Version": "3.2.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1761,7 +1761,7 @@
         "waldo",
         "withr"
       ],
-      "Hash": "6773967afbe2f74c87021e72c1bb05c0"
+      "Hash": "42f889439ccb14c55fc3d75c9c755056"
     },
     "tibble": {
       "Package": "tibble",
