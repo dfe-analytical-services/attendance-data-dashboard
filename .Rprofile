@@ -15,10 +15,9 @@ renv::status()
 
 # Run UI tests ------------------------------------------------------------
 
+chromote::local_chrome_version(binary = "chrome-headless-shell", quiet = FALSE)
 run_tests_locally <- function() {
-  library(shinytest2)
-  Sys.unsetenv("HTTP_PROXY")
-  test_app()
+  shinytest2::test_app()
 }
 
 
