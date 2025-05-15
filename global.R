@@ -62,7 +62,6 @@ cs_num <- function(value) {
 
 # source("R/filename.r")
 
-
 # appLoadingCSS ----------------------------------------------------------------------------
 # Set up loading screen
 
@@ -82,11 +81,11 @@ appLoadingCSS <- "
 
 source("R/prerun_utils.R")
 
-site_primary <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
-site_overflow <- " https://department-for-education.shinyapps.io/pupil-attendance-in-schools-overflow"
+site_primary <- "https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
+site_overflow <- "https://department-for-education.shinyapps.io/pupil-attendance-in-schools-overflow"
 site_c <- ""
 google_analytics_key <- "DG7P4WLB0Y"
-
+site_title <- "Pupil attendance in schools dashboard"
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
@@ -114,8 +113,18 @@ spring_end <- as.Date("2025-04-11")
 # summer_start <- as.Date("2024-04-01")
 # summer_end <- as.Date("2024-07-19")
 
-most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4, " to ", as.Date(end_date))
-ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date))
+most_recent_week_dates <- paste0(
+  "Latest week - ",
+  as.Date(end_date) - 4,
+  " to ",
+  as.Date(end_date)
+)
+ytd_dates <- paste0(
+  "Year to date - ",
+  as.Date(start_date),
+  " to ",
+  as.Date(end_date)
+)
 
 #### SECTION 2 - reading in csvs to run dashboard ####
 attendance_data <- read.csv("data/attendance_data_dashboard.csv")
@@ -137,10 +146,12 @@ geog_lookup <- attendance_data %>%
   dplyr::select(geographic_level, region_name, la_name) %>%
   unique() %>%
   arrange(region_name, la_name) %>%
-  mutate(la_name = case_when(
-    geographic_level == "Regioinal" ~ "All",
-    geographic_level != "Regional" ~ la_name
-  ))
+  mutate(
+    la_name = case_when(
+      geographic_level == "Regioinal" ~ "All",
+      geographic_level != "Regional" ~ la_name
+    )
+  )
 
 school_type_lookup <- attendance_data %>%
   dplyr::select(geographic_level, school_type) %>%
@@ -175,7 +186,13 @@ most_recent_week_lookup <- attendance_data %>%
     week_start = min(attendance_date),
     week_end = max(attendance_date)
   ) %>%
-  dplyr::select(geographic_level, region_name, la_name, week_start, week_end) %>%
+  dplyr::select(
+    geographic_level,
+    region_name,
+    la_name,
+    week_start,
+    week_end
+  ) %>%
   distinct()
 
 year_lookup <- attendance_data %>%
@@ -184,7 +201,13 @@ year_lookup <- attendance_data %>%
     year_start = min(attendance_date),
     year_end = max(attendance_date)
   ) %>%
-  dplyr::select(geographic_level, region_name, la_name, year_start, year_end) %>%
+  dplyr::select(
+    geographic_level,
+    region_name,
+    la_name,
+    year_start,
+    year_end
+  ) %>%
   distinct()
 
 # Notes tables----------------------------------
@@ -213,7 +236,8 @@ las <- geog_lookup %>%
 # Expandable dropdown function----------------------------------
 expandable <- function(inputId, label, contents) {
   govDetails <- shiny::tags$details(
-    class = "govuk-details", id = inputId,
+    class = "govuk-details",
+    id = inputId,
     shiny::tags$summary(
       class = "govuk-details__summary",
       shiny::tags$span(
@@ -246,12 +270,15 @@ roundFiveUp <- function(value, dp) {
 ## Reading in data ##########################################################
 
 # Read in shapefile and transform coordinates (because map reasons...)
-mapshape <- st_read("data/CTYUA_MAY_2023_UK_BUC.shp") %>% st_transform(crs = 4326) # %>% mutate(CTYUA23CD = case_when(CTYUA23NM == "Somerset" ~ "E10000027", CTYUA23NM != "Somerset" ~ CTYUA23CD)) TEMP addition working around Somerset LA code change
+mapshape <- st_read("data/CTYUA_MAY_2023_UK_BUC.shp") %>%
+  st_transform(crs = 4326) # %>% mutate(CTYUA23CD = case_when(CTYUA23NM == "Somerset" ~ "E10000027", CTYUA23NM != "Somerset" ~ CTYUA23CD)) TEMP addition working around Somerset LA code change
 
 # Process the joined files to refine our 'mapdata', not pretty yet and mostly done just cos it's how its done in global...
 
 mapdata0 <- attendance_data %>%
-  mutate(time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))) %>%
+  mutate(
+    time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))
+  ) %>%
   filter(time_period == max(time_period)) %>%
   filter(time_identifier == max(time_identifier)) %>%
   # filter(time_identifier == max(time_identifier) - 1) %>%
@@ -264,23 +291,60 @@ mapdata <- mapdata0 %>%
   filter(!is.na(region_name), !is.na(la_name))
 
 mapdata <- mapdata %>%
-  group_by(time_period, time_identifier, geographic_level, region_name, la_name, CTYUA23CD, school_type) %>%
+  group_by(
+    time_period,
+    time_identifier,
+    geographic_level,
+    region_name,
+    la_name,
+    CTYUA23CD,
+    school_type
+  ) %>%
   mutate(
     overall_label_LA = paste(la_name),
-    overall_label_rate = paste(as.character(roundFiveUp(overall_absence_perc, 1)), "%", sep = ""),
-    overall_label = paste0(overall_label_LA, " overall absence rate: ", overall_label_rate),
+    overall_label_rate = paste(
+      as.character(roundFiveUp(overall_absence_perc, 1)),
+      "%",
+      sep = ""
+    ),
+    overall_label = paste0(
+      overall_label_LA,
+      " overall absence rate: ",
+      overall_label_rate
+    ),
     auth_label_LA = paste(la_name),
-    auth_label_rate = paste(as.character(roundFiveUp(authorised_absence_perc, 1)), "%", sep = ""),
-    auth_label = paste0(auth_label_LA, " authorised absence rate: ", auth_label_rate),
+    auth_label_rate = paste(
+      as.character(roundFiveUp(authorised_absence_perc, 1)),
+      "%",
+      sep = ""
+    ),
+    auth_label = paste0(
+      auth_label_LA,
+      " authorised absence rate: ",
+      auth_label_rate
+    ),
     unauth_label_LA = paste(la_name),
-    unauth_label_rate = paste(as.character(roundFiveUp(unauthorised_absence_perc, 1)), "%", sep = ""),
-    unauth_label = paste0(unauth_label_LA, " unauthorised absence rate: ", unauth_label_rate)
+    unauth_label_rate = paste(
+      as.character(roundFiveUp(unauthorised_absence_perc, 1)),
+      "%",
+      sep = ""
+    ),
+    unauth_label = paste0(
+      unauth_label_LA,
+      " unauthorised absence rate: ",
+      unauth_label_rate
+    )
   )
 
 ## Combine shapefile and data into mapdata ###############################################
 
 # Merge the transformed shapefile with the processed source data ---------------
-mapdata_shaped <- merge(mapshape, mapdata, by = "CTYUA23CD", duplicateGeoms = TRUE)
+mapdata_shaped <- merge(
+  mapshape,
+  mapdata,
+  by = "CTYUA23CD",
+  duplicateGeoms = TRUE
+)
 
 # Create colour bins and palette labels --------------------------------------
 
@@ -288,8 +352,20 @@ mapdata_shaped <- merge(mapshape, mapdata, by = "CTYUA23CD", duplicateGeoms = TR
 source("R/gov_colours.R")
 
 # Create bins
-overall_abs_pal <- colorQuantile(map_gov_colours, mapdata_shaped$overall_abs_perc, n = 5)
+overall_abs_pal <- colorQuantile(
+  map_gov_colours,
+  mapdata_shaped$overall_abs_perc,
+  n = 5
+)
 
-auth_abs_pal <- colorQuantile(map_gov_colours, mapdata_shaped$auth_abs_perc, n = 5)
+auth_abs_pal <- colorQuantile(
+  map_gov_colours,
+  mapdata_shaped$auth_abs_perc,
+  n = 5
+)
 
-unauth_abs_pal <- colorQuantile(map_gov_colours, mapdata_shaped$unauth_abs_perc, n = 5)
+unauth_abs_pal <- colorQuantile(
+  map_gov_colours,
+  mapdata_shaped$unauth_abs_perc,
+  n = 5
+)

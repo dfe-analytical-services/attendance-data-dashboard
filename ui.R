@@ -94,7 +94,7 @@ ui <- function(input, output, session) {
           )
         )
       ),
-      accessibility_panel()
+      a11y_panel()
     ),
     gov_layout(
       size = "full",
