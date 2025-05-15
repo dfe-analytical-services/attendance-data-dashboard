@@ -1134,7 +1134,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
-      "• ", live_attendance_data_weekly() %>% pull(attendance_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_weekly() %>% pull(attendance_perc) %>% round(digits = 1),
       "% of sessions were recorded as attending"
     )
   })
@@ -1149,7 +1149,7 @@ server <- function(input, output, session) {
       mutate(weekly_overall_attendance_perc = (sum(present_sessions) / sum(possible_sessions)) * 100)
 
     paste0(
-      "• ", live_attendance_data_weekly() %>%
+      "- ", live_attendance_data_weekly() %>%
         pull(attendance_perc) %>%
         round(digits = 1),
       "% of sessions were recorded as attending in ", input$region_choice, " (compared to ", live_attendance_data_weekly_natcomp() %>%
@@ -1165,7 +1165,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
-      "• ", live_attendance_data_weekly() %>%
+      "- ", live_attendance_data_weekly() %>%
         pull(attendance_perc) %>%
         round(digits = 1),
       "% of sessions were recorded as attending in ", input$la_choice, " (compared to ", live_attendance_data_weekly_regcomp() %>%
@@ -1183,7 +1183,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>% pull(attendance_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_ytd() %>% pull(attendance_perc) %>% round(digits = 1),
       "% of sessions were recorded as attending"
     )
   })
@@ -1194,7 +1194,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>%
+      "- ", live_attendance_data_ytd() %>%
         pull(attendance_perc) %>%
         round(digits = 1),
       "% of sessions were recorded as attending in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
@@ -1210,7 +1210,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>%
+      "- ", live_attendance_data_ytd() %>%
         pull(attendance_perc) %>%
         round(digits = 1),
       "% of sessions were recorded as attending in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
@@ -1229,7 +1229,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_weekly() %>% pull(overall_absence_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_weekly() %>% pull(overall_absence_perc) %>% round(digits = 1),
       "% of sessions were recorded as absence"
     )
   })
@@ -1248,7 +1248,7 @@ server <- function(input, output, session) {
       mutate(weekly_overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) * 100)
 
     paste0(
-      "• ", live_attendance_data_weekly() %>%
+      "- ", live_attendance_data_weekly() %>%
         pull(overall_absence_perc) %>%
         round(digits = 1),
       "% of sessions were recorded as absence in ", input$region_choice, " (compared to ", live_attendance_data_weekly_natcomp() %>%
@@ -1264,7 +1264,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_weekly() %>%
+      "- ", live_attendance_data_weekly() %>%
         pull(overall_absence_perc) %>%
         round(digits = 1),
       "% of sessions were recorded as absence in ", input$la_choice, " (compared to ", live_attendance_data_weekly_regcomp() %>%
@@ -1282,7 +1282,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>% pull(overall_absence_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_ytd() %>% pull(overall_absence_perc) %>% round(digits = 1),
       "% of sessions were recorded as absence"
     )
   })
@@ -1293,7 +1293,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>%
+      "- ", live_attendance_data_ytd() %>%
         pull(overall_absence_perc) %>%
         round(digits = 1),
       "% of sessions were recorded as absence in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
@@ -1309,7 +1309,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>%
+      "- ", live_attendance_data_ytd() %>%
         pull(overall_absence_perc) %>%
         round(digits = 1),
       "% of sessions were recorded as absence in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
@@ -1327,7 +1327,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_weekly() %>% pull(illness_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_weekly() %>% pull(illness_perc) %>% round(digits = 1),
       "% of sessions were recorded as illness"
     )
   })
@@ -1338,7 +1338,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_weekly() %>%
+      "- ", live_attendance_data_weekly() %>%
         pull(illness_perc) %>%
         round(digits = 1),
       "% of sessions were recorded as illness in ", input$region_choice, " (compared to ", live_attendance_data_weekly_natcomp() %>%
@@ -1354,7 +1354,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_weekly() %>%
+      "- ", live_attendance_data_weekly() %>%
         pull(illness_perc) %>%
         round(digits = 1),
       "% of sessions were recorded as illness in ", input$la_choice, " (compared to ", live_attendance_data_weekly_regcomp() %>%
@@ -1372,7 +1372,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>% pull(illness_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_ytd() %>% pull(illness_perc) %>% round(digits = 1),
       "% of sessions were recorded as illness"
     )
   })
@@ -1383,7 +1383,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>%
+      "- ", live_attendance_data_ytd() %>%
         pull(illness_perc) %>%
         round(digits = 1),
       "% of sessions were recorded as illness in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
@@ -1399,7 +1399,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>%
+      "- ", live_attendance_data_ytd() %>%
         pull(illness_perc) %>%
         round(digits = 1),
       "% of sessions were recorded as illness in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
@@ -1417,7 +1417,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>% pull(pa_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_ytd() %>% pull(pa_perc) %>% round(digits = 1),
       "% of pupils were recorded as persistently absent"
     )
   })
@@ -1428,7 +1428,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>%
+      "- ", live_attendance_data_ytd() %>%
         pull(pa_perc) %>%
         round(digits = 1),
       "% of pupils were recorded as persistently absent in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
@@ -1444,7 +1444,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "• ", live_attendance_data_ytd() %>%
+      "- ", live_attendance_data_ytd() %>%
         pull(pa_perc) %>%
         round(digits = 1),
       "% of pupils were recorded as persistently absent in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
