@@ -114,11 +114,11 @@
               "2025-04-04"
             ],
             "y": [
-              17.851437925727399,
-              11.1323115830877,
-              8.9051345822686194,
-              9.2904809052709307,
-              11.742551544743
+              17.790624435732099,
+              11.084512282249801,
+              8.8619738105004107,
+              9.2347035937837205,
+              11.6016395639233
             ],
             "line": {
               "color": "#12436D"
@@ -158,11 +158,11 @@
               "2025-04-04"
             ],
             "y": [
-              13.3673826607771,
-              6.2096781823683598,
-              5.1071595882424896,
-              5.2401506926766599,
-              6.2678119151857796
+              13.3855357160179,
+              6.2188087485307699,
+              5.1169019796780599,
+              5.2553525550233804,
+              6.2755870043676101
             ],
             "line": {
               "color": "#28A197"
@@ -202,11 +202,11 @@
               "2025-04-04"
             ],
             "y": [
-              4.4840552649502996,
-              4.9226334007192998,
-              3.7979749940261298,
-              4.05033021259427,
-              5.4747396295572104
+              4.4050887197141897,
+              4.86570353371898,
+              3.7450718308223401,
+              3.9793510387603401,
+              5.32605255955571
             ],
             "line": {
               "color": "#F46A25"
@@ -350,8 +350,8 @@
       ]
     },
     "headline_bullet_title_nat": "Headline figures for the latest week - 2025-03-31 to 2025-04-04: secondary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "• 11.7% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "• 88.3% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "• 3.8% of sessions were recorded as illness"
+    "weekly_absence_rate_nat": "- 11.7% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "- 88.3% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "- 3.8% of sessions were recorded as illness"
   }
 }
