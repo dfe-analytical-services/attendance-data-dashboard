@@ -11,15 +11,16 @@
 cat("Sourcing .Rprofile.", fill = TRUE)
 
 source("renv/activate.R")
-renv::status()
 
 # Run UI tests ------------------------------------------------------------
 
-chromote::local_chrome_version(binary = "chrome-headless-shell", quiet = FALSE)
 run_tests_locally <- function() {
+  chromote::local_chrome_version(binary = "chrome-headless-shell", quiet = FALSE)
   shinytest2::test_app()
 }
 
 
 # Install commit-hooks locally
-statusWriteCommit <- file.copy(".hooks/pre-commit.R", ".git/hooks/pre-commit", overwrite = TRUE)
+if (dir.exists(".hooks")) {
+  statusWriteCommit <- file.copy(".hooks/pre-commit.R", ".git/hooks/pre-commit", overwrite = TRUE)
+}
