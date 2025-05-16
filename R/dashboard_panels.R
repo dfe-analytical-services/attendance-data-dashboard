@@ -499,7 +499,9 @@ dashboard_panel <- function() {
                     condition = paste0("input.ts_choice == 'latestweeks'"),
                     br(),
                     p(strong(paste0(
-                      "To view persistent absence figures, select “year to date” in the drop-down menu. Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods. Underlying data relating to the Summer, Spring and Autumn terms and year to date is available at the link below:"
+                      "To view persistent absence figures, select “year to date” in the drop-down menu. ",
+                      "Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods.",
+                      "Underlying data relating to the Summer, Spring and Autumn terms and year to date is available at the link below:"
                     ))),
                     a(
                       href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools",
@@ -711,7 +713,9 @@ notes_panel <- function() {
           width = 12,
           h2("Technical notes"),
           br(
-            "The dashboard provides data on attendance and absence at National, Regional and Local Authority geographic levels. Data is available across state-funded primary, secondary and special schools and can also be broken down by individual school type. Drop-down menus at the top of the page allow customisation of breakdowns."
+            "The dashboard provides data on attendance and absence at National, Regional and Local Authority geographic levels.",
+            "Data is available across state-funded primary, secondary and special schools and can also be broken down by individual school type.",
+            "Drop-down menus at the top of the page allow customisation of breakdowns."
           ),
           br(),
           p("Users should be aware"),
