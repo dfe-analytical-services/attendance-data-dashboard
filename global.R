@@ -86,6 +86,7 @@ site_overflow <- "https://department-for-education.shinyapps.io/pupil-attendance
 site_c <- ""
 google_analytics_key <- "DG7P4WLB0Y"
 site_title <- "Pupil attendance in schools dashboard"
+team_email <- "school.statistics@education.gov.uk"
 # Data manipulation ----------------------------------------------------------------------------
 # Read in data
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")

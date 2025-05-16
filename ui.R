@@ -94,7 +94,16 @@ ui <- function(input, output, session) {
           )
         )
       ),
-      a11y_panel()
+      a11y_panel(
+        dashboard_title = site_title,
+        dashboard_url = site_primary,
+        date_tested = "26/11/2023",
+        date_prepared = "27/11/2023",
+        date_reviewed = "27/11/2023",
+        issues_contact = team_email,
+        publication_name = "Pupil attendance in schools in England",
+        publication_slug = "pupil-attendance-in-schools"
+      )
     ),
     gov_layout(
       size = "full",
