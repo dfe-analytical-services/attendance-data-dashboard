@@ -4,20 +4,24 @@ run_data_update <- function() {
   # source global.R before running this script.
 
   #### SECTION 1 - Databricks connections and processing functions ####
-  conn <- odbcConnect("Attendance Analyst Warehouse")
-  sqlQuery(conn, "USE CATALOG catalog_40_copper")
+  conn <- DBI::dbConnect(odbc::databricks(),
+    httpPath = Sys.getenv("DATABRICKS_CLUSTER_PATH"),
+    useNativeQuery = FALSE
+  ) # required for dbWriteTable to work
+
+  DBI::dbExecute(conn, "USE CATALOG catalog_40_copper")
 
   # school_freq_count <- fread("data/enrolments_schools_denominator_010224.csv")
-  school_freq_count <- sqlQuery(conn, "SELECT * FROM school_attendance_national_stats.enrolments_schools_denominator")
+  school_freq_count <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.enrolments_schools_denominator")
   school_freq_count$total_enrolments <- as.numeric(school_freq_count$total_enrolments)
 
-  pa_fullyear_file <- sqlQuery(conn, "SELECT * FROM school_attendance_national_stats.ytd_2425_pa_clean_delta")
+  pa_fullyear_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.ytd_2425_pa_clean_delta")
 
-  pa_autumn_file <- sqlQuery(conn, "SELECT * FROM school_attendance_national_stats.aut_2425_pa_clean_delta")
-  pa_spring_file <- sqlQuery(conn, "SELECT * FROM school_attendance_national_stats.spr_2324_pa_clean_delta")
-  # pa_summer_file <- sqlQuery(conn, "SELECT * FROM school_attendance_national_stats.sum_2324_pa_clean_delta")
+  pa_autumn_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.aut_2425_pa_clean_delta")
+  pa_spring_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.spr_2425_pa_clean_delta")
+  # pa_summer_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.sum_2324_pa_clean_delta")
 
-  attendance_data_raw <- sqlQuery(conn, "SELECT * FROM school_attendance_national_stats.ytd_2425_oa_clean_delta")
+  attendance_data_raw <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.ytd_2425_oa_clean_delta")
 
 
   attendance_data <- process_attendance_data(
