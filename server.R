@@ -173,6 +173,48 @@ server <- function(input, output, session) {
       input$school_choice
     )
 
+  latest_week_data <- reactive({
+    time_period_query <- time_query()$time_period_query
+    if (input$geography_choice == "National") {
+      query <- "National"
+    } else if (input$geography_choice == "Regional") {
+      reg_code <- dfeR::fetch_regions() |>
+        dplyr::filter(region_name == input$region_choice) |>
+        dplyr::pull(region_code)
+      query <- paste0("REG|code|", reg_code)
+    } else if (input$geography_choice == "Local authority") {
+      la_code <- dfeR::fetch_las() |>
+        dplyr::filter(la_name == input$la_choice) |>
+        dplyr::pull(new_la_code)
+      query <- paste0("LA|code|", la_code)
+    }
+    message("This is the query: ", query)
+    result <- eesyapi::query_dataset(
+      schools_submitting_dataset_id,
+      time_periods = time_period_query,
+      geographies = query,
+      filter_items = list(
+        time_frame = schools_submitting_sqids$filters$time_frame$monday,
+        school_phase = schools_submitting_sqids$filters$education_phase |>
+          magrittr::extract2(
+            tolower(input$school_choice) |>
+              str_replace("total", "allschools")
+          )
+      ),
+      ees_environment = ees_api_env
+    )
+    print(result)
+    return(result)
+  }) |>
+    shiny::bindCache(
+      reasons_data_version_info()$version,
+      input$ts_choice,
+      input$geography_choice,
+      input$region_choice,
+      input$la_choice,
+      input$school_choice
+    )
+
   reasons_data_version_info <- eventReactive(input$geography_choice, {
     eesyapi::get_dataset_versions(
       reasons_dataset_id,
@@ -530,6 +572,14 @@ server <- function(input, output, session) {
   })
 
   output$dropdown_label <- renderText({
+    validate(need(input$geography_choice != "", ""))
+    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
+
+    most_recent_fullweek_date <- latest_week_data()$reference_date
+
+    most_recent_week_dates <- paste0(as.Date(most_recent_fullweek_date) - 4, " - ", as.Date(most_recent_fullweek_date))
+
     if (input$dash == "la comparisons") {
       paste0(
         "Current selections: ",
@@ -854,24 +904,25 @@ server <- function(input, output, session) {
   # headline bullet reactive titles
   output$headline_title <- renderUI({
     tagList(
-      shiny::tags$h2(
-        "Headline figures for the ",
-        str_to_lower(reactive_period_selected())
-      ),
+      # shiny::tags$h2(
+      #   "Headline figures",
+      #   # time_frame_string() # Commented out because of repetition of dates
+      #   # str_to_lower(reactive_period_selected())
+      # ),
       shiny::tags$h3(
         input$school_choice,
         " state-funded school attendance at ",
         str_to_lower(input$geography_choice),
-        " level",
+        " level:",
         paste0(
           if (input$geography_choice == "Local authority") {
-            paste0(" (", input$la_choice)
+            paste0("", input$la_choice)
           },
           if (input$geography_choice != "National") {
-            paste0(",", input$region_choice)
+            paste0(", ", input$region_choice)
           },
           if (input$geography_choice != "National") {
-            ")"
+            " "
           }
         )
       )
@@ -882,20 +933,32 @@ server <- function(input, output, session) {
   output$reasons_chart_title <- renderText({
     paste0(
       input$school_choice,
-      " state-funded schools: absence at ",
+      " state-funded school absence at ",
       str_to_lower(input$geography_choice),
-      " level",
-      if (input$geography_choice %in% c("Regional", "Local authority")) {
-        " ("
-      },
-      if (input$geography_choice %in% c("Local authority")) {
-        paste(input$la_choice, ", ")
-      },
-      if (input$geography_choice %in% c("Regional", "Local authority")) {
-        paste0(input$region_choice, ")")
-      }
+      " level:",
+      paste0(
+        if (input$geography_choice == "Local authority") {
+          paste0(" ", input$la_choice, ",")
+        },
+        if (input$geography_choice != "National") {
+          paste0(" ", input$region_choice)
+        },
+        if (input$geography_choice != "National") {
+          " "
+        }
+      )
     )
   })
+  # if (input$geography_choice %in% c("Regional", "Local authority")) {
+  #   " ("
+  # },
+  # if (input$geography_choice %in% c("Local authority")) {
+  #   paste(input$la_choice, ", ")
+  # },
+  # if (input$geography_choice %in% c("Regional", "Local authority")) {
+  #   paste0(input$region_choice, ")")
+  # }
+
 
   # la comparison table reactive title
   output$la_comparison_title <- renderText({
@@ -1141,8 +1204,10 @@ server <- function(input, output, session) {
     validate(need(input$geography_choice != "", ""))
     validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
-    most_recent_fullweek_date <- live_attendance_data_weekly() %>%
-      pull(week_commencing)
+    # most_recent_fullweek_date <- live_attendance_data_weekly() %>%
+    #   pull(week_commencing)
+
+    most_recent_fullweek_date <- latest_week_data()$reference_date
 
     paste0(
       "Data on this tab relates to the week commencing ",
@@ -1157,21 +1222,28 @@ server <- function(input, output, session) {
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
-    most_recent_fullweek_date <- live_attendance_data_weekly() %>%
-      pull(week_commencing)
+    # most_recent_fullweek_date <- live_attendance_data_weekly() %>%
+    #   pull(week_commencing)
 
-    last_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>%
-      as.Date(attendance_date) +
-      17
-    # as.Date(attendance_date) + 24
-    # as.Date(attendance_date) + 31
+    # last_update_date <- live_attendance_data_weekly() %>%
+    #   pull(attendance_date) %>%
+    #   as.Date(attendance_date) +
+    #   17
+    # # as.Date(attendance_date) + 24
+    # # as.Date(attendance_date) + 31
 
-    next_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>%
-      as.Date(attendance_date) +
-      31
-    # as.Date(attendance_date) + 38
+    last_update_date <- reasons_data_version_info()$release_date
+
+    # next_update_date <- live_attendance_data_weekly() %>%
+    #   pull(attendance_date) %>%
+    #   as.Date(attendance_date) +
+    #   31
+    # # as.Date(attendance_date) + 38
+
+    next_update_date <- as.Date(last_update_date) + 14
+
+    # API data date
+    most_recent_fullweek_date <- latest_week_data()$reference_date
 
     # paste0("Data was last updated on 2025-01-09 and is next expected to be updated on 2025-01-23. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     paste0(
@@ -1193,21 +1265,28 @@ server <- function(input, output, session) {
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
-    most_recent_fullweek_date <- live_attendance_data_weekly() %>%
-      pull(week_commencing)
+    # most_recent_fullweek_date <- live_attendance_data_weekly() %>%
+    #   pull(week_commencing)
 
-    last_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>%
-      as.Date(attendance_date) +
-      17
-    # as.Date(attendance_date) + 24
-    # as.Date(attendance_date) + 31
+    # last_update_date <- live_attendance_data_weekly() %>%
+    #   pull(attendance_date) %>%
+    #   as.Date(attendance_date) +
+    #   17
+    # # as.Date(attendance_date) + 24
+    # # as.Date(attendance_date) + 31
 
-    next_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>%
-      as.Date(attendance_date) +
-      31
-    # as.Date(attendance_date) + 38
+    last_update_date <- reasons_data_version_info()$release_date
+
+    # next_update_date <- live_attendance_data_weekly() %>%
+    #   pull(attendance_date) %>%
+    #   as.Date(attendance_date) +
+    #   31
+    # # as.Date(attendance_date) + 38
+
+    next_update_date <- as.Date(last_update_date) + 14
+
+    # API data date
+    most_recent_fullweek_date <- latest_week_data()$reference_date
 
     # paste0("Data was last updated on 2025-01-09 and is next expected to be updated on 2025-01-23. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     paste0(
@@ -1231,18 +1310,25 @@ server <- function(input, output, session) {
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(week_commencing)
 
-    last_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>%
-      as.Date(attendance_date) +
-      17
-    # as.Date(attendance_date) + 24
-    # as.Date(attendance_date) + 31
+    # last_update_date <- live_attendance_data_weekly() %>%
+    #   pull(attendance_date) %>%
+    #   as.Date(attendance_date) +
+    #   17
+    # # as.Date(attendance_date) + 24
+    # # as.Date(attendance_date) + 31
 
-    next_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>%
-      as.Date(attendance_date) +
-      31
-    # as.Date(attendance_date) + 38
+    last_update_date <- reasons_data_version_info()$release_date
+
+    # next_update_date <- live_attendance_data_weekly() %>%
+    #   pull(attendance_date) %>%
+    #   as.Date(attendance_date) +
+    #   31
+    # # as.Date(attendance_date) + 38
+
+    next_update_date <- as.Date(last_update_date) + 14
+
+    # API data date
+    most_recent_fullweek_date <- latest_week_data()$reference_date
 
     # paste0("Data was last updated on 2025-01-09 and is next expected to be updated on 2025-01-23. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     paste0(

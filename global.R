@@ -158,7 +158,7 @@ schools_submitting_sqids <- fetch_sqid_lookup(
 message("Setting dates")
 date_stamp <- lubridate::stamp_date("20 March 2025")
 start_date <- as.Date("2024-09-09")
-end_date <- as.Date("2025-01-24")
+end_date <- as.Date("2025-05-16")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -179,18 +179,18 @@ autumn_end <- as.Date("2024-12-21")
 # summer_start <- as.Date("2024-04-01")
 # summer_end <- as.Date("2024-07-19")
 
-most_recent_week_dates <- paste0(
-  "Latest week - ",
-  as.Date(end_date) - 4,
-  " to ",
-  as.Date(end_date)
-)
-ytd_dates <- paste0(
-  "Year to date - ",
-  as.Date(start_date),
-  " to ",
-  as.Date(end_date)
-)
+# most_recent_week_dates <- paste0(
+#   "Latest week - ",
+#   end_date - 4,
+#   " to ",
+#   end_date
+# )
+# ytd_dates <- paste0(
+#   "Year to date - ",
+#   as.Date(start_date),
+#   " to ",
+#   as.Date(end_date)
+# )
 
 #### SECTION 2 - reading in csvs to run dashboard ####
 attendance_data <- read.csv("data/attendance_data_dashboard.csv")
