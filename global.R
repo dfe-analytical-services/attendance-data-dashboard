@@ -93,7 +93,7 @@ team_email <- "school.statistics@education.gov.uk"
 
 #### SECTION 1 - date filters ####
 start_date <- as.Date("2024-09-09")
-end_date <- as.Date("2025-05-30")
+end_date <- as.Date("2025-06-13")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -116,9 +116,9 @@ spring_end <- as.Date("2025-04-11")
 
 most_recent_week_dates <- paste0(
   "Latest week - ",
-  as.Date(end_date) - 11,
+  as.Date(end_date) - 4,
   " to ",
-  as.Date(end_date) - 7
+  as.Date(end_date)
 )
 ytd_dates <- paste0(
   "Year to date - ",
@@ -128,7 +128,7 @@ ytd_dates <- paste0(
 )
 
 #### SECTION 2 - reading in csvs to run dashboard ####
-attendance_data <- read.csv("data/attendance_data_dashboard.csv")
+attendance_data <- readr::read_csv("data/attendance_data_dashboard.zip")
 # attendance_data$attendance_date <- as.Date(attendance_data$attendance_date)
 # attendance_data$week_commencing <- as.Date(attendance_data$week_commencing)
 attendance_data$attendance_date <- as.Date(attendance_data$attendance_date) # , format = "%d/%m/%Y")
