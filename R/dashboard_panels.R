@@ -252,7 +252,7 @@ dashboard_panel <- function() {
                     inputId = "geography_choice",
                     label = "Choose geographic level:",
                     choices = c("National", "Regional", "Local authority"),
-                    selected = head(geog_levels, 1),
+                    selected = "National",
                     selectize = TRUE,
                     width = "100%"
                   )
