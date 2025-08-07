@@ -93,7 +93,7 @@ team_email <- "school.statistics@education.gov.uk"
 
 #### SECTION 1 - date filters ####
 start_date <- as.Date("2024-09-09")
-end_date <- as.Date("2025-07-11")
+end_date <- as.Date("2025-07-25")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -107,19 +107,19 @@ end_date <- as.Date("2025-07-11")
 # regional_strike_2 <- as.Date("2023-03-01")
 # regional_strike_3 <- as.Date("2023-03-02")
 
+
 autumn_start <- as.Date("2024-09-09")
 autumn_end <- as.Date("2024-12-21")
 spring_start <- as.Date("2025-01-06")
-spring_end <- as.Date("2025-04-11")
-# summer_start <- as.Date("2024-04-01")
-# summer_end <- as.Date("2024-07-19")
+spring_end <- as.Date("2025-04-12")
+summer_start <- as.Date("2025-04-14")
+summer_end <- as.Date("2025-07-25")
 
-most_recent_week_dates <- paste0(
-  "Latest week - ",
-  as.Date(end_date) - 4,
-  " to ",
-  as.Date(end_date)
-)
+# most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4, " to ", as.Date(end_date))
+most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 11, " to ", as.Date(end_date) - 7) # Commented this in to edit dates in LA table current selections heading, will need reverting back to above line
+
+
+
 ytd_dates <- paste0(
   "Year to date - ",
   as.Date(start_date),
@@ -129,8 +129,8 @@ ytd_dates <- paste0(
 
 #### SECTION 2 - reading in csvs to run dashboard ####
 attendance_data <- readr::read_csv("data/attendance_data_dashboard.zip")
-# attendance_data$attendance_date <- as.Date(attendance_data$attendance_date)
-# attendance_data$week_commencing <- as.Date(attendance_data$week_commencing)
+attendance_data$attendance_date <- as.Date(attendance_data$attendance_date)
+attendance_data$week_commencing <- as.Date(attendance_data$week_commencing)
 attendance_data$attendance_date <- as.Date(attendance_data$attendance_date) # , format = "%d/%m/%Y")
 attendance_data$week_commencing <- as.Date(attendance_data$week_commencing) # , format = "%d/%m/%Y")
 
@@ -281,8 +281,8 @@ mapdata0 <- attendance_data %>%
     time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))
   ) %>%
   filter(time_period == max(time_period)) %>%
-  filter(time_identifier == max(time_identifier)) %>%
-  # filter(time_identifier == max(time_identifier) - 1) %>%
+  # filter(time_identifier == max(time_identifier)) %>%
+  filter(time_identifier == max(time_identifier) - 1) %>%
   filter(geographic_level == "Local authority") %>%
   filter(breakdown == "Weekly")
 
