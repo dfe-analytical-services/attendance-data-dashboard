@@ -399,9 +399,9 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
   # Add total onto Primary, Secondary, Special data
   attendance_data <- bind_rows(attendance_data, attendance_data_daily_totals, attendance_data_weekly_totals, attendance_data_ytd_totals)
 
-  attendance_data <- attendance_data %>%
-    dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
-    arrange(time_period, time_identifier)
+  # attendance_data <- attendance_data %>%
+  #   dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
+  #   arrange(time_period, time_identifier)
 
   # #Handle strike days
   # attendance_data <- attendance_data %>%
@@ -936,9 +936,9 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
   # Add total onto Primary, Secondary, Special data
   attendance_data_spring <- bind_rows(attendance_data_spring, attendance_data_spring_totals)
 
-  attendance_data_spring <- attendance_data_spring %>%
-    dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
-    arrange(time_period, time_identifier)
+  # attendance_data_spring <- attendance_data_spring %>%
+  #   dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
+  #   arrange(time_period, time_identifier)
 
   # Data suppression
   attendance_data_spring <- attendance_data_spring %>%
@@ -1209,9 +1209,9 @@ process_attendance_data_summer <- function(attendance_data_raw, summer_start, su
   # Add total onto Primary, Secondary, Special data
   attendance_data_summer <- bind_rows(attendance_data_summer, attendance_data_summer_totals)
 
-  attendance_data_summer <- attendance_data_summer %>%
-    dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
-    arrange(time_period, time_identifier)
+  # attendance_data_summer <- attendance_data_summer %>%
+  #   dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
+  #   arrange(time_period, time_identifier)
 
   # Data suppression
   attendance_data_summer <- attendance_data_summer %>%
