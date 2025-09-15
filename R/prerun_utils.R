@@ -677,9 +677,9 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
   # Add total onto Primary, Secondary, Special data
   attendance_data_autumn <- bind_rows(attendance_data_autumn, attendance_data_autumn_totals)
 
-  attendance_data_autumn <- attendance_data_autumn %>%
-    dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
-    arrange(time_period, time_identifier)
+  # attendance_data_autumn <- attendance_data_autumn %>%
+  #   dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
+  #   arrange(time_period, time_identifier)
 
   # Data suppression
   attendance_data_autumn <- attendance_data_autumn %>%
