@@ -278,28 +278,28 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
   attendance_data <- attendance_data %>% mutate(pa_perc = (pa_flag / ytd_enrolments) * 100)
 
   # Prep for calculation of totals by doing rates X census counts
-  attendance_data <- attendance_data %>%
-    mutate(
-      attendance_perc_scaled = attendance_perc * total_enrolments,
-      overall_absence_perc_scaled = overall_absence_perc * total_enrolments,
-      authorised_absence_perc_scaled = authorised_absence_perc * total_enrolments,
-      unauthorised_absence_perc_scaled = unauthorised_absence_perc * total_enrolments,
-      illness_perc_scaled = illness_perc * total_enrolments,
-      appointments_perc_scaled = appointments_perc * total_enrolments,
-      unauth_hol_perc_scaled = unauth_hol_perc * total_enrolments,
-      unauth_oth_perc_scaled = unauth_oth_perc * total_enrolments,
-      unauth_late_registers_closed_perc_scaled = unauth_late_registers_closed_perc * total_enrolments,
-      unauth_not_yet_perc_scaled = unauth_not_yet_perc * total_enrolments,
-      auth_religious_perc_scaled = auth_religious_perc * total_enrolments,
-      auth_study_perc_scaled = auth_study_perc * total_enrolments,
-      auth_mob_perc_scaled = auth_mob_perc * total_enrolments,
-      auth_excluded_perc_scaled = auth_excluded_perc * total_enrolments,
-      auth_performance_perc_scaled = auth_performance_perc * total_enrolments,
-      auth_interview_perc_scaled = auth_interview_perc * total_enrolments,
-      auth_part_time_perc_scaled = auth_part_time_perc * total_enrolments,
-      auth_other_perc_scaled = auth_other_perc * total_enrolments,
-      pa_perc_scaled = pa_perc * total_enrolments
-    )
+  # attendance_data <- attendance_data %>%
+  #   mutate(
+  #     attendance_perc_scaled = attendance_perc * total_enrolments,
+  #     overall_absence_perc_scaled = overall_absence_perc * total_enrolments,
+  #     authorised_absence_perc_scaled = authorised_absence_perc * total_enrolments,
+  #     unauthorised_absence_perc_scaled = unauthorised_absence_perc * total_enrolments,
+  #     illness_perc_scaled = illness_perc * total_enrolments,
+  #     appointments_perc_scaled = appointments_perc * total_enrolments,
+  #     unauth_hol_perc_scaled = unauth_hol_perc * total_enrolments,
+  #     unauth_oth_perc_scaled = unauth_oth_perc * total_enrolments,
+  #     unauth_late_registers_closed_perc_scaled = unauth_late_registers_closed_perc * total_enrolments,
+  #     unauth_not_yet_perc_scaled = unauth_not_yet_perc * total_enrolments,
+  #     auth_religious_perc_scaled = auth_religious_perc * total_enrolments,
+  #     auth_study_perc_scaled = auth_study_perc * total_enrolments,
+  #     auth_mob_perc_scaled = auth_mob_perc * total_enrolments,
+  #     auth_excluded_perc_scaled = auth_excluded_perc * total_enrolments,
+  #     auth_performance_perc_scaled = auth_performance_perc * total_enrolments,
+  #     auth_interview_perc_scaled = auth_interview_perc * total_enrolments,
+  #     auth_part_time_perc_scaled = auth_part_time_perc * total_enrolments,
+  #     auth_other_perc_scaled = auth_other_perc * total_enrolments,
+  #     pa_perc_scaled = pa_perc * total_enrolments
+  #   )
 
   # Calculate total as (Primary rate X primary census count) + (Secondary rate X secondary census count) + (Special rate X special census count) and divided all by total census count
   attendance_data_daily_totals <- attendance_data %>%
@@ -307,27 +307,27 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
     group_by(breakdown, time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, attendance_date, day_number) %>%
     summarise(across(where(is.numeric), sum), .groups = "keep") %>%
     mutate(
-      school_type = "Total",
-      attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
-      overall_absence_perc = (sum(overall_absence_perc_scaled) / sum(total_enrolments)),
-      authorised_absence_perc = (sum(authorised_absence_perc_scaled) / sum(total_enrolments)),
-      unauthorised_absence_perc = (sum(unauthorised_absence_perc_scaled) / sum(total_enrolments)),
-      illness_perc = (sum(illness_perc_scaled) / sum(total_enrolments)),
-      appointments_perc = (sum(appointments_perc_scaled) / sum(total_enrolments)),
-      unauth_hol_perc = (sum(unauth_hol_perc_scaled) / sum(total_enrolments)),
-      unauth_oth_perc = (sum(unauth_oth_perc_scaled) / sum(total_enrolments)),
-      unauth_late_registers_closed_perc = (sum(unauth_late_registers_closed_perc_scaled) / sum(total_enrolments)),
-      unauth_not_yet_perc = (sum(unauth_not_yet_perc_scaled) / sum(total_enrolments)),
-      auth_religious_perc = (sum(auth_religious_perc_scaled) / sum(total_enrolments)),
-      auth_study_perc = (sum(auth_study_perc_scaled) / sum(total_enrolments)),
-      auth_mob_perc = (sum(auth_mob_perc_scaled) / sum(total_enrolments)),
-      auth_excluded_perc = (sum(auth_excluded_perc_scaled) / sum(total_enrolments)),
-      auth_performance_perc = (sum(auth_performance_perc_scaled) / sum(total_enrolments)),
-      auth_interview_perc = (sum(auth_interview_perc_scaled) / sum(total_enrolments)),
-      auth_part_time_perc = (sum(auth_part_time_perc_scaled) / sum(total_enrolments)),
-      auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments)),
-      pa_perc = (sum(pa_perc_scaled) / sum(total_enrolments))
+      attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      appointments_perc = (sum(reason_m_authorised_medical_dental, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_religious_perc = (sum(reason_r_authorised_religious_observance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      pa_perc = (sum(pa_flag, na.rm = TRUE) / sum(ytd_enrolments, na.rm = TRUE)) * 100
     )
+
 
   attendance_data_weekly_totals <- attendance_data %>%
     filter(breakdown == "Weekly") %>%
@@ -340,26 +340,27 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
     ) %>%
     mutate(
       school_type = "Total",
-      attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
-      overall_absence_perc = (sum(overall_absence_perc_scaled) / sum(total_enrolments)),
-      authorised_absence_perc = (sum(authorised_absence_perc_scaled) / sum(total_enrolments)),
-      unauthorised_absence_perc = (sum(unauthorised_absence_perc_scaled) / sum(total_enrolments)),
-      illness_perc = (sum(illness_perc_scaled) / sum(total_enrolments)),
-      appointments_perc = (sum(appointments_perc_scaled) / sum(total_enrolments)),
-      unauth_hol_perc = (sum(unauth_hol_perc_scaled) / sum(total_enrolments)),
-      unauth_oth_perc = (sum(unauth_oth_perc_scaled) / sum(total_enrolments)),
-      unauth_late_registers_closed_perc = (sum(unauth_late_registers_closed_perc_scaled) / sum(total_enrolments)),
-      unauth_not_yet_perc = (sum(unauth_not_yet_perc_scaled) / sum(total_enrolments)),
-      auth_religious_perc = (sum(auth_religious_perc_scaled) / sum(total_enrolments)),
-      auth_study_perc = (sum(auth_study_perc_scaled) / sum(total_enrolments)),
-      auth_mob_perc = (sum(auth_mob_perc_scaled) / sum(total_enrolments)),
-      auth_excluded_perc = (sum(auth_excluded_perc_scaled) / sum(total_enrolments)),
-      auth_performance_perc = (sum(auth_performance_perc_scaled) / sum(total_enrolments)),
-      auth_interview_perc = (sum(auth_interview_perc_scaled) / sum(total_enrolments)),
-      auth_part_time_perc = (sum(auth_part_time_perc_scaled) / sum(total_enrolments)),
-      auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments)),
-      pa_perc = (sum(pa_perc_scaled) / sum(total_enrolments))
+      attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      appointments_perc = (sum(reason_m_authorised_medical_dental, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_religious_perc = (sum(reason_r_authorised_religious_observance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      pa_perc = (sum(pa_flag, na.rm = TRUE) / sum(ytd_enrolments, na.rm = TRUE)) * 100
     )
+
 
   attendance_data_ytd_totals <- attendance_data %>%
     filter(breakdown == "YTD") %>%
@@ -374,25 +375,25 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
     ) %>%
     mutate(
       school_type = "Total",
-      attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
-      overall_absence_perc = (sum(overall_absence_perc_scaled) / sum(total_enrolments)),
-      authorised_absence_perc = (sum(authorised_absence_perc_scaled) / sum(total_enrolments)),
-      unauthorised_absence_perc = (sum(unauthorised_absence_perc_scaled) / sum(total_enrolments)),
-      illness_perc = (sum(illness_perc_scaled) / sum(total_enrolments)),
-      appointments_perc = (sum(appointments_perc_scaled) / sum(total_enrolments)),
-      unauth_hol_perc = (sum(unauth_hol_perc_scaled) / sum(total_enrolments)),
-      unauth_oth_perc = (sum(unauth_oth_perc_scaled) / sum(total_enrolments)),
-      unauth_late_registers_closed_perc = (sum(unauth_late_registers_closed_perc_scaled) / sum(total_enrolments)),
-      unauth_not_yet_perc = (sum(unauth_not_yet_perc_scaled) / sum(total_enrolments)),
-      auth_religious_perc = (sum(auth_religious_perc_scaled) / sum(total_enrolments)),
-      auth_study_perc = (sum(auth_study_perc_scaled) / sum(total_enrolments)),
-      auth_mob_perc = (sum(auth_mob_perc_scaled) / sum(total_enrolments)),
-      auth_excluded_perc = (sum(auth_excluded_perc_scaled) / sum(total_enrolments)),
-      auth_performance_perc = (sum(auth_performance_perc_scaled) / sum(total_enrolments)),
-      auth_interview_perc = (sum(auth_interview_perc_scaled) / sum(total_enrolments)),
-      auth_part_time_perc = (sum(auth_part_time_perc_scaled) / sum(total_enrolments)),
-      auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments)),
-      pa_perc = (sum(pa_perc_scaled) / sum(total_enrolments))
+      attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      appointments_perc = (sum(reason_m_authorised_medical_dental, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_religious_perc = (sum(reason_r_authorised_religious_observance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      pa_perc = (sum(pa_flag, na.rm = TRUE) / sum(ytd_enrolments, na.rm = TRUE)) * 100
     )
 
   # Add total onto Primary, Secondary, Special data
@@ -491,26 +492,7 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
       auth_other_perc,
       pa_flag,
       ytd_enrolments,
-      pa_perc,
-      attendance_perc_scaled,
-      overall_absence_perc_scaled,
-      authorised_absence_perc_scaled,
-      unauthorised_absence_perc_scaled,
-      illness_perc_scaled,
-      appointments_perc_scaled,
-      unauth_hol_perc_scaled,
-      unauth_oth_perc_scaled,
-      unauth_late_registers_closed_perc_scaled,
-      unauth_not_yet_perc_scaled,
-      auth_religious_perc_scaled,
-      auth_study_perc_scaled,
-      auth_mob_perc_scaled,
-      auth_excluded_perc_scaled,
-      auth_performance_perc_scaled,
-      auth_interview_perc_scaled,
-      auth_part_time_perc_scaled,
-      auth_other_perc_scaled,
-      pa_perc_scaled
+      pa_perc
     ), ~
       replace(., geographic_level == "Local authority" & num_schools == 1, NA))
 
@@ -632,63 +614,65 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
   attendance_data_autumn <- attendance_data_autumn %>% mutate(pa_perc = (pa_flag / autumn_enrolments) * 100)
 
   # Prep for calculation of totals by doing rates X census counts
-  attendance_data_autumn <- attendance_data_autumn %>%
-    mutate(
-      attendance_perc_scaled = attendance_perc * total_enrolments,
-      overall_absence_perc_scaled = overall_absence_perc * total_enrolments,
-      authorised_absence_perc_scaled = authorised_absence_perc * total_enrolments,
-      unauthorised_absence_perc_scaled = unauthorised_absence_perc * total_enrolments,
-      illness_perc_scaled = illness_perc * total_enrolments,
-      appointments_perc_scaled = appointments_perc * total_enrolments,
-      unauth_hol_perc_scaled = unauth_hol_perc * total_enrolments,
-      unauth_oth_perc_scaled = unauth_oth_perc * total_enrolments,
-      unauth_late_registers_closed_perc_scaled = unauth_late_registers_closed_perc * total_enrolments,
-      unauth_not_yet_perc_scaled = unauth_not_yet_perc * total_enrolments,
-      auth_religious_perc_scaled = auth_religious_perc * total_enrolments,
-      auth_study_perc_scaled = auth_study_perc * total_enrolments,
-      auth_mob_perc_scaled = auth_mob_perc * total_enrolments,
-      auth_excluded_perc_scaled = auth_excluded_perc * total_enrolments,
-      auth_performance_perc_scaled = auth_performance_perc * total_enrolments,
-      auth_interview_perc_scaled = auth_interview_perc * total_enrolments,
-      auth_part_time_perc_scaled = auth_part_time_perc * total_enrolments,
-      auth_other_perc_scaled = auth_other_perc * total_enrolments,
-      pa_perc_scaled = pa_perc * total_enrolments
-    )
+  # attendance_data_autumn <- attendance_data_autumn %>%
+  #   mutate(
+  #     attendance_perc_scaled = attendance_perc * total_enrolments,
+  #     overall_absence_perc_scaled = overall_absence_perc * total_enrolments,
+  #     authorised_absence_perc_scaled = authorised_absence_perc * total_enrolments,
+  #     unauthorised_absence_perc_scaled = unauthorised_absence_perc * total_enrolments,
+  #     illness_perc_scaled = illness_perc * total_enrolments,
+  #     appointments_perc_scaled = appointments_perc * total_enrolments,
+  #     unauth_hol_perc_scaled = unauth_hol_perc * total_enrolments,
+  #     unauth_oth_perc_scaled = unauth_oth_perc * total_enrolments,
+  #     unauth_late_registers_closed_perc_scaled = unauth_late_registers_closed_perc * total_enrolments,
+  #     unauth_not_yet_perc_scaled = unauth_not_yet_perc * total_enrolments,
+  #     auth_religious_perc_scaled = auth_religious_perc * total_enrolments,
+  #     auth_study_perc_scaled = auth_study_perc * total_enrolments,
+  #     auth_mob_perc_scaled = auth_mob_perc * total_enrolments,
+  #     auth_excluded_perc_scaled = auth_excluded_perc * total_enrolments,
+  #     auth_performance_perc_scaled = auth_performance_perc * total_enrolments,
+  #     auth_interview_perc_scaled = auth_interview_perc * total_enrolments,
+  #     auth_part_time_perc_scaled = auth_part_time_perc * total_enrolments,
+  #     auth_other_perc_scaled = auth_other_perc * total_enrolments,
+  #     pa_perc_scaled = pa_perc * total_enrolments
+  #   )
 
   attendance_data_autumn_totals <- attendance_data_autumn %>%
     filter(breakdown == "AUT") %>%
     group_by(breakdown, time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
-    summarise(across(matches("time_period"), ~ min(.x, na.rm = T)),
-      across(matches("time_identifier"), ~ min(.x, na.rm = T)),
-      across(matches("attendance_date"), ~ min(.x, na.rm = T)),
-      across(matches("week_commencing"), ~ min(.x, na.rm = T)),
-      across(matches("day_number"), ~ min(.x, na.rm = T)),
-      across(where(is.numeric) & !c(time_identifier, attendance_date, day_number), ~ sum(.x, na.rm = T)),
+    summarise(
+      across(matches("time_period"), ~ min(.x, na.rm = TRUE)),
+      across(matches("time_identifier"), ~ min(.x, na.rm = TRUE)),
+      across(matches("attendance_date"), ~ min(.x, na.rm = TRUE)),
+      across(matches("week_commencing"), ~ min(.x, na.rm = TRUE)),
+      across(matches("day_number"), ~ min(.x, na.rm = TRUE)),
+      across(where(is.numeric) & !c(time_identifier, attendance_date, day_number), ~ sum(.x, na.rm = TRUE)),
       .groups = "keep"
     ) %>%
     mutate(
       school_type = "Total",
-      enrolments_pa_10_exact = "z",
-      attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
-      overall_absence_perc = (sum(overall_absence_perc_scaled) / sum(total_enrolments)),
-      authorised_absence_perc = (sum(authorised_absence_perc_scaled) / sum(total_enrolments)),
-      unauthorised_absence_perc = (sum(unauthorised_absence_perc_scaled) / sum(total_enrolments)),
-      illness_perc = (sum(illness_perc_scaled) / sum(total_enrolments)),
-      appointments_perc = (sum(appointments_perc_scaled) / sum(total_enrolments)),
-      unauth_hol_perc = (sum(unauth_hol_perc_scaled) / sum(total_enrolments)),
-      unauth_oth_perc = (sum(unauth_oth_perc_scaled) / sum(total_enrolments)),
-      unauth_late_registers_closed_perc = (sum(unauth_late_registers_closed_perc_scaled) / sum(total_enrolments)),
-      unauth_not_yet_perc = (sum(unauth_not_yet_perc_scaled) / sum(total_enrolments)),
-      auth_religious_perc = (sum(auth_religious_perc_scaled) / sum(total_enrolments)),
-      auth_study_perc = (sum(auth_study_perc_scaled) / sum(total_enrolments)),
-      auth_mob_perc = (sum(auth_mob_perc_scaled) / sum(total_enrolments)),
-      auth_excluded_perc = (sum(auth_excluded_perc_scaled) / sum(total_enrolments)),
-      auth_performance_perc = (sum(auth_performance_perc_scaled) / sum(total_enrolments)),
-      auth_interview_perc = (sum(auth_interview_perc_scaled) / sum(total_enrolments)),
-      auth_part_time_perc = (sum(auth_part_time_perc_scaled) / sum(total_enrolments)),
-      auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments)),
-      pa_perc = (sum(pa_perc_scaled) / sum(total_enrolments))
+      enrolments_pa_10_exact = "z", # Preserved as-is
+      attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      appointments_perc = (sum(reason_m_authorised_medical_dental, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_religious_perc = (sum(reason_r_authorised_religious_observance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      pa_perc = (sum(pa_flag, na.rm = TRUE) / sum(autumn_enrolments, na.rm = TRUE)) * 100
     )
+
 
   # Add total onto Primary, Secondary, Special data
   attendance_data_autumn <- bind_rows(attendance_data_autumn, attendance_data_autumn_totals)
@@ -769,26 +753,7 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
       auth_other_perc,
       pa_flag,
       autumn_enrolments,
-      pa_perc,
-      attendance_perc_scaled,
-      overall_absence_perc_scaled,
-      authorised_absence_perc_scaled,
-      unauthorised_absence_perc_scaled,
-      illness_perc_scaled,
-      appointments_perc_scaled,
-      unauth_hol_perc_scaled,
-      unauth_oth_perc_scaled,
-      unauth_late_registers_closed_perc_scaled,
-      unauth_not_yet_perc_scaled,
-      auth_religious_perc_scaled,
-      auth_study_perc_scaled,
-      auth_mob_perc_scaled,
-      auth_excluded_perc_scaled,
-      auth_performance_perc_scaled,
-      auth_interview_perc_scaled,
-      auth_part_time_perc_scaled,
-      auth_other_perc_scaled,
-      pa_perc_scaled
+      pa_perc
     ), ~
       replace(., geographic_level == "Local authority" & num_schools == 1, NA))
 
@@ -908,30 +873,30 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
   attendance_data_spring <- attendance_data_spring %>% mutate(pa_perc = (pa_flag / spring_enrolments) * 100)
 
   # Prep for calculation of totals by doing rates X census counts
-  attendance_data_spring <- attendance_data_spring %>%
-    mutate(
-      attendance_perc_scaled = attendance_perc * total_enrolments,
-      overall_absence_perc_scaled = overall_absence_perc * total_enrolments,
-      authorised_absence_perc_scaled = authorised_absence_perc * total_enrolments,
-      unauthorised_absence_perc_scaled = unauthorised_absence_perc * total_enrolments,
-      illness_perc_scaled = illness_perc * total_enrolments,
-      appointments_perc_scaled = appointments_perc * total_enrolments,
-      # excluded_perc_scaled = excluded_perc * total_enrolments,
-      unauth_hol_perc_scaled = unauth_hol_perc * total_enrolments,
-      unauth_oth_perc_scaled = unauth_oth_perc * total_enrolments,
-      unauth_late_registers_closed_perc_scaled = unauth_late_registers_closed_perc * total_enrolments,
-      unauth_not_yet_perc_scaled = unauth_not_yet_perc * total_enrolments,
-      auth_religious_perc_scaled = auth_religious_perc * total_enrolments,
-      auth_study_perc_scaled = auth_study_perc * total_enrolments,
-      auth_mob_perc_scaled = auth_mob_perc * total_enrolments,
-      # auth_holiday_perc_scaled = auth_holiday_perc * total_enrolments,
-      auth_excluded_perc_scaled = auth_excluded_perc * total_enrolments,
-      auth_performance_perc_scaled = auth_performance_perc * total_enrolments,
-      auth_interview_perc_scaled = auth_interview_perc * total_enrolments,
-      auth_part_time_perc_scaled = auth_part_time_perc * total_enrolments,
-      auth_other_perc_scaled = auth_other_perc * total_enrolments,
-      pa_perc_scaled = pa_perc * total_enrolments
-    )
+  # attendance_data_spring <- attendance_data_spring %>%
+  #   mutate(
+  #     attendance_perc_scaled = attendance_perc * total_enrolments,
+  #     overall_absence_perc_scaled = overall_absence_perc * total_enrolments,
+  #     authorised_absence_perc_scaled = authorised_absence_perc * total_enrolments,
+  #     unauthorised_absence_perc_scaled = unauthorised_absence_perc * total_enrolments,
+  #     illness_perc_scaled = illness_perc * total_enrolments,
+  #     appointments_perc_scaled = appointments_perc * total_enrolments,
+  #     # excluded_perc_scaled = excluded_perc * total_enrolments,
+  #     unauth_hol_perc_scaled = unauth_hol_perc * total_enrolments,
+  #     unauth_oth_perc_scaled = unauth_oth_perc * total_enrolments,
+  #     unauth_late_registers_closed_perc_scaled = unauth_late_registers_closed_perc * total_enrolments,
+  #     unauth_not_yet_perc_scaled = unauth_not_yet_perc * total_enrolments,
+  #     auth_religious_perc_scaled = auth_religious_perc * total_enrolments,
+  #     auth_study_perc_scaled = auth_study_perc * total_enrolments,
+  #     auth_mob_perc_scaled = auth_mob_perc * total_enrolments,
+  #     # auth_holiday_perc_scaled = auth_holiday_perc * total_enrolments,
+  #     auth_excluded_perc_scaled = auth_excluded_perc * total_enrolments,
+  #     auth_performance_perc_scaled = auth_performance_perc * total_enrolments,
+  #     auth_interview_perc_scaled = auth_interview_perc * total_enrolments,
+  #     auth_part_time_perc_scaled = auth_part_time_perc * total_enrolments,
+  #     auth_other_perc_scaled = auth_other_perc * total_enrolments,
+  #     pa_perc_scaled = pa_perc * total_enrolments
+  #   )
 
   attendance_data_spring_totals <- attendance_data_spring %>%
     filter(breakdown == "SPR") %>%
@@ -946,28 +911,26 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
     ) %>%
     mutate(
       school_type = "Total",
-      enrolments_pa_10_exact = "z",
-      attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
-      overall_absence_perc = (sum(overall_absence_perc_scaled) / sum(total_enrolments)),
-      authorised_absence_perc = (sum(authorised_absence_perc_scaled) / sum(total_enrolments)),
-      unauthorised_absence_perc = (sum(unauthorised_absence_perc_scaled) / sum(total_enrolments)),
-      illness_perc = (sum(illness_perc_scaled) / sum(total_enrolments)),
-      appointments_perc = (sum(appointments_perc_scaled) / sum(total_enrolments)),
-      # excluded_perc = (sum(excluded_perc_scaled) / sum(total_enrolments)),
-      unauth_hol_perc = (sum(unauth_hol_perc_scaled) / sum(total_enrolments)),
-      unauth_oth_perc = (sum(unauth_oth_perc_scaled) / sum(total_enrolments)),
-      unauth_late_registers_closed_perc = (sum(unauth_late_registers_closed_perc_scaled) / sum(total_enrolments)),
-      unauth_not_yet_perc = (sum(unauth_not_yet_perc_scaled) / sum(total_enrolments)),
-      auth_religious_perc = (sum(auth_religious_perc_scaled) / sum(total_enrolments)),
-      auth_study_perc = (sum(auth_study_perc_scaled) / sum(total_enrolments)),
-      auth_mob_perc = (sum(auth_mob_perc_scaled) / sum(total_enrolments)),
-      # auth_holiday_perc = (sum(auth_holiday_perc_scaled) / sum(total_enrolments)),
-      auth_excluded_perc = (sum(auth_excluded_perc_scaled) / sum(total_enrolments)),
-      auth_performance_perc = (sum(auth_performance_perc_scaled) / sum(total_enrolments)),
-      auth_interview_perc = (sum(auth_interview_perc_scaled) / sum(total_enrolments)),
-      auth_part_time_perc = (sum(auth_part_time_perc_scaled) / sum(total_enrolments)),
-      auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments)),
-      pa_perc = (sum(pa_perc_scaled) / sum(total_enrolments))
+      enrolments_pa_10_exact = "z", # Preserved as-is
+      attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      appointments_perc = (sum(reason_m_authorised_medical_dental, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_religious_perc = (sum(reason_r_authorised_religious_observance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      pa_perc = (sum(pa_flag, na.rm = TRUE) / sum(spring_enrolments, na.rm = TRUE)) * 100
     )
 
   # Add total onto Primary, Secondary, Special data
@@ -1051,28 +1014,7 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
       auth_other_perc,
       pa_flag,
       spring_enrolments,
-      pa_perc,
-      attendance_perc_scaled,
-      overall_absence_perc_scaled,
-      authorised_absence_perc_scaled,
-      unauthorised_absence_perc_scaled,
-      illness_perc_scaled,
-      appointments_perc_scaled,
-      # excluded_perc_scaled,
-      unauth_hol_perc_scaled,
-      unauth_oth_perc_scaled,
-      unauth_late_registers_closed_perc_scaled,
-      unauth_not_yet_perc_scaled,
-      auth_religious_perc_scaled,
-      auth_study_perc_scaled,
-      auth_mob_perc_scaled,
-      # auth_holiday_perc_scaled,
-      auth_excluded_perc_scaled,
-      auth_performance_perc_scaled,
-      auth_interview_perc_scaled,
-      auth_part_time_perc_scaled,
-      auth_other_perc_scaled,
-      pa_perc_scaled
+      pa_perc
     ), ~
       replace(., geographic_level == "Local authority" & num_schools == 1, NA))
 
@@ -1084,6 +1026,17 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
 }
 
 ### SECTION 5 - Processing Summer ####
+#' Title
+#'
+#' @param attendance_data_raw
+#' @param summer_start
+#' @param summer_end
+#' @param pa_summer_file
+#'
+#' @returns
+#' @export
+#'
+#' @examples
 process_attendance_data_summer <- function(attendance_data_raw, summer_start, summer_end, pa_summer_file) {
   # Set up data for use across the app
   # Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
@@ -1192,30 +1145,30 @@ process_attendance_data_summer <- function(attendance_data_raw, summer_start, su
   attendance_data_summer <- attendance_data_summer %>% mutate(pa_perc = (pa_flag / summer_enrolments) * 100)
 
   # Prep for calculation of totals by doing rates X census counts
-  attendance_data_summer <- attendance_data_summer %>%
-    mutate(
-      attendance_perc_scaled = attendance_perc * total_enrolments,
-      overall_absence_perc_scaled = overall_absence_perc * total_enrolments,
-      authorised_absence_perc_scaled = authorised_absence_perc * total_enrolments,
-      unauthorised_absence_perc_scaled = unauthorised_absence_perc * total_enrolments,
-      illness_perc_scaled = illness_perc * total_enrolments,
-      appointments_perc_scaled = appointments_perc * total_enrolments,
-      # excluded_perc_scaled = excluded_perc * total_enrolments,
-      unauth_hol_perc_scaled = unauth_hol_perc * total_enrolments,
-      unauth_oth_perc_scaled = unauth_oth_perc * total_enrolments,
-      unauth_late_registers_closed_perc_scaled = unauth_late_registers_closed_perc * total_enrolments,
-      unauth_not_yet_perc_scaled = unauth_not_yet_perc * total_enrolments,
-      auth_religious_perc_scaled = auth_religious_perc * total_enrolments,
-      auth_study_perc_scaled = auth_study_perc * total_enrolments,
-      auth_mob_perc_scaled = auth_mob_perc * total_enrolments,
-      # auth_holiday_perc_scaled = auth_holiday_perc * total_enrolments,
-      auth_excluded_perc_scaled = auth_excluded_perc * total_enrolments,
-      auth_performance_perc_scaled = auth_performance_perc * total_enrolments,
-      auth_interview_perc_scaled = auth_interview_perc * total_enrolments,
-      auth_part_time_perc_scaled = auth_part_time_perc * total_enrolments,
-      auth_other_perc_scaled = auth_other_perc * total_enrolments,
-      pa_perc_scaled = pa_perc * total_enrolments
-    )
+  # attendance_data_summer <- attendance_data_summer %>%
+  #   mutate(
+  #     attendance_perc_scaled = attendance_perc * total_enrolments,
+  #     overall_absence_perc_scaled = overall_absence_perc * total_enrolments,
+  #     authorised_absence_perc_scaled = authorised_absence_perc * total_enrolments,
+  #     unauthorised_absence_perc_scaled = unauthorised_absence_perc * total_enrolments,
+  #     illness_perc_scaled = illness_perc * total_enrolments,
+  #     appointments_perc_scaled = appointments_perc * total_enrolments,
+  #     # excluded_perc_scaled = excluded_perc * total_enrolments,
+  #     unauth_hol_perc_scaled = unauth_hol_perc * total_enrolments,
+  #     unauth_oth_perc_scaled = unauth_oth_perc * total_enrolments,
+  #     unauth_late_registers_closed_perc_scaled = unauth_late_registers_closed_perc * total_enrolments,
+  #     unauth_not_yet_perc_scaled = unauth_not_yet_perc * total_enrolments,
+  #     auth_religious_perc_scaled = auth_religious_perc * total_enrolments,
+  #     auth_study_perc_scaled = auth_study_perc * total_enrolments,
+  #     auth_mob_perc_scaled = auth_mob_perc * total_enrolments,
+  #     # auth_holiday_perc_scaled = auth_holiday_perc * total_enrolments,
+  #     auth_excluded_perc_scaled = auth_excluded_perc * total_enrolments,
+  #     auth_performance_perc_scaled = auth_performance_perc * total_enrolments,
+  #     auth_interview_perc_scaled = auth_interview_perc * total_enrolments,
+  #     auth_part_time_perc_scaled = auth_part_time_perc * total_enrolments,
+  #     auth_other_perc_scaled = auth_other_perc * total_enrolments,
+  #     pa_perc_scaled = pa_perc * total_enrolments
+  #   )
 
   attendance_data_summer_totals <- attendance_data_summer %>%
     filter(breakdown == "SUM") %>%
@@ -1230,29 +1183,28 @@ process_attendance_data_summer <- function(attendance_data_raw, summer_start, su
     ) %>%
     mutate(
       school_type = "Total",
-      enrolments_pa_10_exact = "z",
-      attendance_perc = (sum(attendance_perc_scaled) / sum(total_enrolments)),
-      overall_absence_perc = (sum(overall_absence_perc_scaled) / sum(total_enrolments)),
-      authorised_absence_perc = (sum(authorised_absence_perc_scaled) / sum(total_enrolments)),
-      unauthorised_absence_perc = (sum(unauthorised_absence_perc_scaled) / sum(total_enrolments)),
-      illness_perc = (sum(illness_perc_scaled) / sum(total_enrolments)),
-      appointments_perc = (sum(appointments_perc_scaled) / sum(total_enrolments)),
-      # excluded_perc = (sum(excluded_perc_scaled) / sum(total_enrolments)),
-      unauth_hol_perc = (sum(unauth_hol_perc_scaled) / sum(total_enrolments)),
-      unauth_oth_perc = (sum(unauth_oth_perc_scaled) / sum(total_enrolments)),
-      unauth_late_registers_closed_perc = (sum(unauth_late_registers_closed_perc_scaled) / sum(total_enrolments)),
-      unauth_not_yet_perc = (sum(unauth_not_yet_perc_scaled) / sum(total_enrolments)),
-      auth_religious_perc = (sum(auth_religious_perc_scaled) / sum(total_enrolments)),
-      auth_study_perc = (sum(auth_study_perc_scaled) / sum(total_enrolments)),
-      auth_mob_perc = (sum(auth_mob_perc_scaled) / sum(total_enrolments)),
-      # auth_holiday_perc = (sum(auth_holiday_perc_scaled) / sum(total_enrolments)),
-      auth_excluded_perc = (sum(auth_excluded_perc_scaled) / sum(total_enrolments)),
-      auth_performance_perc = (sum(auth_performance_perc_scaled) / sum(total_enrolments)),
-      auth_interview_perc = (sum(auth_interview_perc_scaled) / sum(total_enrolments)),
-      auth_part_time_perc = (sum(auth_part_time_perc_scaled) / sum(total_enrolments)),
-      auth_other_perc = (sum(auth_other_perc_scaled) / sum(total_enrolments)),
-      pa_perc = (sum(pa_perc_scaled) / sum(total_enrolments))
+      enrolments_pa_10_exact = "z", # Preserved as-is
+      attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      appointments_perc = (sum(reason_m_authorised_medical_dental, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_religious_perc = (sum(reason_r_authorised_religious_observance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
+      pa_perc = (sum(pa_flag, na.rm = TRUE) / sum(summer_enrolments, na.rm = TRUE)) * 100
     )
+
 
   # Add total onto Primary, Secondary, Special data
   attendance_data_summer <- bind_rows(attendance_data_summer, attendance_data_summer_totals)
@@ -1335,28 +1287,7 @@ process_attendance_data_summer <- function(attendance_data_raw, summer_start, su
       auth_other_perc,
       pa_flag,
       summer_enrolments,
-      pa_perc,
-      attendance_perc_scaled,
-      overall_absence_perc_scaled,
-      authorised_absence_perc_scaled,
-      unauthorised_absence_perc_scaled,
-      illness_perc_scaled,
-      appointments_perc_scaled,
-      # excluded_perc_scaled,
-      unauth_hol_perc_scaled,
-      unauth_oth_perc_scaled,
-      unauth_late_registers_closed_perc_scaled,
-      unauth_not_yet_perc_scaled,
-      auth_religious_perc_scaled,
-      auth_study_perc_scaled,
-      auth_mob_perc_scaled,
-      # auth_holiday_perc_scaled,
-      auth_excluded_perc_scaled,
-      auth_performance_perc_scaled,
-      auth_interview_perc_scaled,
-      auth_part_time_perc_scaled,
-      auth_other_perc_scaled,
-      pa_perc_scaled
+      pa_perc
     ), ~
       replace(., geographic_level == "Local authority" & num_schools == 1, NA))
 
