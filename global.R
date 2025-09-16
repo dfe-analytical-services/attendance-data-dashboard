@@ -92,8 +92,8 @@ team_email <- "school.statistics@education.gov.uk"
 # attendance_data_raw <- fread("data/Weekly_dummy_data.csv")
 
 #### SECTION 1 - date filters ####
-start_date <- as.Date("2024-09-09")
-end_date <- as.Date("2025-07-25")
+start_date <- as.Date("2025-09-01")
+end_date <- as.Date("2026-07-14")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -108,12 +108,12 @@ end_date <- as.Date("2025-07-25")
 # regional_strike_3 <- as.Date("2023-03-02")
 
 
-autumn_start <- as.Date("2024-09-09")
-autumn_end <- as.Date("2024-12-21")
-spring_start <- as.Date("2025-01-06")
-spring_end <- as.Date("2025-04-12")
-summer_start <- as.Date("2025-04-14")
-summer_end <- as.Date("2025-07-25")
+autumn_start <- as.Date("2025-09-08")
+autumn_end <- as.Date("2025-12-21")
+#spring_start <- as.Date("2025-01-06")
+#spring_end <- as.Date("2025-04-12")
+#summer_start <- as.Date("2025-04-14")
+#summer_end <- as.Date("2025-07-25")
 
 # most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4, " to ", as.Date(end_date))
 most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 11, " to ", as.Date(end_date) - 7) # Commented this in to edit dates in LA table current selections heading, will need reverting back to above line

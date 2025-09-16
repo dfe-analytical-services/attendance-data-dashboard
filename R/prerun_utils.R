@@ -15,13 +15,13 @@ run_data_update <- function() {
   school_freq_count <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.enrolments_schools_denominator")
   school_freq_count$total_enrolments <- as.numeric(school_freq_count$total_enrolments)
 
-  pa_fullyear_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.ytd_2425_pa_clean_delta")
+  pa_fullyear_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.ytd_2526_pa_clean_delta")
 
-  pa_autumn_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.aut_2425_pa_clean_delta")
-  pa_spring_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.spr_2425_pa_clean_delta")
-  pa_summer_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.sum_2324_pa_clean_delta")
+  pa_autumn_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.aut_2526_pa_clean_delta")
+  pa_spring_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.spr_2526_pa_clean_delta")
+  pa_summer_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.sum_2526_pa_clean_delta")
 
-  attendance_data_raw <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.ytd_2425_oa_clean_delta")
+  attendance_data_raw <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.ytd_2526_oa_clean_delta")
 
 
   attendance_data <- process_attendance_data(
@@ -537,7 +537,7 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
       academic_year = min(academic_year),
       time_period = min(time_period),
       time_identifier = 37,
-      week_commencing = as.Date("2024-09-09"),
+      week_commencing = as.Date("2025-09-08"),
       num_schools = mean(num_schools),
       enrolments = mean(enrolments),
       present_sessions = sum(present_sessions),
@@ -1645,7 +1645,7 @@ create_ees_tables <- function(attendance_data) {
     arrange(time_period, school_type) %>%
     mutate(
       time_identifier = paste("Academic year"),
-      time_period = paste("202425")
+      time_period = paste("202526")
     ) %>%
     mutate_at(vars(
       enrolments,
@@ -1812,8 +1812,8 @@ create_ees_tables_autumn <- function(df_attendance_autumn) {
     arrange(time_period, school_type) %>%
     mutate(
       time_identifier = paste("Autumn term"),
-      time_period = paste("202425"),
-      academic_year = paste("202425")
+      time_period = paste("202526"),
+      academic_year = paste("202526")
     ) %>%
     mutate_at(vars(
       enrolments,
@@ -1966,8 +1966,8 @@ create_ees_tables_spring <- function(df_attendance_spring) {
     arrange(time_period, school_type) %>%
     mutate(
       time_identifier = paste("Spring term"),
-      time_period = paste("202425"),
-      academic_year = paste("202425")
+      time_period = paste("202526"),
+      academic_year = paste("202526")
     ) %>%
     mutate_at(vars(
       enrolments,
@@ -2115,8 +2115,8 @@ create_ees_tables_summer <- function(df_attendance_summer) {
     arrange(time_period, school_type) %>%
     mutate(
       time_identifier = paste("Summer term"),
-      time_period = paste("202425"),
-      academic_year = paste("202425")
+      time_period = paste("202526"),
+      academic_year = paste("202526")
     ) %>%
     mutate_at(vars(
       enrolments,
