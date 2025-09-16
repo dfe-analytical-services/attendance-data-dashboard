@@ -124,7 +124,7 @@ homepage_panel <- function() {
                   ),
                   a(
                     href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools",
-                    "Pupil attendance in schools - 2025/26 academic year"
+                    "Pupil attendance in schools - 2024/25 academic year"
                   ),
                   br(),
                   br(),
@@ -132,8 +132,8 @@ homepage_panel <- function() {
                     "For 2023/24 full academic year and termly pupil attendance data, including by characteristics, please see the historical publication at the link below:"
                   ),
                   a(
-                    href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2025-week-29",
-                    "Pupil attendance in schools - 2024/25 academic year"
+                    href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2024-week-29",
+                    "Pupil attendance in schools - 2023/24 academic year"
                   ),
                   br(),
                   br(),
