@@ -110,10 +110,10 @@ end_date <- as.Date("2026-07-14")
 
 autumn_start <- as.Date("2025-09-08")
 autumn_end <- as.Date("2025-12-21")
-#spring_start <- as.Date("2025-01-06")
-#spring_end <- as.Date("2025-04-12")
-#summer_start <- as.Date("2025-04-14")
-#summer_end <- as.Date("2025-07-25")
+# spring_start <- as.Date("2025-01-06")
+# spring_end <- as.Date("2025-04-12")
+# summer_start <- as.Date("2025-04-14")
+# summer_end <- as.Date("2025-07-25")
 
 # most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4, " to ", as.Date(end_date))
 most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 11, " to ", as.Date(end_date) - 7) # Commented this in to edit dates in LA table current selections heading, will need reverting back to above line
