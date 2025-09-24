@@ -677,9 +677,9 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
   # Add total onto Primary, Secondary, Special data
   attendance_data_autumn <- bind_rows(attendance_data_autumn, attendance_data_autumn_totals)
 
-#   attendance_data_autumn <- attendance_data_autumn %>%
-#     dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
-#     arrange(time_period, time_identifier)
+  #   attendance_data_autumn <- attendance_data_autumn %>%
+  #     dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
+  #     arrange(time_period, time_identifier)
 
   # Data suppression
   attendance_data_autumn <- attendance_data_autumn %>%
@@ -1210,7 +1210,7 @@ process_attendance_data_summer <- function(attendance_data_raw, summer_start, su
   attendance_data_summer <- bind_rows(attendance_data_summer, attendance_data_summer_totals)
 
   # attendance_data_summer <- attendance_data_summer %>% dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>% arrange(time_period, time_identifier)
-  
+
   # Data suppression
   attendance_data_summer <- attendance_data_summer %>%
     mutate_at(vars(
@@ -2179,31 +2179,23 @@ create_ees_tables_summer <- function(df_attendance_summer) {
       pa_perc
     ), ~
       replace(., geographic_level == "Local authority" & num_schools == 1, "c"))
-  
+
 
   # EES_aut_data[is.na(EES_aut_data)]<-"c"
   EES_sum_data <- EES_sum_data %>%
-    
     rename(education_phase = school_type) %>%
-    
     mutate(old_la_code = as.character(old_la_code)) %>%
-    
     mutate(old_la_code = case_when(
-      
       is.na(old_la_code) ~ "",
-      
       TRUE ~ old_la_code
-      
     ))
-  
-  
-  
+
+
+
   cols_to_replace <- setdiff(names(EES_sum_data), c("attendance_date", "week_commencing", "day_number", "time_identifier", "total_num_schools"))
-  
+
   EES_sum_data[cols_to_replace] <- lapply(EES_sum_data[cols_to_replace], function(col) {
-    
     ifelse(is.na(col), "c", col)
-    
   })
 
   write.csv(EES_sum_data, "data\\EES_sum_data.csv", row.names = FALSE)
