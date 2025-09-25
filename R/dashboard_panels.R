@@ -11,9 +11,9 @@ homepage_panel <- function() {
           textOutput("headline_update_date"),
           br(),
         ),
-        
+
         ## Left panel -------------------------------------------------------
-        
+
         column(
           6,
           div(
@@ -86,9 +86,9 @@ homepage_panel <- function() {
             )
           ),
         ),
-        
+
         ## Right panel ------------------------------------------------------
-        
+
         column(
           6,
           div(
@@ -182,15 +182,15 @@ homepage_panel <- function() {
 # dashboard panel
 dashboard_panel <- function() {
   # fluidPage(
-  
+
   tabPanel(
     value = "dashboard",
     "Dashboard",
-    
+
     # Define UI for application that draws a histogram
-    
+
     # Sidebar with a slider input for number of bins
-    
+
     gov_main_layout(
       gov_row(
         h1("Attendance and absence headlines and reasons"),
