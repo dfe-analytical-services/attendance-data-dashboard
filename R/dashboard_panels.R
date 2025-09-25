@@ -11,9 +11,9 @@ homepage_panel <- function() {
           textOutput("headline_update_date"),
           br(),
         ),
-
+        
         ## Left panel -------------------------------------------------------
-
+        
         column(
           6,
           div(
@@ -86,9 +86,9 @@ homepage_panel <- function() {
             )
           ),
         ),
-
+        
         ## Right panel ------------------------------------------------------
-
+        
         column(
           6,
           div(
@@ -114,9 +114,7 @@ homepage_panel <- function() {
                   h3("Coverage"),
                   p(textOutput("daily_schools_count")),
                   p(textOutput("school_count_proportion_homepage")),
-                  p(
-                    "Absence rates are provided broken down by state-funded primary, secondary and special schools. At national and regional level, absence figures are also provided across all schools. In recognition that response rates are not equal across school types and, therefore, not representative of the total school population, the total absence figure for all schools has been weighted based on the Spring 2024 school census. Weighted total figures are not included at local authority level due to the low number of schools involved."
-                  ),
+                  p("Absence rates are provided broken down by state-funded primary, secondary and special schools. At national and regional level, absence figures are also provided across all schools."),
                   br(),
                   h3("National statistics"),
                   p(
@@ -128,13 +126,8 @@ homepage_panel <- function() {
                   ),
                   br(),
                   br(),
-                  p(
-                    "For 2023/24 full academic year and termly pupil attendance data, including by characteristics, please see the historical publication at the link below:"
-                  ),
-                  a(
-                    href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2024-week-29",
-                    "Pupil attendance in schools - 2023/24 academic year"
-                  ),
+                  p("For 2024/25 full academic year and termly pupil attendance data, including by characteristics, please see the historical publication at the link below:"),
+                  a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2025-week-29", "Pupil attendance in schools - 2024/25 academic year"),
                   br(),
                   br(),
                   p(
@@ -155,11 +148,7 @@ homepage_panel <- function() {
                   textOutput("homepage_update_dates"),
                   br(),
                   p(
-                    "Data prior to 09 September 2024 has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level estimates covering the week commencing 02 September 2024 is available in the underlying data of the publication linked below: "
-                  ),
-                  a(
-                    href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2024-week-37",
-                    "Pupil attendance in schools - First publication of 2024/25 academic year"
+                    "Data prior to 08 September 2025 has not been included in the dashboard due to the impact of different start dates, inset days and phased returns."
                   ),
                   br(),
                   br(),
@@ -193,15 +182,15 @@ homepage_panel <- function() {
 # dashboard panel
 dashboard_panel <- function() {
   # fluidPage(
-
+  
   tabPanel(
     value = "dashboard",
     "Dashboard",
-
+    
     # Define UI for application that draws a histogram
-
+    
     # Sidebar with a slider input for number of bins
-
+    
     gov_main_layout(
       gov_row(
         h1("Attendance and absence headlines and reasons"),
@@ -500,8 +489,7 @@ dashboard_panel <- function() {
                     br(),
                     p(strong(paste0(
                       "To view persistent absence figures, select “year to date” in the drop-down menu. ",
-                      "Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods.",
-                      "Underlying data relating to the Summer, Spring and Autumn terms and year to date is available at the link below:"
+                      "Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods."
                     ))),
                     a(
                       href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools",
@@ -720,21 +708,9 @@ notes_panel <- function() {
           br(),
           p("Users should be aware"),
           p(
-            "- Estimates for non-response - In recognition that response rates are not equal across school types and, therefore, not representative of the total school population, the total rates for all schools has been weighted based on the Spring 2024 school census. Weighted total figures are not included at local authority level due to the low number of schools involved."
-          ),
-          p(
             "- Reporting lag - Schools update their registers continually and attendance codes change, resulting in absence rates for a particular day to decrease over time. Analysis of data from the Summer 2022 term suggests that this could be a decrease in the absence rate of around 1 percentage point before settling down. Historical figures will be recalculated in each publication."
           ),
           # p("- Data prior to 12 September 2022 has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level data covering the week commencing 5th September is available on", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Explore Education Statistics"), ". Data at National and Regional level for the week commencing 19th December has not been included as very few Local Authorities have schools open during this week. Where Local Authorities were open during the week commending 19th December, this data has been shown at Local Authority level."),
-          p(
-            "- Data prior to 09 September 2024 has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level data covering the week commencing 02 September 2024 is available in the underlying data of ",
-            a(
-              href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2024-week-37",
-              "this publication",
-              .noWS = c("after")
-            ),
-            "."
-          ),
           # p("- No figures for the day of national teacher strikes have been provided in the dashboard and underlying data. No figures for the day of regional teacher strikes have been provided in the dashboard and underlying data for regions affected or at a national level, however figures are still available for regions not expected to be affected. Further information on attendance during these days is available at the link below:"),
           # a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", "Pupil attendance in schools"),
           br(),

@@ -30,11 +30,11 @@
             "automargin": true,
             "title": "Date",
             "tickvals": [
-              "2025-07-14",
-              "2025-07-15",
-              "2025-07-16",
-              "2025-07-17",
-              "2025-07-18"
+              "2025-09-08",
+              "2025-09-09",
+              "2025-09-10",
+              "2025-09-11",
+              "2025-09-12"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -107,18 +107,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2025-07-14",
-              "2025-07-15",
-              "2025-07-16",
-              "2025-07-17",
-              "2025-07-18"
+              "2025-09-08",
+              "2025-09-09",
+              "2025-09-10",
+              "2025-09-11",
+              "2025-09-12"
             ],
             "y": [
-              10.7163131552963,
-              10.819350601041,
-              11.671107593617201,
-              13.1928112546422,
-              16.134513600546899
+              5.2983985279999999,
+              5.4271437990000004,
+              5.4705300069999998,
+              5.645811363,
+              6.48843441
             ],
             "line": {
               "color": "#12436D"
@@ -131,11 +131,11 @@
             },
             "name": "Overall absence rate",
             "hovertemplate": [
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%"
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%"
             ],
             "error_y": {
               "color": "rgba(255,127,14,1)"
@@ -151,18 +151,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2025-07-14",
-              "2025-07-15",
-              "2025-07-16",
-              "2025-07-17",
-              "2025-07-18"
+              "2025-09-08",
+              "2025-09-09",
+              "2025-09-10",
+              "2025-09-11",
+              "2025-09-12"
             ],
             "y": [
-              5.5885986196884998,
-              5.5973303661666298,
-              5.8972621051710696,
-              6.4221856110208799,
-              7.2580838540141004
+              2.760597373,
+              3.0243894849999999,
+              3.1283305509999999,
+              3.3178872359999998,
+              3.9365167250000002
             ],
             "line": {
               "color": "#28A197"
@@ -175,11 +175,11 @@
             },
             "name": "Authorised absence rate",
             "hovertemplate": [
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%"
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%"
             ],
             "error_y": {
               "color": "rgba(44,160,44,1)"
@@ -195,18 +195,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2025-07-14",
-              "2025-07-15",
-              "2025-07-16",
-              "2025-07-17",
-              "2025-07-18"
+              "2025-09-08",
+              "2025-09-09",
+              "2025-09-10",
+              "2025-09-11",
+              "2025-09-12"
             ],
             "y": [
-              5.12771453560784,
-              5.2220202348743996,
-              5.7738454884460904,
-              6.7706256436213099,
-              8.8764297465328106
+              2.5378011549999999,
+              2.4027543140000001,
+              2.3421994559999999,
+              2.3279241279999998,
+              2.5519176849999998
             ],
             "line": {
               "color": "#F46A25"
@@ -219,11 +219,11 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%",
-              "%{y:.1f}%"
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%"
             ],
             "error_y": {
               "color": "rgba(214,39,40,1)"
@@ -349,9 +349,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2025-07-14 to 2025-07-18: secondary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "- 12.4% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "- 87.6% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "- 4.3% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2025-09-08 to 2025-09-12: secondary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "- 5.67% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "- 94.33% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "- 2.14% of sessions were recorded as illness"
   }
 }
