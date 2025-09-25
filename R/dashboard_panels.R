@@ -118,11 +118,11 @@ homepage_panel <- function() {
                   br(),
                   h3("National statistics"),
                   p(
-                    "Data relating to pupil attendance, including pupil characteristics, is published at the link below:"
+                    "Data relating to pupil attendance is published at the link below:"
                   ),
                   a(
                     href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools",
-                    "Pupil attendance in schools - 2024/25 academic year"
+                    "Pupil attendance in schools - 2025/26 academic year"
                   ),
                   br(),
                   br(),
