@@ -122,9 +122,7 @@ most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4, " to "
 ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date))
 
 #### SECTION 2 - reading in csvs to run dashboard ####
-attendance_data <- readr::read_csv("data/attendance_data_dashboard.csv")
-attendance_data$attendance_date <- as.Date(attendance_data$attendance_date)
-attendance_data$week_commencing <- as.Date(attendance_data$week_commencing)
+attendance_data <- read.csv("data/attendance_data_dashboard.csv")
 attendance_data$attendance_date <- as.Date(attendance_data$attendance_date, format = "%d/%m/%Y")
 attendance_data$week_commencing <- as.Date(attendance_data$week_commencing, format = "%d/%m/%Y")
 
