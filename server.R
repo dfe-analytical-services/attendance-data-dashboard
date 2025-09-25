@@ -453,8 +453,8 @@ server <- function(input, output, session) {
       time_period == max(time_period),
       breakdown == "Weekly"
     ) %>%
-      # filter(time_identifier == max(time_identifier)) %>%
-      filter(time_identifier == max(time_identifier) - 1) %>%
+      filter(time_identifier == max(time_identifier)) %>%
+      # filter(time_identifier == max(time_identifier) - 1) %>%
       mutate(
         overall_absence_perc = overall_absence_perc / 100,
         authorised_absence_perc = authorised_absence_perc / 100,
@@ -596,7 +596,7 @@ server <- function(input, output, session) {
         line = list(color = "black"),
         marker = list(color = "black"),
         name = "Number of schools reporting",
-        hovertemplate = "%{y:.1f}",
+        hovertemplate = "%{y:.2f}",
         mode = "markers"
       ) %>%
       config(displayModeBar = FALSE)
@@ -648,7 +648,7 @@ server <- function(input, output, session) {
         # marker = list(color = "black"),
         marker = list(color = "#12436D"),
         name = "Overall absence rate",
-        hovertemplate = "%{y:.1f}%",
+        hovertemplate = "%{y:.2f}%",
         mode = "markers"
       ) %>%
       add_trace(
@@ -659,7 +659,7 @@ server <- function(input, output, session) {
         # marker = list(color = "steelblue"),
         marker = list(color = "#28A197"),
         name = "Authorised absence rate",
-        hovertemplate = "%{y:.1f}%",
+        hovertemplate = "%{y:.2f}%",
         mode = "markers"
       ) %>%
       add_trace(
@@ -670,7 +670,7 @@ server <- function(input, output, session) {
         # marker = list(color = "orangered"),
         marker = list(color = "#F46A25"),
         name = "Unauthorised absence rate",
-        hovertemplate = "%{y:.1f}%",
+        hovertemplate = "%{y:.2f}%",
         mode = "markers"
       ) %>%
       config(displayModeBar = FALSE)
@@ -733,7 +733,7 @@ server <- function(input, output, session) {
         # marker = list(color = "black"),
         marker = list(color = "#12436D"),
         name = "Overall absence rate",
-        hovertemplate = "%{y:.1f}%",
+        hovertemplate = "%{y:.2f}%",
         mode = "markers"
       ) %>%
       add_trace(
@@ -744,7 +744,7 @@ server <- function(input, output, session) {
         # marker = list(color = "steelblue"),
         marker = list(color = "#28A197"),
         name = "Authorised absence rate",
-        hovertemplate = "%{y:.1f}%",
+        hovertemplate = "%{y:.2f}%",
         mode = "markers"
       ) %>%
       add_trace(
@@ -755,7 +755,7 @@ server <- function(input, output, session) {
         # marker = list(color = "orangered"),
         marker = list(color = "#F46A25"),
         name = "Unauthorised absence rate",
-        hovertemplate = "%{y:.1f}%",
+        hovertemplate = "%{y:.2f}%",
         mode = "markers"
       ) %>%
       config(displayModeBar = FALSE)
@@ -806,7 +806,7 @@ server <- function(input, output, session) {
         line = list(color = "#12436D"),
         marker = list(color = "#12436D"),
         name = "Illness",
-        hovertemplate = "%{y:.1f}%",
+        hovertemplate = "%{y:.2f}%",
         mode = "markers"
       ) %>%
       add_trace(
@@ -815,7 +815,7 @@ server <- function(input, output, session) {
         line = list(color = "#28A197"),
         marker = list(color = "#28A197"),
         name = "Medical appointments",
-        hovertemplate = "%{y:.1f}%",
+        hovertemplate = "%{y:.2f}%",
         mode = "markers"
       ) %>%
       add_trace(
@@ -824,7 +824,7 @@ server <- function(input, output, session) {
         line = list(color = "#FFBF47"),
         marker = list(color = "#FFBF47"),
         name = "Religious observance",
-        hovertemplate = "%{y:.1f}%",
+        hovertemplate = "%{y:.2f}%",
         mode = "markers"
       ) %>%
       add_trace(
@@ -833,7 +833,7 @@ server <- function(input, output, session) {
         line = list(color = "#F46A25"),
         marker = list(color = "#F46A25"),
         name = "Unauthorised holiday",
-        hovertemplate = "%{y:.1f}%",
+        hovertemplate = "%{y:.2f}%",
         mode = "markers"
       ) %>%
       add_trace(
@@ -842,7 +842,7 @@ server <- function(input, output, session) {
         line = list(color = "#801650"),
         marker = list(color = "#801650"),
         name = "Unauthorised other",
-        hovertemplate = "%{y:.1f}%",
+        hovertemplate = "%{y:.2f}%",
         mode = "markers"
       ) %>%
       config(displayModeBar = FALSE)
@@ -1079,8 +1079,8 @@ server <- function(input, output, session) {
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
-    paste0("For this breakdown, in the latest week ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools submitted data, though this has varied throughout the year-to-date.")
+    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 2), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
+    paste0("For this breakdown, in the latest week ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 2), "% of schools submitted data, though this has varied throughout the year-to-date.")
   })
 
   output$school_count_proportion_weekly2 <- renderText({
@@ -1092,8 +1092,8 @@ server <- function(input, output, session) {
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
-    paste0("For this breakdown, in the latest week ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools submitted data, though this has varied throughout the year-to-date.")
+    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 2), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
+    paste0("For this breakdown, in the latest week ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 2), "% of schools submitted data, though this has varied throughout the year-to-date.")
   })
 
   output$school_count_proportion_homepage <- renderText({
@@ -1110,8 +1110,8 @@ server <- function(input, output, session) {
       filter(time_identifier == max(time_identifier)) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
-    paste0("This number is approximately ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of the number of schools participating in the School Census. From the start of the 2024/25 academic year, it became mandatory for schools to share attendance data with the DfE. As more schools share their data, the number of schools reporting may change over time.")
+    # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 2), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
+    paste0("This number is approximately ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 2), "% of the number of schools participating in the School Census. From the start of the 2024/25 academic year, it became mandatory for schools to share attendance data with the DfE. As more schools share their data, the number of schools reporting may change over time.")
   })
 
   # Proportion of schools in census figures are generated from - year to date
@@ -1123,7 +1123,7 @@ server <- function(input, output, session) {
       group_by(time_period, time_identifier, geographic_level, region_name, la_name) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
-    paste0("For this breakdown, across the year-to-date there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 0), "% of schools opted-in.")
+    paste0("For this breakdown, across the year-to-date there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 2), "% of schools opted-in.")
   })
 
   # Headline attendance latest week
@@ -1134,7 +1134,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
-      "- ", live_attendance_data_weekly() %>% pull(attendance_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_weekly() %>% pull(attendance_perc) %>% round(digits = 2),
       "% of sessions were recorded as attending"
     )
   })
@@ -1151,10 +1151,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_weekly() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions were recorded as attending in ", input$region_choice, " (compared to ", live_attendance_data_weekly_natcomp() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions at national level)"
     )
   })
@@ -1167,10 +1167,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_weekly() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions were recorded as attending in ", input$la_choice, " (compared to ", live_attendance_data_weekly_regcomp() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions in ", input$region_choice, ")"
     )
   })
@@ -1183,7 +1183,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
     paste0(
-      "- ", live_attendance_data_ytd() %>% pull(attendance_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_ytd() %>% pull(attendance_perc) %>% round(digits = 2),
       "% of sessions were recorded as attending"
     )
   })
@@ -1196,10 +1196,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_ytd() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions were recorded as attending in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions at national level)"
     )
   })
@@ -1212,10 +1212,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_ytd() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions were recorded as attending in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
         pull(attendance_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions in ", input$region_choice, ")"
     )
   })
@@ -1229,7 +1229,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
-      "- ", live_attendance_data_weekly() %>% pull(overall_absence_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_weekly() %>% pull(overall_absence_perc) %>% round(digits = 2),
       "% of sessions were recorded as absence"
     )
   })
@@ -1250,10 +1250,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_weekly() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions were recorded as absence in ", input$region_choice, " (compared to ", live_attendance_data_weekly_natcomp() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions at national level)"
     )
   })
@@ -1266,10 +1266,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_weekly() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions were recorded as absence in ", input$la_choice, " (compared to ", live_attendance_data_weekly_regcomp() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions in ", input$region_choice, ")"
     )
   })
@@ -1282,7 +1282,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "- ", live_attendance_data_ytd() %>% pull(overall_absence_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_ytd() %>% pull(overall_absence_perc) %>% round(digits = 2),
       "% of sessions were recorded as absence"
     )
   })
@@ -1295,10 +1295,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_ytd() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions were recorded as absence in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions at national level)"
     )
   })
@@ -1311,10 +1311,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_ytd() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions were recorded as absence in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
         pull(overall_absence_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions in ", input$region_choice, ")"
     )
   })
@@ -1327,7 +1327,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
     paste0(
-      "- ", live_attendance_data_weekly() %>% pull(illness_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_weekly() %>% pull(illness_perc) %>% round(digits = 2),
       "% of sessions were recorded as illness"
     )
   })
@@ -1340,10 +1340,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_weekly() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions were recorded as illness in ", input$region_choice, " (compared to ", live_attendance_data_weekly_natcomp() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions at national level)"
     )
   })
@@ -1356,10 +1356,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_weekly() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions were recorded as illness in ", input$la_choice, " (compared to ", live_attendance_data_weekly_regcomp() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions in ", input$region_choice, ")"
     )
   })
@@ -1372,7 +1372,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "- ", live_attendance_data_ytd() %>% pull(illness_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_ytd() %>% pull(illness_perc) %>% round(digits = 2),
       "% of sessions were recorded as illness"
     )
   })
@@ -1385,10 +1385,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_ytd() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions were recorded as illness in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions at national level)"
     )
   })
@@ -1401,10 +1401,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_ytd() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions were recorded as illness in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
         pull(illness_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of sessions in ", input$region_choice, ")"
     )
   })
@@ -1417,7 +1417,7 @@ server <- function(input, output, session) {
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
     paste0(
-      "- ", live_attendance_data_ytd() %>% pull(pa_perc) %>% round(digits = 1),
+      "- ", live_attendance_data_ytd() %>% pull(pa_perc) %>% round(digits = 2),
       "% of pupils were recorded as persistently absent"
     )
   })
@@ -1430,10 +1430,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_ytd() %>%
         pull(pa_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of pupils were recorded as persistently absent in ", input$region_choice, " (compared to ", live_attendance_data_ytd_natcomp() %>%
         pull(pa_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of pupils at national level)"
     )
   })
@@ -1446,10 +1446,10 @@ server <- function(input, output, session) {
     paste0(
       "- ", live_attendance_data_ytd() %>%
         pull(pa_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of pupils were recorded as persistently absent in ", input$la_choice, " (compared to ", live_attendance_data_ytd_regcomp() %>%
         pull(pa_perc) %>%
-        round(digits = 1),
+        round(digits = 2),
       "% of pupils in ", input$region_choice, ")"
     )
   })
@@ -1470,8 +1470,8 @@ server <- function(input, output, session) {
     # as.Date(attendance_date) + 31
 
 
-    # paste0("Data was last updated on ", last_update_date, ".")
-    paste0("Data was last updated on 2025-08-07")
+    paste0("Data was last updated on ", last_update_date, ".")
+    # paste0("Data was last updated on 2025-08-07")
   })
 
   output$la_clarity_dates <- renderText({
@@ -1507,8 +1507,8 @@ server <- function(input, output, session) {
 
     # paste0("Data was last updated on 2025-05-01 and is next expected to be updated on 2025-05-15. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on 2025-08-07. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on 2025-08-07. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on 2025-01-09. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
@@ -1532,8 +1532,8 @@ server <- function(input, output, session) {
 
     # paste0("Data was last updated on 2025-05-01 and is next expected to be updated on 2025-05-15. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on 2025-08-07. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on 2025-08-07. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on 2025-01-09. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
@@ -1557,8 +1557,8 @@ server <- function(input, output, session) {
 
     # paste0("Data was last updated on 2025-05-01 and is next expected to be updated on 2025-05-15. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on 2025-08-07. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on 2025-08-07. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on 2025-01-09. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
@@ -1574,7 +1574,7 @@ server <- function(input, output, session) {
 
     overall_absence_rate_weekly_headline <- live_attendance_data_weekly()
     pull(overall_absence_perc) %>%
-      round(digits = 1)
+      round(digits = 2)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -1591,7 +1591,7 @@ server <- function(input, output, session) {
 
     overall_absence_rate_ytd_headline <- live_attendance_data_ytd() %>%
       pull(overall_absence_perc) %>%
-      round(digits = 1)
+      round(digits = 2)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -1611,7 +1611,7 @@ server <- function(input, output, session) {
 
     overall_auth_rate_weekly_headline <- live_attendance_data_weekly() %>%
       pull(authorised_absence_perc) %>%
-      round(digits = 1)
+      round(digits = 2)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -1628,7 +1628,7 @@ server <- function(input, output, session) {
 
     overall_auth_rate_ytd_headline <- live_attendance_data_ytd() %>%
       pull(authorised_absence_perc) %>%
-      round(digits = 1)
+      round(digits = 2)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -1648,7 +1648,7 @@ server <- function(input, output, session) {
 
     overall_unauth_rate_weekly_headline <- live_attendance_data_weekly() %>%
       pull(unauthorised_absence_perc) %>%
-      round(digits = 1)
+      round(digits = 2)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -1665,7 +1665,7 @@ server <- function(input, output, session) {
 
     overall_unauth_rate_ytd_headline <- live_attendance_data_ytd() %>%
       pull(unauthorised_absence_perc) %>%
-      round(digits = 1)
+      round(digits = 2)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -1713,7 +1713,7 @@ server <- function(input, output, session) {
         columnDefs = list(list(className = "dt-center", targets = 0:7))
       )
     ) %>%
-      formatPercentage(c(0:7), 1)
+      formatPercentage(c(0:7), 2)
   })
 
   # authorised reasons ytd
@@ -1752,7 +1752,7 @@ server <- function(input, output, session) {
         columnDefs = list(list(className = "dt-center", targets = 0:7))
       )
     ) %>%
-      formatPercentage(c(0:7), 1)
+      formatPercentage(c(0:7), 2)
   })
 
   # unauthorised reasons weekly
@@ -1783,7 +1783,7 @@ server <- function(input, output, session) {
         columnDefs = list(list(className = "dt-center", targets = 0:3))
       )
     ) %>%
-      formatPercentage(c(0:3), 1)
+      formatPercentage(c(0:3), 2)
   })
 
   # unauthorised reasons ytd
@@ -1814,7 +1814,7 @@ server <- function(input, output, session) {
         columnDefs = list(list(className = "dt-center", targets = 0:3))
       )
     ) %>%
-      formatPercentage(c(0:3), 1)
+      formatPercentage(c(0:3), 2)
   })
 
   # absence reasons by local authority
@@ -1840,7 +1840,7 @@ server <- function(input, output, session) {
       rownames = FALSE,
       options = list(scrollX = TRUE, columnDefs = list(list(className = "dt-center", targets = 0:7), list(targets = 1, searchable = FALSE, visible = FALSE)))
     ) %>%
-      formatPercentage(c(6:8), 1)
+      formatPercentage(c(6:8), 2)
   })
 
 
