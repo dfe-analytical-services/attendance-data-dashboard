@@ -207,9 +207,9 @@ dashboard_panel <- function() {
                 selectInput(
                   inputId = "school_choice",
                   label = "Choose school type:",
-                  choices = school_type_lookup %>%
+                  choices = education_phase_lookup %>%
                     dplyr::filter(geographic_level == "National") %>%
-                    dplyr::select(school_type) %>%
+                    dplyr::select(education_phase) %>%
                     unique() %>%
                     as.data.table(),
                   selected = "Primary",

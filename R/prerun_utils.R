@@ -80,7 +80,7 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
     mutate(across(.cols = 1:2, .fns = as.numeric)) %>%
     mutate(across(.cols = 12:12, .fns = as.numeric)) %>%
     arrange(time_period, time_identifier) %>%
-    filter(school_type %in% c("Primary", "Secondary", "Special"))
+    filter(education_phase %in% c("Primary", "Secondary", "Special"))
 
   # Calculate date
   attendance_data <- attendance_data %>% mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
@@ -90,7 +90,7 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
   attendance_data <- attendance_data %>% mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
 
   # Join school frequency count for proportion of schools reporting and pupil headcount for calculation of weighted totals
-  attendance_data <- left_join(attendance_data, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "phase"))
+  attendance_data <- left_join(attendance_data, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "education_phase" = "phase"))
 
   # Calculate measures for use across app, grouping appropriately at each level then binding back together
   attendance_data_daily <- attendance_data %>%
@@ -117,7 +117,7 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
     )
 
   attendance_data_weekly <- attendance_data %>%
-    group_by(time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type) %>%
+    group_by(time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, education_phase) %>%
     mutate(
       num_schools = mean(num_schools),
       enrolments = mean(enrolments),
@@ -189,10 +189,10 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
       auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
       breakdown = "Weekly"
     ) %>%
-    distinct(time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all = TRUE)
+    distinct(time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, education_phase, .keep_all = TRUE)
 
   attendance_data_ytd <- attendance_data %>%
-    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type) %>%
+    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, education_phase) %>%
     mutate(
       academic_year = min(academic_year),
       time_period = min(time_period),
@@ -267,10 +267,10 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
       auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
       breakdown = "YTD"
     ) %>%
-    distinct(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all = TRUE)
+    distinct(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, education_phase, .keep_all = TRUE)
 
   # If prior to week 2 publication, comment the line below out
-  attendance_data_ytd <- left_join(attendance_data_ytd, dplyr::select(pa_data_raw, c(geographic_level, region_name, la_name, school_type, pa_flag, ytd_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "school_type"))
+  attendance_data_ytd <- left_join(attendance_data_ytd, dplyr::select(pa_data_raw, c(geographic_level, region_name, la_name, education_phase, pa_flag, ytd_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "education_phase" = "education_phase"))
 
   attendance_data <- bind_rows(attendance_data_daily, attendance_data_weekly, attendance_data_ytd)
 
@@ -339,7 +339,7 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
       .groups = "keep"
     ) %>%
     mutate(
-      school_type = "Total",
+      education_phase = "Total",
       attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
       overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
       authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
@@ -374,7 +374,7 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
       .groups = "keep"
     ) %>%
     mutate(
-      school_type = "Total",
+      education_phase = "Total",
       attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
       overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
       authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
@@ -400,7 +400,7 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
   attendance_data <- bind_rows(attendance_data, attendance_data_daily_totals, attendance_data_weekly_totals, attendance_data_ytd_totals)
 
   attendance_data <- attendance_data %>%
-    dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
+    dplyr::filter(!(geographic_level == "Local authority" & education_phase == "Total")) %>%
     arrange(time_period, time_identifier)
 
   # #Handle strike days
@@ -519,7 +519,7 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
     mutate(across(.cols = 1:2, .fns = as.numeric)) %>%
     mutate(across(.cols = 12:12, .fns = as.numeric)) %>%
     arrange(time_period, time_identifier) %>%
-    filter(school_type %in% c("Primary", "Secondary", "Special"))
+    filter(education_phase %in% c("Primary", "Secondary", "Special"))
 
   # Calculate date
   attendance_data_autumn <- attendance_data_autumn %>% mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
@@ -528,11 +528,11 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
   attendance_data_autumn <- attendance_data_autumn %>% mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
 
   # Join school frequency count for proportion of schools reporting and pupil headcount for calculation of weighted totals
-  attendance_data_autumn <- left_join(attendance_data_autumn, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "phase"))
+  attendance_data_autumn <- left_join(attendance_data_autumn, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "education_phase" = "phase"))
 
   # Calculate measures for use across app, grouping appropriately at each level then binding back together
   attendance_data_autumn <- attendance_data_autumn %>%
-    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type) %>%
+    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, education_phase) %>%
     mutate(
       academic_year = min(academic_year),
       time_period = min(time_period),
@@ -608,9 +608,9 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
       auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
       breakdown = "AUT"
     ) %>%
-    distinct(time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all = TRUE)
+    distinct(time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, education_phase, .keep_all = TRUE)
 
-  attendance_data_autumn <- left_join(attendance_data_autumn, dplyr::select(autumn_only_pa_data_raw, c(geographic_level, region_name, la_name, school_type, pa_flag, autumn_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "school_type"))
+  attendance_data_autumn <- left_join(attendance_data_autumn, dplyr::select(autumn_only_pa_data_raw, c(geographic_level, region_name, la_name, education_phase, pa_flag, autumn_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "education_phase" = "education_phase"))
   attendance_data_autumn <- attendance_data_autumn %>% mutate(pa_perc = (pa_flag / autumn_enrolments) * 100)
 
   # Prep for calculation of totals by doing rates X census counts
@@ -650,7 +650,7 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
       .groups = "keep"
     ) %>%
     mutate(
-      school_type = "Total",
+      education_phase = "Total",
       enrolments_pa_10_exact = "z", # Preserved as-is
       attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
       overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
@@ -678,7 +678,7 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
   attendance_data_autumn <- bind_rows(attendance_data_autumn, attendance_data_autumn_totals)
 
   #   attendance_data_autumn <- attendance_data_autumn %>%
-  #     dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
+  #     dplyr::filter(!(geographic_level == "Local authority" & education_phase == "Total")) %>%
   #     arrange(time_period, time_identifier)
 
   # Data suppression
@@ -776,7 +776,7 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
     mutate(across(.cols = 1:2, .fns = as.numeric)) %>%
     mutate(across(.cols = 12:12, .fns = as.numeric)) %>%
     arrange(time_period, time_identifier) %>%
-    filter(school_type %in% c("Primary", "Secondary", "Special"))
+    filter(education_phase %in% c("Primary", "Secondary", "Special"))
 
   # Calculate date
   attendance_data_spring <- attendance_data_spring %>% mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
@@ -785,11 +785,11 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
   attendance_data_spring <- attendance_data_spring %>% mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
 
   # Join school frequency count for proportion of schools reporting and pupil headcount for calculation of weighted totals
-  attendance_data_spring <- left_join(attendance_data_spring, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "phase"))
+  attendance_data_spring <- left_join(attendance_data_spring, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "education_phase" = "phase"))
 
   # Calculate measures for use across app, grouping appropriately at each level then binding back together
   attendance_data_spring <- attendance_data_spring %>%
-    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type) %>%
+    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, education_phase) %>%
     mutate(
       academic_year = min(academic_year),
       time_period = min(time_period),
@@ -867,9 +867,9 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
       auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
       breakdown = "SPR"
     ) %>%
-    distinct(time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all = TRUE)
+    distinct(time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, education_phase, .keep_all = TRUE)
 
-  attendance_data_spring <- left_join(attendance_data_spring, dplyr::select(spring_only_pa_data_raw, c(geographic_level, region_name, la_name, school_type, pa_flag, spring_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "school_type"))
+  attendance_data_spring <- left_join(attendance_data_spring, dplyr::select(spring_only_pa_data_raw, c(geographic_level, region_name, la_name, education_phase, pa_flag, spring_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "education_phase" = "education_phase"))
   attendance_data_spring <- attendance_data_spring %>% mutate(pa_perc = (pa_flag / spring_enrolments) * 100)
 
   # Prep for calculation of totals by doing rates X census counts
@@ -910,7 +910,7 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
       .groups = "keep"
     ) %>%
     mutate(
-      school_type = "Total",
+      education_phase = "Total",
       enrolments_pa_10_exact = "z", # Preserved as-is
       attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
       overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
@@ -937,7 +937,7 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
   attendance_data_spring <- bind_rows(attendance_data_spring, attendance_data_spring_totals)
 
   # attendance_data_spring <- attendance_data_spring %>%
-  #   dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
+  #   dplyr::filter(!(geographic_level == "Local authority" & education_phase == "Total")) %>%
   #   arrange(time_period, time_identifier)
 
   # Data suppression
@@ -1048,7 +1048,7 @@ process_attendance_data_summer <- function(attendance_data_raw, summer_start, su
     mutate(across(.cols = 1:2, .fns = as.numeric)) %>%
     mutate(across(.cols = 12:12, .fns = as.numeric)) %>%
     arrange(time_period, time_identifier) %>%
-    filter(school_type %in% c("Primary", "Secondary", "Special"))
+    filter(education_phase %in% c("Primary", "Secondary", "Special"))
 
   # Calculate date
   attendance_data_summer <- attendance_data_summer %>% mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
@@ -1057,11 +1057,11 @@ process_attendance_data_summer <- function(attendance_data_raw, summer_start, su
   attendance_data_summer <- attendance_data_summer %>% mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
 
   # Join school frequency count for proportion of schools reporting and pupil headcount for calculation of weighted totals
-  attendance_data_summer <- left_join(attendance_data_summer, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "phase"))
+  attendance_data_summer <- left_join(attendance_data_summer, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "education_phase" = "phase"))
 
   # Calculate measures for use across app, grouping appropriately at each level then binding back together
   attendance_data_summer <- attendance_data_summer %>%
-    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type) %>%
+    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, education_phase) %>%
     mutate(
       academic_year = min(academic_year),
       time_period = min(time_period),
@@ -1139,9 +1139,9 @@ process_attendance_data_summer <- function(attendance_data_raw, summer_start, su
       auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
       breakdown = "SUM"
     ) %>%
-    distinct(time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all = TRUE)
+    distinct(time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, education_phase, .keep_all = TRUE)
 
-  attendance_data_summer <- left_join(attendance_data_summer, dplyr::select(summer_only_pa_data_raw, c(geographic_level, region_name, la_name, school_type, pa_flag, summer_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "school_type"))
+  attendance_data_summer <- left_join(attendance_data_summer, dplyr::select(summer_only_pa_data_raw, c(geographic_level, region_name, la_name, education_phase, pa_flag, summer_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "education_phase" = "education_phase"))
   attendance_data_summer <- attendance_data_summer %>% mutate(pa_perc = (pa_flag / summer_enrolments) * 100)
 
   # Prep for calculation of totals by doing rates X census counts
@@ -1182,7 +1182,7 @@ process_attendance_data_summer <- function(attendance_data_raw, summer_start, su
       .groups = "keep"
     ) %>%
     mutate(
-      school_type = "Total",
+      education_phase = "Total",
       enrolments_pa_10_exact = "z", # Preserved as-is
       attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
       overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
@@ -1209,7 +1209,7 @@ process_attendance_data_summer <- function(attendance_data_raw, summer_start, su
   # Add total onto Primary, Secondary, Special data
   attendance_data_summer <- bind_rows(attendance_data_summer, attendance_data_summer_totals)
 
-  # attendance_data_summer <- attendance_data_summer %>% dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>% arrange(time_period, time_identifier)
+  # attendance_data_summer <- attendance_data_summer %>% dplyr::filter(!(geographic_level == "Local authority" & education_phase == "Total")) %>% arrange(time_period, time_identifier)
 
   # Data suppression
   attendance_data_summer <- attendance_data_summer %>%
@@ -1312,7 +1312,7 @@ create_EES_daily_data <- function(attendance_data) {
       la_name,
       old_la_code,
       attendance_date,
-      school_type,
+      education_phase,
       num_schools,
       enrolments,
       present_sessions,
@@ -1369,7 +1369,7 @@ create_EES_daily_data <- function(attendance_data) {
       auth_part_time_perc,
       auth_other_perc
     ) %>%
-    arrange(time_period, time_identifier, school_type) %>%
+    arrange(time_period, time_identifier, education_phase) %>%
     mutate(time_identifier = paste("Week", time_identifier, sep = " ")) %>%
     mutate_at(vars(
       enrolments,
@@ -1450,7 +1450,7 @@ create_ees_tables <- function(attendance_data) {
       new_la_code,
       la_name,
       old_la_code,
-      school_type,
+      education_phase,
       num_schools,
       enrolments,
       present_sessions,
@@ -1507,7 +1507,7 @@ create_ees_tables <- function(attendance_data) {
       auth_part_time_perc,
       auth_other_perc
     ) %>%
-    arrange(time_period, time_identifier, school_type) %>%
+    arrange(time_period, time_identifier, education_phase) %>%
     mutate(time_identifier = paste("Week", time_identifier, sep = " ")) %>%
     mutate_at(vars(
       enrolments,
@@ -1582,7 +1582,7 @@ create_ees_tables <- function(attendance_data) {
       new_la_code,
       la_name,
       old_la_code,
-      school_type,
+      education_phase,
       num_schools,
       enrolments,
       present_sessions,
@@ -1640,7 +1640,7 @@ create_ees_tables <- function(attendance_data) {
       auth_other_perc
       # pa_perc
     ) %>%
-    arrange(time_period, school_type) %>%
+    arrange(time_period, education_phase) %>%
     mutate(
       time_identifier = paste("Academic year"),
       time_period = paste("202526")
@@ -1707,7 +1707,7 @@ create_ees_tables <- function(attendance_data) {
   # EES_ytd_data[is.na(EES_ytd_data)]<-"c"
 
   EES_daily_data <- EES_daily_data %>%
-    rename(education_phase = school_type) %>%
+    rename(education_phase = education_phase) %>%
     mutate(old_la_code = as.character(old_la_code)) %>%
     mutate(old_la_code = case_when(
       is.na(old_la_code) ~ "",
@@ -1715,7 +1715,7 @@ create_ees_tables <- function(attendance_data) {
     ))
 
   EES_weekly_data <- EES_weekly_data %>%
-    rename(education_phase = school_type) %>%
+    rename(education_phase = education_phase) %>%
     mutate(old_la_code = as.character(old_la_code)) %>%
     mutate(old_la_code = case_when(
       is.na(old_la_code) ~ "",
@@ -1723,7 +1723,7 @@ create_ees_tables <- function(attendance_data) {
     ))
 
   EES_ytd_data <- EES_ytd_data %>%
-    rename(education_phase = school_type) %>%
+    rename(education_phase = education_phase) %>%
     mutate(old_la_code = as.character(old_la_code)) %>%
     mutate(old_la_code = case_when(
       is.na(old_la_code) ~ "",
@@ -1752,7 +1752,7 @@ create_ees_tables_autumn <- function(df_attendance_autumn) {
       new_la_code,
       la_name,
       old_la_code,
-      school_type,
+      education_phase,
       num_schools,
       enrolments,
       present_sessions,
@@ -1810,7 +1810,7 @@ create_ees_tables_autumn <- function(df_attendance_autumn) {
       auth_other_perc
       # pa_perc
     ) %>%
-    arrange(time_period, school_type) %>%
+    arrange(time_period, education_phase) %>%
     mutate(
       time_identifier = paste("Autumn term"),
       time_period = paste("202526"),
@@ -1904,7 +1904,7 @@ create_ees_tables_spring <- function(df_attendance_spring) {
       new_la_code,
       la_name,
       old_la_code,
-      school_type,
+      education_phase,
       num_schools,
       enrolments,
       present_sessions,
@@ -1964,7 +1964,7 @@ create_ees_tables_spring <- function(df_attendance_spring) {
       auth_other_perc
       # pa_perc
     ) %>%
-    arrange(time_period, school_type) %>%
+    arrange(time_period, education_phase) %>%
     mutate(
       time_identifier = paste("Spring term"),
       time_period = paste("202526"),
@@ -2053,7 +2053,7 @@ create_ees_tables_summer <- function(df_attendance_summer) {
       new_la_code,
       la_name,
       old_la_code,
-      school_type,
+      education_phase,
       num_schools,
       enrolments,
       present_sessions,
@@ -2113,7 +2113,7 @@ create_ees_tables_summer <- function(df_attendance_summer) {
       auth_other_perc,
       pa_perc
     ) %>%
-    arrange(time_period, school_type) %>%
+    arrange(time_period, education_phase) %>%
     mutate(
       time_identifier = paste("Summer term"),
       time_period = paste("202526"),
@@ -2183,7 +2183,7 @@ create_ees_tables_summer <- function(df_attendance_summer) {
 
   # EES_aut_data[is.na(EES_aut_data)]<-"c"
   EES_sum_data <- EES_sum_data %>%
-    rename(education_phase = school_type) %>%
+    rename(education_phase = education_phase) %>%
     mutate(old_la_code = as.character(old_la_code)) %>%
     mutate(old_la_code = case_when(
       is.na(old_la_code) ~ "",

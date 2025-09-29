@@ -145,10 +145,10 @@ geog_lookup <- attendance_data %>%
     )
   )
 
-school_type_lookup <- attendance_data %>%
-  dplyr::select(geographic_level, school_type) %>%
+education_phase_lookup <- attendance_data %>%
+  dplyr::select(geographic_level, education_phase) %>%
   unique() %>%
-  arrange(geographic_level, school_type)
+  arrange(geographic_level, education_phase)
 
 # Combined local authority and region list
 la_list <- geog_lookup %>%
@@ -290,7 +290,7 @@ mapdata <- mapdata %>%
     region_name,
     la_name,
     CTYUA23CD,
-    school_type
+    education_phase
   ) %>%
   mutate(
     overall_label_LA = paste(la_name),

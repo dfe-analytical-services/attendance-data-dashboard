@@ -114,12 +114,12 @@ server <- function(input, output, session) {
   # School type updating based on geographic level
   observe({
     if (input$dash == "la comparisons") {
-      choicesSchools <- (school_type_lookup %>%
-        dplyr::filter(geographic_level == "Local authority"))$school_type %>%
+      choicesSchools <- (education_phase_lookup %>%
+        dplyr::filter(geographic_level == "Local authority"))$education_phase %>%
         unique()
     } else {
-      choicesSchools <- (school_type_lookup %>%
-        dplyr::filter(geographic_level == input$geography_choice))$school_type %>%
+      choicesSchools <- (education_phase_lookup %>%
+        dplyr::filter(geographic_level == input$geography_choice))$education_phase %>%
         unique()
     }
     updateSelectInput(session, "school_choice",
@@ -201,7 +201,7 @@ server <- function(input, output, session) {
     if (input$geography_choice == "National") {
       dplyr::filter(
         attendance_data, geographic_level == "National",
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         time_period == max(time_period),
         breakdown == "Daily"
       ) %>% filter(time_identifier == max(time_identifier))
@@ -209,7 +209,7 @@ server <- function(input, output, session) {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         time_period == max(time_period),
         breakdown == "Daily"
       ) %>% filter(time_identifier == max(time_identifier))
@@ -218,7 +218,7 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "Local authority",
         region_name == input$region_choice,
         la_name == input$la_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         time_period == max(time_period),
         breakdown == "Daily"
       ) %>% filter(time_identifier == max(time_identifier))
@@ -233,7 +233,7 @@ server <- function(input, output, session) {
     if (input$geography_choice == "National") {
       dplyr::filter(
         attendance_data, geographic_level == "National",
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         time_period == max(time_period),
         breakdown == "Weekly"
       ) %>% filter(time_identifier == max(time_identifier))
@@ -241,7 +241,7 @@ server <- function(input, output, session) {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         time_period == max(time_period),
         breakdown == "Weekly"
       ) %>% filter(time_identifier == max(time_identifier))
@@ -250,7 +250,7 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "Local authority",
         region_name == input$region_choice,
         la_name == input$la_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         time_period == max(time_period),
         breakdown == "Weekly"
       ) %>% filter(time_identifier == max(time_identifier))
@@ -263,7 +263,7 @@ server <- function(input, output, session) {
     if (input$geography_choice == "National") {
       dplyr::filter(
         attendance_data, geographic_level == "National",
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         time_period == max(time_period),
         breakdown == "Weekly"
       ) %>% filter(time_identifier == "6")
@@ -271,7 +271,7 @@ server <- function(input, output, session) {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         time_period == max(time_period),
         breakdown == "Weekly"
       ) %>% filter(time_identifier == "6")
@@ -280,7 +280,7 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "Local authority",
         region_name == input$region_choice,
         la_name == input$la_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         time_period == max(time_period),
         breakdown == "Weekly"
       ) %>% filter(time_identifier == "6")
@@ -294,7 +294,7 @@ server <- function(input, output, session) {
     if (input$geography_choice == "National") {
       dplyr::filter(
         attendance_data, geographic_level == "National",
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         time_period == max(time_period),
         breakdown == "Weekly"
       ) %>%
@@ -318,7 +318,7 @@ server <- function(input, output, session) {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         time_period == max(time_period),
         breakdown == "Weekly"
       ) %>%
@@ -343,7 +343,7 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "Local authority",
         region_name == input$region_choice,
         la_name == input$la_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         time_period == max(time_period),
         breakdown == "Weekly"
       ) %>%
@@ -373,7 +373,7 @@ server <- function(input, output, session) {
     if (input$geography_choice == "National") {
       dplyr::filter(
         attendance_data, geographic_level == "National",
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         # time_period == max(time_period),
         breakdown == "YTD"
       ) %>% mutate(
@@ -396,7 +396,7 @@ server <- function(input, output, session) {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         # time_period == max(time_period),
         breakdown == "YTD"
       ) %>% mutate(
@@ -420,7 +420,7 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "Local authority",
         region_name == input$region_choice,
         la_name == input$la_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         # time_period == max(time_period),
         breakdown == "YTD"
       ) %>% mutate(
@@ -449,7 +449,7 @@ server <- function(input, output, session) {
   live_attendance_data_weekly_las <- reactive({
     filter(
       attendance_data, geographic_level == "Local authority",
-      school_type == input$school_choice,
+      education_phase == input$school_choice,
       time_period == max(time_period),
       breakdown == "Weekly"
     ) %>%
@@ -467,7 +467,7 @@ server <- function(input, output, session) {
   live_attendance_data_weekly_natcomp <- reactive({
     filter(
       attendance_data, geographic_level == "National",
-      school_type == input$school_choice,
+      education_phase == input$school_choice,
       time_period == max(time_period),
       breakdown == "Weekly"
     ) %>% filter(time_identifier == max(time_identifier))
@@ -477,7 +477,7 @@ server <- function(input, output, session) {
     filter(
       attendance_data, geographic_level == "Regional",
       region_name == input$region_choice,
-      school_type == input$school_choice,
+      education_phase == input$school_choice,
       time_period == max(time_period),
       breakdown == "Weekly"
     ) %>% filter(time_identifier == max(time_identifier))
@@ -488,7 +488,7 @@ server <- function(input, output, session) {
   live_attendance_data_ytd_natcomp <- reactive({
     filter(
       attendance_data, geographic_level == "National",
-      school_type == input$school_choice,
+      education_phase == input$school_choice,
       # time_period == max(time_period),
       breakdown == "YTD"
     )
@@ -498,7 +498,7 @@ server <- function(input, output, session) {
     filter(
       attendance_data, geographic_level == "Regional",
       region_name == input$region_choice,
-      school_type == input$school_choice,
+      education_phase == input$school_choice,
       # time_period == max(time_period),
       breakdown == "YTD"
     )
@@ -510,7 +510,7 @@ server <- function(input, output, session) {
     if (input$geography_choice == "National") {
       dplyr::filter(
         attendance_data, geographic_level == "National",
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         # time_period == max(time_period),
         breakdown == "Weekly"
       )
@@ -518,7 +518,7 @@ server <- function(input, output, session) {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         # time_period == max(time_period),
         breakdown == "Weekly"
       )
@@ -527,7 +527,7 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "Local authority",
         region_name == input$region_choice,
         la_name == input$la_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         # time_period == max(time_period),
         breakdown == "Weekly"
       )
@@ -541,7 +541,7 @@ server <- function(input, output, session) {
     if (input$geography_choice == "National") {
       dplyr::filter(
         attendance_data, geographic_level == "National",
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         # time_period == max(time_period),
         breakdown == "YTD"
       )
@@ -549,7 +549,7 @@ server <- function(input, output, session) {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
         region_name == input$region_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         # time_period == max(time_period),
         breakdown == "YTD"
       )
@@ -558,7 +558,7 @@ server <- function(input, output, session) {
         attendance_data, geographic_level == "Local authority",
         region_name == input$region_choice,
         la_name == input$la_choice,
-        school_type == input$school_choice,
+        education_phase == input$school_choice,
         # time_period == max(time_period),
         breakdown == "YTD"
       )
@@ -572,7 +572,7 @@ server <- function(input, output, session) {
   response_rates <- filter(
     attendance_data, geographic_level == "National",
     time_period == max(time_period),
-    school_type %in% c("Total"),
+    education_phase %in% c("Total"),
     breakdown == "Daily"
   ) %>%
     arrange(attendance_date)
@@ -1024,7 +1024,7 @@ server <- function(input, output, session) {
     filter(
       time_period == max(time_period),
       geographic_level == "National",
-      school_type == "Total",
+      education_phase == "Total",
       day_number == "5"
     ) %>%
     filter(time_identifier == max(time_identifier)) %>%
@@ -1035,7 +1035,7 @@ server <- function(input, output, session) {
     filter(
       time_period == max(time_period),
       geographic_level == "National",
-      school_type == "Total",
+      education_phase == "Total",
       day_number == "5"
     ) %>%
     filter(time_identifier == max(time_identifier)) %>%
@@ -1045,7 +1045,7 @@ server <- function(input, output, session) {
     filter(
       time_period == max(time_period),
       geographic_level == "National",
-      school_type == "Total",
+      education_phase == "Total",
       day_number == "5"
     ) %>%
     filter(time_identifier == "6") %>%
@@ -1056,7 +1056,7 @@ server <- function(input, output, session) {
     filter(
       time_period == max(time_period),
       geographic_level == "National",
-      school_type == "Total",
+      education_phase == "Total",
       day_number == "5"
     ) %>%
     filter(time_identifier == "6") %>%
@@ -1104,7 +1104,7 @@ server <- function(input, output, session) {
       filter(
         breakdown == "Weekly",
         geographic_level == "National",
-        school_type == "Total",
+        education_phase == "Total",
         time_period == max(time_period)
       ) %>%
       filter(time_identifier == max(time_identifier)) %>%
@@ -1865,7 +1865,7 @@ server <- function(input, output, session) {
       paste("Underlying_data", Sys.Date(), ".csv", sep = "")
     },
     content = function(con) {
-      underlying_data <- EES_daily_data %>% filter(school_type %in% c("Primary", "Secondary", "Special", "Total"))
+      underlying_data <- EES_daily_data %>% filter(education_phase %in% c("Primary", "Secondary", "Special", "Total"))
       write.csv(underlying_data, con, row.names = FALSE)
     }
   )
@@ -1875,7 +1875,7 @@ server <- function(input, output, session) {
       paste("Underlying_data", Sys.Date(), ".csv", sep = "")
     },
     content = function(con) {
-      underlying_data <- EES_daily_data %>% filter(school_type %in% c("Primary", "Secondary", "Special", "Total"))
+      underlying_data <- EES_daily_data %>% filter(education_phase %in% c("Primary", "Secondary", "Special", "Total"))
       write.csv(underlying_data, con, row.names = FALSE)
     }
   )
@@ -1886,7 +1886,7 @@ server <- function(input, output, session) {
   mapdata_shaped_type <- reactive({
     dplyr::filter(
       mapdata_shaped,
-      school_type == input$school_choice
+      education_phase == input$school_choice
     )
   })
 
