@@ -29,7 +29,11 @@
             ],
             "automargin": true,
             "title": "Week commencing",
-            "tickvals": "2025-09-08",
+            "tickvals": [
+              "2025-09-08",
+              "2025-09-15",
+              "2025-09-22"
+            ],
             "zeroline": true,
             "zerolinewidth": 2,
             "zerolinecolor": "Grey",
@@ -103,8 +107,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2025-09-08",
-            "y": 1.5864281179999999,
+            "x": [
+              "2025-09-08",
+              "2025-09-15",
+              "2025-09-22"
+            ],
+            "y": [
+              1.596141788,
+              2.4558387740000001,
+              2.35867798
+            ],
             "line": {
               "color": "#12436D"
             },
@@ -115,7 +127,11 @@
               }
             },
             "name": "Illness",
-            "hovertemplate": "%{y:.2f}%",
+            "hovertemplate": [
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%"
+            ],
             "error_y": {
               "color": "rgba(255,127,14,1)"
             },
@@ -129,8 +145,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2025-09-08",
-            "y": 0.23810408499999999,
+            "x": [
+              "2025-09-08",
+              "2025-09-15",
+              "2025-09-22"
+            ],
+            "y": [
+              0.23847543399999999,
+              0.25286608700000002,
+              0.25753162200000002
+            ],
             "line": {
               "color": "#28A197"
             },
@@ -141,7 +165,11 @@
               }
             },
             "name": "Medical appointments",
-            "hovertemplate": "%{y:.2f}%",
+            "hovertemplate": [
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%"
+            ],
             "error_y": {
               "color": "rgba(44,160,44,1)"
             },
@@ -155,8 +183,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2025-09-08",
-            "y": 0.0019071540000000001,
+            "x": [
+              "2025-09-08",
+              "2025-09-15",
+              "2025-09-22"
+            ],
+            "y": [
+              0.0019041959999999999,
+              0.001296321,
+              0.011413596
+            ],
             "line": {
               "color": "#FFBF47"
             },
@@ -167,7 +203,11 @@
               }
             },
             "name": "Religious observance",
-            "hovertemplate": "%{y:.2f}%",
+            "hovertemplate": [
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%"
+            ],
             "error_y": {
               "color": "rgba(214,39,40,1)"
             },
@@ -181,8 +221,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2025-09-08",
-            "y": 0.51498508899999995,
+            "x": [
+              "2025-09-08",
+              "2025-09-15",
+              "2025-09-22"
+            ],
+            "y": [
+              0.52303295699999997,
+              0.43544986699999999,
+              0.47335639899999998
+            ],
             "line": {
               "color": "#F46A25"
             },
@@ -193,7 +241,11 @@
               }
             },
             "name": "Unauthorised holiday",
-            "hovertemplate": "%{y:.2f}%",
+            "hovertemplate": [
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%"
+            ],
             "error_y": {
               "color": "rgba(148,103,189,1)"
             },
@@ -207,8 +259,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2025-09-08",
-            "y": 0.64634489399999995,
+            "x": [
+              "2025-09-08",
+              "2025-09-15",
+              "2025-09-22"
+            ],
+            "y": [
+              0.64333969599999996,
+              0.61644801800000004,
+              0.58067818900000001
+            ],
             "line": {
               "color": "#801650"
             },
@@ -219,7 +279,11 @@
               }
             },
             "name": "Unauthorised other",
-            "hovertemplate": "%{y:.2f}%",
+            "hovertemplate": [
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%"
+            ],
             "error_y": {
               "color": "rgba(140,86,75,1)"
             },
@@ -345,13 +409,13 @@
       ]
     },
     "headline_auth_rate_ytd": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>2.35%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>2.91%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "headline_unauth_rate_ytd": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1.45%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1.33%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
