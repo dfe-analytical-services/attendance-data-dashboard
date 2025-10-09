@@ -29,7 +29,11 @@
             ],
             "automargin": true,
             "title": "Week commencing",
-            "tickvals": "2025-09-08",
+            "tickvals": [
+              "2025-09-08",
+              "2025-09-15",
+              "2025-09-22"
+            ],
             "zeroline": true,
             "zerolinewidth": 2,
             "zerolinecolor": "Grey",
@@ -103,8 +107,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2025-09-08",
-            "y": 5.2693780209999996,
+            "x": [
+              "2025-09-08",
+              "2025-09-15",
+              "2025-09-22"
+            ],
+            "y": [
+              5.2275963499999998,
+              6.635792768,
+              7.3845183519999997
+            ],
             "line": {
               "color": "#12436D"
             },
@@ -115,7 +127,11 @@
               }
             },
             "name": "Overall absence rate",
-            "hovertemplate": "%{y:.2f}%",
+            "hovertemplate": [
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%"
+            ],
             "error_y": {
               "color": "rgba(255,127,14,1)"
             },
@@ -129,8 +145,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2025-09-08",
-            "y": 3.4442738149999998,
+            "x": [
+              "2025-09-08",
+              "2025-09-15",
+              "2025-09-22"
+            ],
+            "y": [
+              3.4493095760000001,
+              4.8322541440000002,
+              5.4168353270000003
+            ],
             "line": {
               "color": "#28A197"
             },
@@ -141,7 +165,11 @@
               }
             },
             "name": "Authorised absence rate",
-            "hovertemplate": "%{y:.2f}%",
+            "hovertemplate": [
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%"
+            ],
             "error_y": {
               "color": "rgba(44,160,44,1)"
             },
@@ -155,8 +183,16 @@
           {
             "mode": "markers+lines",
             "type": "scatter",
-            "x": "2025-09-08",
-            "y": 1.825104206,
+            "x": [
+              "2025-09-08",
+              "2025-09-15",
+              "2025-09-22"
+            ],
+            "y": [
+              1.7782867739999999,
+              1.803538624,
+              1.9676830240000001
+            ],
             "line": {
               "color": "#F46A25"
             },
@@ -167,7 +203,11 @@
               }
             },
             "name": "Unauthorised absence rate",
-            "hovertemplate": "%{y:.2f}%",
+            "hovertemplate": [
+              "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%"
+            ],
             "error_y": {
               "color": "rgba(214,39,40,1)"
             },
@@ -292,9 +332,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2025-09-12: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
-    "ytd_absence_rate_la": "- 5.27% of sessions were recorded as absence in Lincolnshire (compared to 5.69% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "- 94.73% of sessions were recorded as attending in Lincolnshire (compared to 94.31% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "- 2.36% of sessions were recorded as illness in Lincolnshire (compared to 2.23% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2025-09-26: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "ytd_absence_rate_la": "- 6.41% of sessions were recorded as absence in Lincolnshire (compared to 6.69% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "- 93.59% of sessions were recorded as attending in Lincolnshire (compared to 93.31% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "- 3.39% of sessions were recorded as illness in Lincolnshire (compared to 3.11% of sessions in East Midlands)"
   }
 }
