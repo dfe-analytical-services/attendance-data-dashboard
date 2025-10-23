@@ -32,7 +32,9 @@
             "tickvals": [
               "2025-09-08",
               "2025-09-15",
-              "2025-09-22"
+              "2025-09-22",
+              "2025-09-29",
+              "2025-10-06"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -110,12 +112,16 @@
             "x": [
               "2025-09-08",
               "2025-09-15",
-              "2025-09-22"
+              "2025-09-22",
+              "2025-09-29",
+              "2025-10-06"
             ],
             "y": [
-              5.2275963499999998,
-              6.635792768,
-              7.3845183519999997
+              5.2219614679999999,
+              6.6292425220000002,
+              7.3799678520000001,
+              7.7439721380000002,
+              7.2120993379999998
             ],
             "line": {
               "color": "#12436D"
@@ -130,6 +136,8 @@
             "hovertemplate": [
               "%{y:.2f}%",
               "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%",
               "%{y:.2f}%"
             ],
             "error_y": {
@@ -148,12 +156,16 @@
             "x": [
               "2025-09-08",
               "2025-09-15",
-              "2025-09-22"
+              "2025-09-22",
+              "2025-09-29",
+              "2025-10-06"
             ],
             "y": [
-              3.4493095760000001,
-              4.8322541440000002,
-              5.4168353270000003
+              3.4485181489999999,
+              4.8331629769999997,
+              5.4221276659999997,
+              5.836846725,
+              5.1957759430000001
             ],
             "line": {
               "color": "#28A197"
@@ -168,6 +180,8 @@
             "hovertemplate": [
               "%{y:.2f}%",
               "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%",
               "%{y:.2f}%"
             ],
             "error_y": {
@@ -186,12 +200,16 @@
             "x": [
               "2025-09-08",
               "2025-09-15",
-              "2025-09-22"
+              "2025-09-22",
+              "2025-09-29",
+              "2025-10-06"
             ],
             "y": [
-              1.7782867739999999,
-              1.803538624,
-              1.9676830240000001
+              1.7734433190000001,
+              1.796079545,
+              1.9578401860000001,
+              1.907125414,
+              2.016323394
             ],
             "line": {
               "color": "#F46A25"
@@ -204,6 +222,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.2f}%",
+              "%{y:.2f}%",
               "%{y:.2f}%",
               "%{y:.2f}%",
               "%{y:.2f}%"
@@ -332,9 +352,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2025-09-26: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
-    "ytd_absence_rate_la": "- 6.41% of sessions were recorded as absence in Lincolnshire (compared to 6.69% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "- 93.59% of sessions were recorded as attending in Lincolnshire (compared to 93.31% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "- 3.39% of sessions were recorded as illness in Lincolnshire (compared to 3.11% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2025-10-10: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "ytd_absence_rate_la": "- 6.84% of sessions were recorded as absence in Lincolnshire (compared to 6.98% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "- 93.16% of sessions were recorded as attending in Lincolnshire (compared to 93.02% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "- 3.73% of sessions were recorded as illness in Lincolnshire (compared to 3.32% of sessions in East Midlands)"
   }
 }

@@ -32,7 +32,9 @@
             "tickvals": [
               "2025-09-08",
               "2025-09-15",
-              "2025-09-22"
+              "2025-09-22",
+              "2025-09-29",
+              "2025-10-06"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -110,12 +112,16 @@
             "x": [
               "2025-09-08",
               "2025-09-15",
-              "2025-09-22"
+              "2025-09-22",
+              "2025-09-29",
+              "2025-10-06"
             ],
             "y": [
-              5.627826131,
-              6.9475553960000003,
-              7.5601178960000004
+              5.6207763460000004,
+              6.9359315580000001,
+              7.5377840469999997,
+              7.5809433239999997,
+              7.0442362220000003
             ],
             "line": {
               "color": "#12436D"
@@ -130,6 +136,8 @@
             "hovertemplate": [
               "%{y:.2f}%",
               "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%",
               "%{y:.2f}%"
             ],
             "error_y": {
@@ -148,12 +156,16 @@
             "x": [
               "2025-09-08",
               "2025-09-15",
-              "2025-09-22"
+              "2025-09-22",
+              "2025-09-29",
+              "2025-10-06"
             ],
             "y": [
-              3.245643957,
-              4.5016224380000001,
-              4.9709025090000001
+              3.2505467170000002,
+              4.5101407269999996,
+              4.9834244649999997,
+              4.9576856600000001,
+              4.4673892430000004
             ],
             "line": {
               "color": "#28A197"
@@ -168,6 +180,8 @@
             "hovertemplate": [
               "%{y:.2f}%",
               "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%",
               "%{y:.2f}%"
             ],
             "error_y": {
@@ -186,12 +200,16 @@
             "x": [
               "2025-09-08",
               "2025-09-15",
-              "2025-09-22"
+              "2025-09-22",
+              "2025-09-29",
+              "2025-10-06"
             ],
             "y": [
-              2.3821821750000001,
-              2.4459329570000001,
-              2.589215388
+              2.3702296280000001,
+              2.425790831,
+              2.554359582,
+              2.623257664,
+              2.5768469789999999
             ],
             "line": {
               "color": "#F46A25"
@@ -204,6 +222,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.2f}%",
+              "%{y:.2f}%",
               "%{y:.2f}%",
               "%{y:.2f}%",
               "%{y:.2f}%"
@@ -332,9 +352,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the year to date - 2025-09-08 to 2025-09-26: secondary state-funded school attendance at national level",
-    "ytd_absence_rate_nat": "- 6.71% of sessions were recorded as absence",
-    "ytd_attendance_rate_nat": "- 93.29% of sessions were recorded as attending",
-    "ytd_illness_rate_nat": "- 3.09% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the year to date - 2025-09-08 to 2025-10-10: secondary state-funded school attendance at national level",
+    "ytd_absence_rate_nat": "- 6.94% of sessions were recorded as absence",
+    "ytd_attendance_rate_nat": "- 93.06% of sessions were recorded as attending",
+    "ytd_illness_rate_nat": "- 3.25% of sessions were recorded as illness"
   }
 }

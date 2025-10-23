@@ -27,7 +27,8 @@ run_data_update <- function() {
   attendance_data <- process_attendance_data(
     attendance_data_raw,
     start_date, end_date,
-    pa_fullyear_file
+    pa_fullyear_file,
+    school_freq_count
   )
 
   # Write out dashboard data for the dashboard to use
@@ -45,21 +46,24 @@ run_data_update <- function() {
   attendance_data_autumn <- process_attendance_data_autumn(
     attendance_data_raw,
     autumn_start, autumn_end,
-    pa_autumn_file
+    pa_autumn_file,
+    school_freq_count
   )
 
   # Process and write out further data for EES tables
   attendance_data_spring <- process_attendance_data_spring(
     attendance_data_raw,
     spring_start, spring_end,
-    pa_spring_file
+    pa_spring_file,
+    school_freq_count
   )
 
   # Process and write out further data for EES tables
   attendance_data_summer <- process_attendance_data_summer(
     attendance_data_raw,
     summer_start, summer_end,
-    pa_summer_file
+    pa_summer_file,
+    school_freq_count
   )
 
   create_ees_tables(attendance_data)
