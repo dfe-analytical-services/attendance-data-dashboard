@@ -1865,7 +1865,7 @@ server <- function(input, output, session) {
       paste("Underlying_data", Sys.Date(), ".csv", sep = "")
     },
     content = function(con) {
-      underlying_data <- EES_daily_data %>% filter(school_type %in% c("Primary", "Secondary", "Special", "Total"))
+      underlying_data <- EES_daily_data %>% filter(education_phase %in% c("Primary", "Secondary", "Special", "Total"))
       write.csv(underlying_data, con, row.names = FALSE)
     }
   )
@@ -1875,7 +1875,7 @@ server <- function(input, output, session) {
       paste("Underlying_data", Sys.Date(), ".csv", sep = "")
     },
     content = function(con) {
-      underlying_data <- EES_daily_data %>% filter(school_type %in% c("Primary", "Secondary", "Special", "Total"))
+      underlying_data <- EES_daily_data %>% filter(education_phase %in% c("Primary", "Secondary", "Special", "Total"))
       write.csv(underlying_data, con, row.names = FALSE)
     }
   )
