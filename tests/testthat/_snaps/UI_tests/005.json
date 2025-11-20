@@ -36,7 +36,8 @@
               "2025-09-29",
               "2025-10-06",
               "2025-10-13",
-              "2025-10-20"
+              "2025-10-20",
+              "2025-11-03"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -118,16 +119,18 @@
               "2025-09-29",
               "2025-10-06",
               "2025-10-13",
-              "2025-10-20"
+              "2025-10-20",
+              "2025-11-03"
             ],
             "y": [
-              5.6486700389999998,
-              6.9350003630000003,
-              7.4315141440000003,
-              7.6473960500000002,
-              7.203870223,
-              8.3506036259999998,
-              8.564608819
+              5.6462249629999999,
+              6.9328060029999996,
+              7.4306864900000003,
+              7.645651569,
+              7.1988848069999998,
+              8.3292477629999997,
+              8.5319343209999996,
+              7.2101592940000003
             ],
             "line": {
               "color": "#12436D"
@@ -146,6 +149,7 @@
               "%{y:.2f}%",
               "%{y:.2f}%",
               "%{y:.2f}%",
+              "%{y:.2f}%",
               "%{y:.2f}%"
             ],
             "error_y": {
@@ -168,16 +172,18 @@
               "2025-09-29",
               "2025-10-06",
               "2025-10-13",
-              "2025-10-20"
+              "2025-10-20",
+              "2025-11-03"
             ],
             "y": [
-              3.379807982,
-              4.5732761870000003,
-              4.9716388909999996,
-              5.1387473650000004,
-              4.6744978679999996,
-              5.1777766420000004,
-              5.4602747809999999
+              3.3813071840000002,
+              4.5748384770000001,
+              4.9709435129999999,
+              5.1374045639999997,
+              4.6780730400000001,
+              5.1918529959999997,
+              5.4852235479999996,
+              4.4816421369999997
             ],
             "line": {
               "color": "#28A197"
@@ -196,6 +202,7 @@
               "%{y:.2f}%",
               "%{y:.2f}%",
               "%{y:.2f}%",
+              "%{y:.2f}%",
               "%{y:.2f}%"
             ],
             "error_y": {
@@ -218,16 +225,18 @@
               "2025-09-29",
               "2025-10-06",
               "2025-10-13",
-              "2025-10-20"
+              "2025-10-20",
+              "2025-11-03"
             ],
             "y": [
-              2.2688620570000002,
-              2.3617241760000001,
-              2.4598752529999999,
-              2.5086486849999998,
-              2.529372355,
-              3.1728269839999999,
-              3.1043340380000002
+              2.2649177800000002,
+              2.3579675259999999,
+              2.459742978,
+              2.5082470049999999,
+              2.5208117680000002,
+              3.137394767,
+              3.046710773,
+              2.7285171570000002
             ],
             "line": {
               "color": "#F46A25"
@@ -240,6 +249,7 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.2f}%",
               "%{y:.2f}%",
               "%{y:.2f}%",
               "%{y:.2f}%",
@@ -372,9 +382,9 @@
         }
       ]
     },
-    "headline_bullet_title_reg": "Headline figures for the year to date - 2025-09-08 to 2025-10-24: secondary state-funded school attendance at regional level (East Midlands)",
-    "ytd_absence_rate_reg": "- 7.27% of sessions were recorded as absence in East Midlands (compared to 7.17% of sessions at national level)",
-    "ytd_attendance_rate_reg": "- 92.73% of sessions were recorded as attending in East Midlands (compared to 92.83% of sessions at national level)",
-    "ytd_illness_rate_reg": "- 3.44% of sessions were recorded as illness in East Midlands (compared to 3.34% of sessions at national level)"
+    "headline_bullet_title_reg": "Headline figures for the year to date - 2025-09-08 to 2025-11-07: secondary state-funded school attendance at regional level (East Midlands)",
+    "ytd_absence_rate_reg": "- 7.26% of sessions were recorded as absence in East Midlands (compared to 7.18% of sessions at national level)",
+    "ytd_attendance_rate_reg": "- 92.74% of sessions were recorded as attending in East Midlands (compared to 92.82% of sessions at national level)",
+    "ytd_illness_rate_reg": "- 3.41% of sessions were recorded as illness in East Midlands (compared to 3.32% of sessions at national level)"
   }
 }
