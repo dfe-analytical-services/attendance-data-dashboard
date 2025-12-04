@@ -43,6 +43,7 @@ library(dfeshiny)
 library(shinytest2)
 library(diffviewer)
 library(RODBC)
+library(lubridate)
 
 # Functions ---------------------------------------------------------------------------------
 
@@ -94,7 +95,7 @@ team_email <- "school.statistics@education.gov.uk"
 #### SECTION 1 - date filters ####
 
 start_date <- as.Date("2025-09-08")
-end_date <- as.Date("2025-11-07")
+end_date <- as.Date("2025-11-21")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -121,10 +122,17 @@ most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4, " to "
 
 ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date))
 
-#### SECTION 2 - reading in csvs to run dashboard ####
-attendance_data <- read.csv("data/attendance_data_dashboard.csv")
-attendance_data$attendance_date <- as.Date(attendance_data$attendance_date, format = "%d/%m/%Y")
-attendance_data$week_commencing <- as.Date(attendance_data$week_commencing, format = "%d/%m/%Y")
+# Read CSV without factors
+attendance_data <- read.csv("data/attendance_data_dashboard.csv", stringsAsFactors = FALSE)
+
+# Clean column names (remove quotes and escaped underscores)
+names(attendance_data) <- gsub("\\\\_", "_", names(attendance_data)) # remove backslashes
+names(attendance_data) <- gsub("\"", "", names(attendance_data)) # remove quotes
+
+# Parse dates flexibly (handles both dmy and ymd)
+attendance_data$attendance_date <- as.Date(parse_date_time(attendance_data$attendance_date, orders = c("dmy", "ymd")))
+attendance_data$week_commencing <- as.Date(parse_date_time(attendance_data$week_commencing, orders = c("dmy", "ymd")))
+
 
 message(paste("Finished processing steps, ", Sys.time()))
 
