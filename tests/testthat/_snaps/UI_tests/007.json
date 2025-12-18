@@ -38,7 +38,9 @@
               "2025-10-13",
               "2025-11-03",
               "2025-11-10",
-              "2025-11-17"
+              "2025-11-17",
+              "2025-11-24",
+              "2025-12-01"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -122,18 +124,22 @@
               "2025-10-13",
               "2025-11-03",
               "2025-11-10",
-              "2025-11-17"
+              "2025-11-17",
+              "2025-11-24",
+              "2025-12-01"
             ],
             "y": [
-              5.2216520319566797,
-              6.6182634451668196,
-              7.3694616063548102,
-              7.7420346061357996,
-              7.1952832473314601,
-              7.3194891157413897,
-              6.8756112422490601,
-              7.0039964298246202,
-              7.7768036592126304
+              5.2192467776427103,
+              6.62447198431438,
+              7.3682575324280997,
+              7.7383820677742801,
+              7.1960320879274402,
+              7.3182157173487496,
+              6.8712941248758304,
+              6.9947936412251304,
+              7.7219617545021002,
+              9.1324467826002191,
+              9.5757302118707202
             ],
             "line": {
               "color": "#12436D"
@@ -154,6 +160,8 @@
               "%{y:.2f}%",
               "%{y:.2f}%",
               "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%",
               "%{y:.2f}%"
             ],
             "error_y": {
@@ -178,18 +186,22 @@
               "2025-10-13",
               "2025-11-03",
               "2025-11-10",
-              "2025-11-17"
+              "2025-11-17",
+              "2025-11-24",
+              "2025-12-01"
             ],
             "y": [
-              3.4633788730843902,
-              4.8362083418714299,
-              5.42018240659017,
-              5.8434227158344099,
-              5.1873567929062396,
-              5.1694401715377802,
-              4.68384374727981,
-              4.8750791867724503,
-              5.63265744700076
+              3.46396089371081,
+              4.8521556080272399,
+              5.4203354963835402,
+              5.8434771272868602,
+              5.1936802151614296,
+              5.1710636711102804,
+              4.6823316162991899,
+              4.8804609664377097,
+              5.6006248050460599,
+              6.7899069608845997,
+              7.2204637043512498
             ],
             "line": {
               "color": "#28A197"
@@ -210,6 +222,8 @@
               "%{y:.2f}%",
               "%{y:.2f}%",
               "%{y:.2f}%",
+              "%{y:.2f}%",
+              "%{y:.2f}%",
               "%{y:.2f}%"
             ],
             "error_y": {
@@ -234,18 +248,22 @@
               "2025-10-13",
               "2025-11-03",
               "2025-11-10",
-              "2025-11-17"
+              "2025-11-17",
+              "2025-11-24",
+              "2025-12-01"
             ],
             "y": [
-              1.75827315887229,
-              1.78205510329539,
-              1.9492791997646399,
-              1.89861189030139,
-              2.00792645442522,
-              2.1500489442036099,
-              2.1917674949692501,
-              2.1289172430521699,
-              2.14414621221187
+              1.7552858839319001,
+              1.7723163762871501,
+              1.9479220360445599,
+              1.8949049404874101,
+              2.0023518727660101,
+              2.1471520462384599,
+              2.18896250857664,
+              2.1143326747874198,
+              2.1213369494560301,
+              2.3425398217156199,
+              2.3552665075194601
             ],
             "line": {
               "color": "#F46A25"
@@ -258,6 +276,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "%{y:.2f}%",
+              "%{y:.2f}%",
               "%{y:.2f}%",
               "%{y:.2f}%",
               "%{y:.2f}%",
@@ -392,9 +412,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2025-11-21: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
-    "ytd_absence_rate_la": "- 7.01% of sessions were recorded as absence in Lincolnshire (compared to 7.37% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "- 92.99% of sessions were recorded as attending in Lincolnshire (compared to 92.63% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "- 3.74% of sessions were recorded as illness in Lincolnshire (compared to 3.5% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2025-12-05: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "ytd_absence_rate_la": "- 7.43% of sessions were recorded as absence in Lincolnshire (compared to 7.73% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "- 92.57% of sessions were recorded as attending in Lincolnshire (compared to 92.27% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "- 4.05% of sessions were recorded as illness in Lincolnshire (compared to 3.8% of sessions in East Midlands)"
   }
 }
