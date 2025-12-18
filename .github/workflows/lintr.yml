@@ -19,6 +19,3 @@ jobs:
     uses: dfe-analytical-services/dfeshiny/.github/workflows/lintr_reusable.yaml@main
     with:
       is_package: "false"
-    secrets:
-      SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
-      SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
