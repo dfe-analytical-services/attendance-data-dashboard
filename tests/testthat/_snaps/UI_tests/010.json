@@ -43,7 +43,8 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -67,7 +68,7 @@
           "hovermode": "x unified",
           "legend": {
             "font": {
-              "size": 11
+              "size": 12
             },
             "orientation": "h",
             "yanchor": "top",
@@ -78,8 +79,8 @@
           "title": "Weekly summary of absence reasons for <br>primary state-funded schools at regional level<br>(East Midlands)",
           "font": {
             "family": "arial",
-            "size": 10,
-            "color": "grey"
+            "size": 12,
+            "color": "black"
           },
           "showlegend": true
         },
@@ -132,23 +133,25 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "y": [
-              1.5914290705170999,
-              2.3285457279466302,
-              2.2669251468055398,
-              2.3100086833196198,
-              2.35507826605749,
-              3.0004891235378102,
-              3.1487880044769798,
-              2.3637922412894299,
-              2.7781778524397498,
-              3.6062686612599202,
-              4.0972761862323903,
-              4.0622018869516996,
-              3.97864246257069,
-              3.8526470257728902
+              1.59220834750437,
+              2.3296714204314499,
+              2.26797895006673,
+              2.3123172862193702,
+              2.3566794817351502,
+              3.0051326966545702,
+              3.1516746288307602,
+              2.36521349036388,
+              2.7790011755089501,
+              3.6083503883478198,
+              4.0987628030549104,
+              4.0629104849959798,
+              3.9798604576620602,
+              3.87758900579911,
+              2.4460580400676402
             ],
             "line": {
               "color": "#12436D"
@@ -161,20 +164,21 @@
             },
             "name": "Illness",
             "hovertemplate": [
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%"
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Illness: <b>%{y:.2f}%<\/b><extra><\/extra>"
             ],
             "error_y": {
               "color": "rgba(255,127,14,1)"
@@ -203,23 +207,25 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "y": [
-              0.230022954913669,
-              0.248680250923557,
-              0.2489934789661,
-              0.25111391841332997,
-              0.25136200210384202,
-              0.249025738611616,
-              0.25521019663600802,
-              0.241293415050573,
-              0.25648105228930401,
-              0.26065515133219502,
-              0.26256476613547403,
-              0.25431520635497101,
-              0.25272893304786398,
-              0.23773325489314701
+              0.23017863238713501,
+              0.24887061178257699,
+              0.24900668394608799,
+              0.25131213842981698,
+              0.25184450045871198,
+              0.24949546331320299,
+              0.25550639731382702,
+              0.24159141751549401,
+              0.25684022439592602,
+              0.26097733542900298,
+              0.262460832510586,
+              0.25421431262537297,
+              0.25312478677505501,
+              0.23966865904996801,
+              0.24131929443422701
             ],
             "line": {
               "color": "#28A197"
@@ -232,20 +238,21 @@
             },
             "name": "Medical appointments",
             "hovertemplate": [
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%"
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "medical appointments: <b>%{y:.2f}%<\/b><extra><\/extra>"
             ],
             "error_y": {
               "color": "rgba(44,160,44,1)"
@@ -274,23 +281,25 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "y": [
-              0.0023690911313547299,
-              0.00144526740903141,
-              0.0032283897700790998,
-              0.0132596211779772,
-              0.0021038418664531401,
-              0.0058350461159956202,
-              0.039178213970068203,
-              0.00720526641887634,
-              0.0012264297497894599,
-              0.00085616655547071402,
-              0.0032604828519379602,
-              0.00095907683100554704,
-              0.0045915687239035099,
-              0.01064230614147
+              0.0023684178116387799,
+              0.00144491330834262,
+              0.0032277483572171,
+              0.0132567861519801,
+              0.0021028890242689099,
+              0.0058326098347363502,
+              0.039259169360562798,
+              0.0072002935861642898,
+              0.0012251429490510201,
+              0.00085472926450546802,
+              0.0032516707052204301,
+              0.00098643681203987505,
+              0.0046968992530978101,
+              0.011038224302544501,
+              0.0276961722192734
             ],
             "line": {
               "color": "#FFBF47"
@@ -303,20 +312,21 @@
             },
             "name": "Religious observance",
             "hovertemplate": [
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%"
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Religious observance: <b>%{y:.2f}%<\/b><extra><\/extra>"
             ],
             "error_y": {
               "color": "rgba(214,39,40,1)"
@@ -345,23 +355,25 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "y": [
-              0.49049662783568398,
-              0.44266027230094701,
-              0.48964956299199602,
-              0.49860585004407798,
-              0.49587866798549302,
-              0.99983355770095395,
-              0.85815003416597802,
-              0.502874469649226,
-              0.247770256374133,
-              0.23747523458963599,
-              0.26860624906700598,
-              0.34382904391548902,
-              0.45405156171132599,
-              0.72764289444286501
+              0.49057827605078003,
+              0.44255181741824101,
+              0.48930158106395999,
+              0.49890859808069399,
+              0.49640735534085201,
+              1.00139217703596,
+              0.85993211013897897,
+              0.503423291655689,
+              0.24766735923892899,
+              0.23751976561424201,
+              0.26775276718771002,
+              0.34347093384381999,
+              0.45356813598158102,
+              0.73502920597617905,
+              0.58200535716489998
             ],
             "line": {
               "color": "#F46A25"
@@ -374,20 +386,21 @@
             },
             "name": "Unauthorised holiday",
             "hovertemplate": [
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%"
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised holiday: <b>%{y:.2f}%<\/b><extra><\/extra>"
             ],
             "error_y": {
               "color": "rgba(148,103,189,1)"
@@ -416,23 +429,25 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "y": [
-              0.60468682036698196,
-              0.59686402107325598,
-              0.57600115344411196,
-              0.58184855496900401,
-              0.54969933901684598,
-              0.65505566889078604,
-              0.68810187071373297,
-              0.65142913305039096,
-              0.59749141656409699,
-              0.62189401799598698,
-              0.62709953518940098,
-              0.65402646029038303,
-              0.68029067519820796,
-              0.88833510705102403
+              0.60467285676345905,
+              0.59756588647630204,
+              0.57654479879689602,
+              0.58150372890407598,
+              0.55017226427477195,
+              0.65561084317227702,
+              0.68708143473415895,
+              0.65131134932174595,
+              0.59815248443283098,
+              0.650448970288661,
+              0.67564616594550797,
+              0.70227936908774302,
+              0.72751161133793396,
+              0.95368963167614296,
+              1.3247488057472301
             ],
             "line": {
               "color": "#801650"
@@ -445,20 +460,21 @@
             },
             "name": "Unauthorised other",
             "hovertemplate": [
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%"
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised other: <b>%{y:.2f}%<\/b><extra><\/extra>"
             ],
             "error_y": {
               "color": "rgba(140,86,75,1)"
@@ -585,13 +601,13 @@
       ]
     },
     "headline_auth_rate_ytd": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>3.73%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>3.72%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "headline_unauth_rate_ytd": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1.35%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1.41%<\/h3>\n    <p>Year to date<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

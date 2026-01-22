@@ -43,11 +43,12 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
-            "zerolinecolor": "Grey",
+            "zerolinecolor": "black",
             "tickmode": "linear",
             "tick0": "2022-09-12",
             "dtick": 1209600000
@@ -59,15 +60,15 @@
             ],
             "automargin": true,
             "rangemode": "tozero",
-            "title": "Absence rate (%)",
+            "title": "",
             "zeroline": true,
             "zerolinewidth": 2,
-            "zerolinecolor": "Grey"
+            "zerolinecolor": "black"
           },
           "hovermode": "x unified",
           "legend": {
             "font": {
-              "size": 11
+              "size": 12
             },
             "orientation": "h",
             "yanchor": "top",
@@ -78,8 +79,8 @@
           "title": "Weekly summary of absence rates for secondary<br> state-funded schools at national level",
           "font": {
             "family": "arial",
-            "size": 10,
-            "color": "grey"
+            "size": 12,
+            "color": "black"
           },
           "showlegend": true
         },
@@ -132,23 +133,25 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "y": [
-              5.5971424523218598,
-              6.9100790577532401,
-              7.5063352138332702,
-              7.5418639607418401,
-              6.9976099525334297,
-              7.2912365752559598,
-              8.5836679735831307,
-              7.2720195161722803,
-              7.3016895941127897,
-              8.0547223838728605,
-              9.3622834672271402,
-              9.6208129493767807,
-              9.5443707456471394,
-              10.6864858952947
+              5.5970943550639198,
+              6.9096847675923199,
+              7.50705682259614,
+              7.5413632107128796,
+              6.9971311279663801,
+              7.2907148919452203,
+              8.5821111638780003,
+              7.2690281948685396,
+              7.2985996483282696,
+              8.0514595583201203,
+              9.3572484355788497,
+              9.6112910278563497,
+              9.5210989917232105,
+              10.597257775412899,
+              8.0960154207255197
             ],
             "line": {
               "color": "#12436D"
@@ -161,20 +164,21 @@
             },
             "name": "Overall absence rate",
             "hovertemplate": [
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%"
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>"
             ],
             "error_y": {
               "color": "rgba(255,127,14,1)"
@@ -203,23 +207,25 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "y": [
-              3.2609291314331998,
-              4.5212781074889596,
-              4.9985167240917203,
-              4.9740255752993399,
-              4.4885792035616596,
-              4.5840604943620598,
-              5.3846000232994697,
-              4.3943784600594,
-              4.6933556966596104,
-              5.3047478773929102,
-              6.4172971533624796,
-              6.5419382398911896,
-              6.2793880800812403,
-              6.30287436303853
+              3.2631039978655498,
+              4.5236238537495099,
+              5.0018816063871103,
+              4.9766973059166704,
+              4.4920078467193303,
+              4.5880414310370403,
+              5.3903698301976499,
+              4.3982078950344796,
+              4.6972092267025696,
+              5.3084079507329296,
+              6.42066104369811,
+              6.5472928676870996,
+              6.2880029074967103,
+              6.3290399622272,
+              4.5128655767070001
             ],
             "line": {
               "color": "#28A197"
@@ -232,20 +238,21 @@
             },
             "name": "Authorised absence rate",
             "hovertemplate": [
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%"
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>"
             ],
             "error_y": {
               "color": "rgba(44,160,44,1)"
@@ -274,23 +281,25 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "y": [
-              2.33621332088866,
-              2.38880095026428,
-              2.5078184897415499,
-              2.5678383854425002,
-              2.50903074897177,
-              2.7071760808939,
-              3.1990679502836601,
-              2.8776410561128798,
-              2.6083338974531798,
-              2.7499745064799499,
-              2.9449863138646601,
-              3.0788747094855999,
-              3.2649826655659,
-              4.3836115322561504
+              2.33399035719837,
+              2.3860609138428002,
+              2.5051752162090302,
+              2.5646659047962101,
+              2.5051232812470499,
+              2.7026734609081799,
+              3.19174133368035,
+              2.8708202998340502,
+              2.6013904216257,
+              2.7430516075871898,
+              2.9365873918807401,
+              3.0639981601692501,
+              3.2330960842265002,
+              4.2682178131857,
+              3.5831498440185099
             ],
             "line": {
               "color": "#F46A25"
@@ -303,20 +312,21 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%"
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>"
             ],
             "error_y": {
               "color": "rgba(214,39,40,1)"
@@ -442,9 +452,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the year to date - 2025-09-08 to 2025-12-19: secondary state-funded school attendance at national level",
+    "headline_bullet_title_nat": "Headline figures for the year to date - 2025-09-08 to 2026-01-09: secondary state-funded school attendance at national level",
     "ytd_absence_rate_nat": "- 7.99% of sessions were recorded as absence",
     "ytd_attendance_rate_nat": "- 92.01% of sessions were recorded as attending",
-    "ytd_illness_rate_nat": "- 3.86% of sessions were recorded as illness"
+    "ytd_illness_rate_nat": "- 3.82% of sessions were recorded as illness"
   }
 }

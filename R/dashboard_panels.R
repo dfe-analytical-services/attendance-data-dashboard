@@ -46,7 +46,7 @@ homepage_panel <- function() {
                     "- Headline bullets show the overall attendance and absence rates, in addition to illness absence rate."
                   ),
                   p(
-                    "- This tab includes data relating to persistent absence (pupils missing 10% or more sessions). To view these, select “year to date” in the drop-down menu. Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods. Underlying data relating to the  Summer, Spring and Autumn term and year to date is available at the link below:"
+                    "- This tab includes data relating to persistent absence (pupils missing 10% or more sessions). To view these, select “year to date” in the drop-down menu. Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not available for short time periods. Underlying data relating to the Autumn term and year to date is available at the link below:"
                   ),
                   a(
                     href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools",
@@ -489,7 +489,7 @@ dashboard_panel <- function() {
                     br(),
                     p(strong(paste0(
                       "To view persistent absence figures, select “year to date” in the drop-down menu. ",
-                      "Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods."
+                      "Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not available for short time periods."
                     ))),
                     a(
                       href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools",
