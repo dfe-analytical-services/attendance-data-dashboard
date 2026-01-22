@@ -42,11 +42,12 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
-            "zerolinecolor": "Grey",
+            "zerolinecolor": "black",
             "tickmode": "linear",
             "tick0": "2022-09-12",
             "dtick": 1209600000
@@ -58,15 +59,15 @@
             ],
             "automargin": true,
             "rangemode": "tozero",
-            "title": "Absence rate (%)",
+            "title": "",
             "zeroline": true,
             "zerolinewidth": 2,
-            "zerolinecolor": "Grey"
+            "zerolinecolor": "black"
           },
           "hovermode": "x unified",
           "legend": {
             "font": {
-              "size": 11
+              "size": 12
             },
             "orientation": "h",
             "yanchor": "top",
@@ -77,8 +78,8 @@
           "title": "Weekly summary of absence rates for <br>secondary state-funded schools <br>(East Midlands, Lincolnshire)",
           "font": {
             "family": "arial",
-            "size": 10,
-            "color": "grey"
+            "size": 12,
+            "color": "black"
           },
           "showlegend": true
         },
@@ -130,22 +131,24 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "y": [
-              5.2152160827089302,
-              6.61070621929355,
-              7.3639241623612799,
-              7.7309844598180604,
-              7.1886810466678597,
-              7.3084846564003101,
-              6.8514019002655004,
-              6.9759118415785597,
-              7.7038469231282098,
-              9.1030340201618998,
-              9.5589277094835197,
-              9.3643487877173808,
-              10.34153579939
+              5.2136275699249097,
+              6.6039756562067797,
+              7.3595906290970596,
+              7.7273139925464296,
+              7.1851727655055804,
+              7.3045293861315104,
+              6.8474142345110103,
+              6.9836833534744596,
+              7.6854707394568296,
+              9.0705787423350301,
+              9.5614949164953398,
+              9.4207787538724101,
+              10.323816606691899,
+              7.6255060401382204
             ],
             "line": {
               "color": "#12436D"
@@ -158,19 +161,20 @@
             },
             "name": "Overall absence rate",
             "hovertemplate": [
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%"
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>"
             ],
             "error_y": {
               "color": "rgba(255,127,14,1)"
@@ -198,22 +202,24 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "y": [
-              3.4604150905390201,
-              4.8340978415256002,
-              5.4159654470348704,
-              5.83664652371065,
-              5.1876983692678102,
-              5.1621518326559501,
-              4.6687336939963204,
-              4.8661376533471499,
-              5.5853723581572101,
-              6.7736094277077603,
-              7.2199261797669196,
-              6.9094496181984502,
-              7.1502109827008704
+              3.4626356690822,
+              4.8317400596953801,
+              5.4160674313341,
+              5.8387822892831096,
+              5.1920470581660201,
+              5.1678857971109098,
+              4.6720430107526898,
+              4.8816961473677303,
+              5.5831346549528096,
+              6.75833898004774,
+              7.2333154964748703,
+              6.9737201500638504,
+              7.1960291926825297,
+              4.8256418826040797
             ],
             "line": {
               "color": "#28A197"
@@ -226,19 +232,20 @@
             },
             "name": "Authorised absence rate",
             "hovertemplate": [
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%"
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>"
             ],
             "error_y": {
               "color": "rgba(44,160,44,1)"
@@ -266,22 +273,24 @@
               "2025-11-24",
               "2025-12-01",
               "2025-12-08",
-              "2025-12-15"
+              "2025-12-15",
+              "2026-01-05"
             ],
             "y": [
-              1.7548009921699199,
-              1.77660837776795,
-              1.94795871532641,
-              1.89433793610741,
-              2.0009826774000499,
-              2.14633282374436,
-              2.1826682062691898,
-              2.10977418823142,
-              2.1184745649710002,
-              2.3294245924541301,
-              2.3390015297166098,
-              2.4548991695189302,
-              3.1913248166891401
+              1.7509919008427099,
+              1.77223559651141,
+              1.9435231977629599,
+              1.88853170326332,
+              1.9931257073395601,
+              2.1366435890206001,
+              2.17537122375832,
+              2.1019872061067302,
+              2.10233608450402,
+              2.3122397622872901,
+              2.32817942002047,
+              2.4470586038085602,
+              3.1277874140093802,
+              2.7998641575341399
             ],
             "line": {
               "color": "#F46A25"
@@ -294,19 +303,20 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%",
-              "%{y:.2f}%"
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>"
             ],
             "error_y": {
               "color": "rgba(214,39,40,1)"
@@ -432,9 +442,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2025-12-19: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2026-01-09: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
     "ytd_absence_rate_la": "- 7.78% of sessions were recorded as absence in Lincolnshire (compared to 8.02% of sessions in East Midlands)",
     "ytd_attendance_rate_la": "- 92.22% of sessions were recorded as attending in Lincolnshire (compared to 91.98% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "- 4.26% of sessions were recorded as illness in Lincolnshire (compared to 3.93% of sessions in East Midlands)"
+    "ytd_illness_rate_la": "- 4.22% of sessions were recorded as illness in Lincolnshire (compared to 3.9% of sessions in East Midlands)"
   }
 }

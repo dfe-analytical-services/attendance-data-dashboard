@@ -95,7 +95,7 @@ team_email <- "school.statistics@education.gov.uk"
 #### SECTION 1 - date filters ####
 
 start_date <- as.Date("2025-09-08")
-end_date <- as.Date("2025-12-19")
+end_date <- as.Date("2026-01-09")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -148,7 +148,7 @@ geog_lookup <- attendance_data %>%
   arrange(region_name, la_name) %>%
   mutate(
     la_name = case_when(
-      geographic_level == "Regioinal" ~ "All",
+      geographic_level == "Regional" ~ "All",
       geographic_level != "Regional" ~ la_name
     )
   )
