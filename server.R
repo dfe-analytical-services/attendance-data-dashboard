@@ -636,7 +636,7 @@ server <- function(input, output, session) {
     validate(need(nrow(live_attendance_data_ts()) > 0, "There is no data available for this breakdown at present"))
     validate(need(live_attendance_data_ts()$num_schools > 1, "This data has been suppressed due to a low number of schools at this breakdown"))
 
-    absence_rates_ytd <- live_attendance_data_ts() %>% 
+    absence_rates_ytd <- live_attendance_data_ts() %>%
       mutate(week_commencing = as.Date(week_commencing)) %>%
       arrange(week_commencing)
 
@@ -778,9 +778,11 @@ server <- function(input, output, session) {
 
     ts_plot <- ts_plot %>% layout(
       xaxis = list(title = "", tickvals = ~attendance_date, zeroline = T, zerolinewidth = 2, zerolinecolor = "black", zerolinecolor = "#ffff", zerolinewidth = 2),
-      yaxis = list(rangemode = "tozero", title = "", tickformat = ".2f", ticksuffix = "%", range = c(0, max(absence_rates_weekly$overall_absence_perc, na.rm = TRUE) * 1.35),
-                   zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2),
-                   hovermode = "x unified",
+      yaxis = list(
+        rangemode = "tozero", title = "", tickformat = ".2f", ticksuffix = "%", range = c(0, max(absence_rates_weekly$overall_absence_perc, na.rm = TRUE) * 1.35),
+        zeroline = T, zerolinewidth = 2, zerolinecolor = "Grey", zerolinecolor = "#ffff", zerolinewidth = 2
+      ),
+      hovermode = "x unified",
       legend = list(
         font = list(size = 12),
         orientation = "h",
@@ -814,7 +816,7 @@ server <- function(input, output, session) {
     absence_reasons_ytd <- live_attendance_data_ts() %>%
       mutate(week_commencing = as.Date(week_commencing)) %>%
       arrange(week_commencing)
-    
+
 
     reasons_ts_plot <- plot_ly(
       absence_reasons_ytd,
@@ -1931,7 +1933,7 @@ server <- function(input, output, session) {
   })
 
   # # Create map function
-  # 
+  #
   # output$rates_map <- renderLeaflet({
   #   if (input$measure_choice == "Overall") {
   #     rate_map <- mapdata_shaped_type() %>%
@@ -2021,7 +2023,7 @@ server <- function(input, output, session) {
   #         )
   #       )
   #   }
-  # 
+  #
   #   rate_map <- rate_map %>%
   #     addLegend(
   #       colors = c("#FFBF47", "#EC933D", "#D86733", "#C53A28", "#B10E1E", "#808080"),
@@ -2032,13 +2034,13 @@ server <- function(input, output, session) {
   #     ) %>%
   #     setMaxBounds(lat1 = 55.5, lng1 = -6.8, lat2 = 49.99, lng2 = 1.95)
   # })
-  # 
+  #
   # output$map_title <- renderText({
   #   paste0(
   #     input$school_choice, " state-funded schools: ", str_to_lower(input$measure_choice), " absence rates by local authority"
   #   )
   # })
-  
+
   # Create map function
   output$rates_map <- renderLeaflet({
     # Keep your original per-measure palettes & quantile bins (unchanged)
@@ -2048,26 +2050,26 @@ server <- function(input, output, session) {
       bins     = quantile(mapdata_shaped_type()$overall_absence_perc, probs = seq(0, 1, 0.2), na.rm = TRUE),
       na.color = "#808080"
     )
-    
+
     auth_abs_pal <- colorBin(
       palette  = c("#fecc5c", "#fd8d3c", "#f03b20", "#bd0026", "#800026"),
       domain   = mapdata_shaped_type()$authorised_absence_perc,
       bins     = quantile(mapdata_shaped_type()$authorised_absence_perc, probs = seq(0, 1, 0.2), na.rm = TRUE),
       na.color = "#808080"
     )
-    
+
     unauth_abs_pal <- colorBin(
       palette  = c("#fecc5c", "#fd8d3c", "#f03b20", "#bd0026", "#800026"),
       domain   = mapdata_shaped_type()$unauthorised_absence_perc,
       bins     = quantile(mapdata_shaped_type()$unauthorised_absence_perc, probs = seq(0, 1, 0.2), na.rm = TRUE),
       na.color = "#808080"
     )
-    
+
     # Helper to format a % value for the tooltip at 2dp
     fmt_pct <- function(x) {
-      ifelse(is.na(x), "—", sprintf("%0.2f%%", x))  # <-- if your data are 0–1, use: sprintf("%0.2f%%", x * 100)
+      ifelse(is.na(x), "—", sprintf("%0.2f%%", x)) # <-- if your data are 0–1, use: sprintf("%0.2f%%", x * 100)
     }
-    
+
     # Rank helper: returns rank (1 = lowest value) and total non-NA count
     make_rank <- function(v) {
       v_no_na <- !is.na(v)
@@ -2078,17 +2080,17 @@ server <- function(input, output, session) {
       r[ord] <- seq_along(ord)
       list(rank = r, total = total)
     }
-    
+
     if (input$measure_choice == "Overall") {
       dat <- mapdata_shaped_type()
       ranks <- make_rank(dat$overall_absence_perc)
-      
+
       label_html <- lapply(seq_len(nrow(dat)), function(i) {
         chip_col <- overall_abs_pal(dat$overall_absence_perc[i])
         rk <- ranks$rank[i]
         ttl <- ranks$total
         rk_txt <- if (is.na(dat$overall_absence_perc[i])) "Suppressed / missing" else sprintf("%d / %d", rk, ttl)
-        
+
         htmltools::HTML(sprintf(
           "<div class='tt'>
            <div class='tt-title'>%s</div>
@@ -2106,15 +2108,15 @@ server <- function(input, output, session) {
           rk_txt
         ))
       })
-      
+
       rate_map <- mapdata_shaped_type() %>%
         leaflet() %>%
         addProviderTiles(providers$CartoDB.Positron) %>%
         addPolygons(
-          fillColor   = ~ overall_abs_pal(overall_absence_perc),
-          color       = "#4d4d4d",
-          weight      = 0.8,
-          opacity     = 1,
+          fillColor = ~ overall_abs_pal(overall_absence_perc),
+          color = "#4d4d4d",
+          weight = 0.8,
+          opacity = 1,
           fillOpacity = 0.78,
           smoothFactor = 0,
           highlight = highlightOptions(
@@ -2123,7 +2125,7 @@ server <- function(input, output, session) {
             fillOpacity  = 0.88,
             bringToFront = TRUE
           ),
-          label        = label_html,
+          label = label_html,
           labelOptions = labelOptions(
             className = "mytooltip",
             direction = "auto",
@@ -2133,17 +2135,16 @@ server <- function(input, output, session) {
             opacity   = 0.98
           )
         )
-      
     } else if (input$measure_choice == "Authorised") {
       dat <- mapdata_shaped_type()
       ranks <- make_rank(dat$authorised_absence_perc)
-      
+
       label_html <- lapply(seq_len(nrow(dat)), function(i) {
         chip_col <- auth_abs_pal(dat$authorised_absence_perc[i])
         rk <- ranks$rank[i]
         ttl <- ranks$total
         rk_txt <- if (is.na(dat$authorised_absence_perc[i])) "Suppressed / missing" else sprintf("%d / %d", rk, ttl)
-        
+
         htmltools::HTML(sprintf(
           "<div class='tt'>
            <div class='tt-title'>%s</div>
@@ -2161,15 +2162,15 @@ server <- function(input, output, session) {
           rk_txt
         ))
       })
-      
+
       rate_map <- mapdata_shaped_type() %>%
         leaflet() %>%
         addProviderTiles(providers$CartoDB.Positron) %>%
         addPolygons(
-          fillColor   = ~ auth_abs_pal(authorised_absence_perc),
-          color       = "#4d4d4d",
-          weight      = 0.8,
-          opacity     = 1,
+          fillColor = ~ auth_abs_pal(authorised_absence_perc),
+          color = "#4d4d4d",
+          weight = 0.8,
+          opacity = 1,
           fillOpacity = 0.78,
           smoothFactor = 0,
           highlight = highlightOptions(
@@ -2178,7 +2179,7 @@ server <- function(input, output, session) {
             fillOpacity  = 0.88,
             bringToFront = TRUE
           ),
-          label        = label_html,
+          label = label_html,
           labelOptions = labelOptions(
             className = "mytooltip",
             direction = "auto",
@@ -2188,17 +2189,16 @@ server <- function(input, output, session) {
             opacity   = 0.98
           )
         )
-      
     } else if (input$measure_choice == "Unauthorised") {
       dat <- mapdata_shaped_type()
       ranks <- make_rank(dat$unauthorised_absence_perc)
-      
+
       label_html <- lapply(seq_len(nrow(dat)), function(i) {
         chip_col <- unauth_abs_pal(dat$unauthorised_absence_perc[i])
         rk <- ranks$rank[i]
         ttl <- ranks$total
         rk_txt <- if (is.na(dat$unauthorised_absence_perc[i])) "Suppressed / missing" else sprintf("%d / %d", rk, ttl)
-        
+
         htmltools::HTML(sprintf(
           "<div class='tt'>
            <div class='tt-title'>%s</div>
@@ -2216,15 +2216,15 @@ server <- function(input, output, session) {
           rk_txt
         ))
       })
-      
+
       rate_map <- mapdata_shaped_type() %>%
         leaflet() %>%
         addProviderTiles(providers$CartoDB.Positron) %>%
         addPolygons(
-          fillColor   = ~ unauth_abs_pal(unauthorised_absence_perc),
-          color       = "#4d4d4d",
-          weight      = 0.8,
-          opacity     = 1,
+          fillColor = ~ unauth_abs_pal(unauthorised_absence_perc),
+          color = "#4d4d4d",
+          weight = 0.8,
+          opacity = 1,
           fillOpacity = 0.78,
           smoothFactor = 0,
           highlight = highlightOptions(
@@ -2233,7 +2233,7 @@ server <- function(input, output, session) {
             fillOpacity  = 0.88,
             bringToFront = TRUE
           ),
-          label        = label_html,
+          label = label_html,
           labelOptions = labelOptions(
             className = "mytooltip",
             direction = "auto",
@@ -2244,7 +2244,7 @@ server <- function(input, output, session) {
           )
         )
     }
-    
+
     # Keep your original legend exactly as-is
     rate_map <- rate_map %>%
       addLegend(
@@ -2256,14 +2256,14 @@ server <- function(input, output, session) {
       ) %>%
       setMaxBounds(lat1 = 55.5, lng1 = -6.8, lat2 = 49.99, lng2 = 1.95)
   })
-  
+
   output$map_title <- renderText({
     paste0(
       input$school_choice, " state-funded schools: ",
       str_to_lower(input$measure_choice), " absence rates by local authority"
     )
   })
-  
+
 
   # Stop app ---------------------------------------------------------------------------------
 
