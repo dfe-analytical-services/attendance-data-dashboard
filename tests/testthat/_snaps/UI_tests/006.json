@@ -44,7 +44,9 @@
               "2025-12-01",
               "2025-12-08",
               "2025-12-15",
-              "2026-01-05"
+              "2026-01-05",
+              "2026-01-12",
+              "2026-01-19"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -134,24 +136,28 @@
               "2025-12-01",
               "2025-12-08",
               "2025-12-15",
-              "2026-01-05"
+              "2026-01-05",
+              "2026-01-12",
+              "2026-01-19"
             ],
             "y": [
               5.4328029562131404,
               6.5519327053394401,
               7.2569849904588297,
-              7.7482102004347899,
+              7.7470720131119197,
               7.1442976706665302,
-              7.6597077838853904,
-              9.3472889498970506,
+              7.6556332131444496,
+              9.3438572409059706,
               7.4454142223494104,
-              7.7765614035087696,
-              8.1509951796440294,
-              10.2698875568516,
-              10.6114881284539,
-              9.4053865577882405,
-              10.6773696303406,
-              8.9949258995699406
+              7.77953675323071,
+              8.1485271714481708,
+              10.2680875064502,
+              10.611960806667399,
+              9.4007817113291896,
+              10.673863226586899,
+              8.9794560811856101,
+              7.6697974642228104,
+              8.3814475920361104
             ],
             "line": {
               "color": "#12436D"
@@ -164,6 +170,8 @@
             },
             "name": "Overall absence rate",
             "hovertemplate": [
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
@@ -208,7 +216,9 @@
               "2025-12-01",
               "2025-12-08",
               "2025-12-15",
-              "2026-01-05"
+              "2026-01-05",
+              "2026-01-12",
+              "2026-01-19"
             ],
             "y": [
               2.80219490627141,
@@ -216,16 +226,18 @@
               5.1060921078864201,
               5.52134670324042,
               4.8205662554760096,
-              4.98931958645439,
-              6.0109814687714502,
-              4.6576048075547298,
-              5.0430877192982502,
-              5.6472011117636498,
-              7.4426083930350098,
-              7.5615478312002402,
-              6.2751317395241104,
-              6.4124712794113403,
-              4.6989573342408999
+              4.9864146687400703,
+              6.0130404941660904,
+              4.6639004149377596,
+              5.0462011743968,
+              5.6482655161586699,
+              7.4468085106383004,
+              7.5662572527465901,
+              6.2761859235722497,
+              6.4216501680877496,
+              4.73685838928251,
+              4.5504426073597202,
+              5.1895870614849597
             ],
             "line": {
               "color": "#28A197"
@@ -238,6 +250,8 @@
             },
             "name": "Authorised absence rate",
             "hovertemplate": [
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
@@ -282,24 +296,28 @@
               "2025-12-01",
               "2025-12-08",
               "2025-12-15",
-              "2026-01-05"
+              "2026-01-05",
+              "2026-01-12",
+              "2026-01-19"
             ],
             "y": [
               2.6306080499417299,
               2.2048858074127198,
               2.1508928825724101,
-              2.2268634971943699,
+              2.2257253098715002,
               2.3237314151905299,
-              2.670388197431,
-              3.3363074811255999,
-              2.7878094147946801,
-              2.7334736842105301,
-              2.5037940678803801,
-              2.8272791638165899,
-              3.04994029725367,
-              3.1302548182641301,
-              4.26489835092924,
-              4.2959685653290398
+              2.6692185444043801,
+              3.3308167467398802,
+              2.7815138074116499,
+              2.73333557883391,
+              2.5002616552895098,
+              2.82127899581188,
+              3.0457035539208301,
+              3.1245957877569399,
+              4.2522130584991897,
+              4.2425976919031001,
+              3.1193548568630902,
+              3.1918605305511498
             ],
             "line": {
               "color": "#F46A25"
@@ -312,6 +330,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
@@ -452,9 +472,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2026-01-09: secondary state-funded school attendance at local authority level (East Midlands, Derby)",
-    "ytd_absence_rate_la": "- 8.26% of sessions were recorded as absence in Derby (compared to 8.02% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "- 91.74% of sessions were recorded as attending in Derby (compared to 91.98% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "- 4.12% of sessions were recorded as illness in Derby (compared to 3.9% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2026-01-23: secondary state-funded school attendance at local authority level (East Midlands, Derby)",
+    "ytd_absence_rate_la": "- 8.23% of sessions were recorded as absence in Derby (compared to 7.99% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "- 91.77% of sessions were recorded as attending in Derby (compared to 92.01% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "- 4.06% of sessions were recorded as illness in Derby (compared to 3.84% of sessions in East Midlands)"
   }
 }
