@@ -43,7 +43,9 @@
               "2025-12-01",
               "2025-12-08",
               "2025-12-15",
-              "2026-01-05"
+              "2026-01-05",
+              "2026-01-12",
+              "2026-01-19"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -132,23 +134,27 @@
               "2025-12-01",
               "2025-12-08",
               "2025-12-15",
-              "2026-01-05"
+              "2026-01-05",
+              "2026-01-12",
+              "2026-01-19"
             ],
             "y": [
-              5.2136275699249097,
-              6.6039756562067797,
-              7.3595906290970596,
-              7.7273139925464296,
-              7.1851727655055804,
-              7.3045293861315104,
-              6.8474142345110103,
-              6.9836833534744596,
-              7.6854707394568296,
-              9.0705787423350301,
-              9.5614949164953398,
-              9.4207787538724101,
-              10.323816606691899,
-              7.6255060401382204
+              5.2138373618137503,
+              6.6039602807818101,
+              7.3587112840320401,
+              7.7256835332839904,
+              7.18108021255886,
+              7.3038590865981696,
+              6.8496341844283899,
+              6.9817014865501497,
+              7.6791550130279704,
+              9.0659426171612196,
+              9.5500002346437398,
+              9.4050369955418596,
+              10.3100134849865,
+              7.6142227731443404,
+              7.5685313230967699,
+              8.0481625285562508
             ],
             "line": {
               "color": "#12436D"
@@ -161,6 +167,8 @@
             },
             "name": "Overall absence rate",
             "hovertemplate": [
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
@@ -203,23 +211,27 @@
               "2025-12-01",
               "2025-12-08",
               "2025-12-15",
-              "2026-01-05"
+              "2026-01-05",
+              "2026-01-12",
+              "2026-01-19"
             ],
             "y": [
-              3.4626356690822,
-              4.8317400596953801,
-              5.4160674313341,
-              5.8387822892831096,
-              5.1920470581660201,
-              5.1678857971109098,
-              4.6720430107526898,
-              4.8816961473677303,
-              5.5831346549528096,
-              6.75833898004774,
-              7.2333154964748703,
-              6.9737201500638504,
-              7.1960291926825297,
-              4.8256418826040797
+              3.4633220910623899,
+              4.8321944518817697,
+              5.4157045782463298,
+              5.83953669175943,
+              5.1926489285897297,
+              5.1691394243876703,
+              4.6767562475360602,
+              4.8822467570630996,
+              5.5834828187070897,
+              6.76306294011028,
+              7.2394633228369401,
+              6.9743015195014397,
+              7.1988176514472197,
+              4.85697732386586,
+              5.2925272758287898,
+              5.7589617275710001
             ],
             "line": {
               "color": "#28A197"
@@ -232,6 +244,8 @@
             },
             "name": "Authorised absence rate",
             "hovertemplate": [
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
@@ -274,23 +288,27 @@
               "2025-12-01",
               "2025-12-08",
               "2025-12-15",
-              "2026-01-05"
+              "2026-01-05",
+              "2026-01-12",
+              "2026-01-19"
             ],
             "y": [
-              1.7509919008427099,
-              1.77223559651141,
-              1.9435231977629599,
-              1.88853170326332,
-              1.9931257073395601,
-              2.1366435890206001,
-              2.17537122375832,
-              2.1019872061067302,
-              2.10233608450402,
-              2.3122397622872901,
-              2.32817942002047,
-              2.4470586038085602,
-              3.1277874140093802,
-              2.7998641575341399
+              1.75051527075136,
+              1.77176582890004,
+              1.9430067057857101,
+              1.8861468415245599,
+              1.98843128396913,
+              2.1347196622104998,
+              2.1728779368923301,
+              2.09945472948705,
+              2.0956721943208798,
+              2.3028796770509299,
+              2.3105369118068002,
+              2.4307354760404301,
+              3.1111958335392602,
+              2.7572454492784901,
+              2.2760040472679801,
+              2.2892008009852498
             ],
             "line": {
               "color": "#F46A25"
@@ -303,6 +321,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
@@ -442,9 +462,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2026-01-09: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
-    "ytd_absence_rate_la": "- 7.78% of sessions were recorded as absence in Lincolnshire (compared to 8.02% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "- 92.22% of sessions were recorded as attending in Lincolnshire (compared to 91.98% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "- 4.22% of sessions were recorded as illness in Lincolnshire (compared to 3.9% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2026-01-23: secondary state-funded school attendance at local authority level (East Midlands, Lincolnshire)",
+    "ytd_absence_rate_la": "- 7.78% of sessions were recorded as absence in Lincolnshire (compared to 7.99% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "- 92.22% of sessions were recorded as attending in Lincolnshire (compared to 92.01% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "- 4.19% of sessions were recorded as illness in Lincolnshire (compared to 3.84% of sessions in East Midlands)"
   }
 }
