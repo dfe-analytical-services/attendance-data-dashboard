@@ -51,7 +51,8 @@ map_gov_colours <- c(
 # Test the palette
 
 check_pal <- function(
-    x = gov_cols) {
+  x = gov_cols
+) {
   if (is.numeric(x)) {
     if (length(x) > 1) {
       x <- gov_cols[x]
@@ -70,9 +71,10 @@ check_pal <- function(
 # Create a theme
 
 theme_gov <- function(
-    base_size = 12,
-    base_colour = "gray40",
-    axes = "x") {
+  base_size = 12,
+  base_colour = "gray40",
+  axes = "x"
+) {
   if (!axes %in% c("n", "x", "y", "xy")) {
     stop("axes must be one of 'n', 'x', 'y', or 'xy'")
   }

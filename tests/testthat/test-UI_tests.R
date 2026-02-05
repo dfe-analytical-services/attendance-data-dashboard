@@ -4,7 +4,6 @@ test_that("Migrated shinytest test: UI_tests.R", {
   app <- AppDriver$new(load_timeout = 1e+07)
 
 
-
   listInputs <- c(
     "navlistPanel",
     "dash",

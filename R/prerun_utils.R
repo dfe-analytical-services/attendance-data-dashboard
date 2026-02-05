@@ -2186,7 +2186,6 @@ create_ees_tables_summer <- function(df_attendance_summer) {
     ))
 
 
-
   cols_to_replace <- setdiff(names(EES_sum_data), c("attendance_date", "week_commencing", "day_number", "time_identifier", "total_num_schools"))
 
   EES_sum_data[cols_to_replace] <- lapply(EES_sum_data[cols_to_replace], function(col) {
