@@ -30,11 +30,11 @@
             "automargin": true,
             "title": "",
             "tickvals": [
-              "2026-01-05",
-              "2026-01-06",
-              "2026-01-07",
-              "2026-01-08",
-              "2026-01-09"
+              "2026-02-02",
+              "2026-02-03",
+              "2026-02-04",
+              "2026-02-05",
+              "2026-02-06"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -52,7 +52,7 @@
             "ticksuffix": "%",
             "range": [
               0,
-              12.69057343408214
+              12.44767174945013
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -113,18 +113,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-01-05",
-              "2026-01-06",
-              "2026-01-07",
-              "2026-01-08",
-              "2026-01-09"
+              "2026-02-02",
+              "2026-02-03",
+              "2026-02-04",
+              "2026-02-05",
+              "2026-02-06"
             ],
             "y": [
-              8.4810807257206697,
-              7.5810008957709902,
-              7.6820517432325399,
-              7.6826566834501904,
-              9.4004247659867701
+              8.2124196736383901,
+              8.3565168485851196,
+              8.2647901054042503,
+              8.33330434620372,
+              9.2204975921852803
             ],
             "line": {
               "color": "#12436D"
@@ -157,18 +157,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-01-05",
-              "2026-01-06",
-              "2026-01-07",
-              "2026-01-08",
-              "2026-01-09"
+              "2026-02-02",
+              "2026-02-03",
+              "2026-02-04",
+              "2026-02-05",
+              "2026-02-06"
             ],
             "y": [
-              4.1732815715968998,
-              4.0560325625414402,
-              4.3587254277732104,
-              4.4341745439424498,
-              5.4623545228259998
+              5.1458261635746601,
+              5.3309989332025403,
+              5.2199634689981496,
+              5.2187901109406001,
+              5.69152894759545
             ],
             "line": {
               "color": "#28A197"
@@ -201,18 +201,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-01-05",
-              "2026-01-06",
-              "2026-01-07",
-              "2026-01-08",
-              "2026-01-09"
+              "2026-02-02",
+              "2026-02-03",
+              "2026-02-04",
+              "2026-02-05",
+              "2026-02-06"
             ],
             "y": [
-              4.3077991541237699,
-              3.5249683332295501,
-              3.32332631545933,
-              3.2484821395077401,
-              3.9380702431607801
+              3.06659351006373,
+              3.0255179153825802,
+              3.0448266364060999,
+              3.1145142352631301,
+              3.5289686445898401
             ],
             "line": {
               "color": "#F46A25"
@@ -355,9 +355,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2026-01-05 to 2026-01-09: secondary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "- 8.1% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "- 91.9% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "- 3.17% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2026-02-02 to 2026-02-06: secondary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "- 8.48% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "- 91.52% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "- 3.86% of sessions were recorded as illness"
   }
 }
