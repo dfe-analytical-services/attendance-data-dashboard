@@ -30,11 +30,11 @@
             "automargin": true,
             "title": "",
             "tickvals": [
-              "2026-02-02",
-              "2026-02-03",
-              "2026-02-04",
-              "2026-02-05",
-              "2026-02-06"
+              "2026-02-09",
+              "2026-02-10",
+              "2026-02-11",
+              "2026-02-12",
+              "2026-02-13"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -52,7 +52,7 @@
             "ticksuffix": "%",
             "range": [
               0,
-              12.44767174945013
+              14.829701895797221
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -113,18 +113,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-02-02",
-              "2026-02-03",
-              "2026-02-04",
-              "2026-02-05",
-              "2026-02-06"
+              "2026-02-09",
+              "2026-02-10",
+              "2026-02-11",
+              "2026-02-12",
+              "2026-02-13"
             ],
             "y": [
-              8.2124196736383901,
-              8.3565168485851196,
-              8.2647901054042503,
-              8.33330434620372,
-              9.2204975921852803
+              8.1574043930581794,
+              8.2662455196976996,
+              8.3946359238686998,
+              8.7486139487779297,
+              10.9849643672572
             ],
             "line": {
               "color": "#12436D"
@@ -157,18 +157,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-02-02",
-              "2026-02-03",
-              "2026-02-04",
-              "2026-02-05",
-              "2026-02-06"
+              "2026-02-09",
+              "2026-02-10",
+              "2026-02-11",
+              "2026-02-12",
+              "2026-02-13"
             ],
             "y": [
-              5.1458261635746601,
-              5.3309989332025403,
-              5.2199634689981496,
-              5.2187901109406001,
-              5.69152894759545
+              5.0439997334976097,
+              5.1821814682813301,
+              5.1798640532885596,
+              5.2693374893559399,
+              6.3876839558015899
             ],
             "line": {
               "color": "#28A197"
@@ -201,18 +201,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-02-02",
-              "2026-02-03",
-              "2026-02-04",
-              "2026-02-05",
-              "2026-02-06"
+              "2026-02-09",
+              "2026-02-10",
+              "2026-02-11",
+              "2026-02-12",
+              "2026-02-13"
             ],
             "y": [
-              3.06659351006373,
-              3.0255179153825802,
-              3.0448266364060999,
-              3.1145142352631301,
-              3.5289686445898401
+              3.1134046595605702,
+              3.0840640514163802,
+              3.21477187058015,
+              3.479276459422,
+              4.5972804114555803
             ],
             "line": {
               "color": "#F46A25"
@@ -355,9 +355,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2026-02-02 to 2026-02-06: secondary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "- 8.48% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "- 91.52% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "- 3.86% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2026-02-09 to 2026-02-13: secondary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "- 8.86% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "- 91.14% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "- 3.84% of sessions were recorded as illness"
   }
 }
