@@ -118,7 +118,7 @@ summer_start <- as.Date("2026-04-13")
 summer_end <- as.Date("2026-07-20")
 
 # most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4, " to ", as.Date(end_date))
-most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 11, " to ", as.Date(end_date) -7) # Commented this in to edit dates in LA table current selections heading, will need reverting back to above line
+most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 11, " to ", as.Date(end_date) - 7) # Commented this in to edit dates in LA table current selections heading, will need reverting back to above line
 
 ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date))
 
