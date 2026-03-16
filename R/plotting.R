@@ -15,7 +15,8 @@ headline_absence_ggplot <- function(reasons, scope) {
   }
   plot_data <- plot_data |>
     filter(
-      attendance_reason %in% c("All authorised", "All unauthorised", "Overall absence")
+      attendance_reason %in%
+        c("All authorised", "All unauthorised", "Overall absence")
     ) |>
     arrange(attendance_type, reference_date) |>
     mutate(
@@ -39,9 +40,12 @@ headline_absence_ggplot <- function(reasons, scope) {
     geom_point_interactive(
       aes(
         tooltip = paste0(
-          date_stamp(lubridate::ymd(reference_date)), "\n",
-          attendance_type, ": ",
-          session_percent, "%"
+          date_stamp(lubridate::ymd(reference_date)),
+          "\n",
+          attendance_type,
+          ": ",
+          session_percent,
+          "%"
         )
       )
     ) +
@@ -52,7 +56,9 @@ headline_absence_ggplot <- function(reasons, scope) {
     ) +
     scale_x_date(date_breaks = date_breaks, date_labels = "%d %b") +
     afcharts::theme_af() +
-    scale_colour_manual(values = afcharts::af_colour_palettes[["main6"]] |> unname()) +
+    scale_colour_manual(
+      values = afcharts::af_colour_palettes[["main6"]] |> unname()
+    ) +
     labs(
       x = year(dates) |>
         unique() |>
@@ -85,13 +91,14 @@ reasons_ggplot <- function(reasons, scope) {
   }
   plot_data <- plot_data |>
     filter(
-      attendance_reason %in% c(
-        "Illness (i)",
-        "Medical dental (m)",
-        "Temporary reduced timetable (c2)",
-        "Unauthorised holiday (g)",
-        "Other unauthorised (o)"
-      )
+      attendance_reason %in%
+        c(
+          "Illness (i)",
+          "Medical dental (m)",
+          "Temporary reduced timetable (c2)",
+          "Unauthorised holiday (g)",
+          "Other unauthorised (o)"
+        )
     ) |>
     arrange(attendance_type, reference_date) |>
     mutate(
@@ -111,9 +118,12 @@ reasons_ggplot <- function(reasons, scope) {
     geom_point_interactive(
       aes(
         tooltip = paste0(
-          date_stamp(lubridate::ymd(reference_date)), "\n",
-          attendance_type, ": ",
-          session_percent, "%"
+          date_stamp(lubridate::ymd(reference_date)),
+          "\n",
+          attendance_type,
+          ": ",
+          session_percent,
+          "%"
         )
       )
     ) +

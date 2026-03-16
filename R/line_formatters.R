@@ -1,11 +1,12 @@
 headline_bullet <- function(
-    value,
-    comparator_value,
-    statistic_name,
-    geographic_level,
-    la_name_in,
-    region_name_in,
-    subject = "sessions") {
+  value,
+  comparator_value,
+  statistic_name,
+  geographic_level,
+  la_name_in,
+  region_name_in,
+  subject = "sessions"
+) {
   if (geographic_level == "Local authority") {
     area_string <- paste("in", la_name_in)
     comparator_level <- "REG"
@@ -29,7 +30,8 @@ headline_bullet <- function(
     paste0(
       value |>
         as.numeric() |>
-        dfeR::round_five_up(dp = 1), "%"
+        dfeR::round_five_up(dp = 1),
+      "%"
     ),
     "of",
     subject,
@@ -43,7 +45,9 @@ headline_bullet <- function(
         comparator_value |>
           as.numeric() |>
           dfeR::round_five_up(dp = 1),
-        "% of sessions in ", comparator_name, ")"
+        "% of sessions in ",
+        comparator_name,
+        ")"
       ),
       ""
     )
