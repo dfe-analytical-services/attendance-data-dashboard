@@ -51,7 +51,9 @@
               "2026-02-02",
               "2026-02-09",
               "2026-02-23",
-              "2026-03-02"
+              "2026-03-02",
+              "2026-03-09",
+              "2026-03-16"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -148,31 +150,35 @@
               "2026-02-02",
               "2026-02-09",
               "2026-02-23",
-              "2026-03-02"
+              "2026-03-02",
+              "2026-03-09",
+              "2026-03-16"
             ],
             "y": [
               5.4445335221520699,
               6.5634688783676403,
               7.2644269629663398,
-              7.7671503957783603,
+              7.7677190428532397,
               7.1600501556167604,
               7.6678752967025501,
               9.36670666895251,
               7.4502336061120698,
               7.7925866092263503,
-              8.1568258284957196,
-              10.2616068162876,
+              8.15624473382959,
+              10.260407610162099,
               10.5876286805485,
-              9.4034673635112007,
-              10.6583673327057,
+              9.4029053921155406,
+              10.657786146854001,
               8.9180201082753303,
               7.6005198282991397,
               8.2948531190065093,
-              9.1324200913241995,
+              9.1325235678027497,
               8.7526345390195797,
-              9.1034994292204399,
-              8.0751638026950197,
-              8.24872882071727
+              9.1082924341895595,
+              8.02537060619923,
+              8.20290295529629,
+              8.8871385169348507,
+              12.514078978804701
             ],
             "line": {
               "color": "#12436D"
@@ -185,6 +191,8 @@
             },
             "name": "Overall absence rate",
             "hovertemplate": [
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Overall absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
@@ -243,31 +251,35 @@
               "2026-02-02",
               "2026-02-09",
               "2026-02-23",
-              "2026-03-02"
+              "2026-03-02",
+              "2026-03-09",
+              "2026-03-16"
             ],
             "y": [
               2.8158958844148501,
               4.3540064694491996,
               5.1110554537278396,
-              5.5380538622509299,
+              5.5386225093258101,
               4.8319562929625404,
               4.9920025500765597,
               6.0346305503171598,
               4.6612568409133797,
               5.0518309100700103,
-              5.6621864267907904,
+              5.66160533212466,
               7.4506676580104001,
               7.5514572303928897,
-              6.2789064036640498,
+              6.2783444322684003,
               6.4267531471213903,
-              4.7231245166280003,
-              4.5378085074064298,
-              5.1806273446683599,
-              5.6596077364968203,
-              5.4474597646951901,
-              5.4678943739098704,
-              4.5537149214983303,
-              4.6640877071473197
+              4.7246713070378998,
+              4.5389336768850796,
+              5.1738780744332002,
+              5.6608049311095003,
+              5.4485959540297797,
+              5.4751736885716102,
+              4.5573125950470397,
+              4.6724185478469797,
+              4.8424665241363796,
+              8.6026826854158802
             ],
             "line": {
               "color": "#28A197"
@@ -280,6 +292,8 @@
             },
             "name": "Authorised absence rate",
             "hovertemplate": [
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Authorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
@@ -338,7 +352,9 @@
               "2026-02-02",
               "2026-02-09",
               "2026-02-23",
-              "2026-03-02"
+              "2026-03-02",
+              "2026-03-09",
+              "2026-03-16"
             ],
             "y": [
               2.6286376377372198,
@@ -351,18 +367,20 @@
               2.7889767651986901,
               2.7407556991563502,
               2.49463940170493,
-              2.8109391582772201,
+              2.8097399521516802,
               3.0361714501555901,
               3.1245609598471402,
-              4.2316141855842702,
-              4.1948955916473301,
-              3.0627113208927099,
-              3.1142257743381498,
-              3.4728123548273802,
-              3.30517477432439,
-              3.6356050553105699,
-              3.5214488811966902,
-              3.5846411135699401
+              4.2310329997326503,
+              4.1933488012374296,
+              3.0615861514140601,
+              3.12097504457331,
+              3.47171863669326,
+              3.3040385849898,
+              3.6331187456179501,
+              3.4680580111521899,
+              3.5304844074493098,
+              4.0446719927984702,
+              3.91139629338885
             ],
             "line": {
               "color": "#F46A25"
@@ -375,6 +393,8 @@
             },
             "name": "Unauthorised absence rate",
             "hovertemplate": [
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
+              "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
               "Unauthorised absence: <b>%{y:.2f}%<\/b><extra><\/extra>",
@@ -522,9 +542,9 @@
         }
       ]
     },
-    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2026-03-06: secondary state-funded school attendance at local authority level (East Midlands, Derby)",
-    "ytd_absence_rate_la": "- 8.32% of sessions were recorded as absence in Derby (compared to 8.08% of sessions in East Midlands)",
-    "ytd_attendance_rate_la": "- 91.68% of sessions were recorded as attending in Derby (compared to 91.92% of sessions in East Midlands)",
-    "ytd_illness_rate_la": "- 4% of sessions were recorded as illness in Derby (compared to 3.79% of sessions in East Midlands)"
+    "headline_bullet_title_la": "Headline figures for the year to date - 2025-09-08 to 2026-03-20: secondary state-funded school attendance at local authority level (East Midlands, Derby)",
+    "ytd_absence_rate_la": "- 8.52% of sessions were recorded as absence in Derby (compared to 8.13% of sessions in East Midlands)",
+    "ytd_attendance_rate_la": "- 91.48% of sessions were recorded as attending in Derby (compared to 91.87% of sessions in East Midlands)",
+    "ytd_illness_rate_la": "- 3.96% of sessions were recorded as illness in Derby (compared to 3.75% of sessions in East Midlands)"
   }
 }

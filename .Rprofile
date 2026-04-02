@@ -31,7 +31,7 @@ detect_chrome_path <- function() {
 current_user <- Sys.getenv("USERNAME")
 
 # Conditional logic based on user
-if (identical(current_user, "JMORRIS6")) {
+if (identical(current_user, "FALI7")) {
   message("Local user detected")
   detect_chrome_path()
 
