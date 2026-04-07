@@ -311,6 +311,7 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
     group_by(breakdown, time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, attendance_date, day_number, week_commencing) %>%
     summarise(across(where(is.numeric), sum), .groups = "keep") %>%
     mutate(
+      school_type = "Total",      
       attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
       overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
       authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
