@@ -95,7 +95,7 @@ team_email <- "school.statistics@education.gov.uk"
 #### SECTION 1 - date filters ####
 
 start_date <- as.Date("2025-09-08")
-end_date <- as.Date("2026-03-20")
+end_date <- as.Date("2026-04-03")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -112,15 +112,16 @@ end_date <- as.Date("2026-03-20")
 
 autumn_start <- as.Date("2025-09-08")
 autumn_end <- as.Date("2025-12-21")
-spring_start <- as.Date("2026-01-05")
-spring_end <- as.Date("2026-03-30")
+spring_start <- as.Date("2026-01-04")
+spring_end <- as.Date("2026-04-12")
 summer_start <- as.Date("2026-04-13")
 summer_end <- as.Date("2026-07-20")
 
-most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4, " to ", as.Date(end_date))
-# most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 11, " to ", as.Date(end_date) - 7) # Commented this in to edit dates in LA table current selections heading, will need reverting back to above line
+# most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4, " to ", as.Date(end_date))
+most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 11, " to ", as.Date(end_date) - 7) # Commented this in to edit dates in LA table current selections heading, will need reverting back to above line
 
-ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date))
+# ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date))
+ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date) - 7)
 
 # Read CSV without factors
 attendance_data <- read.csv("data/attendance_data_dashboard.csv", stringsAsFactors = FALSE)
@@ -280,9 +281,9 @@ mapdata0 <- attendance_data %>%
     time_identifier = as.numeric(str_remove_all(time_identifier, "Week "))
   ) %>%
   filter(time_period == max(time_period)) %>%
-  filter(time_identifier == max(time_identifier)) %>%
+  # filter(time_identifier == max(time_identifier)) %>%
   # CHANGED THIS SUCH THAT THE LA DATA MAP DISPLAYS DATA FOR WEEK BEFORE
-  # filter(time_identifier == max(time_identifier) - 1) %>%
+  filter(time_identifier == max(time_identifier) - 1) %>%
   filter(geographic_level == "Local authority") %>%
   filter(breakdown == "Weekly")
 

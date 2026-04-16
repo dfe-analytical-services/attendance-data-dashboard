@@ -139,15 +139,20 @@ server <- function(input, output, session) {
   })
 
   reactive_latestweeks_string <- reactive({
-    latestweek_line <- most_recent_week_lookup %>%
-      filter(geographic_level == input$geography_choice)
-    if (input$geography_choice == "Regional") {
-      latestweek_line <- latestweek_line %>% filter(region_name == input$region_choice)
-    } else if (input$geography_choice == "Local authority") {
-      latestweek_line <- latestweek_line %>% filter(la_name == input$la_choice)
-    }
-    paste0("Latest week - ", latestweek_line %>% pull(week_start), " to ", latestweek_line %>% pull(week_end))
+    "Latest week – 2026-03-30 to 2026-03-27"
   })
+
+
+  # reactive_latestweeks_string <- reactive({
+  #   latestweek_line <- most_recent_week_lookup %>%
+  #     filter(geographic_level == input$geography_choice)
+  #   if (input$geography_choice == "Regional") {
+  #     latestweek_line <- latestweek_line %>% filter(region_name == input$region_choice)
+  #   } else if (input$geography_choice == "Local authority") {
+  #     latestweek_line <- latestweek_line %>% filter(la_name == input$la_choice)
+  #   }
+  #   paste0("Latest week - ", latestweek_line %>% pull(week_start), " to ", latestweek_line %>% pull(week_end))
+  # })
 
   reactive_yeartodate_string <- reactive({
     year_line <- year_lookup %>%
@@ -204,7 +209,8 @@ server <- function(input, output, session) {
         school_type == input$school_choice,
         time_period == max(time_period),
         breakdown == "Daily"
-      ) %>% filter(time_identifier == max(time_identifier))
+        # ) %>% filter(time_identifier == max(time_identifier))
+      ) %>% filter(time_identifier == max(time_identifier) - 1)
     } else if (input$geography_choice == "Regional") {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
@@ -212,7 +218,8 @@ server <- function(input, output, session) {
         school_type == input$school_choice,
         time_period == max(time_period),
         breakdown == "Daily"
-      ) %>% filter(time_identifier == max(time_identifier))
+        # ) %>% filter(time_identifier == max(time_identifier))
+      ) %>% filter(time_identifier == max(time_identifier) - 1)
     } else if (input$geography_choice == "Local authority") {
       dplyr::filter(
         attendance_data, geographic_level == "Local authority",
@@ -221,7 +228,8 @@ server <- function(input, output, session) {
         school_type == input$school_choice,
         time_period == max(time_period),
         breakdown == "Daily"
-      ) %>% filter(time_identifier == max(time_identifier))
+        # ) %>% filter(time_identifier == max(time_identifier))
+      ) %>% filter(time_identifier == max(time_identifier) - 1)
     } else {
       NA
     }
@@ -236,7 +244,8 @@ server <- function(input, output, session) {
         school_type == input$school_choice,
         time_period == max(time_period),
         breakdown == "Weekly"
-      ) %>% filter(time_identifier == max(time_identifier))
+        # ) %>% filter(time_identifier == max(time_identifier))
+      ) %>% filter(time_identifier == max(time_identifier) - 1)
     } else if (input$geography_choice == "Regional") {
       dplyr::filter(
         attendance_data, geographic_level == "Regional",
@@ -244,7 +253,8 @@ server <- function(input, output, session) {
         school_type == input$school_choice,
         time_period == max(time_period),
         breakdown == "Weekly"
-      ) %>% filter(time_identifier == max(time_identifier))
+        # ) %>% filter(time_identifier == max(time_identifier))
+      ) %>% filter(time_identifier == max(time_identifier) - 1)
     } else if (input$geography_choice == "Local authority") {
       dplyr::filter(
         attendance_data, geographic_level == "Local authority",
@@ -253,7 +263,8 @@ server <- function(input, output, session) {
         school_type == input$school_choice,
         time_period == max(time_period),
         breakdown == "Weekly"
-      ) %>% filter(time_identifier == max(time_identifier))
+        # ) %>% filter(time_identifier == max(time_identifier))
+      ) %>% filter(time_identifier == max(time_identifier) - 1)
     } else {
       NA
     }
@@ -298,7 +309,8 @@ server <- function(input, output, session) {
         time_period == max(time_period),
         breakdown == "Weekly"
       ) %>%
-        filter(time_identifier == max(time_identifier)) %>%
+        # filter(time_identifier == max(time_identifier)) %>%
+        filter(time_identifier == max(time_identifier) - 1) %>%
         mutate(
           illness_perc = illness_perc / 100,
           appointments_perc = appointments_perc / 100,
@@ -322,7 +334,8 @@ server <- function(input, output, session) {
         time_period == max(time_period),
         breakdown == "Weekly"
       ) %>%
-        filter(time_identifier == max(time_identifier)) %>%
+        # filter(time_identifier == max(time_identifier)) %>%
+        filter(time_identifier == max(time_identifier) - 1) %>%
         mutate(
           illness_perc = illness_perc / 100,
           appointments_perc = appointments_perc / 100,
@@ -347,7 +360,8 @@ server <- function(input, output, session) {
         time_period == max(time_period),
         breakdown == "Weekly"
       ) %>%
-        filter(time_identifier == max(time_identifier)) %>%
+        # filter(time_identifier == max(time_identifier)) %>%
+        filter(time_identifier == max(time_identifier) - 1) %>%
         mutate(
           illness_perc = illness_perc / 100,
           appointments_perc = appointments_perc / 100,
@@ -453,9 +467,9 @@ server <- function(input, output, session) {
       time_period == max(time_period),
       breakdown == "Weekly"
     ) %>%
-      filter(time_identifier == max(time_identifier)) %>%
+      # filter(time_identifier == max(time_identifier)) %>%
       # CHANGED THIS SUCH THAT THE TABLE DISPLAYS ONE WEEK BEHIND
-      # filter(time_identifier == max(time_identifier) - 1) %>%
+      filter(time_identifier == max(time_identifier) - 1) %>%
       mutate(
         overall_absence_perc = overall_absence_perc / 100,
         authorised_absence_perc = authorised_absence_perc / 100,
@@ -471,7 +485,8 @@ server <- function(input, output, session) {
       school_type == input$school_choice,
       time_period == max(time_period),
       breakdown == "Weekly"
-    ) %>% filter(time_identifier == max(time_identifier))
+      # ) %>% filter(time_identifier == max(time_identifier))
+    ) %>% filter(time_identifier == max(time_identifier) - 1)
   })
 
   live_attendance_data_weekly_regcomp <- reactive({
@@ -481,7 +496,7 @@ server <- function(input, output, session) {
       school_type == input$school_choice,
       time_period == max(time_period),
       breakdown == "Weekly"
-    ) %>% filter(time_identifier == max(time_identifier))
+    ) %>% filter(time_identifier == max(time_identifier) - 1)
   })
 
 
@@ -509,29 +524,33 @@ server <- function(input, output, session) {
   # Full weekly timeseries for latest year
   live_attendance_data_ts <- reactive({
     if (input$geography_choice == "National") {
-      dplyr::filter(
-        attendance_data, geographic_level == "National",
-        school_type == input$school_choice,
-        # time_period == max(time_period),
-        breakdown == "Weekly"
-      )
+      attendance_data %>%
+        dplyr::filter(
+          geographic_level == "National",
+          school_type == input$school_choice,
+          breakdown == "Weekly"
+        ) %>%
+        arrange(time_period, as.numeric(time_identifier)) %>%
+        slice(-n())
     } else if (input$geography_choice == "Regional") {
-      dplyr::filter(
-        attendance_data, geographic_level == "Regional",
-        region_name == input$region_choice,
-        school_type == input$school_choice,
-        # time_period == max(time_period),
-        breakdown == "Weekly"
-      )
+      attendance_data %>%
+        dplyr::filter(
+          geographic_level == "Regional",
+          region_name == input$region_choice,
+          school_type == input$school_choice,
+          breakdown == "Weekly"
+        ) %>%
+        arrange(time_period, as.numeric(time_identifier)) %>%
+        slice(-n())
     } else if (input$geography_choice == "Local authority") {
-      dplyr::filter(
-        attendance_data, geographic_level == "Local authority",
-        region_name == input$region_choice,
-        la_name == input$la_choice,
-        school_type == input$school_choice,
-        # time_period == max(time_period),
-        breakdown == "Weekly"
-      )
+      attendance_data %>%
+        dplyr::filter(
+          geographic_level == "Local authority",
+          region_name == input$region_choice,
+          la_name == input$la_choice,
+          school_type == input$school_choice,
+          breakdown == "Weekly"
+        )
     } else {
       NA
     }
@@ -1070,7 +1089,8 @@ server <- function(input, output, session) {
       school_type == "Total",
       day_number == "5"
     ) %>%
-    filter(time_identifier == max(time_identifier)) %>%
+    # filter(time_identifier == max(time_identifier)) %>%
+    filter(time_identifier == max(time_identifier) - 1) %>%
     pull(num_schools) %>%
     sum()
 
@@ -1081,7 +1101,8 @@ server <- function(input, output, session) {
       school_type == "Total",
       day_number == "5"
     ) %>%
-    filter(time_identifier == max(time_identifier)) %>%
+    # filter(time_identifier == max(time_identifier)) %>%
+    filter(time_identifier == max(time_identifier) - 1) %>%
     pull(attendance_date)
 
   schools_count_pre_ht <- attendance_data %>%
@@ -1106,7 +1127,8 @@ server <- function(input, output, session) {
     pull(attendance_date)
 
   output$daily_schools_count <- renderText({
-    paste0(scales::comma(schools_count), " schools provided information on the latest full day of data, i.e. ", schools_count_date)
+    paste0("20,690 schools provided information on the latest full day of data, i.e. 2026-03-27")
+    # paste0(scales::comma(schools_count), " schools provided information on the latest full day of data, i.e. ", schools_count_date)
     # paste0(scales::comma(schools_count), " schools provided information on the latest full day of data prior to half-term, i.e. ", schools_count_date)
     # paste0(scales::comma(schools_count_pre_ht), " schools provided information on the last full day of data prior to half-term, i.e. ", schools_count_date_pre_ht)
   })
@@ -1150,7 +1172,8 @@ server <- function(input, output, session) {
         school_type == "Total",
         time_period == max(time_period)
       ) %>%
-      filter(time_identifier == max(time_identifier)) %>%
+      # filter(time_identifier == max(time_identifier)) %>%
+      filter(time_identifier == max(time_identifier) - 1) %>%
       mutate(proportion_schools_count = (num_schools / total_num_schools) * 100)
 
     # paste0("For this breakdown, in the week prior to half term there were ", count_prop_week %>% pull(proportion_schools_count) %>% mean(na.rm = TRUE) %>% round(digits = 2), "% of schools opted-in, though this has varied throughout the year-to-date. This figure is not shown for the latest week due to half-term impacting upon number of schools reporting.")
@@ -1513,8 +1536,8 @@ server <- function(input, output, session) {
     # as.Date(attendance_date) + 31
 
 
-    paste0("Data was last updated on ", last_update_date, ".")
-    # paste0("Data was last updated on 2026-03-05")
+    # paste0("Data was last updated on ", last_update_date, ".")
+    paste0("Data was last updated on 2026-04-16")
   })
 
   output$la_clarity_dates <- renderText({
@@ -1524,8 +1547,8 @@ server <- function(input, output, session) {
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(week_commencing)
 
-    paste0("Data on this tab relates to the week commencing ", most_recent_fullweek_date, ".")
-    # paste0("Data on this tab relates to the week commencing 2024-10-21.")
+    # paste0("Data on this tab relates to the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data on this tab relates to the week commencing 2026-03-23.")
   })
 
   output$update_dates <- renderText({
@@ -1550,8 +1573,8 @@ server <- function(input, output, session) {
 
     # paste0("Data was last updated on 2025-05-01 and is next expected to be updated on 2025-05-15. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    # paste0("Data was last updated on 2026-03-05. The latest full week of data was the week commencing 2025-02-09.")
+    # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on 2026-04-16. The latest full week of data was the week commencing 2026-03-23.")
     # paste0("Data was last updated on 2025-08-07. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on 2025-01-09. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
@@ -1576,9 +1599,9 @@ server <- function(input, output, session) {
 
     # paste0("Data was last updated on 2025-05-01 and is next expected to be updated on 2025-05-15. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on 2026-03-05. The latest full week of data was the week commencing 2025-02-09.")
-    # paste0("Data was last updated on 2025-08-07. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on 2026-04-16. The latest full week of data was the week commencing 2026-03-23.")
     # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on 2025-01-09. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
   })
 
@@ -1602,7 +1625,8 @@ server <- function(input, output, session) {
 
     # paste0("Data was last updated on 2025-05-01 and is next expected to be updated on 2025-05-15. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0("Data was last updated on 2026-04-16. The latest full week of data was the week commencing 2026-03-23.")
     # paste0("Data was last updated on 2026-03-05. The latest full week of data was the week commencing 2025-02-09.")
     # paste0("Data was last updated on 2025-08-07. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on ", last_update_date, " and is next expected to be updated on 2025-01-09. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
