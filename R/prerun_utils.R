@@ -1030,17 +1030,8 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
 }
 
 ### SECTION 5 - Processing Summer ####
-#' Title
-#'
-#' @param attendance_data_raw
-#' @param summer_start
-#' @param summer_end
-#' @param pa_summer_file
-#'
-#' @returns
-#' @export
-#'
-#' @examples
+# Title
+#
 process_attendance_data_summer <- function(attendance_data_raw, summer_start, summer_end, pa_summer_file, school_freq_count) {
   # Set up data for use across the app
   # Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
@@ -2193,7 +2184,6 @@ create_ees_tables_summer <- function(df_attendance_summer) {
       is.na(old_la_code) ~ "",
       TRUE ~ old_la_code
     ))
-
 
 
   cols_to_replace <- setdiff(names(EES_sum_data), c("attendance_date", "week_commencing", "day_number", "time_identifier", "total_num_schools"))
