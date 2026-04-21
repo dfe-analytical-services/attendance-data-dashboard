@@ -157,8 +157,8 @@ schools_submitting_sqids <- fetch_sqid_lookup(
 #### SECTION 1 - date filters ####
 message("Setting dates")
 date_stamp <- lubridate::stamp_date("20 March 2025")
-start_date <- as.Date("2024-09-09")
-end_date <- as.Date("2025-05-16")
+start_date <- as.Date("2025-09-08")
+end_date <- as.Date("2026-04-03")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
