@@ -3,7 +3,7 @@ render_percents <- function(values) {
     as.numeric(
       values
     ),
-    dp = 1
+    dp = 2
   ) |>
     paste0(
       "%"

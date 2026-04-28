@@ -220,7 +220,8 @@ server <- function(input, output, session) {
       reasons_dataset_id,
       ees_environment = ees_api_env
     ) |>
-      filter(version == max(version))
+      filter(version == max(version)) |>
+      dplyr::slice(1)
   })
 
   reasons_data <- reactive({
@@ -364,7 +365,7 @@ server <- function(input, output, session) {
           input$measure_choice,
           "absence rate:",
           paste0(
-            as.character(dfeR::round_five_up(session_percent, dp = 1)),
+            as.character(dfeR::round_five_up(session_percent, dp = 2)),
             "%"
           )
         )
@@ -1000,7 +1001,7 @@ server <- function(input, output, session) {
       100.
     paste0(
       "This number is approximately ",
-      percent_submitted |> dfeR::round_five_up(dp = 1),
+      percent_submitted |> dfeR::round_five_up(dp = 2),
       "% of the number of schools participating in the School Census. From the start of the ",
       "2024/25 academic year, it became mandatory for schools to share attendance data with the ",
       "DfE. As more schools share their data, the number of schools reporting may change over ",
@@ -1024,7 +1025,7 @@ server <- function(input, output, session) {
     paste0(
       "For this breakdown, in the latest week ",
       school_submitted_percent |>
-        dfeR::round_five_up(dp = 1),
+        dfeR::round_five_up(dp = 2),
       "% of schools submitted data, though this has varied throughout the year-to-date."
     )
   })
@@ -1367,7 +1368,7 @@ server <- function(input, output, session) {
           ) |>
           pull(session_percent) |>
           as.numeric() |>
-          dfeR::round_five_up(dp = 1) |>
+          dfeR::round_five_up(dp = 2) |>
           paste("%"),
         theme = value_box_theme(bg = "#1d70b8")
       ),
@@ -1382,7 +1383,7 @@ server <- function(input, output, session) {
           ) |>
           pull(session_percent) |>
           as.numeric() |>
-          dfeR::round_five_up(dp = 1) |>
+          dfeR::round_five_up(dp = 2) |>
           paste("%"),
         theme = value_box_theme(bg = "#1d70b8")
       )
@@ -1420,7 +1421,7 @@ server <- function(input, output, session) {
         mutate(
           session_percent = session_percent |>
             as.numeric() |>
-            dfeR::round_five_up(dp = 1) |>
+            dfeR::round_five_up(dp = 2) |>
             paste0("%")
         ) |>
         tidyr::pivot_wider(
@@ -1450,7 +1451,7 @@ server <- function(input, output, session) {
           stringr::str_to_sentence(),
         session_percent = session_percent |>
           as.numeric() |>
-          dfeR::round_five_up(dp = 1) |>
+          dfeR::round_five_up(dp = 2) |>
           paste0("%")
       ) |>
       tidyr::pivot_wider(
