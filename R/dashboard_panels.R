@@ -114,7 +114,9 @@ homepage_panel <- function() {
                   h3("Coverage"),
                   p(textOutput("daily_schools_count")),
                   p(textOutput("school_count_proportion_homepage")),
-                  p("Absence rates are provided broken down by state-funded primary, secondary and special schools. At national and regional level, absence figures are also provided across all schools."),
+                  p(
+                    "Absence rates are provided broken down by state-funded primary, secondary and special schools. At national and regional level, absence figures are also provided across all schools."
+                  ),
                   br(),
                   h3("National statistics"),
                   p(
@@ -126,8 +128,13 @@ homepage_panel <- function() {
                   ),
                   br(),
                   br(),
-                  p("For 2024/25 full academic year and termly pupil attendance data, including by characteristics, please see the historical publication at the link below:"),
-                  a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2025-week-29", "Pupil attendance in schools - 2024/25 academic year"),
+                  p(
+                    "For 2024/25 full academic year and termly pupil attendance data, including by characteristics, please see the historical publication at the link below:"
+                  ),
+                  a(
+                    href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2025-week-29",
+                    "Pupil attendance in schools - 2024/25 academic year"
+                  ),
                   br(),
                   br(),
                   p(

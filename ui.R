@@ -42,22 +42,16 @@ ui <- function(input, output, session) {
 
     # Setting custom disconnect message --------------------------------------------------------------------------------
 
-    customDisconnectMessage(),
+    dfeshiny::custom_disconnect_message(),
     useShinydashboard(),
     dfeshiny::dfe_cookies_script(),
     dfeshiny::cookies_banner_ui(
       name = "DfE pupil attendance and absence in schools in England"
     ),
     tags$head(includeHTML(("google-analytics.html"))),
-    tags$head(
-      tags$link(
-        rel = "stylesheet",
-        type = "text/css",
-        href = "dfe_shiny_gov_style.css"
-      )
-    ),
+    shinyGovstyle::full_width_overrides(),
     dfeshiny::header(
-      header = "Pupil attendance and absence in schools in England"
+      "Pupil attendance and absence in schools in England"
     ),
     shinyGovstyle::banner(
       "beta banner",

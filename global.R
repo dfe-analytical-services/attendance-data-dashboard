@@ -109,7 +109,6 @@ end_date <- as.Date("2026-04-17")
 # regional_strike_2 <- as.Date("2023-03-01")
 # regional_strike_3 <- as.Date("2023-03-02")
 
-
 autumn_start <- as.Date("2025-09-08")
 autumn_end <- as.Date("2025-12-21")
 spring_start <- as.Date("2026-01-04")
@@ -118,22 +117,41 @@ summer_start <- as.Date("2026-04-13")
 summer_end <- as.Date("2026-07-20")
 
 ##### THIS SECTION CONTROLS THE DATES PRESENTED IN THE LOCAL AUTHORITY DATA MAP
-most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4, " to ", as.Date(end_date))
+most_recent_week_dates <- paste0(
+  "Latest week - ",
+  as.Date(end_date) - 4,
+  " to ",
+  as.Date(end_date)
+)
 # most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 11, " to ", as.Date(end_date) - 7) # Commented this in to edit dates in LA table current selections heading, will need reverting back to above line
 
-ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date))
+ytd_dates <- paste0(
+  "Year to date - ",
+  as.Date(start_date),
+  " to ",
+  as.Date(end_date)
+)
 # ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date) - 7)
 
 # Read CSV without factors
-attendance_data <- read.csv("data/attendance_data_dashboard.csv", stringsAsFactors = FALSE)
+attendance_data <- read.csv(
+  "data/attendance_data_dashboard.csv",
+  stringsAsFactors = FALSE
+)
 
 # Clean column names (remove quotes and escaped underscores)
 names(attendance_data) <- gsub("\\\\_", "_", names(attendance_data)) # remove backslashes
 names(attendance_data) <- gsub("\"", "", names(attendance_data)) # remove quotes
 
 # Parse dates flexibly (handles both dmy and ymd)
-attendance_data$attendance_date <- as.Date(parse_date_time(attendance_data$attendance_date, orders = c("dmy", "ymd")))
-attendance_data$week_commencing <- as.Date(parse_date_time(attendance_data$week_commencing, orders = c("dmy", "ymd")))
+attendance_data$attendance_date <- as.Date(parse_date_time(
+  attendance_data$attendance_date,
+  orders = c("dmy", "ymd")
+))
+attendance_data$week_commencing <- as.Date(parse_date_time(
+  attendance_data$week_commencing,
+  orders = c("dmy", "ymd")
+))
 
 
 message(paste("Finished processing steps, ", Sys.time()))
