@@ -4,7 +4,8 @@ run_data_update <- function() {
   # source global.R before running this script.
 
   #### SECTION 1 - Databricks connections and processing functions ####
-  conn <- DBI::dbConnect(odbc::databricks(),
+  conn <- DBI::dbConnect(
+    odbc::databricks(),
     httpPath = Sys.getenv("DATABRICKS_CLUSTER_PATH"),
     useNativeQuery = FALSE
   ) # required for dbWriteTable to work
@@ -12,21 +13,41 @@ run_data_update <- function() {
   DBI::dbExecute(conn, "USE CATALOG catalog_40_copper")
 
   # school_freq_count <- fread("data/enrolments_schools_denominator_010224.csv")
-  school_freq_count <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.enrolments_schools_denominator")
-  school_freq_count$total_enrolments <- as.numeric(school_freq_count$total_enrolments)
+  school_freq_count <- DBI::dbGetQuery(
+    conn,
+    "SELECT * FROM school_attendance_national_stats.enrolments_schools_denominator"
+  )
+  school_freq_count$total_enrolments <- as.numeric(
+    school_freq_count$total_enrolments
+  )
 
-  pa_fullyear_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.ytd_2526_pa_clean_delta")
+  pa_fullyear_file <- DBI::dbGetQuery(
+    conn,
+    "SELECT * FROM school_attendance_national_stats.ytd_2526_pa_clean_delta"
+  )
 
-  pa_autumn_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.aut_2526_pa_clean_delta")
-  pa_spring_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.spr_2526_pa_clean_delta")
-  pa_summer_file <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.sum_2526_pa_clean_delta")
+  pa_autumn_file <- DBI::dbGetQuery(
+    conn,
+    "SELECT * FROM school_attendance_national_stats.aut_2526_pa_clean_delta"
+  )
+  pa_spring_file <- DBI::dbGetQuery(
+    conn,
+    "SELECT * FROM school_attendance_national_stats.spr_2526_pa_clean_delta"
+  )
+  pa_summer_file <- DBI::dbGetQuery(
+    conn,
+    "SELECT * FROM school_attendance_national_stats.sum_2526_pa_clean_delta"
+  )
 
-  attendance_data_raw <- DBI::dbGetQuery(conn, "SELECT * FROM school_attendance_national_stats.ytd_2526_oa_clean_delta")
-
+  attendance_data_raw <- DBI::dbGetQuery(
+    conn,
+    "SELECT * FROM school_attendance_national_stats.ytd_2526_oa_clean_delta"
+  )
 
   attendance_data <- process_attendance_data(
     attendance_data_raw,
-    start_date, end_date,
+    start_date,
+    end_date,
     pa_fullyear_file,
     school_freq_count
   )
@@ -35,17 +56,24 @@ run_data_update <- function() {
 
   attendance_data <- attendance_data %>%
     mutate(old_la_code = as.character(old_la_code)) %>%
-    mutate(old_la_code = case_when(
-      is.na(old_la_code) ~ "",
-      TRUE ~ old_la_code
-    ))
+    mutate(
+      old_la_code = case_when(
+        is.na(old_la_code) ~ "",
+        TRUE ~ old_la_code
+      )
+    )
 
-  write.csv(attendance_data, "data/attendance_data_dashboard.csv", row.names = FALSE)
+  write.csv(
+    attendance_data,
+    "data/attendance_data_dashboard.csv",
+    row.names = FALSE
+  )
 
   # Process and write out further data for EES tables
   attendance_data_autumn <- process_attendance_data_autumn(
     attendance_data_raw,
-    autumn_start, autumn_end,
+    autumn_start,
+    autumn_end,
     pa_autumn_file,
     school_freq_count
   )
@@ -53,7 +81,8 @@ run_data_update <- function() {
   # Process and write out further data for EES tables
   attendance_data_spring <- process_attendance_data_spring(
     attendance_data_raw,
-    spring_start, spring_end,
+    spring_start,
+    spring_end,
     pa_spring_file,
     school_freq_count
   )
@@ -61,7 +90,8 @@ run_data_update <- function() {
   # Process and write out further data for EES tables
   attendance_data_summer <- process_attendance_data_summer(
     attendance_data_raw,
-    summer_start, summer_end,
+    summer_start,
+    summer_end,
     pa_summer_file,
     school_freq_count
   )
@@ -73,7 +103,13 @@ run_data_update <- function() {
 }
 
 #### SECTION 2 - Processing daily, weekly and year to date ####
-process_attendance_data <- function(attendance_data_raw, start_date, end_date, pa_fullyear_file, school_freq_count) {
+process_attendance_data <- function(
+  attendance_data_raw,
+  start_date,
+  end_date,
+  pa_fullyear_file,
+  school_freq_count
+) {
   # Set up data for use across the app
   # Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   message(paste("Processing attendance data,", Sys.time()))
@@ -87,14 +123,36 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
     filter(school_type %in% c("Primary", "Secondary", "Special"))
 
   # Calculate date
-  attendance_data <- attendance_data %>% mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
+  attendance_data <- attendance_data %>%
+    mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
   attendance_data <- arrange(attendance_data, time_identifier, attendance_date)
-  attendance_data <- attendance_data %>% dplyr::filter(between(attendance_date, start_date, end_date))
+  attendance_data <- attendance_data %>%
+    dplyr::filter(between(attendance_date, start_date, end_date))
   # attendance_data <- attendance_data %>% dplyr::filter(attendance_date != funeral_date)
-  attendance_data <- attendance_data %>% mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
+  attendance_data <- attendance_data %>%
+    mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
 
   # Join school frequency count for proportion of schools reporting and pupil headcount for calculation of weighted totals
-  attendance_data <- left_join(attendance_data, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "phase"))
+  attendance_data <- left_join(
+    attendance_data,
+    dplyr::select(
+      school_freq_count,
+      c(
+        geographic_level,
+        region_name,
+        la_name,
+        phase,
+        total_num_schools,
+        total_enrolments
+      )
+    ),
+    by = c(
+      "geographic_level" = "geographic_level",
+      "region_name" = "region_name",
+      "la_name" = "la_name",
+      "school_type" = "phase"
+    )
+  )
 
   # Calculate measures for use across app, grouping appropriately at each level then binding back together
   attendance_data_daily <- attendance_data %>%
@@ -102,26 +160,55 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
       attendance_perc = (overall_attendance / possible_sessions) * 100,
       overall_absence_perc = (overall_absence / possible_sessions) * 100,
       authorised_absence_perc = (authorised_absence / possible_sessions) * 100,
-      unauthorised_absence_perc = (unauthorised_absence / possible_sessions) * 100,
+      unauthorised_absence_perc = (unauthorised_absence / possible_sessions) *
+        100,
       illness_perc = (reason_i_authorised_illness / possible_sessions) * 100,
-      appointments_perc = (reason_m_authorised_medical_dental / possible_sessions) * 100,
-      unauth_hol_perc = (reason_g_unauthorised_holiday / possible_sessions) * 100,
+      appointments_perc = (reason_m_authorised_medical_dental /
+        possible_sessions) *
+        100,
+      unauth_hol_perc = (reason_g_unauthorised_holiday / possible_sessions) *
+        100,
       unauth_oth_perc = (reason_o_other_unauthorised / possible_sessions) * 100,
-      unauth_late_registers_closed_perc = (reason_u_unauthorised_late_after_registers_closed / possible_sessions) * 100,
+      unauth_late_registers_closed_perc = (reason_u_unauthorised_late_after_registers_closed /
+        possible_sessions) *
+        100,
       unauth_not_yet_perc = (reason_n_no_reason_yet / possible_sessions) * 100,
-      auth_religious_perc = (reason_r_authorised_religious_observance / possible_sessions) * 100,
-      auth_study_perc = (reason_s_authorised_study_leave / possible_sessions) * 100,
-      auth_mob_perc = (reason_t_authorised_mobile_child / possible_sessions) * 100,
-      auth_excluded_perc = (reason_e_authorised_excluded / possible_sessions) * 100,
-      auth_performance_perc = (reason_c1_authorised_regulated_performance / possible_sessions) * 100,
-      auth_interview_perc = (reason_j1_authorised_interview / possible_sessions) * 100,
-      auth_part_time_perc = (reason_c2_authorised_temp_reduced_timetable / possible_sessions) * 100,
+      auth_religious_perc = (reason_r_authorised_religious_observance /
+        possible_sessions) *
+        100,
+      auth_study_perc = (reason_s_authorised_study_leave / possible_sessions) *
+        100,
+      auth_mob_perc = (reason_t_authorised_mobile_child / possible_sessions) *
+        100,
+      auth_excluded_perc = (reason_e_authorised_excluded / possible_sessions) *
+        100,
+      auth_performance_perc = (reason_c1_authorised_regulated_performance /
+        possible_sessions) *
+        100,
+      auth_interview_perc = (reason_j1_authorised_interview /
+        possible_sessions) *
+        100,
+      auth_part_time_perc = (reason_c2_authorised_temp_reduced_timetable /
+        possible_sessions) *
+        100,
       auth_other_perc = (reason_c_authorised_other / possible_sessions) * 100,
       breakdown = "Daily"
     )
 
   attendance_data_weekly <- attendance_data %>%
-    group_by(time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type) %>%
+    group_by(
+      time_period,
+      time_identifier,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code,
+      school_type
+    ) %>%
     mutate(
       num_schools = mean(num_schools),
       enrolments = mean(enrolments),
@@ -136,67 +223,155 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
       reason_present_am = sum(reason_present_am),
       reason_present_pm = sum(reason_present_pm),
       reason_present = sum(reason_present),
-      reason_l_present_late_before_registers_closed = sum(reason_l_present_late_before_registers_closed),
+      reason_l_present_late_before_registers_closed = sum(
+        reason_l_present_late_before_registers_closed
+      ),
       reason_i_authorised_illness = sum(reason_i_authorised_illness),
-      reason_m_authorised_medical_dental = sum(reason_m_authorised_medical_dental),
-      reason_r_authorised_religious_observance = sum(reason_r_authorised_religious_observance),
+      reason_m_authorised_medical_dental = sum(
+        reason_m_authorised_medical_dental
+      ),
+      reason_r_authorised_religious_observance = sum(
+        reason_r_authorised_religious_observance
+      ),
       reason_s_authorised_study_leave = sum(reason_s_authorised_study_leave),
       reason_t_authorised_mobile_child = sum(reason_t_authorised_mobile_child),
       reason_h_authorised_holiday = sum(reason_h_authorised_holiday),
       reason_e_authorised_excluded = sum(reason_e_authorised_excluded),
       reason_c_authorised_other = sum(reason_c_authorised_other),
-      reason_c1_authorised_regulated_performance = sum(reason_c1_authorised_regulated_performance),
+      reason_c1_authorised_regulated_performance = sum(
+        reason_c1_authorised_regulated_performance
+      ),
       reason_j1_authorised_interview = sum(reason_j1_authorised_interview),
-      reason_c2_authorised_temp_reduced_timetable = sum(reason_c2_authorised_temp_reduced_timetable),
+      reason_c2_authorised_temp_reduced_timetable = sum(
+        reason_c2_authorised_temp_reduced_timetable
+      ),
       reason_b_aea_education_off_site = sum(reason_b_aea_education_off_site),
       reason_j_aea_interview = sum(reason_j_aea_interview),
-      reason_p_aea_approved_sporting_activity = sum(reason_p_aea_approved_sporting_activity),
-      reason_v_aea_educational_visit_trip = sum(reason_v_aea_educational_visit_trip),
+      reason_p_aea_approved_sporting_activity = sum(
+        reason_p_aea_approved_sporting_activity
+      ),
+      reason_v_aea_educational_visit_trip = sum(
+        reason_v_aea_educational_visit_trip
+      ),
       reason_w_aea_work_experience = sum(reason_w_aea_work_experience),
-      reason_k_aea_education_arranged_by_la = sum(reason_k_aea_education_arranged_by_la),
+      reason_k_aea_education_arranged_by_la = sum(
+        reason_k_aea_education_arranged_by_la
+      ),
       reason_g_unauthorised_holiday = sum(reason_g_unauthorised_holiday),
-      reason_u_unauthorised_late_after_registers_closed = sum(reason_u_unauthorised_late_after_registers_closed),
+      reason_u_unauthorised_late_after_registers_closed = sum(
+        reason_u_unauthorised_late_after_registers_closed
+      ),
       reason_o_other_unauthorised = sum(reason_o_other_unauthorised),
       reason_n_no_reason_yet = sum(reason_n_no_reason_yet),
       reason_d_dual_registration = sum(reason_d_dual_registration),
       reason_q_la_arrangements = sum(reason_q_la_arrangements),
-      reason_y_not_attending_enforced_closure = sum(reason_y_not_attending_enforced_closure),
+      reason_y_not_attending_enforced_closure = sum(
+        reason_y_not_attending_enforced_closure
+      ),
       reason_y1_transport_not_provided = sum(reason_y1_transport_not_provided),
       reason_y2_travel_disruption = sum(reason_y2_travel_disruption),
       reason_y3_premises_out_of_use = sum(reason_y3_premises_out_of_use),
-      reason_y4_closed_session_cancelled = sum(reason_y4_closed_session_cancelled),
+      reason_y4_closed_session_cancelled = sum(
+        reason_y4_closed_session_cancelled
+      ),
       reason_y5_detention_sentence = sum(reason_y5_detention_sentence),
-      reason_y6_prohibited_infection_disease = sum(reason_y6_prohibited_infection_disease),
+      reason_y6_prohibited_infection_disease = sum(
+        reason_y6_prohibited_infection_disease
+      ),
       reason_y7_unavoidable_cause = sum(reason_y7_unavoidable_cause),
-      reason_not_attending_planned_closed = sum(reason_not_attending_planned_closed),
-      reason_z_not_attending_not_on_roll = sum(reason_z_not_attending_not_on_roll),
+      reason_not_attending_planned_closed = sum(
+        reason_not_attending_planned_closed
+      ),
+      reason_z_not_attending_not_on_roll = sum(
+        reason_z_not_attending_not_on_roll
+      ),
       reason_f_legacy_family_holiday = sum(reason_f_legacy_family_holiday),
       total_num_schools = mean(total_num_schools),
       total_enrolments = mean(total_enrolments),
-      attendance_perc = (sum(overall_attendance) / sum(possible_sessions)) * 100,
-      overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) * 100,
-      authorised_absence_perc = (sum(authorised_absence) / sum(possible_sessions)) * 100,
-      unauthorised_absence_perc = (sum(unauthorised_absence) / sum(possible_sessions)) * 100,
-      illness_perc = (sum(reason_i_authorised_illness) / sum(possible_sessions)) * 100,
-      appointments_perc = (sum(reason_m_authorised_medical_dental) / sum(possible_sessions)) * 100,
-      unauth_hol_perc = (sum(reason_g_unauthorised_holiday) / sum(possible_sessions)) * 100,
-      unauth_oth_perc = (sum(reason_o_other_unauthorised) / sum(possible_sessions)) * 100,
-      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed) / sum(possible_sessions)) * 100,
-      unauth_not_yet_perc = (sum(reason_n_no_reason_yet) / sum(possible_sessions)) * 100,
-      auth_religious_perc = (sum(reason_r_authorised_religious_observance) / sum(possible_sessions)) * 100,
-      auth_study_perc = (sum(reason_s_authorised_study_leave) / sum(possible_sessions)) * 100,
-      auth_mob_perc = (sum(reason_t_authorised_mobile_child) / sum(possible_sessions)) * 100,
-      auth_excluded_perc = (sum(reason_e_authorised_excluded) / sum(possible_sessions)) * 100,
-      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance) / sum(possible_sessions)) * 100,
-      auth_interview_perc = (sum(reason_j1_authorised_interview) / sum(possible_sessions)) * 100,
-      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable) / sum(possible_sessions)) * 100,
-      auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
+      attendance_perc = (sum(overall_attendance) / sum(possible_sessions)) *
+        100,
+      overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) *
+        100,
+      authorised_absence_perc = (sum(authorised_absence) /
+        sum(possible_sessions)) *
+        100,
+      unauthorised_absence_perc = (sum(unauthorised_absence) /
+        sum(possible_sessions)) *
+        100,
+      illness_perc = (sum(reason_i_authorised_illness) /
+        sum(possible_sessions)) *
+        100,
+      appointments_perc = (sum(reason_m_authorised_medical_dental) /
+        sum(possible_sessions)) *
+        100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday) /
+        sum(possible_sessions)) *
+        100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised) /
+        sum(possible_sessions)) *
+        100,
+      unauth_late_registers_closed_perc = (sum(
+        reason_u_unauthorised_late_after_registers_closed
+      ) /
+        sum(possible_sessions)) *
+        100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet) /
+        sum(possible_sessions)) *
+        100,
+      auth_religious_perc = (sum(reason_r_authorised_religious_observance) /
+        sum(possible_sessions)) *
+        100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave) /
+        sum(possible_sessions)) *
+        100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child) /
+        sum(possible_sessions)) *
+        100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded) /
+        sum(possible_sessions)) *
+        100,
+      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance) /
+        sum(possible_sessions)) *
+        100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview) /
+        sum(possible_sessions)) *
+        100,
+      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable) /
+        sum(possible_sessions)) *
+        100,
+      auth_other_perc = (sum(reason_c_authorised_other) /
+        sum(possible_sessions)) *
+        100,
       breakdown = "Weekly"
     ) %>%
-    distinct(time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all = TRUE)
+    distinct(
+      time_period,
+      time_identifier,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code,
+      school_type,
+      .keep_all = TRUE
+    )
 
   attendance_data_ytd <- attendance_data %>%
-    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type) %>%
+    group_by(
+      academic_year,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code,
+      school_type
+    ) %>%
     mutate(
       academic_year = min(academic_year),
       time_period = min(time_period),
@@ -214,72 +389,172 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
       reason_present_am = sum(reason_present_am),
       reason_present_pm = sum(reason_present_pm),
       reason_present = sum(reason_present),
-      reason_l_present_late_before_registers_closed = sum(reason_l_present_late_before_registers_closed),
+      reason_l_present_late_before_registers_closed = sum(
+        reason_l_present_late_before_registers_closed
+      ),
       reason_i_authorised_illness = sum(reason_i_authorised_illness),
-      reason_m_authorised_medical_dental = sum(reason_m_authorised_medical_dental),
-      reason_r_authorised_religious_observance = sum(reason_r_authorised_religious_observance),
+      reason_m_authorised_medical_dental = sum(
+        reason_m_authorised_medical_dental
+      ),
+      reason_r_authorised_religious_observance = sum(
+        reason_r_authorised_religious_observance
+      ),
       reason_s_authorised_study_leave = sum(reason_s_authorised_study_leave),
       reason_t_authorised_mobile_child = sum(reason_t_authorised_mobile_child),
       reason_h_authorised_holiday = sum(reason_h_authorised_holiday),
       reason_e_authorised_excluded = sum(reason_e_authorised_excluded),
       reason_c_authorised_other = sum(reason_c_authorised_other),
-      reason_c1_authorised_regulated_performance = sum(reason_c1_authorised_regulated_performance),
+      reason_c1_authorised_regulated_performance = sum(
+        reason_c1_authorised_regulated_performance
+      ),
       reason_j1_authorised_interview = sum(reason_j1_authorised_interview),
-      reason_c2_authorised_temp_reduced_timetable = sum(reason_c2_authorised_temp_reduced_timetable),
+      reason_c2_authorised_temp_reduced_timetable = sum(
+        reason_c2_authorised_temp_reduced_timetable
+      ),
       reason_b_aea_education_off_site = sum(reason_b_aea_education_off_site),
       reason_j_aea_interview = sum(reason_j_aea_interview),
-      reason_p_aea_approved_sporting_activity = sum(reason_p_aea_approved_sporting_activity),
-      reason_v_aea_educational_visit_trip = sum(reason_v_aea_educational_visit_trip),
+      reason_p_aea_approved_sporting_activity = sum(
+        reason_p_aea_approved_sporting_activity
+      ),
+      reason_v_aea_educational_visit_trip = sum(
+        reason_v_aea_educational_visit_trip
+      ),
       reason_w_aea_work_experience = sum(reason_w_aea_work_experience),
-      reason_k_aea_education_arranged_by_la = sum(reason_k_aea_education_arranged_by_la),
+      reason_k_aea_education_arranged_by_la = sum(
+        reason_k_aea_education_arranged_by_la
+      ),
       reason_g_unauthorised_holiday = sum(reason_g_unauthorised_holiday),
-      reason_u_unauthorised_late_after_registers_closed = sum(reason_u_unauthorised_late_after_registers_closed),
+      reason_u_unauthorised_late_after_registers_closed = sum(
+        reason_u_unauthorised_late_after_registers_closed
+      ),
       reason_o_other_unauthorised = sum(reason_o_other_unauthorised),
       reason_n_no_reason_yet = sum(reason_n_no_reason_yet),
       reason_d_dual_registration = sum(reason_d_dual_registration),
       reason_q_la_arrangements = sum(reason_q_la_arrangements),
-      reason_y_not_attending_enforced_closure = sum(reason_y_not_attending_enforced_closure),
+      reason_y_not_attending_enforced_closure = sum(
+        reason_y_not_attending_enforced_closure
+      ),
       reason_y1_transport_not_provided = sum(reason_y1_transport_not_provided),
       reason_y2_travel_disruption = sum(reason_y2_travel_disruption),
       reason_y3_premises_out_of_use = sum(reason_y3_premises_out_of_use),
-      reason_y4_closed_session_cancelled = sum(reason_y4_closed_session_cancelled),
+      reason_y4_closed_session_cancelled = sum(
+        reason_y4_closed_session_cancelled
+      ),
       reason_y5_detention_sentence = sum(reason_y5_detention_sentence),
-      reason_y6_prohibited_infection_disease = sum(reason_y6_prohibited_infection_disease),
+      reason_y6_prohibited_infection_disease = sum(
+        reason_y6_prohibited_infection_disease
+      ),
       reason_y7_unavoidable_cause = sum(reason_y7_unavoidable_cause),
-      reason_not_attending_planned_closed = sum(reason_not_attending_planned_closed),
-      reason_z_not_attending_not_on_roll = sum(reason_z_not_attending_not_on_roll),
+      reason_not_attending_planned_closed = sum(
+        reason_not_attending_planned_closed
+      ),
+      reason_z_not_attending_not_on_roll = sum(
+        reason_z_not_attending_not_on_roll
+      ),
       reason_f_legacy_family_holiday = sum(reason_f_legacy_family_holiday),
       total_num_schools = mean(total_num_schools),
       total_enrolments = mean(total_enrolments),
-      attendance_perc = (sum(overall_attendance) / sum(possible_sessions)) * 100,
-      overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) * 100,
-      authorised_absence_perc = (sum(authorised_absence) / sum(possible_sessions)) * 100,
-      unauthorised_absence_perc = (sum(unauthorised_absence) / sum(possible_sessions)) * 100,
-      illness_perc = (sum(reason_i_authorised_illness) / sum(possible_sessions)) * 100,
-      appointments_perc = (sum(reason_m_authorised_medical_dental) / sum(possible_sessions)) * 100,
-      unauth_hol_perc = (sum(reason_g_unauthorised_holiday) / sum(possible_sessions)) * 100,
-      unauth_oth_perc = (sum(reason_o_other_unauthorised) / sum(possible_sessions)) * 100,
-      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed) / sum(possible_sessions)) * 100,
-      unauth_not_yet_perc = (sum(reason_n_no_reason_yet) / sum(possible_sessions)) * 100,
-      auth_religious_perc = (sum(reason_r_authorised_religious_observance) / sum(possible_sessions)) * 100,
-      auth_study_perc = (sum(reason_s_authorised_study_leave) / sum(possible_sessions)) * 100,
-      auth_mob_perc = (sum(reason_t_authorised_mobile_child) / sum(possible_sessions)) * 100,
-      auth_excluded_perc = (sum(reason_e_authorised_excluded) / sum(possible_sessions)) * 100,
-      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance) / sum(possible_sessions)) * 100,
-      auth_interview_perc = (sum(reason_j1_authorised_interview) / sum(possible_sessions)) * 100,
-      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable) / sum(possible_sessions)) * 100,
-      auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
+      attendance_perc = (sum(overall_attendance) / sum(possible_sessions)) *
+        100,
+      overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) *
+        100,
+      authorised_absence_perc = (sum(authorised_absence) /
+        sum(possible_sessions)) *
+        100,
+      unauthorised_absence_perc = (sum(unauthorised_absence) /
+        sum(possible_sessions)) *
+        100,
+      illness_perc = (sum(reason_i_authorised_illness) /
+        sum(possible_sessions)) *
+        100,
+      appointments_perc = (sum(reason_m_authorised_medical_dental) /
+        sum(possible_sessions)) *
+        100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday) /
+        sum(possible_sessions)) *
+        100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised) /
+        sum(possible_sessions)) *
+        100,
+      unauth_late_registers_closed_perc = (sum(
+        reason_u_unauthorised_late_after_registers_closed
+      ) /
+        sum(possible_sessions)) *
+        100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet) /
+        sum(possible_sessions)) *
+        100,
+      auth_religious_perc = (sum(reason_r_authorised_religious_observance) /
+        sum(possible_sessions)) *
+        100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave) /
+        sum(possible_sessions)) *
+        100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child) /
+        sum(possible_sessions)) *
+        100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded) /
+        sum(possible_sessions)) *
+        100,
+      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance) /
+        sum(possible_sessions)) *
+        100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview) /
+        sum(possible_sessions)) *
+        100,
+      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable) /
+        sum(possible_sessions)) *
+        100,
+      auth_other_perc = (sum(reason_c_authorised_other) /
+        sum(possible_sessions)) *
+        100,
       breakdown = "YTD"
     ) %>%
-    distinct(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all = TRUE)
+    distinct(
+      academic_year,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code,
+      school_type,
+      .keep_all = TRUE
+    )
 
   # If prior to week 2 publication, comment the line below out
-  attendance_data_ytd <- left_join(attendance_data_ytd, dplyr::select(pa_data_raw, c(geographic_level, region_name, la_name, school_type, pa_flag, ytd_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "school_type"))
+  attendance_data_ytd <- left_join(
+    attendance_data_ytd,
+    dplyr::select(
+      pa_data_raw,
+      c(
+        geographic_level,
+        region_name,
+        la_name,
+        school_type,
+        pa_flag,
+        ytd_enrolments
+      )
+    ),
+    by = c(
+      "geographic_level" = "geographic_level",
+      "region_name" = "region_name",
+      "la_name" = "la_name",
+      "school_type" = "school_type"
+    )
+  )
 
-  attendance_data <- bind_rows(attendance_data_daily, attendance_data_weekly, attendance_data_ytd)
+  attendance_data <- bind_rows(
+    attendance_data_daily,
+    attendance_data_weekly,
+    attendance_data_ytd
+  )
 
   # If prior to week 2 publication, comment the line below out
-  attendance_data <- attendance_data %>% mutate(pa_perc = (pa_flag / ytd_enrolments) * 100)
+  attendance_data <- attendance_data %>%
+    mutate(pa_perc = (pa_flag / ytd_enrolments) * 100)
 
   # Prep for calculation of totals by doing rates X census counts
   # attendance_data <- attendance_data %>%
@@ -308,103 +583,313 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
   # Calculate total as (Primary rate X primary census count) + (Secondary rate X secondary census count) + (Special rate X special census count) and divided all by total census count
   attendance_data_daily_totals <- attendance_data %>%
     filter(breakdown == "Daily") %>%
-    group_by(breakdown, time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, attendance_date, day_number, week_commencing) %>%
+    group_by(
+      breakdown,
+      time_period,
+      time_identifier,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code,
+      attendance_date,
+      day_number,
+      week_commencing
+    ) %>%
     summarise(across(where(is.numeric), sum), .groups = "keep") %>%
     mutate(
-      attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      appointments_perc = (sum(reason_m_authorised_medical_dental, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_religious_perc = (sum(reason_r_authorised_religious_observance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      pa_perc = (sum(pa_flag, na.rm = TRUE) / sum(ytd_enrolments, na.rm = TRUE)) * 100
+      attendance_perc = (sum(overall_attendance, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      appointments_perc = (sum(
+        reason_m_authorised_medical_dental,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_late_registers_closed_perc = (sum(
+        reason_u_unauthorised_late_after_registers_closed,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_religious_perc = (sum(
+        reason_r_authorised_religious_observance,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_performance_perc = (sum(
+        reason_c1_authorised_regulated_performance,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_part_time_perc = (sum(
+        reason_c2_authorised_temp_reduced_timetable,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      pa_perc = (sum(pa_flag, na.rm = TRUE) /
+        sum(ytd_enrolments, na.rm = TRUE)) *
+        100
     )
-
 
   attendance_data_weekly_totals <- attendance_data %>%
     filter(breakdown == "Weekly") %>%
-    group_by(breakdown, time_period, time_identifier, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
-    summarise(across(matches("attendance_date"), ~ min(.x, na.rm = T)),
+    group_by(
+      breakdown,
+      time_period,
+      time_identifier,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code
+    ) %>%
+    summarise(
+      across(matches("attendance_date"), ~ min(.x, na.rm = T)),
       across(matches("day_number"), ~ min(.x, na.rm = T)),
       across(matches("week_commencing"), ~ min(.x, na.rm = T)),
-      across(where(is.numeric) & !c(attendance_date, day_number), ~ sum(.x, na.rm = T)),
+      across(
+        where(is.numeric) & !c(attendance_date, day_number),
+        ~ sum(.x, na.rm = T)
+      ),
       .groups = "keep"
     ) %>%
     mutate(
       school_type = "Total",
-      attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      appointments_perc = (sum(reason_m_authorised_medical_dental, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_religious_perc = (sum(reason_r_authorised_religious_observance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      pa_perc = (sum(pa_flag, na.rm = TRUE) / sum(ytd_enrolments, na.rm = TRUE)) * 100
+      attendance_perc = (sum(overall_attendance, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      appointments_perc = (sum(
+        reason_m_authorised_medical_dental,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_late_registers_closed_perc = (sum(
+        reason_u_unauthorised_late_after_registers_closed,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_religious_perc = (sum(
+        reason_r_authorised_religious_observance,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_performance_perc = (sum(
+        reason_c1_authorised_regulated_performance,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_part_time_perc = (sum(
+        reason_c2_authorised_temp_reduced_timetable,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      pa_perc = (sum(pa_flag, na.rm = TRUE) /
+        sum(ytd_enrolments, na.rm = TRUE)) *
+        100
     )
-
 
   attendance_data_ytd_totals <- attendance_data %>%
     filter(breakdown == "YTD") %>%
-    group_by(breakdown, academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
-    summarise(across(matches("time_period"), ~ min(.x, na.rm = T)),
+    group_by(
+      breakdown,
+      academic_year,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code
+    ) %>%
+    summarise(
+      across(matches("time_period"), ~ min(.x, na.rm = T)),
       across(matches("time_identifier"), ~ min(.x, na.rm = T)),
       across(matches("attendance_date"), ~ min(.x, na.rm = T)),
       across(matches("week_commencing"), ~ min(.x, na.rm = T)),
       across(matches("day_number"), ~ min(.x, na.rm = T)),
-      across(where(is.numeric) & !c(time_identifier, attendance_date, day_number), ~ sum(.x, na.rm = T)),
+      across(
+        where(is.numeric) & !c(time_identifier, attendance_date, day_number),
+        ~ sum(.x, na.rm = T)
+      ),
       .groups = "keep"
     ) %>%
     mutate(
       school_type = "Total",
-      attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      appointments_perc = (sum(reason_m_authorised_medical_dental, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_religious_perc = (sum(reason_r_authorised_religious_observance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      pa_perc = (sum(pa_flag, na.rm = TRUE) / sum(ytd_enrolments, na.rm = TRUE)) * 100
+      attendance_perc = (sum(overall_attendance, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      appointments_perc = (sum(
+        reason_m_authorised_medical_dental,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_late_registers_closed_perc = (sum(
+        reason_u_unauthorised_late_after_registers_closed,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_religious_perc = (sum(
+        reason_r_authorised_religious_observance,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_performance_perc = (sum(
+        reason_c1_authorised_regulated_performance,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_part_time_perc = (sum(
+        reason_c2_authorised_temp_reduced_timetable,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      pa_perc = (sum(pa_flag, na.rm = TRUE) /
+        sum(ytd_enrolments, na.rm = TRUE)) *
+        100
     )
 
   # Add total onto Primary, Secondary, Special data
-  attendance_data <- bind_rows(attendance_data, attendance_data_daily_totals, attendance_data_weekly_totals, attendance_data_ytd_totals)
+  attendance_data <- bind_rows(
+    attendance_data,
+    attendance_data_daily_totals,
+    attendance_data_weekly_totals,
+    attendance_data_ytd_totals
+  )
 
   attendance_data <- attendance_data %>%
-    dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
+    dplyr::filter(
+      !(geographic_level == "Local authority" & school_type == "Total")
+    ) %>%
     arrange(time_period, time_identifier)
 
   # #Handle strike days
@@ -426,79 +911,81 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
 
   # Data suppression
   attendance_data <- attendance_data %>%
-    mutate_at(vars(
-      enrolments,
-      present_sessions,
-      overall_attendance,
-      approved_educational_activity,
-      overall_absence,
-      authorised_absence,
-      unauthorised_absence,
-      late_sessions,
-      possible_sessions,
-      reason_present_am,
-      reason_present_pm,
-      reason_present,
-      reason_l_present_late_before_registers_closed,
-      reason_i_authorised_illness,
-      reason_m_authorised_medical_dental,
-      reason_r_authorised_religious_observance,
-      reason_s_authorised_study_leave,
-      reason_t_authorised_mobile_child,
-      reason_h_authorised_holiday,
-      reason_e_authorised_excluded,
-      reason_c_authorised_other,
-      reason_c1_authorised_regulated_performance,
-      reason_j1_authorised_interview,
-      reason_c2_authorised_temp_reduced_timetable,
-      reason_b_aea_education_off_site,
-      reason_j_aea_interview,
-      reason_p_aea_approved_sporting_activity,
-      reason_v_aea_educational_visit_trip,
-      reason_w_aea_work_experience,
-      reason_k_aea_education_arranged_by_la,
-      reason_g_unauthorised_holiday,
-      reason_u_unauthorised_late_after_registers_closed,
-      reason_o_other_unauthorised,
-      reason_n_no_reason_yet,
-      reason_d_dual_registration,
-      reason_q_la_arrangements,
-      reason_y_not_attending_enforced_closure,
-      reason_y1_transport_not_provided,
-      reason_y2_travel_disruption,
-      reason_y3_premises_out_of_use,
-      reason_y4_closed_session_cancelled,
-      reason_y5_detention_sentence,
-      reason_y6_prohibited_infection_disease,
-      reason_y7_unavoidable_cause,
-      reason_not_attending_planned_closed,
-      reason_z_not_attending_not_on_roll,
-      reason_f_legacy_family_holiday,
-      total_num_schools,
-      total_enrolments,
-      attendance_perc,
-      overall_absence_perc,
-      authorised_absence_perc,
-      unauthorised_absence_perc,
-      illness_perc,
-      appointments_perc,
-      unauth_hol_perc,
-      unauth_oth_perc,
-      unauth_late_registers_closed_perc,
-      unauth_not_yet_perc,
-      auth_religious_perc,
-      auth_study_perc,
-      auth_mob_perc,
-      auth_excluded_perc,
-      auth_performance_perc,
-      auth_interview_perc,
-      auth_part_time_perc,
-      auth_other_perc,
-      pa_flag,
-      ytd_enrolments,
-      pa_perc
-    ), ~
-      replace(., geographic_level == "Local authority" & num_schools == 1, NA))
+    mutate_at(
+      vars(
+        enrolments,
+        present_sessions,
+        overall_attendance,
+        approved_educational_activity,
+        overall_absence,
+        authorised_absence,
+        unauthorised_absence,
+        late_sessions,
+        possible_sessions,
+        reason_present_am,
+        reason_present_pm,
+        reason_present,
+        reason_l_present_late_before_registers_closed,
+        reason_i_authorised_illness,
+        reason_m_authorised_medical_dental,
+        reason_r_authorised_religious_observance,
+        reason_s_authorised_study_leave,
+        reason_t_authorised_mobile_child,
+        reason_h_authorised_holiday,
+        reason_e_authorised_excluded,
+        reason_c_authorised_other,
+        reason_c1_authorised_regulated_performance,
+        reason_j1_authorised_interview,
+        reason_c2_authorised_temp_reduced_timetable,
+        reason_b_aea_education_off_site,
+        reason_j_aea_interview,
+        reason_p_aea_approved_sporting_activity,
+        reason_v_aea_educational_visit_trip,
+        reason_w_aea_work_experience,
+        reason_k_aea_education_arranged_by_la,
+        reason_g_unauthorised_holiday,
+        reason_u_unauthorised_late_after_registers_closed,
+        reason_o_other_unauthorised,
+        reason_n_no_reason_yet,
+        reason_d_dual_registration,
+        reason_q_la_arrangements,
+        reason_y_not_attending_enforced_closure,
+        reason_y1_transport_not_provided,
+        reason_y2_travel_disruption,
+        reason_y3_premises_out_of_use,
+        reason_y4_closed_session_cancelled,
+        reason_y5_detention_sentence,
+        reason_y6_prohibited_infection_disease,
+        reason_y7_unavoidable_cause,
+        reason_not_attending_planned_closed,
+        reason_z_not_attending_not_on_roll,
+        reason_f_legacy_family_holiday,
+        total_num_schools,
+        total_enrolments,
+        attendance_perc,
+        overall_absence_perc,
+        authorised_absence_perc,
+        unauthorised_absence_perc,
+        illness_perc,
+        appointments_perc,
+        unauth_hol_perc,
+        unauth_oth_perc,
+        unauth_late_registers_closed_perc,
+        unauth_not_yet_perc,
+        auth_religious_perc,
+        auth_study_perc,
+        auth_mob_perc,
+        auth_excluded_perc,
+        auth_performance_perc,
+        auth_interview_perc,
+        auth_part_time_perc,
+        auth_other_perc,
+        pa_flag,
+        ytd_enrolments,
+        pa_perc
+      ),
+      ~ replace(., geographic_level == "Local authority" & num_schools == 1, NA)
+    )
 
   attendance_data
 
@@ -512,7 +999,13 @@ process_attendance_data <- function(attendance_data_raw, start_date, end_date, p
 }
 
 #### SECTION 3 - Processing Autumn ####
-process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, autumn_end, pa_autumn_file, school_freq_count) {
+process_attendance_data_autumn <- function(
+  attendance_data_raw,
+  autumn_start,
+  autumn_end,
+  pa_autumn_file,
+  school_freq_count
+) {
   # Set up data for use across the app
   # Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   message(paste("Processing Autumn attendance data,", Sys.time()))
@@ -526,17 +1019,54 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
     filter(school_type %in% c("Primary", "Secondary", "Special"))
 
   # Calculate date
-  attendance_data_autumn <- attendance_data_autumn %>% mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
-  attendance_data_autumn <- arrange(attendance_data_autumn, time_identifier, attendance_date)
-  attendance_data_autumn <- attendance_data_autumn %>% dplyr::filter(between(attendance_date, autumn_start, autumn_end))
-  attendance_data_autumn <- attendance_data_autumn %>% mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
+  attendance_data_autumn <- attendance_data_autumn %>%
+    mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
+  attendance_data_autumn <- arrange(
+    attendance_data_autumn,
+    time_identifier,
+    attendance_date
+  )
+  attendance_data_autumn <- attendance_data_autumn %>%
+    dplyr::filter(between(attendance_date, autumn_start, autumn_end))
+  attendance_data_autumn <- attendance_data_autumn %>%
+    mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
 
   # Join school frequency count for proportion of schools reporting and pupil headcount for calculation of weighted totals
-  attendance_data_autumn <- left_join(attendance_data_autumn, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "phase"))
+  attendance_data_autumn <- left_join(
+    attendance_data_autumn,
+    dplyr::select(
+      school_freq_count,
+      c(
+        geographic_level,
+        region_name,
+        la_name,
+        phase,
+        total_num_schools,
+        total_enrolments
+      )
+    ),
+    by = c(
+      "geographic_level" = "geographic_level",
+      "region_name" = "region_name",
+      "la_name" = "la_name",
+      "school_type" = "phase"
+    )
+  )
 
   # Calculate measures for use across app, grouping appropriately at each level then binding back together
   attendance_data_autumn <- attendance_data_autumn %>%
-    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type) %>%
+    group_by(
+      academic_year,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code,
+      school_type
+    ) %>%
     mutate(
       academic_year = min(academic_year),
       time_period = min(time_period),
@@ -555,67 +1085,163 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
       reason_present_am = sum(reason_present_am),
       reason_present_pm = sum(reason_present_pm),
       reason_present = sum(reason_present),
-      reason_l_present_late_before_registers_closed = sum(reason_l_present_late_before_registers_closed),
+      reason_l_present_late_before_registers_closed = sum(
+        reason_l_present_late_before_registers_closed
+      ),
       reason_i_authorised_illness = sum(reason_i_authorised_illness),
-      reason_m_authorised_medical_dental = sum(reason_m_authorised_medical_dental),
-      reason_r_authorised_religious_observance = sum(reason_r_authorised_religious_observance),
+      reason_m_authorised_medical_dental = sum(
+        reason_m_authorised_medical_dental
+      ),
+      reason_r_authorised_religious_observance = sum(
+        reason_r_authorised_religious_observance
+      ),
       reason_s_authorised_study_leave = sum(reason_s_authorised_study_leave),
       reason_t_authorised_mobile_child = sum(reason_t_authorised_mobile_child),
       reason_h_authorised_holiday = sum(reason_h_authorised_holiday),
       reason_e_authorised_excluded = sum(reason_e_authorised_excluded),
       reason_c_authorised_other = sum(reason_c_authorised_other),
-      reason_c1_authorised_regulated_performance = sum(reason_c1_authorised_regulated_performance),
+      reason_c1_authorised_regulated_performance = sum(
+        reason_c1_authorised_regulated_performance
+      ),
       reason_j1_authorised_interview = sum(reason_j1_authorised_interview),
-      reason_c2_authorised_temp_reduced_timetable = sum(reason_c2_authorised_temp_reduced_timetable),
+      reason_c2_authorised_temp_reduced_timetable = sum(
+        reason_c2_authorised_temp_reduced_timetable
+      ),
       reason_b_aea_education_off_site = sum(reason_b_aea_education_off_site),
       reason_j_aea_interview = sum(reason_j_aea_interview),
-      reason_p_aea_approved_sporting_activity = sum(reason_p_aea_approved_sporting_activity),
-      reason_v_aea_educational_visit_trip = sum(reason_v_aea_educational_visit_trip),
+      reason_p_aea_approved_sporting_activity = sum(
+        reason_p_aea_approved_sporting_activity
+      ),
+      reason_v_aea_educational_visit_trip = sum(
+        reason_v_aea_educational_visit_trip
+      ),
       reason_w_aea_work_experience = sum(reason_w_aea_work_experience),
-      reason_k_aea_education_arranged_by_la = sum(reason_k_aea_education_arranged_by_la),
+      reason_k_aea_education_arranged_by_la = sum(
+        reason_k_aea_education_arranged_by_la
+      ),
       reason_g_unauthorised_holiday = sum(reason_g_unauthorised_holiday),
-      reason_u_unauthorised_late_after_registers_closed = sum(reason_u_unauthorised_late_after_registers_closed),
+      reason_u_unauthorised_late_after_registers_closed = sum(
+        reason_u_unauthorised_late_after_registers_closed
+      ),
       reason_o_other_unauthorised = sum(reason_o_other_unauthorised),
       reason_n_no_reason_yet = sum(reason_n_no_reason_yet),
       reason_d_dual_registration = sum(reason_d_dual_registration),
       reason_q_la_arrangements = sum(reason_q_la_arrangements),
-      reason_y_not_attending_enforced_closure = sum(reason_y_not_attending_enforced_closure),
+      reason_y_not_attending_enforced_closure = sum(
+        reason_y_not_attending_enforced_closure
+      ),
       reason_y1_transport_not_provided = sum(reason_y1_transport_not_provided),
       reason_y2_travel_disruption = sum(reason_y2_travel_disruption),
       reason_y3_premises_out_of_use = sum(reason_y3_premises_out_of_use),
-      reason_y4_closed_session_cancelled = sum(reason_y4_closed_session_cancelled),
+      reason_y4_closed_session_cancelled = sum(
+        reason_y4_closed_session_cancelled
+      ),
       reason_y5_detention_sentence = sum(reason_y5_detention_sentence),
-      reason_y6_prohibited_infection_disease = sum(reason_y6_prohibited_infection_disease),
+      reason_y6_prohibited_infection_disease = sum(
+        reason_y6_prohibited_infection_disease
+      ),
       reason_y7_unavoidable_cause = sum(reason_y7_unavoidable_cause),
-      reason_not_attending_planned_closed = sum(reason_not_attending_planned_closed),
-      reason_z_not_attending_not_on_roll = sum(reason_z_not_attending_not_on_roll),
+      reason_not_attending_planned_closed = sum(
+        reason_not_attending_planned_closed
+      ),
+      reason_z_not_attending_not_on_roll = sum(
+        reason_z_not_attending_not_on_roll
+      ),
       reason_f_legacy_family_holiday = sum(reason_f_legacy_family_holiday),
       total_num_schools = mean(total_num_schools),
       total_enrolments = mean(total_enrolments),
-      attendance_perc = (sum(overall_attendance) / sum(possible_sessions)) * 100,
-      overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) * 100,
-      authorised_absence_perc = (sum(authorised_absence) / sum(possible_sessions)) * 100,
-      unauthorised_absence_perc = (sum(unauthorised_absence) / sum(possible_sessions)) * 100,
-      illness_perc = (sum(reason_i_authorised_illness) / sum(possible_sessions)) * 100,
-      appointments_perc = (sum(reason_m_authorised_medical_dental) / sum(possible_sessions)) * 100,
-      unauth_hol_perc = (sum(reason_g_unauthorised_holiday) / sum(possible_sessions)) * 100,
-      unauth_oth_perc = (sum(reason_o_other_unauthorised) / sum(possible_sessions)) * 100,
-      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed) / sum(possible_sessions)) * 100,
-      unauth_not_yet_perc = (sum(reason_n_no_reason_yet) / sum(possible_sessions)) * 100,
-      auth_religious_perc = (sum(reason_r_authorised_religious_observance) / sum(possible_sessions)) * 100,
-      auth_study_perc = (sum(reason_s_authorised_study_leave) / sum(possible_sessions)) * 100,
-      auth_mob_perc = (sum(reason_t_authorised_mobile_child) / sum(possible_sessions)) * 100,
-      auth_excluded_perc = (sum(reason_e_authorised_excluded) / sum(possible_sessions)) * 100,
-      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance) / sum(possible_sessions)) * 100,
-      auth_interview_perc = (sum(reason_j1_authorised_interview) / sum(possible_sessions)) * 100,
-      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable) / sum(possible_sessions)) * 100,
-      auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
+      attendance_perc = (sum(overall_attendance) / sum(possible_sessions)) *
+        100,
+      overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) *
+        100,
+      authorised_absence_perc = (sum(authorised_absence) /
+        sum(possible_sessions)) *
+        100,
+      unauthorised_absence_perc = (sum(unauthorised_absence) /
+        sum(possible_sessions)) *
+        100,
+      illness_perc = (sum(reason_i_authorised_illness) /
+        sum(possible_sessions)) *
+        100,
+      appointments_perc = (sum(reason_m_authorised_medical_dental) /
+        sum(possible_sessions)) *
+        100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday) /
+        sum(possible_sessions)) *
+        100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised) /
+        sum(possible_sessions)) *
+        100,
+      unauth_late_registers_closed_perc = (sum(
+        reason_u_unauthorised_late_after_registers_closed
+      ) /
+        sum(possible_sessions)) *
+        100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet) /
+        sum(possible_sessions)) *
+        100,
+      auth_religious_perc = (sum(reason_r_authorised_religious_observance) /
+        sum(possible_sessions)) *
+        100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave) /
+        sum(possible_sessions)) *
+        100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child) /
+        sum(possible_sessions)) *
+        100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded) /
+        sum(possible_sessions)) *
+        100,
+      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance) /
+        sum(possible_sessions)) *
+        100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview) /
+        sum(possible_sessions)) *
+        100,
+      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable) /
+        sum(possible_sessions)) *
+        100,
+      auth_other_perc = (sum(reason_c_authorised_other) /
+        sum(possible_sessions)) *
+        100,
       breakdown = "AUT"
     ) %>%
-    distinct(time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all = TRUE)
+    distinct(
+      time_period,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code,
+      school_type,
+      .keep_all = TRUE
+    )
 
-  attendance_data_autumn <- left_join(attendance_data_autumn, dplyr::select(autumn_only_pa_data_raw, c(geographic_level, region_name, la_name, school_type, pa_flag, autumn_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "school_type"))
-  attendance_data_autumn <- attendance_data_autumn %>% mutate(pa_perc = (pa_flag / autumn_enrolments) * 100)
+  attendance_data_autumn <- left_join(
+    attendance_data_autumn,
+    dplyr::select(
+      autumn_only_pa_data_raw,
+      c(
+        geographic_level,
+        region_name,
+        la_name,
+        school_type,
+        pa_flag,
+        autumn_enrolments
+      )
+    ),
+    by = c(
+      "geographic_level" = "geographic_level",
+      "region_name" = "region_name",
+      "la_name" = "la_name",
+      "school_type" = "school_type"
+    )
+  )
+  attendance_data_autumn <- attendance_data_autumn %>%
+    mutate(pa_perc = (pa_flag / autumn_enrolments) * 100)
 
   # Prep for calculation of totals by doing rates X census counts
   # attendance_data_autumn <- attendance_data_autumn %>%
@@ -643,43 +1269,112 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
 
   attendance_data_autumn_totals <- attendance_data_autumn %>%
     filter(breakdown == "AUT") %>%
-    group_by(breakdown, time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
+    group_by(
+      breakdown,
+      time_period,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code
+    ) %>%
     summarise(
       across(matches("time_period"), ~ min(.x, na.rm = TRUE)),
       across(matches("time_identifier"), ~ min(.x, na.rm = TRUE)),
       across(matches("attendance_date"), ~ min(.x, na.rm = TRUE)),
       across(matches("week_commencing"), ~ min(.x, na.rm = TRUE)),
       across(matches("day_number"), ~ min(.x, na.rm = TRUE)),
-      across(where(is.numeric) & !c(time_identifier, attendance_date, day_number), ~ sum(.x, na.rm = TRUE)),
+      across(
+        where(is.numeric) & !c(time_identifier, attendance_date, day_number),
+        ~ sum(.x, na.rm = TRUE)
+      ),
       .groups = "keep"
     ) %>%
     mutate(
       school_type = "Total",
       enrolments_pa_10_exact = "z", # Preserved as-is
-      attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      appointments_perc = (sum(reason_m_authorised_medical_dental, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_religious_perc = (sum(reason_r_authorised_religious_observance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      pa_perc = (sum(pa_flag, na.rm = TRUE) / sum(autumn_enrolments, na.rm = TRUE)) * 100
+      attendance_perc = (sum(overall_attendance, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      appointments_perc = (sum(
+        reason_m_authorised_medical_dental,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_late_registers_closed_perc = (sum(
+        reason_u_unauthorised_late_after_registers_closed,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_religious_perc = (sum(
+        reason_r_authorised_religious_observance,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_performance_perc = (sum(
+        reason_c1_authorised_regulated_performance,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_part_time_perc = (sum(
+        reason_c2_authorised_temp_reduced_timetable,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      pa_perc = (sum(pa_flag, na.rm = TRUE) /
+        sum(autumn_enrolments, na.rm = TRUE)) *
+        100
     )
 
-
   # Add total onto Primary, Secondary, Special data
-  attendance_data_autumn <- bind_rows(attendance_data_autumn, attendance_data_autumn_totals)
+  attendance_data_autumn <- bind_rows(
+    attendance_data_autumn,
+    attendance_data_autumn_totals
+  )
 
   #   attendance_data_autumn <- attendance_data_autumn %>%
   #     dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
@@ -687,79 +1382,81 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
 
   # Data suppression
   attendance_data_autumn <- attendance_data_autumn %>%
-    mutate_at(vars(
-      enrolments,
-      present_sessions,
-      overall_attendance,
-      approved_educational_activity,
-      overall_absence,
-      authorised_absence,
-      unauthorised_absence,
-      late_sessions,
-      possible_sessions,
-      reason_present_am,
-      reason_present_pm,
-      reason_present,
-      reason_l_present_late_before_registers_closed,
-      reason_i_authorised_illness,
-      reason_m_authorised_medical_dental,
-      reason_r_authorised_religious_observance,
-      reason_s_authorised_study_leave,
-      reason_t_authorised_mobile_child,
-      reason_h_authorised_holiday,
-      reason_e_authorised_excluded,
-      reason_c_authorised_other,
-      reason_c1_authorised_regulated_performance,
-      reason_j1_authorised_interview,
-      reason_c2_authorised_temp_reduced_timetable,
-      reason_b_aea_education_off_site,
-      reason_j_aea_interview,
-      reason_p_aea_approved_sporting_activity,
-      reason_v_aea_educational_visit_trip,
-      reason_w_aea_work_experience,
-      reason_k_aea_education_arranged_by_la,
-      reason_g_unauthorised_holiday,
-      reason_u_unauthorised_late_after_registers_closed,
-      reason_o_other_unauthorised,
-      reason_n_no_reason_yet,
-      reason_d_dual_registration,
-      reason_q_la_arrangements,
-      reason_y_not_attending_enforced_closure,
-      reason_y1_transport_not_provided,
-      reason_y2_travel_disruption,
-      reason_y3_premises_out_of_use,
-      reason_y4_closed_session_cancelled,
-      reason_y5_detention_sentence,
-      reason_y6_prohibited_infection_disease,
-      reason_y7_unavoidable_cause,
-      reason_not_attending_planned_closed,
-      reason_z_not_attending_not_on_roll,
-      reason_f_legacy_family_holiday,
-      total_num_schools,
-      total_enrolments,
-      attendance_perc,
-      overall_absence_perc,
-      authorised_absence_perc,
-      unauthorised_absence_perc,
-      illness_perc,
-      appointments_perc,
-      unauth_hol_perc,
-      unauth_oth_perc,
-      unauth_late_registers_closed_perc,
-      unauth_not_yet_perc,
-      auth_religious_perc,
-      auth_study_perc,
-      auth_mob_perc,
-      auth_excluded_perc,
-      auth_performance_perc,
-      auth_interview_perc,
-      auth_part_time_perc,
-      auth_other_perc,
-      pa_flag,
-      autumn_enrolments,
-      pa_perc
-    ), ~
-      replace(., geographic_level == "Local authority" & num_schools == 1, NA))
+    mutate_at(
+      vars(
+        enrolments,
+        present_sessions,
+        overall_attendance,
+        approved_educational_activity,
+        overall_absence,
+        authorised_absence,
+        unauthorised_absence,
+        late_sessions,
+        possible_sessions,
+        reason_present_am,
+        reason_present_pm,
+        reason_present,
+        reason_l_present_late_before_registers_closed,
+        reason_i_authorised_illness,
+        reason_m_authorised_medical_dental,
+        reason_r_authorised_religious_observance,
+        reason_s_authorised_study_leave,
+        reason_t_authorised_mobile_child,
+        reason_h_authorised_holiday,
+        reason_e_authorised_excluded,
+        reason_c_authorised_other,
+        reason_c1_authorised_regulated_performance,
+        reason_j1_authorised_interview,
+        reason_c2_authorised_temp_reduced_timetable,
+        reason_b_aea_education_off_site,
+        reason_j_aea_interview,
+        reason_p_aea_approved_sporting_activity,
+        reason_v_aea_educational_visit_trip,
+        reason_w_aea_work_experience,
+        reason_k_aea_education_arranged_by_la,
+        reason_g_unauthorised_holiday,
+        reason_u_unauthorised_late_after_registers_closed,
+        reason_o_other_unauthorised,
+        reason_n_no_reason_yet,
+        reason_d_dual_registration,
+        reason_q_la_arrangements,
+        reason_y_not_attending_enforced_closure,
+        reason_y1_transport_not_provided,
+        reason_y2_travel_disruption,
+        reason_y3_premises_out_of_use,
+        reason_y4_closed_session_cancelled,
+        reason_y5_detention_sentence,
+        reason_y6_prohibited_infection_disease,
+        reason_y7_unavoidable_cause,
+        reason_not_attending_planned_closed,
+        reason_z_not_attending_not_on_roll,
+        reason_f_legacy_family_holiday,
+        total_num_schools,
+        total_enrolments,
+        attendance_perc,
+        overall_absence_perc,
+        authorised_absence_perc,
+        unauthorised_absence_perc,
+        illness_perc,
+        appointments_perc,
+        unauth_hol_perc,
+        unauth_oth_perc,
+        unauth_late_registers_closed_perc,
+        unauth_not_yet_perc,
+        auth_religious_perc,
+        auth_study_perc,
+        auth_mob_perc,
+        auth_excluded_perc,
+        auth_performance_perc,
+        auth_interview_perc,
+        auth_part_time_perc,
+        auth_other_perc,
+        pa_flag,
+        autumn_enrolments,
+        pa_perc
+      ),
+      ~ replace(., geographic_level == "Local authority" & num_schools == 1, NA)
+    )
 
   # return(
   #   list(
@@ -769,7 +1466,13 @@ process_attendance_data_autumn <- function(attendance_data_raw, autumn_start, au
 }
 
 #### SECTION 4 - Processing Spring ####
-process_attendance_data_spring <- function(attendance_data_raw, spring_start, spring_end, pa_spring_file, school_freq_count) {
+process_attendance_data_spring <- function(
+  attendance_data_raw,
+  spring_start,
+  spring_end,
+  pa_spring_file,
+  school_freq_count
+) {
   # Set up data for use across the app
   # Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   message(paste("Processing Spring attendance data,", Sys.time()))
@@ -783,17 +1486,54 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
     filter(school_type %in% c("Primary", "Secondary", "Special"))
 
   # Calculate date
-  attendance_data_spring <- attendance_data_spring %>% mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
-  attendance_data_spring <- arrange(attendance_data_spring, time_identifier, attendance_date)
-  attendance_data_spring <- attendance_data_spring %>% dplyr::filter(between(attendance_date, spring_start, spring_end))
-  attendance_data_spring <- attendance_data_spring %>% mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
+  attendance_data_spring <- attendance_data_spring %>%
+    mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
+  attendance_data_spring <- arrange(
+    attendance_data_spring,
+    time_identifier,
+    attendance_date
+  )
+  attendance_data_spring <- attendance_data_spring %>%
+    dplyr::filter(between(attendance_date, spring_start, spring_end))
+  attendance_data_spring <- attendance_data_spring %>%
+    mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
 
   # Join school frequency count for proportion of schools reporting and pupil headcount for calculation of weighted totals
-  attendance_data_spring <- left_join(attendance_data_spring, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "phase"))
+  attendance_data_spring <- left_join(
+    attendance_data_spring,
+    dplyr::select(
+      school_freq_count,
+      c(
+        geographic_level,
+        region_name,
+        la_name,
+        phase,
+        total_num_schools,
+        total_enrolments
+      )
+    ),
+    by = c(
+      "geographic_level" = "geographic_level",
+      "region_name" = "region_name",
+      "la_name" = "la_name",
+      "school_type" = "phase"
+    )
+  )
 
   # Calculate measures for use across app, grouping appropriately at each level then binding back together
   attendance_data_spring <- attendance_data_spring %>%
-    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type) %>%
+    group_by(
+      academic_year,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code,
+      school_type
+    ) %>%
     mutate(
       academic_year = min(academic_year),
       time_period = min(time_period),
@@ -812,69 +1552,165 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
       reason_present_am = sum(reason_present_am),
       reason_present_pm = sum(reason_present_pm),
       reason_present = sum(reason_present),
-      reason_l_present_late_before_registers_closed = sum(reason_l_present_late_before_registers_closed),
+      reason_l_present_late_before_registers_closed = sum(
+        reason_l_present_late_before_registers_closed
+      ),
       reason_i_authorised_illness = sum(reason_i_authorised_illness),
-      reason_m_authorised_medical_dental = sum(reason_m_authorised_medical_dental),
-      reason_r_authorised_religious_observance = sum(reason_r_authorised_religious_observance),
+      reason_m_authorised_medical_dental = sum(
+        reason_m_authorised_medical_dental
+      ),
+      reason_r_authorised_religious_observance = sum(
+        reason_r_authorised_religious_observance
+      ),
       reason_s_authorised_study_leave = sum(reason_s_authorised_study_leave),
       reason_t_authorised_mobile_child = sum(reason_t_authorised_mobile_child),
       reason_h_authorised_holiday = sum(reason_h_authorised_holiday),
       reason_e_authorised_excluded = sum(reason_e_authorised_excluded),
       reason_c_authorised_other = sum(reason_c_authorised_other),
-      reason_c1_authorised_regulated_performance = sum(reason_c1_authorised_regulated_performance),
+      reason_c1_authorised_regulated_performance = sum(
+        reason_c1_authorised_regulated_performance
+      ),
       reason_j1_authorised_interview = sum(reason_j1_authorised_interview),
-      reason_c2_authorised_temp_reduced_timetable = sum(reason_c2_authorised_temp_reduced_timetable),
+      reason_c2_authorised_temp_reduced_timetable = sum(
+        reason_c2_authorised_temp_reduced_timetable
+      ),
       reason_b_aea_education_off_site = sum(reason_b_aea_education_off_site),
       reason_j_aea_interview = sum(reason_j_aea_interview),
-      reason_p_aea_approved_sporting_activity = sum(reason_p_aea_approved_sporting_activity),
-      reason_v_aea_educational_visit_trip = sum(reason_v_aea_educational_visit_trip),
+      reason_p_aea_approved_sporting_activity = sum(
+        reason_p_aea_approved_sporting_activity
+      ),
+      reason_v_aea_educational_visit_trip = sum(
+        reason_v_aea_educational_visit_trip
+      ),
       reason_w_aea_work_experience = sum(reason_w_aea_work_experience),
-      reason_k_aea_education_arranged_by_la = sum(reason_k_aea_education_arranged_by_la),
+      reason_k_aea_education_arranged_by_la = sum(
+        reason_k_aea_education_arranged_by_la
+      ),
       reason_g_unauthorised_holiday = sum(reason_g_unauthorised_holiday),
-      reason_u_unauthorised_late_after_registers_closed = sum(reason_u_unauthorised_late_after_registers_closed),
+      reason_u_unauthorised_late_after_registers_closed = sum(
+        reason_u_unauthorised_late_after_registers_closed
+      ),
       reason_o_other_unauthorised = sum(reason_o_other_unauthorised),
       reason_n_no_reason_yet = sum(reason_n_no_reason_yet),
       reason_d_dual_registration = sum(reason_d_dual_registration),
       reason_q_la_arrangements = sum(reason_q_la_arrangements),
-      reason_y_not_attending_enforced_closure = sum(reason_y_not_attending_enforced_closure),
+      reason_y_not_attending_enforced_closure = sum(
+        reason_y_not_attending_enforced_closure
+      ),
       reason_y1_transport_not_provided = sum(reason_y1_transport_not_provided),
       reason_y2_travel_disruption = sum(reason_y2_travel_disruption),
       reason_y3_premises_out_of_use = sum(reason_y3_premises_out_of_use),
-      reason_y4_closed_session_cancelled = sum(reason_y4_closed_session_cancelled),
+      reason_y4_closed_session_cancelled = sum(
+        reason_y4_closed_session_cancelled
+      ),
       reason_y5_detention_sentence = sum(reason_y5_detention_sentence),
-      reason_y6_prohibited_infection_disease = sum(reason_y6_prohibited_infection_disease),
+      reason_y6_prohibited_infection_disease = sum(
+        reason_y6_prohibited_infection_disease
+      ),
       reason_y7_unavoidable_cause = sum(reason_y7_unavoidable_cause),
-      reason_not_attending_planned_closed = sum(reason_not_attending_planned_closed),
-      reason_z_not_attending_not_on_roll = sum(reason_z_not_attending_not_on_roll),
+      reason_not_attending_planned_closed = sum(
+        reason_not_attending_planned_closed
+      ),
+      reason_z_not_attending_not_on_roll = sum(
+        reason_z_not_attending_not_on_roll
+      ),
       reason_f_legacy_family_holiday = sum(reason_f_legacy_family_holiday),
       total_num_schools = mean(total_num_schools),
       total_enrolments = mean(total_enrolments),
-      attendance_perc = (sum(overall_attendance) / sum(possible_sessions)) * 100,
-      overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) * 100,
-      authorised_absence_perc = (sum(authorised_absence) / sum(possible_sessions)) * 100,
-      unauthorised_absence_perc = (sum(unauthorised_absence) / sum(possible_sessions)) * 100,
-      illness_perc = (sum(reason_i_authorised_illness) / sum(possible_sessions)) * 100,
-      appointments_perc = (sum(reason_m_authorised_medical_dental) / sum(possible_sessions)) * 100,
+      attendance_perc = (sum(overall_attendance) / sum(possible_sessions)) *
+        100,
+      overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) *
+        100,
+      authorised_absence_perc = (sum(authorised_absence) /
+        sum(possible_sessions)) *
+        100,
+      unauthorised_absence_perc = (sum(unauthorised_absence) /
+        sum(possible_sessions)) *
+        100,
+      illness_perc = (sum(reason_i_authorised_illness) /
+        sum(possible_sessions)) *
+        100,
+      appointments_perc = (sum(reason_m_authorised_medical_dental) /
+        sum(possible_sessions)) *
+        100,
       # excluded_perc = (sum(reason_e_authorised_excluded) / sum(possible_sessions)) * 100,
-      unauth_hol_perc = (sum(reason_g_unauthorised_holiday) / sum(possible_sessions)) * 100,
-      unauth_oth_perc = (sum(reason_o_other_unauthorised) / sum(possible_sessions)) * 100,
-      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed) / sum(possible_sessions)) * 100,
-      unauth_not_yet_perc = (sum(reason_n_no_reason_yet) / sum(possible_sessions)) * 100,
-      auth_religious_perc = (sum(reason_r_authorised_religious_observance) / sum(possible_sessions)) * 100,
-      auth_study_perc = (sum(reason_s_authorised_study_leave) / sum(possible_sessions)) * 100,
-      auth_mob_perc = (sum(reason_t_authorised_mobile_child) / sum(possible_sessions)) * 100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday) /
+        sum(possible_sessions)) *
+        100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised) /
+        sum(possible_sessions)) *
+        100,
+      unauth_late_registers_closed_perc = (sum(
+        reason_u_unauthorised_late_after_registers_closed
+      ) /
+        sum(possible_sessions)) *
+        100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet) /
+        sum(possible_sessions)) *
+        100,
+      auth_religious_perc = (sum(reason_r_authorised_religious_observance) /
+        sum(possible_sessions)) *
+        100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave) /
+        sum(possible_sessions)) *
+        100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child) /
+        sum(possible_sessions)) *
+        100,
       # auth_holiday_perc = (sum(reason_h_authorised_holiday) / sum(possible_sessions)) * 100,
-      auth_excluded_perc = (sum(reason_e_authorised_excluded) / sum(possible_sessions)) * 100,
-      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance) / sum(possible_sessions)) * 100,
-      auth_interview_perc = (sum(reason_j1_authorised_interview) / sum(possible_sessions)) * 100,
-      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable) / sum(possible_sessions)) * 100,
-      auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded) /
+        sum(possible_sessions)) *
+        100,
+      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance) /
+        sum(possible_sessions)) *
+        100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview) /
+        sum(possible_sessions)) *
+        100,
+      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable) /
+        sum(possible_sessions)) *
+        100,
+      auth_other_perc = (sum(reason_c_authorised_other) /
+        sum(possible_sessions)) *
+        100,
       breakdown = "SPR"
     ) %>%
-    distinct(time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all = TRUE)
+    distinct(
+      time_period,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code,
+      school_type,
+      .keep_all = TRUE
+    )
 
-  attendance_data_spring <- left_join(attendance_data_spring, dplyr::select(spring_only_pa_data_raw, c(geographic_level, region_name, la_name, school_type, pa_flag, spring_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "school_type"))
-  attendance_data_spring <- attendance_data_spring %>% mutate(pa_perc = (pa_flag / spring_enrolments) * 100)
+  attendance_data_spring <- left_join(
+    attendance_data_spring,
+    dplyr::select(
+      spring_only_pa_data_raw,
+      c(
+        geographic_level,
+        region_name,
+        la_name,
+        school_type,
+        pa_flag,
+        spring_enrolments
+      )
+    ),
+    by = c(
+      "geographic_level" = "geographic_level",
+      "region_name" = "region_name",
+      "la_name" = "la_name",
+      "school_type" = "school_type"
+    )
+  )
+  attendance_data_spring <- attendance_data_spring %>%
+    mutate(pa_perc = (pa_flag / spring_enrolments) * 100)
 
   # Prep for calculation of totals by doing rates X census counts
   # attendance_data_spring <- attendance_data_spring %>%
@@ -904,41 +1740,112 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
 
   attendance_data_spring_totals <- attendance_data_spring %>%
     filter(breakdown == "SPR") %>%
-    group_by(breakdown, time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
-    summarise(across(matches("time_period"), ~ min(.x, na.rm = T)),
+    group_by(
+      breakdown,
+      time_period,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code
+    ) %>%
+    summarise(
+      across(matches("time_period"), ~ min(.x, na.rm = T)),
       across(matches("time_identifier"), ~ min(.x, na.rm = T)),
       across(matches("attendance_date"), ~ min(.x, na.rm = T)),
       across(matches("week_commencing"), ~ min(.x, na.rm = T)),
       across(matches("day_number"), ~ min(.x, na.rm = T)),
-      across(where(is.numeric) & !c(time_identifier, attendance_date, day_number), ~ sum(.x, na.rm = T)),
+      across(
+        where(is.numeric) & !c(time_identifier, attendance_date, day_number),
+        ~ sum(.x, na.rm = T)
+      ),
       .groups = "keep"
     ) %>%
     mutate(
       school_type = "Total",
       enrolments_pa_10_exact = "z", # Preserved as-is
-      attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      appointments_perc = (sum(reason_m_authorised_medical_dental, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_religious_perc = (sum(reason_r_authorised_religious_observance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      pa_perc = (sum(pa_flag, na.rm = TRUE) / sum(spring_enrolments, na.rm = TRUE)) * 100
+      attendance_perc = (sum(overall_attendance, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      appointments_perc = (sum(
+        reason_m_authorised_medical_dental,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_late_registers_closed_perc = (sum(
+        reason_u_unauthorised_late_after_registers_closed,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_religious_perc = (sum(
+        reason_r_authorised_religious_observance,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_performance_perc = (sum(
+        reason_c1_authorised_regulated_performance,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_part_time_perc = (sum(
+        reason_c2_authorised_temp_reduced_timetable,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      pa_perc = (sum(pa_flag, na.rm = TRUE) /
+        sum(spring_enrolments, na.rm = TRUE)) *
+        100
     )
 
   # Add total onto Primary, Secondary, Special data
-  attendance_data_spring <- bind_rows(attendance_data_spring, attendance_data_spring_totals)
+  attendance_data_spring <- bind_rows(
+    attendance_data_spring,
+    attendance_data_spring_totals
+  )
 
   # attendance_data_spring <- attendance_data_spring %>%
   #   dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>%
@@ -946,81 +1853,83 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
 
   # Data suppression
   attendance_data_spring <- attendance_data_spring %>%
-    mutate_at(vars(
-      enrolments,
-      present_sessions,
-      overall_attendance,
-      approved_educational_activity,
-      overall_absence,
-      authorised_absence,
-      unauthorised_absence,
-      late_sessions,
-      possible_sessions,
-      reason_present_am,
-      reason_present_pm,
-      reason_present,
-      reason_l_present_late_before_registers_closed,
-      reason_i_authorised_illness,
-      reason_m_authorised_medical_dental,
-      reason_r_authorised_religious_observance,
-      reason_s_authorised_study_leave,
-      reason_t_authorised_mobile_child,
-      reason_h_authorised_holiday,
-      reason_e_authorised_excluded,
-      reason_c_authorised_other,
-      reason_c1_authorised_regulated_performance,
-      reason_j1_authorised_interview,
-      reason_c2_authorised_temp_reduced_timetable,
-      reason_b_aea_education_off_site,
-      reason_j_aea_interview,
-      reason_p_aea_approved_sporting_activity,
-      reason_v_aea_educational_visit_trip,
-      reason_w_aea_work_experience,
-      reason_k_aea_education_arranged_by_la,
-      reason_g_unauthorised_holiday,
-      reason_u_unauthorised_late_after_registers_closed,
-      reason_o_other_unauthorised,
-      reason_n_no_reason_yet,
-      reason_d_dual_registration,
-      reason_q_la_arrangements,
-      reason_y_not_attending_enforced_closure,
-      reason_y1_transport_not_provided,
-      reason_y2_travel_disruption,
-      reason_y3_premises_out_of_use,
-      reason_y4_closed_session_cancelled,
-      reason_y5_detention_sentence,
-      reason_y6_prohibited_infection_disease,
-      reason_y7_unavoidable_cause,
-      reason_not_attending_planned_closed,
-      reason_z_not_attending_not_on_roll,
-      reason_f_legacy_family_holiday,
-      total_num_schools,
-      total_enrolments,
-      attendance_perc,
-      overall_absence_perc,
-      authorised_absence_perc,
-      unauthorised_absence_perc,
-      illness_perc,
-      appointments_perc,
-      # excluded_perc,
-      unauth_hol_perc,
-      unauth_oth_perc,
-      unauth_late_registers_closed_perc,
-      unauth_not_yet_perc,
-      auth_religious_perc,
-      auth_study_perc,
-      auth_mob_perc,
-      # auth_holiday_perc,
-      auth_excluded_perc,
-      auth_performance_perc,
-      auth_interview_perc,
-      auth_part_time_perc,
-      auth_other_perc,
-      pa_flag,
-      spring_enrolments,
-      pa_perc
-    ), ~
-      replace(., geographic_level == "Local authority" & num_schools == 1, NA))
+    mutate_at(
+      vars(
+        enrolments,
+        present_sessions,
+        overall_attendance,
+        approved_educational_activity,
+        overall_absence,
+        authorised_absence,
+        unauthorised_absence,
+        late_sessions,
+        possible_sessions,
+        reason_present_am,
+        reason_present_pm,
+        reason_present,
+        reason_l_present_late_before_registers_closed,
+        reason_i_authorised_illness,
+        reason_m_authorised_medical_dental,
+        reason_r_authorised_religious_observance,
+        reason_s_authorised_study_leave,
+        reason_t_authorised_mobile_child,
+        reason_h_authorised_holiday,
+        reason_e_authorised_excluded,
+        reason_c_authorised_other,
+        reason_c1_authorised_regulated_performance,
+        reason_j1_authorised_interview,
+        reason_c2_authorised_temp_reduced_timetable,
+        reason_b_aea_education_off_site,
+        reason_j_aea_interview,
+        reason_p_aea_approved_sporting_activity,
+        reason_v_aea_educational_visit_trip,
+        reason_w_aea_work_experience,
+        reason_k_aea_education_arranged_by_la,
+        reason_g_unauthorised_holiday,
+        reason_u_unauthorised_late_after_registers_closed,
+        reason_o_other_unauthorised,
+        reason_n_no_reason_yet,
+        reason_d_dual_registration,
+        reason_q_la_arrangements,
+        reason_y_not_attending_enforced_closure,
+        reason_y1_transport_not_provided,
+        reason_y2_travel_disruption,
+        reason_y3_premises_out_of_use,
+        reason_y4_closed_session_cancelled,
+        reason_y5_detention_sentence,
+        reason_y6_prohibited_infection_disease,
+        reason_y7_unavoidable_cause,
+        reason_not_attending_planned_closed,
+        reason_z_not_attending_not_on_roll,
+        reason_f_legacy_family_holiday,
+        total_num_schools,
+        total_enrolments,
+        attendance_perc,
+        overall_absence_perc,
+        authorised_absence_perc,
+        unauthorised_absence_perc,
+        illness_perc,
+        appointments_perc,
+        # excluded_perc,
+        unauth_hol_perc,
+        unauth_oth_perc,
+        unauth_late_registers_closed_perc,
+        unauth_not_yet_perc,
+        auth_religious_perc,
+        auth_study_perc,
+        auth_mob_perc,
+        # auth_holiday_perc,
+        auth_excluded_perc,
+        auth_performance_perc,
+        auth_interview_perc,
+        auth_part_time_perc,
+        auth_other_perc,
+        pa_flag,
+        spring_enrolments,
+        pa_perc
+      ),
+      ~ replace(., geographic_level == "Local authority" & num_schools == 1, NA)
+    )
 
   # return(
   #   list(
@@ -1041,7 +1950,13 @@ process_attendance_data_spring <- function(attendance_data_raw, spring_start, sp
 #' @export
 #'
 #' @examples
-process_attendance_data_summer <- function(attendance_data_raw, summer_start, summer_end, pa_summer_file, school_freq_count) {
+process_attendance_data_summer <- function(
+  attendance_data_raw,
+  summer_start,
+  summer_end,
+  pa_summer_file,
+  school_freq_count
+) {
   # Set up data for use across the app
   # Take the raw data and make columns numeric and filter to only Primary, Secondary and Special
   message(paste("Processing Summer attendance data,", Sys.time()))
@@ -1055,17 +1970,54 @@ process_attendance_data_summer <- function(attendance_data_raw, summer_start, su
     filter(school_type %in% c("Primary", "Secondary", "Special"))
 
   # Calculate date
-  attendance_data_summer <- attendance_data_summer %>% mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
-  attendance_data_summer <- arrange(attendance_data_summer, time_identifier, attendance_date)
-  attendance_data_summer <- attendance_data_summer %>% dplyr::filter(between(attendance_date, summer_start, summer_end))
-  attendance_data_summer <- attendance_data_summer %>% mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
+  attendance_data_summer <- attendance_data_summer %>%
+    mutate(attendance_date = as.Date(attendance_date, format = "%d/%m/%Y"))
+  attendance_data_summer <- arrange(
+    attendance_data_summer,
+    time_identifier,
+    attendance_date
+  )
+  attendance_data_summer <- attendance_data_summer %>%
+    dplyr::filter(between(attendance_date, summer_start, summer_end))
+  attendance_data_summer <- attendance_data_summer %>%
+    mutate(week_commencing = as.Date(week_commencing, format = "%d/%m/%Y"))
 
   # Join school frequency count for proportion of schools reporting and pupil headcount for calculation of weighted totals
-  attendance_data_summer <- left_join(attendance_data_summer, dplyr::select(school_freq_count, c(geographic_level, region_name, la_name, phase, total_num_schools, total_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "phase"))
+  attendance_data_summer <- left_join(
+    attendance_data_summer,
+    dplyr::select(
+      school_freq_count,
+      c(
+        geographic_level,
+        region_name,
+        la_name,
+        phase,
+        total_num_schools,
+        total_enrolments
+      )
+    ),
+    by = c(
+      "geographic_level" = "geographic_level",
+      "region_name" = "region_name",
+      "la_name" = "la_name",
+      "school_type" = "phase"
+    )
+  )
 
   # Calculate measures for use across app, grouping appropriately at each level then binding back together
   attendance_data_summer <- attendance_data_summer %>%
-    group_by(academic_year, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type) %>%
+    group_by(
+      academic_year,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code,
+      school_type
+    ) %>%
     mutate(
       academic_year = min(academic_year),
       time_period = min(time_period),
@@ -1084,69 +2036,165 @@ process_attendance_data_summer <- function(attendance_data_raw, summer_start, su
       reason_present_am = sum(reason_present_am),
       reason_present_pm = sum(reason_present_pm),
       reason_present = sum(reason_present),
-      reason_l_present_late_before_registers_closed = sum(reason_l_present_late_before_registers_closed),
+      reason_l_present_late_before_registers_closed = sum(
+        reason_l_present_late_before_registers_closed
+      ),
       reason_i_authorised_illness = sum(reason_i_authorised_illness),
-      reason_m_authorised_medical_dental = sum(reason_m_authorised_medical_dental),
-      reason_r_authorised_religious_observance = sum(reason_r_authorised_religious_observance),
+      reason_m_authorised_medical_dental = sum(
+        reason_m_authorised_medical_dental
+      ),
+      reason_r_authorised_religious_observance = sum(
+        reason_r_authorised_religious_observance
+      ),
       reason_s_authorised_study_leave = sum(reason_s_authorised_study_leave),
       reason_t_authorised_mobile_child = sum(reason_t_authorised_mobile_child),
       reason_h_authorised_holiday = sum(reason_h_authorised_holiday),
       reason_e_authorised_excluded = sum(reason_e_authorised_excluded),
       reason_c_authorised_other = sum(reason_c_authorised_other),
-      reason_c1_authorised_regulated_performance = sum(reason_c1_authorised_regulated_performance),
+      reason_c1_authorised_regulated_performance = sum(
+        reason_c1_authorised_regulated_performance
+      ),
       reason_j1_authorised_interview = sum(reason_j1_authorised_interview),
-      reason_c2_authorised_temp_reduced_timetable = sum(reason_c2_authorised_temp_reduced_timetable),
+      reason_c2_authorised_temp_reduced_timetable = sum(
+        reason_c2_authorised_temp_reduced_timetable
+      ),
       reason_b_aea_education_off_site = sum(reason_b_aea_education_off_site),
       reason_j_aea_interview = sum(reason_j_aea_interview),
-      reason_p_aea_approved_sporting_activity = sum(reason_p_aea_approved_sporting_activity),
-      reason_v_aea_educational_visit_trip = sum(reason_v_aea_educational_visit_trip),
+      reason_p_aea_approved_sporting_activity = sum(
+        reason_p_aea_approved_sporting_activity
+      ),
+      reason_v_aea_educational_visit_trip = sum(
+        reason_v_aea_educational_visit_trip
+      ),
       reason_w_aea_work_experience = sum(reason_w_aea_work_experience),
-      reason_k_aea_education_arranged_by_la = sum(reason_k_aea_education_arranged_by_la),
+      reason_k_aea_education_arranged_by_la = sum(
+        reason_k_aea_education_arranged_by_la
+      ),
       reason_g_unauthorised_holiday = sum(reason_g_unauthorised_holiday),
-      reason_u_unauthorised_late_after_registers_closed = sum(reason_u_unauthorised_late_after_registers_closed),
+      reason_u_unauthorised_late_after_registers_closed = sum(
+        reason_u_unauthorised_late_after_registers_closed
+      ),
       reason_o_other_unauthorised = sum(reason_o_other_unauthorised),
       reason_n_no_reason_yet = sum(reason_n_no_reason_yet),
       reason_d_dual_registration = sum(reason_d_dual_registration),
       reason_q_la_arrangements = sum(reason_q_la_arrangements),
-      reason_y_not_attending_enforced_closure = sum(reason_y_not_attending_enforced_closure),
+      reason_y_not_attending_enforced_closure = sum(
+        reason_y_not_attending_enforced_closure
+      ),
       reason_y1_transport_not_provided = sum(reason_y1_transport_not_provided),
       reason_y2_travel_disruption = sum(reason_y2_travel_disruption),
       reason_y3_premises_out_of_use = sum(reason_y3_premises_out_of_use),
-      reason_y4_closed_session_cancelled = sum(reason_y4_closed_session_cancelled),
+      reason_y4_closed_session_cancelled = sum(
+        reason_y4_closed_session_cancelled
+      ),
       reason_y5_detention_sentence = sum(reason_y5_detention_sentence),
-      reason_y6_prohibited_infection_disease = sum(reason_y6_prohibited_infection_disease),
+      reason_y6_prohibited_infection_disease = sum(
+        reason_y6_prohibited_infection_disease
+      ),
       reason_y7_unavoidable_cause = sum(reason_y7_unavoidable_cause),
-      reason_not_attending_planned_closed = sum(reason_not_attending_planned_closed),
-      reason_z_not_attending_not_on_roll = sum(reason_z_not_attending_not_on_roll),
+      reason_not_attending_planned_closed = sum(
+        reason_not_attending_planned_closed
+      ),
+      reason_z_not_attending_not_on_roll = sum(
+        reason_z_not_attending_not_on_roll
+      ),
       reason_f_legacy_family_holiday = sum(reason_f_legacy_family_holiday),
       total_num_schools = mean(total_num_schools),
       total_enrolments = mean(total_enrolments),
-      attendance_perc = (sum(overall_attendance) / sum(possible_sessions)) * 100,
-      overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) * 100,
-      authorised_absence_perc = (sum(authorised_absence) / sum(possible_sessions)) * 100,
-      unauthorised_absence_perc = (sum(unauthorised_absence) / sum(possible_sessions)) * 100,
-      illness_perc = (sum(reason_i_authorised_illness) / sum(possible_sessions)) * 100,
-      appointments_perc = (sum(reason_m_authorised_medical_dental) / sum(possible_sessions)) * 100,
+      attendance_perc = (sum(overall_attendance) / sum(possible_sessions)) *
+        100,
+      overall_absence_perc = (sum(overall_absence) / sum(possible_sessions)) *
+        100,
+      authorised_absence_perc = (sum(authorised_absence) /
+        sum(possible_sessions)) *
+        100,
+      unauthorised_absence_perc = (sum(unauthorised_absence) /
+        sum(possible_sessions)) *
+        100,
+      illness_perc = (sum(reason_i_authorised_illness) /
+        sum(possible_sessions)) *
+        100,
+      appointments_perc = (sum(reason_m_authorised_medical_dental) /
+        sum(possible_sessions)) *
+        100,
       # excluded_perc = (sum(reason_e_authorised_excluded) / sum(possible_sessions)) * 100,
-      unauth_hol_perc = (sum(reason_g_unauthorised_holiday) / sum(possible_sessions)) * 100,
-      unauth_oth_perc = (sum(reason_o_other_unauthorised) / sum(possible_sessions)) * 100,
-      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed) / sum(possible_sessions)) * 100,
-      unauth_not_yet_perc = (sum(reason_n_no_reason_yet) / sum(possible_sessions)) * 100,
-      auth_religious_perc = (sum(reason_r_authorised_religious_observance) / sum(possible_sessions)) * 100,
-      auth_study_perc = (sum(reason_s_authorised_study_leave) / sum(possible_sessions)) * 100,
-      auth_mob_perc = (sum(reason_t_authorised_mobile_child) / sum(possible_sessions)) * 100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday) /
+        sum(possible_sessions)) *
+        100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised) /
+        sum(possible_sessions)) *
+        100,
+      unauth_late_registers_closed_perc = (sum(
+        reason_u_unauthorised_late_after_registers_closed
+      ) /
+        sum(possible_sessions)) *
+        100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet) /
+        sum(possible_sessions)) *
+        100,
+      auth_religious_perc = (sum(reason_r_authorised_religious_observance) /
+        sum(possible_sessions)) *
+        100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave) /
+        sum(possible_sessions)) *
+        100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child) /
+        sum(possible_sessions)) *
+        100,
       # auth_holiday_perc = (sum(reason_h_authorised_holiday) / sum(possible_sessions)) * 100,
-      auth_excluded_perc = (sum(reason_e_authorised_excluded) / sum(possible_sessions)) * 100,
-      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance) / sum(possible_sessions)) * 100,
-      auth_interview_perc = (sum(reason_j1_authorised_interview) / sum(possible_sessions)) * 100,
-      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable) / sum(possible_sessions)) * 100,
-      auth_other_perc = (sum(reason_c_authorised_other) / sum(possible_sessions)) * 100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded) /
+        sum(possible_sessions)) *
+        100,
+      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance) /
+        sum(possible_sessions)) *
+        100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview) /
+        sum(possible_sessions)) *
+        100,
+      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable) /
+        sum(possible_sessions)) *
+        100,
+      auth_other_perc = (sum(reason_c_authorised_other) /
+        sum(possible_sessions)) *
+        100,
       breakdown = "SUM"
     ) %>%
-    distinct(time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code, school_type, .keep_all = TRUE)
+    distinct(
+      time_period,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code,
+      school_type,
+      .keep_all = TRUE
+    )
 
-  attendance_data_summer <- left_join(attendance_data_summer, dplyr::select(summer_only_pa_data_raw, c(geographic_level, region_name, la_name, school_type, pa_flag, summer_enrolments)), by = c("geographic_level" = "geographic_level", "region_name" = "region_name", "la_name" = "la_name", "school_type" = "school_type"))
-  attendance_data_summer <- attendance_data_summer %>% mutate(pa_perc = (pa_flag / summer_enrolments) * 100)
+  attendance_data_summer <- left_join(
+    attendance_data_summer,
+    dplyr::select(
+      summer_only_pa_data_raw,
+      c(
+        geographic_level,
+        region_name,
+        la_name,
+        school_type,
+        pa_flag,
+        summer_enrolments
+      )
+    ),
+    by = c(
+      "geographic_level" = "geographic_level",
+      "region_name" = "region_name",
+      "la_name" = "la_name",
+      "school_type" = "school_type"
+    )
+  )
+  attendance_data_summer <- attendance_data_summer %>%
+    mutate(pa_perc = (pa_flag / summer_enrolments) * 100)
 
   # Prep for calculation of totals by doing rates X census counts
   # attendance_data_summer <- attendance_data_summer %>%
@@ -1176,122 +2224,194 @@ process_attendance_data_summer <- function(attendance_data_raw, summer_start, su
 
   attendance_data_summer_totals <- attendance_data_summer %>%
     filter(breakdown == "SUM") %>%
-    group_by(breakdown, time_period, geographic_level, country_code, country_name, region_code, region_name, new_la_code, la_name, old_la_code) %>%
-    summarise(across(matches("time_period"), ~ min(.x, na.rm = T)),
+    group_by(
+      breakdown,
+      time_period,
+      geographic_level,
+      country_code,
+      country_name,
+      region_code,
+      region_name,
+      new_la_code,
+      la_name,
+      old_la_code
+    ) %>%
+    summarise(
+      across(matches("time_period"), ~ min(.x, na.rm = T)),
       across(matches("time_identifier"), ~ min(.x, na.rm = T)),
       across(matches("attendance_date"), ~ min(.x, na.rm = T)),
       across(matches("week_commencing"), ~ min(.x, na.rm = T)),
       across(matches("day_number"), ~ min(.x, na.rm = T)),
-      across(where(is.numeric) & !c(time_identifier, attendance_date, day_number), ~ sum(.x, na.rm = T)),
+      across(
+        where(is.numeric) & !c(time_identifier, attendance_date, day_number),
+        ~ sum(.x, na.rm = T)
+      ),
       .groups = "keep"
     ) %>%
     mutate(
       school_type = "Total",
       enrolments_pa_10_exact = "z", # Preserved as-is
-      attendance_perc = (sum(overall_attendance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      appointments_perc = (sum(reason_m_authorised_medical_dental, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_late_registers_closed_perc = (sum(reason_u_unauthorised_late_after_registers_closed, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_religious_perc = (sum(reason_r_authorised_religious_observance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_performance_perc = (sum(reason_c1_authorised_regulated_performance, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_part_time_perc = (sum(reason_c2_authorised_temp_reduced_timetable, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) / sum(possible_sessions, na.rm = TRUE)) * 100,
-      pa_perc = (sum(pa_flag, na.rm = TRUE) / sum(summer_enrolments, na.rm = TRUE)) * 100
+      attendance_perc = (sum(overall_attendance, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      overall_absence_perc = (sum(overall_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      authorised_absence_perc = (sum(authorised_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauthorised_absence_perc = (sum(unauthorised_absence, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      illness_perc = (sum(reason_i_authorised_illness, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      appointments_perc = (sum(
+        reason_m_authorised_medical_dental,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_hol_perc = (sum(reason_g_unauthorised_holiday, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_oth_perc = (sum(reason_o_other_unauthorised, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_late_registers_closed_perc = (sum(
+        reason_u_unauthorised_late_after_registers_closed,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      unauth_not_yet_perc = (sum(reason_n_no_reason_yet, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_religious_perc = (sum(
+        reason_r_authorised_religious_observance,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_study_perc = (sum(reason_s_authorised_study_leave, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_mob_perc = (sum(reason_t_authorised_mobile_child, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_excluded_perc = (sum(reason_e_authorised_excluded, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_performance_perc = (sum(
+        reason_c1_authorised_regulated_performance,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_interview_perc = (sum(reason_j1_authorised_interview, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_part_time_perc = (sum(
+        reason_c2_authorised_temp_reduced_timetable,
+        na.rm = TRUE
+      ) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      auth_other_perc = (sum(reason_c_authorised_other, na.rm = TRUE) /
+        sum(possible_sessions, na.rm = TRUE)) *
+        100,
+      pa_perc = (sum(pa_flag, na.rm = TRUE) /
+        sum(summer_enrolments, na.rm = TRUE)) *
+        100
     )
 
-
   # Add total onto Primary, Secondary, Special data
-  attendance_data_summer <- bind_rows(attendance_data_summer, attendance_data_summer_totals)
+  attendance_data_summer <- bind_rows(
+    attendance_data_summer,
+    attendance_data_summer_totals
+  )
 
   # attendance_data_summer <- attendance_data_summer %>% dplyr::filter(!(geographic_level == "Local authority" & school_type == "Total")) %>% arrange(time_period, time_identifier)
 
   # Data suppression
   attendance_data_summer <- attendance_data_summer %>%
-    mutate_at(vars(
-      enrolments,
-      present_sessions,
-      overall_attendance,
-      approved_educational_activity,
-      overall_absence,
-      authorised_absence,
-      unauthorised_absence,
-      late_sessions,
-      possible_sessions,
-      reason_present_am,
-      reason_present_pm,
-      reason_present,
-      reason_l_present_late_before_registers_closed,
-      reason_i_authorised_illness,
-      reason_m_authorised_medical_dental,
-      reason_r_authorised_religious_observance,
-      reason_s_authorised_study_leave,
-      reason_t_authorised_mobile_child,
-      reason_h_authorised_holiday,
-      reason_e_authorised_excluded,
-      reason_c_authorised_other,
-      reason_c1_authorised_regulated_performance,
-      reason_j1_authorised_interview,
-      reason_c2_authorised_temp_reduced_timetable,
-      reason_b_aea_education_off_site,
-      reason_j_aea_interview,
-      reason_p_aea_approved_sporting_activity,
-      reason_v_aea_educational_visit_trip,
-      reason_w_aea_work_experience,
-      reason_k_aea_education_arranged_by_la,
-      reason_g_unauthorised_holiday,
-      reason_u_unauthorised_late_after_registers_closed,
-      reason_o_other_unauthorised,
-      reason_n_no_reason_yet,
-      reason_d_dual_registration,
-      reason_q_la_arrangements,
-      reason_y_not_attending_enforced_closure,
-      reason_y1_transport_not_provided,
-      reason_y2_travel_disruption,
-      reason_y3_premises_out_of_use,
-      reason_y4_closed_session_cancelled,
-      reason_y5_detention_sentence,
-      reason_y6_prohibited_infection_disease,
-      reason_y7_unavoidable_cause,
-      reason_not_attending_planned_closed,
-      reason_z_not_attending_not_on_roll,
-      reason_f_legacy_family_holiday,
-      total_num_schools,
-      total_enrolments,
-      attendance_perc,
-      overall_absence_perc,
-      authorised_absence_perc,
-      unauthorised_absence_perc,
-      illness_perc,
-      appointments_perc,
-      # excluded_perc,
-      unauth_hol_perc,
-      unauth_oth_perc,
-      unauth_late_registers_closed_perc,
-      unauth_not_yet_perc,
-      auth_religious_perc,
-      auth_study_perc,
-      auth_mob_perc,
-      # auth_holiday_perc,
-      auth_excluded_perc,
-      auth_performance_perc,
-      auth_interview_perc,
-      auth_part_time_perc,
-      auth_other_perc,
-      pa_flag,
-      summer_enrolments,
-      pa_perc
-    ), ~
-      replace(., geographic_level == "Local authority" & num_schools == 1, NA))
+    mutate_at(
+      vars(
+        enrolments,
+        present_sessions,
+        overall_attendance,
+        approved_educational_activity,
+        overall_absence,
+        authorised_absence,
+        unauthorised_absence,
+        late_sessions,
+        possible_sessions,
+        reason_present_am,
+        reason_present_pm,
+        reason_present,
+        reason_l_present_late_before_registers_closed,
+        reason_i_authorised_illness,
+        reason_m_authorised_medical_dental,
+        reason_r_authorised_religious_observance,
+        reason_s_authorised_study_leave,
+        reason_t_authorised_mobile_child,
+        reason_h_authorised_holiday,
+        reason_e_authorised_excluded,
+        reason_c_authorised_other,
+        reason_c1_authorised_regulated_performance,
+        reason_j1_authorised_interview,
+        reason_c2_authorised_temp_reduced_timetable,
+        reason_b_aea_education_off_site,
+        reason_j_aea_interview,
+        reason_p_aea_approved_sporting_activity,
+        reason_v_aea_educational_visit_trip,
+        reason_w_aea_work_experience,
+        reason_k_aea_education_arranged_by_la,
+        reason_g_unauthorised_holiday,
+        reason_u_unauthorised_late_after_registers_closed,
+        reason_o_other_unauthorised,
+        reason_n_no_reason_yet,
+        reason_d_dual_registration,
+        reason_q_la_arrangements,
+        reason_y_not_attending_enforced_closure,
+        reason_y1_transport_not_provided,
+        reason_y2_travel_disruption,
+        reason_y3_premises_out_of_use,
+        reason_y4_closed_session_cancelled,
+        reason_y5_detention_sentence,
+        reason_y6_prohibited_infection_disease,
+        reason_y7_unavoidable_cause,
+        reason_not_attending_planned_closed,
+        reason_z_not_attending_not_on_roll,
+        reason_f_legacy_family_holiday,
+        total_num_schools,
+        total_enrolments,
+        attendance_perc,
+        overall_absence_perc,
+        authorised_absence_perc,
+        unauthorised_absence_perc,
+        illness_perc,
+        appointments_perc,
+        # excluded_perc,
+        unauth_hol_perc,
+        unauth_oth_perc,
+        unauth_late_registers_closed_perc,
+        unauth_not_yet_perc,
+        auth_religious_perc,
+        auth_study_perc,
+        auth_mob_perc,
+        # auth_holiday_perc,
+        auth_excluded_perc,
+        auth_performance_perc,
+        auth_interview_perc,
+        auth_part_time_perc,
+        auth_other_perc,
+        pa_flag,
+        summer_enrolments,
+        pa_perc
+      ),
+      ~ replace(., geographic_level == "Local authority" & num_schools == 1, NA)
+    )
 
   # return(
   #   list(
@@ -1375,63 +2495,69 @@ create_EES_daily_data <- function(attendance_data) {
     ) %>%
     arrange(time_period, time_identifier, school_type) %>%
     mutate(time_identifier = paste("Week", time_identifier, sep = " ")) %>%
-    mutate_at(vars(
-      enrolments,
-      present_sessions,
-      overall_attendance,
-      approved_educational_activity,
-      overall_absence,
-      authorised_absence,
-      unauthorised_absence,
-      late_sessions,
-      possible_sessions,
-      reason_present_am,
-      reason_present_pm,
-      reason_present,
-      reason_l_present_late_before_registers_closed,
-      reason_i_authorised_illness,
-      reason_m_authorised_medical_dental,
-      reason_r_authorised_religious_observance,
-      reason_s_authorised_study_leave,
-      reason_t_authorised_mobile_child,
-      reason_h_authorised_holiday,
-      reason_e_authorised_excluded,
-      reason_c_authorised_other,
-      reason_c1_authorised_regulated_performance,
-      reason_j1_authorised_interview,
-      reason_c2_authorised_temp_reduced_timetable,
-      reason_b_aea_education_off_site,
-      reason_j_aea_interview,
-      reason_p_aea_approved_sporting_activity,
-      reason_v_aea_educational_visit_trip,
-      reason_w_aea_work_experience,
-      reason_k_aea_education_arranged_by_la,
-      reason_g_unauthorised_holiday,
-      reason_u_unauthorised_late_after_registers_closed,
-      reason_o_other_unauthorised,
-      reason_n_no_reason_yet,
-      total_num_schools,
-      total_enrolments,
-      attendance_perc,
-      overall_absence_perc,
-      authorised_absence_perc,
-      unauthorised_absence_perc,
-      illness_perc,
-      appointments_perc,
-      unauth_hol_perc,
-      unauth_oth_perc,
-      unauth_late_registers_closed_perc,
-      unauth_not_yet_perc,
-      auth_religious_perc,
-      auth_study_perc,
-      auth_mob_perc,
-      auth_excluded_perc,
-      auth_performance_perc,
-      auth_interview_perc,
-      auth_part_time_perc,
-      auth_other_perc
-    ), ~
-      replace(., geographic_level == "Local authority" & num_schools == 1, "c"))
+    mutate_at(
+      vars(
+        enrolments,
+        present_sessions,
+        overall_attendance,
+        approved_educational_activity,
+        overall_absence,
+        authorised_absence,
+        unauthorised_absence,
+        late_sessions,
+        possible_sessions,
+        reason_present_am,
+        reason_present_pm,
+        reason_present,
+        reason_l_present_late_before_registers_closed,
+        reason_i_authorised_illness,
+        reason_m_authorised_medical_dental,
+        reason_r_authorised_religious_observance,
+        reason_s_authorised_study_leave,
+        reason_t_authorised_mobile_child,
+        reason_h_authorised_holiday,
+        reason_e_authorised_excluded,
+        reason_c_authorised_other,
+        reason_c1_authorised_regulated_performance,
+        reason_j1_authorised_interview,
+        reason_c2_authorised_temp_reduced_timetable,
+        reason_b_aea_education_off_site,
+        reason_j_aea_interview,
+        reason_p_aea_approved_sporting_activity,
+        reason_v_aea_educational_visit_trip,
+        reason_w_aea_work_experience,
+        reason_k_aea_education_arranged_by_la,
+        reason_g_unauthorised_holiday,
+        reason_u_unauthorised_late_after_registers_closed,
+        reason_o_other_unauthorised,
+        reason_n_no_reason_yet,
+        total_num_schools,
+        total_enrolments,
+        attendance_perc,
+        overall_absence_perc,
+        authorised_absence_perc,
+        unauthorised_absence_perc,
+        illness_perc,
+        appointments_perc,
+        unauth_hol_perc,
+        unauth_oth_perc,
+        unauth_late_registers_closed_perc,
+        unauth_not_yet_perc,
+        auth_religious_perc,
+        auth_study_perc,
+        auth_mob_perc,
+        auth_excluded_perc,
+        auth_performance_perc,
+        auth_interview_perc,
+        auth_part_time_perc,
+        auth_other_perc
+      ),
+      ~ replace(
+        .,
+        geographic_level == "Local authority" & num_schools == 1,
+        "c"
+      )
+    )
 }
 
 create_ees_tables <- function(attendance_data) {
@@ -1513,63 +2639,69 @@ create_ees_tables <- function(attendance_data) {
     ) %>%
     arrange(time_period, time_identifier, school_type) %>%
     mutate(time_identifier = paste("Week", time_identifier, sep = " ")) %>%
-    mutate_at(vars(
-      enrolments,
-      present_sessions,
-      overall_attendance,
-      approved_educational_activity,
-      overall_absence,
-      authorised_absence,
-      unauthorised_absence,
-      late_sessions,
-      possible_sessions,
-      reason_present_am,
-      reason_present_pm,
-      reason_present,
-      reason_l_present_late_before_registers_closed,
-      reason_i_authorised_illness,
-      reason_m_authorised_medical_dental,
-      reason_r_authorised_religious_observance,
-      reason_s_authorised_study_leave,
-      reason_t_authorised_mobile_child,
-      reason_h_authorised_holiday,
-      reason_e_authorised_excluded,
-      reason_c_authorised_other,
-      reason_c1_authorised_regulated_performance,
-      reason_j1_authorised_interview,
-      reason_c2_authorised_temp_reduced_timetable,
-      reason_b_aea_education_off_site,
-      reason_j_aea_interview,
-      reason_p_aea_approved_sporting_activity,
-      reason_v_aea_educational_visit_trip,
-      reason_w_aea_work_experience,
-      reason_k_aea_education_arranged_by_la,
-      reason_g_unauthorised_holiday,
-      reason_u_unauthorised_late_after_registers_closed,
-      reason_o_other_unauthorised,
-      reason_n_no_reason_yet,
-      total_num_schools,
-      total_enrolments,
-      attendance_perc,
-      overall_absence_perc,
-      authorised_absence_perc,
-      unauthorised_absence_perc,
-      illness_perc,
-      appointments_perc,
-      unauth_hol_perc,
-      unauth_oth_perc,
-      unauth_late_registers_closed_perc,
-      unauth_not_yet_perc,
-      auth_religious_perc,
-      auth_study_perc,
-      auth_mob_perc,
-      auth_excluded_perc,
-      auth_performance_perc,
-      auth_interview_perc,
-      auth_part_time_perc,
-      auth_other_perc
-    ), ~
-      replace(., geographic_level == "Local authority" & num_schools == 1, "c"))
+    mutate_at(
+      vars(
+        enrolments,
+        present_sessions,
+        overall_attendance,
+        approved_educational_activity,
+        overall_absence,
+        authorised_absence,
+        unauthorised_absence,
+        late_sessions,
+        possible_sessions,
+        reason_present_am,
+        reason_present_pm,
+        reason_present,
+        reason_l_present_late_before_registers_closed,
+        reason_i_authorised_illness,
+        reason_m_authorised_medical_dental,
+        reason_r_authorised_religious_observance,
+        reason_s_authorised_study_leave,
+        reason_t_authorised_mobile_child,
+        reason_h_authorised_holiday,
+        reason_e_authorised_excluded,
+        reason_c_authorised_other,
+        reason_c1_authorised_regulated_performance,
+        reason_j1_authorised_interview,
+        reason_c2_authorised_temp_reduced_timetable,
+        reason_b_aea_education_off_site,
+        reason_j_aea_interview,
+        reason_p_aea_approved_sporting_activity,
+        reason_v_aea_educational_visit_trip,
+        reason_w_aea_work_experience,
+        reason_k_aea_education_arranged_by_la,
+        reason_g_unauthorised_holiday,
+        reason_u_unauthorised_late_after_registers_closed,
+        reason_o_other_unauthorised,
+        reason_n_no_reason_yet,
+        total_num_schools,
+        total_enrolments,
+        attendance_perc,
+        overall_absence_perc,
+        authorised_absence_perc,
+        unauthorised_absence_perc,
+        illness_perc,
+        appointments_perc,
+        unauth_hol_perc,
+        unauth_oth_perc,
+        unauth_late_registers_closed_perc,
+        unauth_not_yet_perc,
+        auth_religious_perc,
+        auth_study_perc,
+        auth_mob_perc,
+        auth_excluded_perc,
+        auth_performance_perc,
+        auth_interview_perc,
+        auth_part_time_perc,
+        auth_other_perc
+      ),
+      ~ replace(
+        .,
+        geographic_level == "Local authority" & num_schools == 1,
+        "c"
+      )
+    )
 
   # EES_weekly_data[is.na(EES_weekly_data)]<-"c"
 
@@ -1649,90 +2781,102 @@ create_ees_tables <- function(attendance_data) {
       time_identifier = paste("Academic year"),
       time_period = paste("202526")
     ) %>%
-    mutate_at(vars(
-      enrolments,
-      present_sessions,
-      overall_attendance,
-      approved_educational_activity,
-      overall_absence,
-      authorised_absence,
-      unauthorised_absence,
-      late_sessions,
-      possible_sessions,
-      reason_present_am,
-      reason_present_pm,
-      reason_present,
-      reason_l_present_late_before_registers_closed,
-      reason_i_authorised_illness,
-      reason_m_authorised_medical_dental,
-      reason_r_authorised_religious_observance,
-      reason_s_authorised_study_leave,
-      reason_t_authorised_mobile_child,
-      reason_h_authorised_holiday,
-      reason_e_authorised_excluded,
-      reason_c_authorised_other,
-      reason_c1_authorised_regulated_performance,
-      reason_j1_authorised_interview,
-      reason_c2_authorised_temp_reduced_timetable,
-      reason_b_aea_education_off_site,
-      reason_j_aea_interview,
-      reason_p_aea_approved_sporting_activity,
-      reason_v_aea_educational_visit_trip,
-      reason_w_aea_work_experience,
-      reason_k_aea_education_arranged_by_la,
-      reason_g_unauthorised_holiday,
-      reason_u_unauthorised_late_after_registers_closed,
-      reason_o_other_unauthorised,
-      reason_n_no_reason_yet,
-      total_num_schools,
-      total_enrolments,
-      attendance_perc,
-      overall_absence_perc,
-      authorised_absence_perc,
-      unauthorised_absence_perc,
-      illness_perc,
-      appointments_perc,
-      unauth_hol_perc,
-      unauth_oth_perc,
-      unauth_late_registers_closed_perc,
-      unauth_not_yet_perc,
-      auth_religious_perc,
-      auth_study_perc,
-      auth_mob_perc,
-      auth_excluded_perc,
-      auth_performance_perc,
-      auth_interview_perc,
-      auth_part_time_perc,
-      auth_other_perc
-      # pa_perc
-    ), ~
-      replace(., geographic_level == "Local authority" & num_schools == 1, "c"))
+    mutate_at(
+      vars(
+        enrolments,
+        present_sessions,
+        overall_attendance,
+        approved_educational_activity,
+        overall_absence,
+        authorised_absence,
+        unauthorised_absence,
+        late_sessions,
+        possible_sessions,
+        reason_present_am,
+        reason_present_pm,
+        reason_present,
+        reason_l_present_late_before_registers_closed,
+        reason_i_authorised_illness,
+        reason_m_authorised_medical_dental,
+        reason_r_authorised_religious_observance,
+        reason_s_authorised_study_leave,
+        reason_t_authorised_mobile_child,
+        reason_h_authorised_holiday,
+        reason_e_authorised_excluded,
+        reason_c_authorised_other,
+        reason_c1_authorised_regulated_performance,
+        reason_j1_authorised_interview,
+        reason_c2_authorised_temp_reduced_timetable,
+        reason_b_aea_education_off_site,
+        reason_j_aea_interview,
+        reason_p_aea_approved_sporting_activity,
+        reason_v_aea_educational_visit_trip,
+        reason_w_aea_work_experience,
+        reason_k_aea_education_arranged_by_la,
+        reason_g_unauthorised_holiday,
+        reason_u_unauthorised_late_after_registers_closed,
+        reason_o_other_unauthorised,
+        reason_n_no_reason_yet,
+        total_num_schools,
+        total_enrolments,
+        attendance_perc,
+        overall_absence_perc,
+        authorised_absence_perc,
+        unauthorised_absence_perc,
+        illness_perc,
+        appointments_perc,
+        unauth_hol_perc,
+        unauth_oth_perc,
+        unauth_late_registers_closed_perc,
+        unauth_not_yet_perc,
+        auth_religious_perc,
+        auth_study_perc,
+        auth_mob_perc,
+        auth_excluded_perc,
+        auth_performance_perc,
+        auth_interview_perc,
+        auth_part_time_perc,
+        auth_other_perc
+        # pa_perc
+      ),
+      ~ replace(
+        .,
+        geographic_level == "Local authority" & num_schools == 1,
+        "c"
+      )
+    )
 
   # EES_ytd_data[is.na(EES_ytd_data)]<-"c"
 
   EES_daily_data <- EES_daily_data %>%
     rename(education_phase = school_type) %>%
     mutate(old_la_code = as.character(old_la_code)) %>%
-    mutate(old_la_code = case_when(
-      is.na(old_la_code) ~ "",
-      TRUE ~ old_la_code
-    ))
+    mutate(
+      old_la_code = case_when(
+        is.na(old_la_code) ~ "",
+        TRUE ~ old_la_code
+      )
+    )
 
   EES_weekly_data <- EES_weekly_data %>%
     rename(education_phase = school_type) %>%
     mutate(old_la_code = as.character(old_la_code)) %>%
-    mutate(old_la_code = case_when(
-      is.na(old_la_code) ~ "",
-      TRUE ~ old_la_code
-    ))
+    mutate(
+      old_la_code = case_when(
+        is.na(old_la_code) ~ "",
+        TRUE ~ old_la_code
+      )
+    )
 
   EES_ytd_data <- EES_ytd_data %>%
     rename(education_phase = school_type) %>%
     mutate(old_la_code = as.character(old_la_code)) %>%
-    mutate(old_la_code = case_when(
-      is.na(old_la_code) ~ "",
-      TRUE ~ old_la_code
-    ))
+    mutate(
+      old_la_code = case_when(
+        is.na(old_la_code) ~ "",
+        TRUE ~ old_la_code
+      )
+    )
 
   write.csv(EES_daily_data, "data\\EES_daily_data.csv", row.names = FALSE)
   write.csv(EES_weekly_data, "data\\EES_weekly_data.csv", row.names = FALSE)
@@ -1820,73 +2964,81 @@ create_ees_tables_autumn <- function(df_attendance_autumn) {
       time_period = paste("202526"),
       academic_year = paste("202526")
     ) %>%
-    mutate_at(vars(
-      enrolments,
-      present_sessions,
-      overall_attendance,
-      approved_educational_activity,
-      overall_absence,
-      authorised_absence,
-      unauthorised_absence,
-      late_sessions,
-      possible_sessions,
-      reason_present_am,
-      reason_present_pm,
-      reason_present,
-      reason_l_present_late_before_registers_closed,
-      reason_i_authorised_illness,
-      reason_m_authorised_medical_dental,
-      reason_r_authorised_religious_observance,
-      reason_s_authorised_study_leave,
-      reason_t_authorised_mobile_child,
-      reason_h_authorised_holiday,
-      reason_e_authorised_excluded,
-      reason_c_authorised_other,
-      reason_c1_authorised_regulated_performance,
-      reason_j1_authorised_interview,
-      reason_c2_authorised_temp_reduced_timetable,
-      reason_b_aea_education_off_site,
-      reason_j_aea_interview,
-      reason_p_aea_approved_sporting_activity,
-      reason_v_aea_educational_visit_trip,
-      reason_w_aea_work_experience,
-      reason_k_aea_education_arranged_by_la,
-      reason_g_unauthorised_holiday,
-      reason_u_unauthorised_late_after_registers_closed,
-      reason_o_other_unauthorised,
-      reason_n_no_reason_yet,
-      total_num_schools,
-      total_enrolments,
-      attendance_perc,
-      overall_absence_perc,
-      authorised_absence_perc,
-      unauthorised_absence_perc,
-      illness_perc,
-      appointments_perc,
-      unauth_hol_perc,
-      unauth_oth_perc,
-      unauth_late_registers_closed_perc,
-      unauth_not_yet_perc,
-      auth_religious_perc,
-      auth_study_perc,
-      auth_mob_perc,
-      auth_excluded_perc,
-      auth_performance_perc,
-      auth_interview_perc,
-      auth_part_time_perc,
-      auth_other_perc
-      # pa_perc
-    ), ~
-      replace(., geographic_level == "Local authority" & num_schools == 1, "c"))
+    mutate_at(
+      vars(
+        enrolments,
+        present_sessions,
+        overall_attendance,
+        approved_educational_activity,
+        overall_absence,
+        authorised_absence,
+        unauthorised_absence,
+        late_sessions,
+        possible_sessions,
+        reason_present_am,
+        reason_present_pm,
+        reason_present,
+        reason_l_present_late_before_registers_closed,
+        reason_i_authorised_illness,
+        reason_m_authorised_medical_dental,
+        reason_r_authorised_religious_observance,
+        reason_s_authorised_study_leave,
+        reason_t_authorised_mobile_child,
+        reason_h_authorised_holiday,
+        reason_e_authorised_excluded,
+        reason_c_authorised_other,
+        reason_c1_authorised_regulated_performance,
+        reason_j1_authorised_interview,
+        reason_c2_authorised_temp_reduced_timetable,
+        reason_b_aea_education_off_site,
+        reason_j_aea_interview,
+        reason_p_aea_approved_sporting_activity,
+        reason_v_aea_educational_visit_trip,
+        reason_w_aea_work_experience,
+        reason_k_aea_education_arranged_by_la,
+        reason_g_unauthorised_holiday,
+        reason_u_unauthorised_late_after_registers_closed,
+        reason_o_other_unauthorised,
+        reason_n_no_reason_yet,
+        total_num_schools,
+        total_enrolments,
+        attendance_perc,
+        overall_absence_perc,
+        authorised_absence_perc,
+        unauthorised_absence_perc,
+        illness_perc,
+        appointments_perc,
+        unauth_hol_perc,
+        unauth_oth_perc,
+        unauth_late_registers_closed_perc,
+        unauth_not_yet_perc,
+        auth_religious_perc,
+        auth_study_perc,
+        auth_mob_perc,
+        auth_excluded_perc,
+        auth_performance_perc,
+        auth_interview_perc,
+        auth_part_time_perc,
+        auth_other_perc
+        # pa_perc
+      ),
+      ~ replace(
+        .,
+        geographic_level == "Local authority" & num_schools == 1,
+        "c"
+      )
+    )
 
   # EES_aut_data[is.na(EES_aut_data)]<-"c"
 
   EES_aut_data <- EES_aut_data %>%
     mutate(old_la_code = as.character(old_la_code)) %>%
-    mutate(old_la_code = case_when(
-      is.na(old_la_code) ~ "",
-      TRUE ~ old_la_code
-    ))
+    mutate(
+      old_la_code = case_when(
+        is.na(old_la_code) ~ "",
+        TRUE ~ old_la_code
+      )
+    )
 
   write.csv(EES_aut_data, "data\\EES_aut_data.csv", row.names = FALSE)
 }
@@ -1974,66 +3126,72 @@ create_ees_tables_spring <- function(df_attendance_spring) {
       time_period = paste("202526"),
       academic_year = paste("202526")
     ) %>%
-    mutate_at(vars(
-      enrolments,
-      present_sessions,
-      overall_attendance,
-      approved_educational_activity,
-      overall_absence,
-      authorised_absence,
-      unauthorised_absence,
-      late_sessions,
-      possible_sessions,
-      reason_present_am,
-      reason_present_pm,
-      reason_present,
-      reason_l_present_late_before_registers_closed,
-      reason_i_authorised_illness,
-      reason_m_authorised_medical_dental,
-      reason_r_authorised_religious_observance,
-      reason_s_authorised_study_leave,
-      reason_t_authorised_mobile_child,
-      reason_h_authorised_holiday,
-      reason_e_authorised_excluded,
-      reason_c_authorised_other,
-      reason_c1_authorised_regulated_performance,
-      reason_j1_authorised_interview,
-      reason_c2_authorised_temp_reduced_timetable,
-      reason_b_aea_education_off_site,
-      reason_j_aea_interview,
-      reason_p_aea_approved_sporting_activity,
-      reason_v_aea_educational_visit_trip,
-      reason_w_aea_work_experience,
-      reason_k_aea_education_arranged_by_la,
-      reason_g_unauthorised_holiday,
-      reason_u_unauthorised_late_after_registers_closed,
-      reason_o_other_unauthorised,
-      reason_n_no_reason_yet,
-      total_num_schools,
-      total_enrolments,
-      attendance_perc,
-      overall_absence_perc,
-      authorised_absence_perc,
-      unauthorised_absence_perc,
-      illness_perc,
-      appointments_perc,
-      # excluded_perc,
-      unauth_hol_perc,
-      unauth_oth_perc,
-      unauth_late_registers_closed_perc,
-      unauth_not_yet_perc,
-      auth_religious_perc,
-      auth_study_perc,
-      auth_mob_perc,
-      # auth_holiday_perc,
-      auth_excluded_perc,
-      auth_performance_perc,
-      auth_interview_perc,
-      auth_part_time_perc,
-      auth_other_perc
-      # pa_perc
-    ), ~
-      replace(., geographic_level == "Local authority" & num_schools == 1, "c"))
+    mutate_at(
+      vars(
+        enrolments,
+        present_sessions,
+        overall_attendance,
+        approved_educational_activity,
+        overall_absence,
+        authorised_absence,
+        unauthorised_absence,
+        late_sessions,
+        possible_sessions,
+        reason_present_am,
+        reason_present_pm,
+        reason_present,
+        reason_l_present_late_before_registers_closed,
+        reason_i_authorised_illness,
+        reason_m_authorised_medical_dental,
+        reason_r_authorised_religious_observance,
+        reason_s_authorised_study_leave,
+        reason_t_authorised_mobile_child,
+        reason_h_authorised_holiday,
+        reason_e_authorised_excluded,
+        reason_c_authorised_other,
+        reason_c1_authorised_regulated_performance,
+        reason_j1_authorised_interview,
+        reason_c2_authorised_temp_reduced_timetable,
+        reason_b_aea_education_off_site,
+        reason_j_aea_interview,
+        reason_p_aea_approved_sporting_activity,
+        reason_v_aea_educational_visit_trip,
+        reason_w_aea_work_experience,
+        reason_k_aea_education_arranged_by_la,
+        reason_g_unauthorised_holiday,
+        reason_u_unauthorised_late_after_registers_closed,
+        reason_o_other_unauthorised,
+        reason_n_no_reason_yet,
+        total_num_schools,
+        total_enrolments,
+        attendance_perc,
+        overall_absence_perc,
+        authorised_absence_perc,
+        unauthorised_absence_perc,
+        illness_perc,
+        appointments_perc,
+        # excluded_perc,
+        unauth_hol_perc,
+        unauth_oth_perc,
+        unauth_late_registers_closed_perc,
+        unauth_not_yet_perc,
+        auth_religious_perc,
+        auth_study_perc,
+        auth_mob_perc,
+        # auth_holiday_perc,
+        auth_excluded_perc,
+        auth_performance_perc,
+        auth_interview_perc,
+        auth_part_time_perc,
+        auth_other_perc
+        # pa_perc
+      ),
+      ~ replace(
+        .,
+        geographic_level == "Local authority" & num_schools == 1,
+        "c"
+      )
+    )
 
   # EES_aut_data[is.na(EES_aut_data)]<-"c"
 
@@ -2123,84 +3281,101 @@ create_ees_tables_summer <- function(df_attendance_summer) {
       time_period = paste("202526"),
       academic_year = paste("202526")
     ) %>%
-    mutate_at(vars(
-      enrolments,
-      present_sessions,
-      overall_attendance,
-      approved_educational_activity,
-      overall_absence,
-      authorised_absence,
-      unauthorised_absence,
-      late_sessions,
-      possible_sessions,
-      reason_present_am,
-      reason_present_pm,
-      reason_present,
-      reason_l_present_late_before_registers_closed,
-      reason_i_authorised_illness,
-      reason_m_authorised_medical_dental,
-      reason_r_authorised_religious_observance,
-      reason_s_authorised_study_leave,
-      reason_t_authorised_mobile_child,
-      reason_h_authorised_holiday,
-      reason_e_authorised_excluded,
-      reason_c_authorised_other,
-      reason_c1_authorised_regulated_performance,
-      reason_j1_authorised_interview,
-      reason_c2_authorised_temp_reduced_timetable,
-      reason_b_aea_education_off_site,
-      reason_j_aea_interview,
-      reason_p_aea_approved_sporting_activity,
-      reason_v_aea_educational_visit_trip,
-      reason_w_aea_work_experience,
-      reason_k_aea_education_arranged_by_la,
-      reason_g_unauthorised_holiday,
-      reason_u_unauthorised_late_after_registers_closed,
-      reason_o_other_unauthorised,
-      reason_n_no_reason_yet,
-      total_num_schools,
-      total_enrolments,
-      attendance_perc,
-      overall_absence_perc,
-      authorised_absence_perc,
-      unauthorised_absence_perc,
-      illness_perc,
-      appointments_perc,
-      # excluded_perc,
-      unauth_hol_perc,
-      unauth_oth_perc,
-      unauth_late_registers_closed_perc,
-      unauth_not_yet_perc,
-      auth_religious_perc,
-      auth_study_perc,
-      auth_mob_perc,
-      # auth_holiday_perc,
-      auth_excluded_perc,
-      auth_performance_perc,
-      auth_interview_perc,
-      auth_part_time_perc,
-      auth_other_perc,
-      pa_perc
-    ), ~
-      replace(., geographic_level == "Local authority" & num_schools == 1, "c"))
-
+    mutate_at(
+      vars(
+        enrolments,
+        present_sessions,
+        overall_attendance,
+        approved_educational_activity,
+        overall_absence,
+        authorised_absence,
+        unauthorised_absence,
+        late_sessions,
+        possible_sessions,
+        reason_present_am,
+        reason_present_pm,
+        reason_present,
+        reason_l_present_late_before_registers_closed,
+        reason_i_authorised_illness,
+        reason_m_authorised_medical_dental,
+        reason_r_authorised_religious_observance,
+        reason_s_authorised_study_leave,
+        reason_t_authorised_mobile_child,
+        reason_h_authorised_holiday,
+        reason_e_authorised_excluded,
+        reason_c_authorised_other,
+        reason_c1_authorised_regulated_performance,
+        reason_j1_authorised_interview,
+        reason_c2_authorised_temp_reduced_timetable,
+        reason_b_aea_education_off_site,
+        reason_j_aea_interview,
+        reason_p_aea_approved_sporting_activity,
+        reason_v_aea_educational_visit_trip,
+        reason_w_aea_work_experience,
+        reason_k_aea_education_arranged_by_la,
+        reason_g_unauthorised_holiday,
+        reason_u_unauthorised_late_after_registers_closed,
+        reason_o_other_unauthorised,
+        reason_n_no_reason_yet,
+        total_num_schools,
+        total_enrolments,
+        attendance_perc,
+        overall_absence_perc,
+        authorised_absence_perc,
+        unauthorised_absence_perc,
+        illness_perc,
+        appointments_perc,
+        # excluded_perc,
+        unauth_hol_perc,
+        unauth_oth_perc,
+        unauth_late_registers_closed_perc,
+        unauth_not_yet_perc,
+        auth_religious_perc,
+        auth_study_perc,
+        auth_mob_perc,
+        # auth_holiday_perc,
+        auth_excluded_perc,
+        auth_performance_perc,
+        auth_interview_perc,
+        auth_part_time_perc,
+        auth_other_perc,
+        pa_perc
+      ),
+      ~ replace(
+        .,
+        geographic_level == "Local authority" & num_schools == 1,
+        "c"
+      )
+    )
 
   # EES_aut_data[is.na(EES_aut_data)]<-"c"
   EES_sum_data <- EES_sum_data %>%
     rename(education_phase = school_type) %>%
     mutate(old_la_code = as.character(old_la_code)) %>%
-    mutate(old_la_code = case_when(
-      is.na(old_la_code) ~ "",
-      TRUE ~ old_la_code
-    ))
+    mutate(
+      old_la_code = case_when(
+        is.na(old_la_code) ~ "",
+        TRUE ~ old_la_code
+      )
+    )
 
+  cols_to_replace <- setdiff(
+    names(EES_sum_data),
+    c(
+      "attendance_date",
+      "week_commencing",
+      "day_number",
+      "time_identifier",
+      "total_num_schools"
+    )
+  )
 
-
-  cols_to_replace <- setdiff(names(EES_sum_data), c("attendance_date", "week_commencing", "day_number", "time_identifier", "total_num_schools"))
-
-  EES_sum_data[cols_to_replace] <- lapply(EES_sum_data[cols_to_replace], function(col) {
-    ifelse(is.na(col), "c", col)
-  })
+  EES_sum_data[cols_to_replace] <- lapply(
+    EES_sum_data[cols_to_replace],
+    function(col) {
+      ifelse(is.na(col), "c", col)
+    }
+  )
 
   write.csv(EES_sum_data, "data\\EES_sum_data.csv", row.names = FALSE)
 }

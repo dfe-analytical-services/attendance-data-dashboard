@@ -30,11 +30,11 @@
             "automargin": true,
             "title": "",
             "tickvals": [
-              "2026-03-23",
-              "2026-03-24",
-              "2026-03-25",
-              "2026-03-26",
-              "2026-03-27"
+              "2026-04-13",
+              "2026-04-14",
+              "2026-04-15",
+              "2026-04-16",
+              "2026-04-17"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -52,7 +52,7 @@
             "ticksuffix": "%",
             "range": [
               0,
-              15.86655409483539
+              11.48900534415
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -113,18 +113,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-03-23",
-              "2026-03-24",
-              "2026-03-25",
-              "2026-03-26",
-              "2026-03-27"
+              "2026-04-13",
+              "2026-04-14",
+              "2026-04-15",
+              "2026-04-16",
+              "2026-04-17"
             ],
             "y": [
-              8.5367502669379896,
-              8.4544803129049502,
-              8.6569772829469294,
-              8.9503413592090002,
-              11.753003033211399
+              8.1650330380000007,
+              7.5240372320000004,
+              7.65146631,
+              7.583983999,
+              8.5103743289999993
             ],
             "line": {
               "color": "#12436D"
@@ -157,18 +157,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-03-23",
-              "2026-03-24",
-              "2026-03-25",
-              "2026-03-26",
-              "2026-03-27"
+              "2026-04-13",
+              "2026-04-14",
+              "2026-04-15",
+              "2026-04-16",
+              "2026-04-17"
             ],
             "y": [
-              5.0440622681393696,
-              5.0600424856232102,
-              5.1083924236964604,
-              5.1372013854309699,
-              6.3794358835658302
+              4.2511117660000002,
+              4.1510072210000004,
+              4.3120790060000003,
+              4.3081506679999997,
+              4.820564321
             ],
             "line": {
               "color": "#28A197"
@@ -201,18 +201,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-03-23",
-              "2026-03-24",
-              "2026-03-25",
-              "2026-03-26",
-              "2026-03-27"
+              "2026-04-13",
+              "2026-04-14",
+              "2026-04-15",
+              "2026-04-16",
+              "2026-04-17"
             ],
             "y": [
-              3.4926879987986199,
-              3.3944378272817399,
-              3.5485848592504698,
-              3.8131399737780298,
-              5.3735671496455399
+              3.9139212720000001,
+              3.3730300120000001,
+              3.3393873040000002,
+              3.2758333309999998,
+              3.6898100079999998
             ],
             "line": {
               "color": "#F46A25"
@@ -316,9 +316,9 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.2.1",
+          "version": "1.2.2",
           "src": {
-            "href": "crosstalk-1.2.1"
+            "href": "crosstalk-1.2.2"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
@@ -329,9 +329,9 @@
         },
         {
           "name": "plotly-htmlwidgets-css",
-          "version": "2.11.1",
+          "version": "2.25.2",
           "src": {
-            "href": "plotly-htmlwidgets-css-2.11.1"
+            "href": "plotly-htmlwidgets-css-2.25.2"
           },
           "meta": null,
           "script": null,
@@ -342,9 +342,9 @@
         },
         {
           "name": "plotly-main",
-          "version": "2.11.1",
+          "version": "2.25.2",
           "src": {
-            "href": "plotly-main-2.11.1"
+            "href": "plotly-main-2.25.2"
           },
           "meta": null,
           "script": "plotly-latest.min.js",
@@ -355,9 +355,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week – 2026-03-30 to 2026-03-27: secondary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "- 9.22% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "- 90.78% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "- 3.7% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2026-04-13 to 2026-04-17: secondary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "- 7.88% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "- 92.12% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "- 2.81% of sessions were recorded as illness"
   }
 }
