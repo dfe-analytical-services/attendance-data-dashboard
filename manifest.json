@@ -4002,7 +4002,7 @@
         "Maintainer": "Kevin Ushey <kevin@rstudio.com>",
         "Repository": "CRAN",
         "Date/Publication": "2025-03-20 18:10:01 UTC",
-        "Built": "R 4.5.0; ; 2025-06-14 00:42:02 UTC; windows"
+        "Built": "R 4.5.1; ; 2025-07-09 00:45:03 UTC; windows"
       }
     },
     "rlang": {
@@ -5783,7 +5783,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "8a353c0dfa474a426704054e6dd55cdc"
+      "checksum": "83295ccde94abdbe51b6f5c07cd3c32f"
     },
     "azure-pipelines.yml": {
       "checksum": "161e6e3c4a8af841144c1f338c7049d8"
@@ -5798,7 +5798,7 @@
       "checksum": "bc0c5ed3d7a0ee1b92a605071c742149"
     },
     "data/attendance_data_dashboard.csv": {
-      "checksum": "f17fdbf3569cd2317e9451106a46c153"
+      "checksum": "bbe51c775e534e32d53909c5a6b7276a"
     },
     "data/CTYUA_MAY_2023_UK_BUC.cpg": {
       "checksum": "ae3b3df9970b49b6523e608759bc957d"
@@ -5819,7 +5819,7 @@
       "checksum": "b529f9f5d07d06331be50aba40390c0f"
     },
     "data/EES_daily_data.csv": {
-      "checksum": "1c66165111a79df2de74e10e945f7fb6"
+      "checksum": "a61b59396e3c8ec760342786411bf7f5"
     },
     "data/Tech_guidance_headlines.csv": {
       "checksum": "899c5a2b9f14bea6bb8f78d90c91c43f"
@@ -5867,7 +5867,7 @@
       "checksum": "b19c983bbbbe58fe286cfdd380e3b0f2"
     },
     "R/line_formatters.R": {
-      "checksum": "2083a04cfe4390e69f3bc503b2640796"
+      "checksum": "e760235eeafd2feedaf03d95085d0759"
     },
     "R/plotting.R": {
       "checksum": "79264d84257b81d1c2823eb86efaefbd"
@@ -5876,7 +5876,7 @@
       "checksum": "bd4c71467aa7a22beff7f6548894da9c"
     },
     "R/utils.R": {
-      "checksum": "83544dabbe94a4e6306d86cbd3eec3b3"
+      "checksum": "461cc14cebbebe4fafc8acd6d6cb5eed"
     },
     "README.html": {
       "checksum": "8039aa0623900c1ea29058f7ef00a7cc"
@@ -5903,7 +5903,7 @@
       "checksum": "49c47603ebd1d403415f4545d60200e1"
     },
     "server.R": {
-      "checksum": "ca2de4e5ced491b9efefc273ddbb45c3"
+      "checksum": "05a3e47cb0eb8e5d7580bb1b67b66c1a"
     },
     "tests/testthat.R": {
       "checksum": "12e9b09de5275bdc13bde6ae5a82f8b1"
@@ -6005,7 +6005,7 @@
       "checksum": "d3e71278de0398bd2acaa6e00ad59114"
     },
     "tests/testthat/test-UI_tests.R": {
-      "checksum": "066e64f444fab6bd7d3a63f1da008b0b"
+      "checksum": "7782c2fdefd596d99b37fd0619408417"
     },
     "ui.R": {
       "checksum": "077a961499ba6904fb233ebe76b508ee"
