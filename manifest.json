@@ -5783,7 +5783,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "83295ccde94abdbe51b6f5c07cd3c32f"
+      "checksum": "73e3b21482207790f786b0a358b012d8"
     },
     "azure-pipelines.yml": {
       "checksum": "161e6e3c4a8af841144c1f338c7049d8"
@@ -5861,7 +5861,7 @@
       "checksum": "98cac2a2a4e280827d6b20f9c1ae81e2"
     },
     "R/gov_colours.R": {
-      "checksum": "0883f1ed86b35a5d9125dd93654d59bf"
+      "checksum": "4780875997f644794e928032c7e4be5e"
     },
     "R/headline_panel.R": {
       "checksum": "b19c983bbbbe58fe286cfdd380e3b0f2"
@@ -5903,7 +5903,7 @@
       "checksum": "49c47603ebd1d403415f4545d60200e1"
     },
     "server.R": {
-      "checksum": "05a3e47cb0eb8e5d7580bb1b67b66c1a"
+      "checksum": "1c240e7b98cbd90bf7cfea548decef9b"
     },
     "tests/testthat.R": {
       "checksum": "12e9b09de5275bdc13bde6ae5a82f8b1"

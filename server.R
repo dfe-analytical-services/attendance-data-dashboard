@@ -154,10 +154,7 @@ server <- function(input, output, session) {
       filter_items = list(
         time_frame = schools_submitting_sqids$filters$time_frame$week,
         school_phase = schools_submitting_sqids$filters$education_phase |>
-          magrittr::extract2(
-            tolower(input$school_choice) |>
-              str_replace("total", "allschools")
-          )
+          magrittr::extract2(school_phase_key())
       ),
       ees_environment = ees_api_env
     )
@@ -172,6 +169,7 @@ server <- function(input, output, session) {
       input$la_choice,
       input$school_choice
     )
+
 
   latest_week_data <- reactive({
     time_period_query <- time_query()$time_period_query
@@ -196,10 +194,7 @@ server <- function(input, output, session) {
       filter_items = list(
         time_frame = schools_submitting_sqids$filters$time_frame$monday,
         school_phase = schools_submitting_sqids$filters$education_phase |>
-          magrittr::extract2(
-            tolower(input$school_choice) |>
-              str_replace("total", "allschools")
-          )
+          magrittr::extract2(school_phase_key())
       ),
       ees_environment = ees_api_env
     )
@@ -237,6 +232,16 @@ server <- function(input, output, session) {
       dplyr::slice(1)
   })
 
+  school_phase_key <- reactive({
+    key <- tolower(input$school_choice)
+
+    if (key == "total") {
+      key <- "allschools"
+    }
+
+    key
+  })
+
   reasons_data <- reactive({
     reasons <- eesyapi::query_dataset(
       reasons_dataset_id,
@@ -249,9 +254,7 @@ server <- function(input, output, session) {
       filter_items = list(
         time_frame = time_query()$time_frame_query,
         school_phase = reasons_sqids$filters$education_phase |>
-          magrittr::extract2(
-            tolower(input$school_choice) |> str_replace("total", "allschools")
-          ),
+          magrittr::extract2(school_phase_key()),
         attendance_reason = c(
           reasons_sqids$filters$attendance_reason$overallattendance,
           reasons_sqids$filters$attendance_reason$overallabsence,
@@ -301,7 +304,7 @@ server <- function(input, output, session) {
       filter_items = list(
         time_frame = reasons_sqids$filters$time_frame$week,
         school_phase = reasons_sqids$filters$education_phase |>
-          magrittr::extract2(tolower(input$school_choice)),
+          magrittr::extract2(school_phase_key()),
         attendance_reason = c(
           reasons_sqids$filters$attendance_reason$overallabsence,
           reasons_sqids$filters$attendance_reason$allauthorised,
@@ -343,9 +346,7 @@ server <- function(input, output, session) {
       ),
       filter_items = list(
         school_phase = persistent_absence_sqids$filters$education_phase |>
-          magrittr::extract2(
-            tolower(input$school_choice) |> str_replace("total", "allschools")
-          )
+          magrittr::extract2(school_phase_key())
       ),
       indicators = unlist(
         persistent_absence_sqids$indicators,
