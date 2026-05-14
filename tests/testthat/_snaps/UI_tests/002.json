@@ -30,11 +30,11 @@
             "automargin": true,
             "title": "",
             "tickvals": [
-              "2026-04-13",
-              "2026-04-14",
-              "2026-04-15",
-              "2026-04-16",
-              "2026-04-17"
+              "2026-04-27",
+              "2026-04-28",
+              "2026-04-29",
+              "2026-04-30",
+              "2026-05-01"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -52,7 +52,7 @@
             "ticksuffix": "%",
             "range": [
               0,
-              8.0777365249499997
+              7.6102128378972465
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -113,18 +113,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-04-13",
-              "2026-04-14",
-              "2026-04-15",
-              "2026-04-16",
-              "2026-04-17"
+              "2026-04-27",
+              "2026-04-28",
+              "2026-04-29",
+              "2026-04-30",
+              "2026-05-01"
             ],
             "y": [
-              5.9835085369999996,
-              4.570074215,
-              4.1578610810000001,
-              3.9297690479999998,
-              4.6709180899999998
+              4.7779664287628103,
+              4.2549233732588103,
+              3.8924109809009999,
+              4.0944533088083102,
+              5.6371946947387004
             ],
             "line": {
               "color": "#12436D"
@@ -157,18 +157,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-04-13",
-              "2026-04-14",
-              "2026-04-15",
-              "2026-04-16",
-              "2026-04-17"
+              "2026-04-27",
+              "2026-04-28",
+              "2026-04-29",
+              "2026-04-30",
+              "2026-05-01"
             ],
             "y": [
-              3.3315903050000002,
-              2.803832001,
-              2.657383813,
-              2.5876503309999999,
-              3.1180890090000002
+              3.3334536503965602,
+              3.0509308722317598,
+              2.7596331747904199,
+              2.8796366519941201,
+              3.8443799097181999
             ],
             "line": {
               "color": "#28A197"
@@ -201,18 +201,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-04-13",
-              "2026-04-14",
-              "2026-04-15",
-              "2026-04-16",
-              "2026-04-17"
+              "2026-04-27",
+              "2026-04-28",
+              "2026-04-29",
+              "2026-04-30",
+              "2026-05-01"
             ],
             "y": [
-              2.651918233,
-              1.766242214,
-              1.500477268,
-              1.342118717,
-              1.5528290810000001
+              1.4445127783662499,
+              1.20399250102704,
+              1.13277780611058,
+              1.21481665681419,
+              1.7928147850205101
             ],
             "line": {
               "color": "#F46A25"
@@ -355,9 +355,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2026-04-13 to 2026-04-17: primary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "- 4.62% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "- 95.38% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "- 1.98% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2026-04-27 to 2026-05-01: primary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "- 4.53% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "- 95.47% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "- 2.36% of sessions were recorded as illness"
   }
 }

@@ -30,11 +30,11 @@
             "automargin": true,
             "title": "",
             "tickvals": [
-              "2026-04-13",
-              "2026-04-14",
-              "2026-04-15",
-              "2026-04-16",
-              "2026-04-17"
+              "2026-04-27",
+              "2026-04-28",
+              "2026-04-29",
+              "2026-04-30",
+              "2026-05-01"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -52,7 +52,7 @@
             "ticksuffix": "%",
             "range": [
               0,
-              11.48900534415
+              13.239941393256698
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -113,18 +113,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-04-13",
-              "2026-04-14",
-              "2026-04-15",
-              "2026-04-16",
-              "2026-04-17"
+              "2026-04-27",
+              "2026-04-28",
+              "2026-04-29",
+              "2026-04-30",
+              "2026-05-01"
             ],
             "y": [
-              8.1650330380000007,
-              7.5240372320000004,
-              7.65146631,
-              7.583983999,
-              8.5103743289999993
+              8.4365875732456299,
+              8.2819776265991596,
+              7.9215744673435502,
+              8.1727514693674603,
+              9.8073639950049607
             ],
             "line": {
               "color": "#12436D"
@@ -157,18 +157,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-04-13",
-              "2026-04-14",
-              "2026-04-15",
-              "2026-04-16",
-              "2026-04-17"
+              "2026-04-27",
+              "2026-04-28",
+              "2026-04-29",
+              "2026-04-30",
+              "2026-05-01"
             ],
             "y": [
-              4.2511117660000002,
-              4.1510072210000004,
-              4.3120790060000003,
-              4.3081506679999997,
-              4.820564321
+              4.8912846319195902,
+              4.8516080159397896,
+              4.5898834484801698,
+              4.7269985419307901,
+              5.6613536939400699
             ],
             "line": {
               "color": "#28A197"
@@ -201,18 +201,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-04-13",
-              "2026-04-14",
-              "2026-04-15",
-              "2026-04-16",
-              "2026-04-17"
+              "2026-04-27",
+              "2026-04-28",
+              "2026-04-29",
+              "2026-04-30",
+              "2026-05-01"
             ],
             "y": [
-              3.9139212720000001,
-              3.3730300120000001,
-              3.3393873040000002,
-              3.2758333309999998,
-              3.6898100079999998
+              3.54530294132603,
+              3.43036961065937,
+              3.3316910188633799,
+              3.44575292743668,
+              4.1460103010648899
             ],
             "line": {
               "color": "#F46A25"
@@ -355,9 +355,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2026-04-13 to 2026-04-17: secondary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "- 7.88% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "- 92.12% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "- 2.81% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2026-04-27 to 2026-05-01: secondary state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "- 8.52% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "- 91.48% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "- 3.27% of sessions were recorded as illness"
   }
 }
