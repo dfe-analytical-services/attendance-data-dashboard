@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+API/data/
+.data/archive/
+Documentation_files/
+Documentation.html
+Documentation.qmd
+
