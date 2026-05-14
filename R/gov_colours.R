@@ -3,14 +3,12 @@
 # https://meyerweb.com/eric/tools/color-blend/#FFBF47:B10E1E:3:hex gov red to yellow
 
 map_gov_colours <- c(
-  "#FFBF47",
-  "#EC933D",
-  "#D86733",
-  "#C53A28",
-  "#B10E1E"
+  "#fecc5c",
+  "#fd8d3c",
+  "#f03b20",
+  "#bd0026",
+  "#800026"
 )
-
-# Test the palette
 
 check_pal <- function(
   x = gov_cols
