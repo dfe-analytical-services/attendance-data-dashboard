@@ -51,13 +51,14 @@
 # }
 
 headline_bullet <- function(
-    value,
-    comparator_value,
-    statistic_name,
-    geographic_level,
-    la_name_in,
-    region_name_in,
-    subject = "sessions") {
+  value,
+  comparator_value,
+  statistic_name,
+  geographic_level,
+  la_name_in,
+  region_name_in,
+  subject = "sessions"
+) {
   if (geographic_level == "Local authority") {
     area_string <- paste("in", la_name_in)
     comparator_level <- "REG"

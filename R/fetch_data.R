@@ -1,9 +1,10 @@
 # fetch sqid lookup creates a lookup list of IDs for each filter and indicator entry
 fetch_sqid_lookup <- function(
-    dataset_id,
-    version = NULL,
-    ees_environment = "test",
-    verbose = FALSE) {
+  dataset_id,
+  version = NULL,
+  ees_environment = "test",
+  verbose = FALSE
+) {
   meta <- eesyapi::get_meta(
     dataset_id,
     ees_environment = ees_environment,
@@ -51,9 +52,10 @@ filter_item_sqid_list <- function(filter_lookup) {
 }
 
 geography_query <- function(
-    input_geographic_level,
-    input_region_name,
-    input_la_name) {
+  input_geographic_level,
+  input_region_name,
+  input_la_name
+) {
   message(input_geographic_level, input_region_name, input_la_name)
   query <- "National"
   if (input_geographic_level == "Regional") {

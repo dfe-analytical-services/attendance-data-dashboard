@@ -11,7 +11,8 @@ map_gov_colours <- c(
 )
 
 check_pal <- function(
-    x = gov_cols) {
+  x = gov_cols
+) {
   if (is.numeric(x)) {
     if (length(x) > 1) {
       x <- gov_cols[x]
