@@ -5850,7 +5850,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "c4e08544e3ea6c1838ab87cc837317c4"
+      "checksum": "8701eee8433efb567ed92b6b7d83baf3"
     },
     "azure-pipelines.yml": {
       "checksum": "161e6e3c4a8af841144c1f338c7049d8"
@@ -5976,88 +5976,88 @@
       "checksum": "12e9b09de5275bdc13bde6ae5a82f8b1"
     },
     "tests/testthat/_snaps/UI_tests/001.json": {
-      "checksum": "d32821342fd6d5afaf62752b64cf20f5"
+      "checksum": "56dc395763b28392ddf175a186000bb6"
     },
     "tests/testthat/_snaps/UI_tests/001_.png": {
-      "checksum": "501b5d260cae0342b60b21092085569b"
+      "checksum": "3abb8a56deb504a8163422c57a145f72"
     },
     "tests/testthat/_snaps/UI_tests/002.json": {
-      "checksum": "fc6093b74e9c582a4ff7f83a042e4be0"
+      "checksum": "f2fbd958e496387170c4bd97b13b1cc9"
     },
     "tests/testthat/_snaps/UI_tests/002_.png": {
-      "checksum": "cbc3a401a856a6b6f32960ad0da273a8"
+      "checksum": "27a8df5d43faa8beec71c99f1ea070bc"
     },
     "tests/testthat/_snaps/UI_tests/003.json": {
-      "checksum": "964110179c309ceb3d8b4554d08bde0a"
+      "checksum": "74976099758e2214cd1d917de28fd273"
     },
     "tests/testthat/_snaps/UI_tests/003_.png": {
-      "checksum": "faa12d96f4922c92c3647c12f5b7a07e"
+      "checksum": "19659e39e08cf5fcf3530760f853e269"
     },
     "tests/testthat/_snaps/UI_tests/004.json": {
-      "checksum": "b4a69aac03c99dffd466cfe89d4fe59e"
+      "checksum": "3722a44d9eb108b5b4b36d2841da78be"
     },
     "tests/testthat/_snaps/UI_tests/004_.png": {
-      "checksum": "fd4597923dbec1c28028c9049809e9f7"
+      "checksum": "cb88d417d133752563a88a0bec8ba98a"
     },
     "tests/testthat/_snaps/UI_tests/005.json": {
-      "checksum": "1f566ef70851876a57563b464df862c9"
+      "checksum": "8ad441e32d0d752b79ca82948350a725"
     },
     "tests/testthat/_snaps/UI_tests/005_.png": {
-      "checksum": "66c7569d7c0794b0bd91235b9b61bef7"
+      "checksum": "af988c61b77d2547e93ea2e2367a1d6f"
     },
     "tests/testthat/_snaps/UI_tests/006.json": {
-      "checksum": "8b1124e9e7a7faee15eb6a4f681dfd9b"
+      "checksum": "7857ef27b414a572bb513592604febe8"
     },
     "tests/testthat/_snaps/UI_tests/006_.png": {
-      "checksum": "e43fbbf9063926570d027d0ab6ec7e59"
+      "checksum": "9caa164e7778e2f11b7a81792040c863"
     },
     "tests/testthat/_snaps/UI_tests/007.json": {
-      "checksum": "21814f246a6a1aa067eb3721f8800313"
+      "checksum": "6d47c03410289e95407eb7157d5e3f8e"
     },
     "tests/testthat/_snaps/UI_tests/007_.png": {
-      "checksum": "00111a65be278b260e3f1843b718e4ac"
+      "checksum": "fb31581c3cfc35fe0bbbb210371b9f7d"
     },
     "tests/testthat/_snaps/UI_tests/008.json": {
       "checksum": "49755264f21961503ef387fccd65a745"
     },
     "tests/testthat/_snaps/UI_tests/008_.png": {
-      "checksum": "12e53d3f743c16af31c80d3f7f79673a"
+      "checksum": "7bf2ac2e01b29dff29a06eabb7e04db2"
     },
     "tests/testthat/_snaps/UI_tests/009.json": {
       "checksum": "3345533b1826289ea5f4aa668768c8d5"
     },
     "tests/testthat/_snaps/UI_tests/009_.png": {
-      "checksum": "91bba7fda467d199174b35382b79cad9"
+      "checksum": "9c6bcb8ad01404c4807ca9a7735c1d84"
     },
     "tests/testthat/_snaps/UI_tests/010.json": {
       "checksum": "382262baf3b84c9fe6abd7c527e19995"
     },
     "tests/testthat/_snaps/UI_tests/010_.png": {
-      "checksum": "73f0b01c92345ec20e974e210d6eac9b"
+      "checksum": "715ca3d47e6de46f814e66c797fa2fa8"
     },
     "tests/testthat/_snaps/UI_tests/011.json": {
       "checksum": "83cc45be69b9772b329e5304e2045b57"
     },
     "tests/testthat/_snaps/UI_tests/011_.png": {
-      "checksum": "47d0b9f36df4c8fe7fe976e3f96e48c4"
+      "checksum": "04032c0f7dd822df5a95b848b35a955a"
     },
     "tests/testthat/_snaps/UI_tests/012.json": {
       "checksum": "a06e8a69a5bc1d970b50f1abaa62286f"
     },
     "tests/testthat/_snaps/UI_tests/012_.png": {
-      "checksum": "7bb1f67a9c31fa337ebf91a8a548dcf9"
+      "checksum": "55280387808a56bf710d896626022a66"
     },
     "tests/testthat/_snaps/UI_tests/013.json": {
       "checksum": "95d79a4444aa0acce66412962227b39c"
     },
     "tests/testthat/_snaps/UI_tests/013_.png": {
-      "checksum": "717c1f7f2675a390ee1afae31c190a86"
+      "checksum": "5ded85ea57acb961fda32a41872e7e2f"
     },
     "tests/testthat/_snaps/UI_tests/014.json": {
       "checksum": "d2c1c7306f51fde4c8bf2691f6db1204"
     },
     "tests/testthat/_snaps/UI_tests/014_.png": {
-      "checksum": "200bef5f21cd7258c734f9bcae42ac7b"
+      "checksum": "dc43b170d9cffe0a27ac188a6e1e597d"
     },
     "tests/testthat/setup-shinytest2.R": {
       "checksum": "d3e71278de0398bd2acaa6e00ad59114"
