@@ -2444,7 +2444,12 @@
         "Maintainer": "Kirill Müller <kirill@cynkra.com>",
         "Repository": "CRAN",
         "Date/Publication": "2025-10-17 05:10:11 UTC",
-        "Built": "R 4.5.3; ; 2026-04-25 18:08:57 UTC; windows"
+        "Built": "R 4.5.3; ; 2026-04-25 18:08:57 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "hms",
+        "RemoteRef": "hms",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteSha": "1.1.4"
       }
     },
     "htmltools": {
@@ -3057,7 +3062,12 @@
         "Maintainer": "Lionel Henry <lionel@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2026-01-08 08:00:02 UTC",
-        "Built": "R 4.5.3; ; 2026-04-25 17:16:27 UTC; windows"
+        "Built": "R 4.5.3; ; 2026-04-25 17:16:27 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "lifecycle",
+        "RemoteRef": "lifecycle",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteSha": "1.0.5"
       }
     },
     "lubridate": {
@@ -3391,7 +3401,12 @@
         "Maintainer": "Kirill Müller <kirill@cynkra.com>",
         "Repository": "RSPM",
         "Date/Publication": "2025-09-17 11:20:02 UTC",
-        "Built": "R 4.5.0; ; 2025-12-02 12:39:36 UTC; windows"
+        "Built": "R 4.5.0; ; 2025-12-02 12:39:36 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "pillar",
+        "RemoteRef": "pillar",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteSha": "1.11.1"
       }
     },
     "pingr": {
@@ -4026,7 +4041,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2026-02-19 18:10:02 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 19:41:24 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "readr",
+        "RemoteRef": "readr",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteSha": "2.2.0"
       }
     },
     "rematch": {
@@ -5044,7 +5064,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2026-01-11 10:10:02 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 18:37:55 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "tibble",
+        "RemoteRef": "tibble",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteSha": "3.3.1"
       }
     },
     "tidyr": {
@@ -5850,7 +5875,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "8701eee8433efb567ed92b6b7d83baf3"
+      "checksum": "b318190ddc6110b4957ed54b2fef899d"
     },
     "azure-pipelines.yml": {
       "checksum": "161e6e3c4a8af841144c1f338c7049d8"
@@ -5976,43 +6001,43 @@
       "checksum": "12e9b09de5275bdc13bde6ae5a82f8b1"
     },
     "tests/testthat/_snaps/UI_tests/001.json": {
-      "checksum": "56dc395763b28392ddf175a186000bb6"
+      "checksum": "f45e9b9bea1f67f7d882a4acb581bfd5"
     },
     "tests/testthat/_snaps/UI_tests/001_.png": {
       "checksum": "3abb8a56deb504a8163422c57a145f72"
     },
     "tests/testthat/_snaps/UI_tests/002.json": {
-      "checksum": "f2fbd958e496387170c4bd97b13b1cc9"
+      "checksum": "4fc784a95e96222d6626b43fcce43f9e"
     },
     "tests/testthat/_snaps/UI_tests/002_.png": {
       "checksum": "27a8df5d43faa8beec71c99f1ea070bc"
     },
     "tests/testthat/_snaps/UI_tests/003.json": {
-      "checksum": "74976099758e2214cd1d917de28fd273"
+      "checksum": "2440ac201dde4fcd4382232318054002"
     },
     "tests/testthat/_snaps/UI_tests/003_.png": {
       "checksum": "19659e39e08cf5fcf3530760f853e269"
     },
     "tests/testthat/_snaps/UI_tests/004.json": {
-      "checksum": "3722a44d9eb108b5b4b36d2841da78be"
+      "checksum": "cd6f6b45a362f22b08404b2532c834c4"
     },
     "tests/testthat/_snaps/UI_tests/004_.png": {
       "checksum": "cb88d417d133752563a88a0bec8ba98a"
     },
     "tests/testthat/_snaps/UI_tests/005.json": {
-      "checksum": "8ad441e32d0d752b79ca82948350a725"
+      "checksum": "ab38b1c5ea465430b50f2623dafb5bf3"
     },
     "tests/testthat/_snaps/UI_tests/005_.png": {
       "checksum": "af988c61b77d2547e93ea2e2367a1d6f"
     },
     "tests/testthat/_snaps/UI_tests/006.json": {
-      "checksum": "7857ef27b414a572bb513592604febe8"
+      "checksum": "bb28b0d2e9815e806e0af5c1d4f51c1c"
     },
     "tests/testthat/_snaps/UI_tests/006_.png": {
       "checksum": "9caa164e7778e2f11b7a81792040c863"
     },
     "tests/testthat/_snaps/UI_tests/007.json": {
-      "checksum": "6d47c03410289e95407eb7157d5e3f8e"
+      "checksum": "4a9dec9608ae256a8cb7dc830733fcd4"
     },
     "tests/testthat/_snaps/UI_tests/007_.png": {
       "checksum": "fb31581c3cfc35fe0bbbb210371b9f7d"
