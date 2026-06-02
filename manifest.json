@@ -1103,7 +1103,7 @@
       "description": {
         "Package": "cpp11",
         "Title": "A C++11 Interface for R's C Interface",
-        "Version": "0.5.3",
+        "Version": "0.5.4",
         "Authors@R": "\n    c(\n      person(\"Davis\", \"Vaughan\", email = \"davis@posit.co\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0003-4777-038X\")),\n      person(\"Jim\",\"Hester\", role = \"aut\", comment = c(ORCID = \"0000-0002-2739-7082\")),\n      person(\"Romain\", \"François\", role = \"aut\", comment = c(ORCID = \"0000-0002-2444-4226\")),\n      person(\"Benjamin\", \"Kietzman\", role = \"ctb\"),\n      person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n    )",
         "Description": "Provides a header only, C++11 interface to R's C\n    interface.  Compared to other approaches 'cpp11' strives to be safe\n    against long jumps from the C API as well as C++ exceptions, conform\n    to normal R function semantics and supports interaction with 'ALTREP'\n    vectors.",
         "License": "MIT + file LICENSE",
@@ -1116,21 +1116,14 @@
         "Config/testthat/edition": "3",
         "Config/Needs/cpp11/cpp_register": "brio, cli, decor, desc, glue, tibble,\nvctrs",
         "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.2",
+        "RoxygenNote": "7.3.3",
         "NeedsCompilation": "no",
-        "Packaged": "2026-01-20 13:50:54 UTC; davis",
+        "Packaged": "2026-04-03 18:50:48 UTC; davis",
         "Author": "Davis Vaughan [aut, cre] (ORCID:\n    <https://orcid.org/0000-0003-4777-038X>),\n  Jim Hester [aut] (ORCID: <https://orcid.org/0000-0002-2739-7082>),\n  Romain François [aut] (ORCID: <https://orcid.org/0000-0002-2444-4226>),\n  Benjamin Kietzman [ctb],\n  Posit Software, PBC [cph, fnd]",
         "Maintainer": "Davis Vaughan <davis@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2026-01-20 15:20:02 UTC",
-        "Built": "R 4.5.0; ; 2026-05-14 10:35:51 UTC; windows",
-        "RemoteType": "standard",
-        "RemoteRef": "cpp11",
-        "RemotePkgRef": "cpp11",
-        "RemoteRepos": "https://cran.rstudio.com",
-        "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "source",
-        "RemoteSha": "0.5.3"
+        "Repository": "RSPM",
+        "Date/Publication": "2026-04-04 05:11:17 UTC",
+        "Built": "R 4.5.0; ; 2026-04-05 04:35:49 UTC; windows"
       }
     },
     "crayon": {
@@ -5826,7 +5819,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "63029457d14976abb02e624150656680"
+      "checksum": "ef44fa1995857abbe3bc447b16bdb5f2"
     },
     "azure-pipelines.yml": {
       "checksum": "161e6e3c4a8af841144c1f338c7049d8"
@@ -5943,7 +5936,7 @@
       "checksum": "83120f3d4bfdc3bd81493340f50b06d6"
     },
     "renv.lock": {
-      "checksum": "13aa7951b96dca9316a90f917f164522"
+      "checksum": "afffbbd2f1267187b5d7559ca438e21a"
     },
     "server.R": {
       "checksum": "b85f6392e0568d61d03a2eb0fcda54ae"
