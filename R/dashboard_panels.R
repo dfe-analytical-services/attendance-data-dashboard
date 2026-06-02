@@ -8,7 +8,10 @@ homepage_panel <- function() {
         column(
           12,
           h1("Pupil attendance and absence in schools in England"),
-          textOutput("source_version_release")
+          div(
+            class = "govuk-body-s govuk-!-margin-bottom-4",
+            textOutput("source_version_release")
+          )
         ),
 
         ## Left panel -------------------------------------------------------
@@ -355,7 +358,7 @@ dashboard_panel <- function() {
               fluidRow(
                 column(
                   width = 9,
-                  girafeOutput("absence_reasons_timeseries")
+                  plotOutput("absence_reasons_timeseries")
                 ),
                 column(
                   width = 3,

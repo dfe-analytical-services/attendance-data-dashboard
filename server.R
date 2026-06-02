@@ -154,10 +154,7 @@ server <- function(input, output, session) {
       filter_items = list(
         time_frame = schools_submitting_sqids$filters$time_frame$week,
         school_phase = schools_submitting_sqids$filters$education_phase |>
-          magrittr::extract2(
-            tolower(input$school_choice) |>
-              str_replace("total", "allschools")
-          )
+          magrittr::extract2(school_phase_key())
       ),
       ees_environment = ees_api_env
     )
@@ -173,12 +170,67 @@ server <- function(input, output, session) {
       input$school_choice
     )
 
+
+  latest_week_data <- reactive({
+    time_period_query <- time_query()$time_period_query
+
+    if (input$geography_choice == "National") {
+      query <- "National"
+    } else if (input$geography_choice == "Regional") {
+      reg_code <- dfeR::fetch_regions() |>
+        dplyr::filter(region_name == input$region_choice) |>
+        dplyr::pull(region_code)
+      query <- paste0("REG|code|", reg_code)
+    } else if (input$geography_choice == "Local authority") {
+      la_code <- dfeR::fetch_las() |>
+        dplyr::filter(la_name == input$la_choice) |>
+        dplyr::pull(new_la_code)
+      query <- paste0("LA|code|", la_code)
+    }
+
+    eesyapi::query_dataset(
+      schools_submitting_dataset_id,
+      time_periods = time_period_query,
+      geographies = query,
+      filter_items = list(
+        time_frame = schools_submitting_sqids$filters$time_frame$monday,
+        school_phase = schools_submitting_sqids$filters$education_phase |>
+          magrittr::extract2(school_phase_key())
+      ),
+      ees_environment = ees_api_env
+    )
+  })
+
+  # reasons_data_version_info <- eventReactive(input$geography_choice, {
+  #   eesyapi::get_dataset_versions(
+  #     reasons_dataset_id,
+  #     ees_environment = ees_api_env
+  #   ) |>
+  #     filter(version == max(version)) |>
+  #     dplyr::slice(1)
+  # })
+
   reasons_data_version_info <- eventReactive(input$geography_choice, {
     eesyapi::get_dataset_versions(
       reasons_dataset_id,
       ees_environment = ees_api_env
     ) |>
-      filter(version == max(version))
+      dplyr::mutate(
+        major = as.integer(sub("\\..*$", "", version)),
+        minor = as.integer(sub("^.*\\.", "", version))
+      ) |>
+      dplyr::arrange(desc(major), desc(minor)) |>
+      dplyr::slice(1)
+  })
+
+  school_phase_key <- reactive({
+    key <- tolower(input$school_choice)
+
+    if (key == "total") {
+      key <- "allschools"
+    }
+
+    key
   })
 
   reasons_data <- reactive({
@@ -193,9 +245,7 @@ server <- function(input, output, session) {
       filter_items = list(
         time_frame = time_query()$time_frame_query,
         school_phase = reasons_sqids$filters$education_phase |>
-          magrittr::extract2(
-            tolower(input$school_choice) |> str_replace("total", "allschools")
-          ),
+          magrittr::extract2(school_phase_key()),
         attendance_reason = c(
           reasons_sqids$filters$attendance_reason$overallattendance,
           reasons_sqids$filters$attendance_reason$overallabsence,
@@ -245,7 +295,7 @@ server <- function(input, output, session) {
       filter_items = list(
         time_frame = reasons_sqids$filters$time_frame$week,
         school_phase = reasons_sqids$filters$education_phase |>
-          magrittr::extract2(tolower(input$school_choice)),
+          magrittr::extract2(school_phase_key()),
         attendance_reason = c(
           reasons_sqids$filters$attendance_reason$overallabsence,
           reasons_sqids$filters$attendance_reason$allauthorised,
@@ -287,9 +337,7 @@ server <- function(input, output, session) {
       ),
       filter_items = list(
         school_phase = persistent_absence_sqids$filters$education_phase |>
-          magrittr::extract2(
-            tolower(input$school_choice) |> str_replace("total", "allschools")
-          )
+          magrittr::extract2(school_phase_key())
       ),
       indicators = unlist(
         persistent_absence_sqids$indicators,
@@ -321,10 +369,11 @@ server <- function(input, output, session) {
           la_name,
           input$measure_choice,
           "absence rate:",
-          paste0(
-            as.character(dfeR::round_five_up(session_percent, dp = 1)),
-            "%"
-          )
+          render_percents(session_percent)
+          # paste0(
+          #   as.character(dfeR::round_five_up(session_percent, dp = 2)),
+          #   "%"
+          # )
         )
       )
   }) |>
@@ -468,36 +517,77 @@ server <- function(input, output, session) {
   })
 
   # Reactive dates for dropdown
+  # reactive_latestweeks_string <- reactive({
+  #   latestweek_line <- most_recent_week_lookup %>%
+  #     filter(geographic_level == input$geography_choice)
+  #   if (input$geography_choice == "Regional") {
+  #     latestweek_line <- latestweek_line %>%
+  #       filter(region_name == input$region_choice)
+  #   } else if (input$geography_choice == "Local authority") {
+  #     latestweek_line <- latestweek_line %>% filter(la_name == input$la_choice)
+  #   }
+  #   paste0(
+  #     "Latest week - ",
+  #     latestweek_line %>% pull(week_start),
+  #     " to ",
+  #     latestweek_line %>% pull(week_end)
+  #   )
+  # })
   reactive_latestweeks_string <- reactive({
-    latestweek_line <- most_recent_week_lookup %>%
-      filter(geographic_level == input$geography_choice)
-    if (input$geography_choice == "Regional") {
-      latestweek_line <- latestweek_line %>%
-        filter(region_name == input$region_choice)
-    } else if (input$geography_choice == "Local authority") {
-      latestweek_line <- latestweek_line %>% filter(la_name == input$la_choice)
-    }
+    ref_date <- latest_week_data() |>
+      dplyr::arrange(desc(reference_date)) |>
+      dplyr::slice(1) |>
+      dplyr::pull(reference_date)
+
+    ref_date <- as.Date(ref_date)
+
+    # reference_date is MONDAY → show Monday to Friday
     paste0(
       "Latest week - ",
-      latestweek_line %>% pull(week_start),
+      ref_date,
       " to ",
-      latestweek_line %>% pull(week_end)
+      ref_date + 4
     )
   })
 
+  # reactive_yeartodate_string <- reactive({
+  #   year_line <- year_lookup %>%
+  #     filter(geographic_level == input$geography_choice)
+  #   if (input$geography_choice == "Regional") {
+  #     year_line <- year_line %>% filter(region_name == input$region_choice)
+  #   } else if (input$geography_choice == "Local authority") {
+  #     year_line <- year_line %>% filter(la_name == input$la_choice)
+  #   }
+  #   paste0(
+  #     "Year to date - ",
+  #     year_line %>% pull(year_start),
+  #     " to ",
+  #     year_line %>% pull(year_end)
+  #   )
+  # })
+
   reactive_yeartodate_string <- reactive({
-    year_line <- year_lookup %>%
-      filter(geographic_level == input$geography_choice)
-    if (input$geography_choice == "Regional") {
-      year_line <- year_line %>% filter(region_name == input$region_choice)
-    } else if (input$geography_choice == "Local authority") {
-      year_line <- year_line %>% filter(la_name == input$la_choice)
+    year_line <- latest_week_data()
+
+    # ✅ ensure only ONE row
+    year_line <- year_line |>
+      dplyr::arrange(desc(reference_date)) |>
+      dplyr::slice(1)
+
+    dates <- as.Date(year_line$reference_date)
+
+    if (length(dates) == 0) {
+      return("Year to date - no data available")
     }
+
+    start_date <- as.Date("2025-09-08")
+    end_date <- dates + 4
+
     paste0(
       "Year to date - ",
-      year_line %>% pull(year_start),
+      start_date,
       " to ",
-      year_line %>% pull(year_end)
+      end_date
     )
   })
 
@@ -530,6 +620,22 @@ server <- function(input, output, session) {
   })
 
   output$dropdown_label <- renderText({
+    validate(need(input$geography_choice != "", ""))
+    validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
+    validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
+
+    most_recent_fullweek_date <- latest_week_data() |>
+      dplyr::arrange(desc(reference_date)) |>
+      dplyr::slice(1) |>
+      dplyr::pull(reference_date)
+
+    # FIX: reference_date is MONDAY, so show Monday → Friday
+    most_recent_week_dates <- paste0(
+      as.Date(most_recent_fullweek_date),
+      " - ",
+      as.Date(most_recent_fullweek_date) + 4
+    )
+
     if (input$dash == "la comparisons") {
       paste0(
         "Current selections: ",
@@ -724,27 +830,24 @@ server <- function(input, output, session) {
     }
   })
 
-  output$headline_absence_chart <- ggiraph::renderGirafe({
-    ggiraph::girafe(
-      ggobj = headline_absence_ggplot(
-        reasons_data() |>
-          filter(geographic_level == input$geography_choice),
-        input$ts_choice
-      )
+
+  output$headline_absence_chart <- renderPlot({
+    headline_absence_ggplot(
+      reasons_data() |>
+        filter(geographic_level == input$geography_choice),
+      input$ts_choice
     )
   })
 
-  output$absence_reasons_timeseries <- ggiraph::renderGirafe({
-    ggiraph::girafe(
-      ggobj = reasons_ggplot(
-        reasons_data() |>
-          filter(geographic_level == input$geography_choice),
-        input$ts_choice
-      ),
-      height_svg = 5.6,
-      width_svg = 9
+
+  output$absence_reasons_timeseries <- renderPlot({
+    reasons_ggplot(
+      reasons_data() |>
+        filter(geographic_level == input$geography_choice),
+      input$ts_choice
     )
   })
+
 
   # Reasons for absence - ytd chart
 
@@ -854,24 +957,25 @@ server <- function(input, output, session) {
   # headline bullet reactive titles
   output$headline_title <- renderUI({
     tagList(
-      shiny::tags$h2(
-        "Headline figures for the ",
-        str_to_lower(reactive_period_selected())
-      ),
+      # shiny::tags$h2(
+      #   "Headline figures",
+      #   # time_frame_string() # Commented out because of repetition of dates
+      #   # str_to_lower(reactive_period_selected())
+      # ),
       shiny::tags$h3(
         input$school_choice,
         " state-funded school attendance at ",
         str_to_lower(input$geography_choice),
-        " level",
+        " level:",
         paste0(
           if (input$geography_choice == "Local authority") {
-            paste0(" (", input$la_choice)
+            paste0("", input$la_choice)
           },
           if (input$geography_choice != "National") {
-            paste0(",", input$region_choice)
+            paste0(", ", input$region_choice)
           },
           if (input$geography_choice != "National") {
-            ")"
+            " "
           }
         )
       )
@@ -882,20 +986,32 @@ server <- function(input, output, session) {
   output$reasons_chart_title <- renderText({
     paste0(
       input$school_choice,
-      " state-funded schools: absence at ",
+      " state-funded school absence at ",
       str_to_lower(input$geography_choice),
-      " level",
-      if (input$geography_choice %in% c("Regional", "Local authority")) {
-        " ("
-      },
-      if (input$geography_choice %in% c("Local authority")) {
-        paste(input$la_choice, ", ")
-      },
-      if (input$geography_choice %in% c("Regional", "Local authority")) {
-        paste0(input$region_choice, ")")
-      }
+      " level:",
+      paste0(
+        if (input$geography_choice == "Local authority") {
+          paste0(" ", input$la_choice, ",")
+        },
+        if (input$geography_choice != "National") {
+          paste0(" ", input$region_choice)
+        },
+        if (input$geography_choice != "National") {
+          " "
+        }
+      )
     )
   })
+  # if (input$geography_choice %in% c("Regional", "Local authority")) {
+  #   " ("
+  # },
+  # if (input$geography_choice %in% c("Local authority")) {
+  #   paste(input$la_choice, ", ")
+  # },
+  # if (input$geography_choice %in% c("Regional", "Local authority")) {
+  #   paste0(input$region_choice, ")")
+  # }
+
 
   # la comparison table reactive title
   output$la_comparison_title <- renderText({
@@ -935,9 +1051,17 @@ server <- function(input, output, session) {
     ) /
       as.numeric(latest_schools_count()$school_all_count) *
       100.
+    # paste0(
+    #   "This number is approximately ",
+    #   percent_submitted |> dfeR::round_five_up(dp = 2),
+    #   "% of the number of schools participating in the School Census. From the start of the ",
+    #   "2024/25 academic year, it became mandatory for schools to share attendance data with the ",
+    #   "DfE. As more schools share their data, the number of schools reporting may change over ",
+    #   "time."
+    # )
     paste0(
       "This number is approximately ",
-      percent_submitted |> dfeR::round_five_up(dp = 1),
+      render_percents(percent_submitted),
       "% of the number of schools participating in the School Census. From the start of the ",
       "2024/25 academic year, it became mandatory for schools to share attendance data with the ",
       "DfE. As more schools share their data, the number of schools reporting may change over ",
@@ -953,18 +1077,24 @@ server <- function(input, output, session) {
         "This data has been suppressed due to a low number of schools at this breakdown"
       )
     )
+    school_numbers_data <- school_numbers_data() |>
+      dplyr::arrange(desc(reference_date)) |>
+      dplyr::slice(1)
+
     school_submitted_percent <- as.numeric(
-      school_numbers_data()$school_submitted_count
+      school_numbers_data$school_submitted_count
     ) /
-      as.numeric(school_numbers_data()$school_all_count) *
-      100.
+      as.numeric(
+        school_numbers_data$school_all_count
+      ) * 100
+
     paste0(
       "For this breakdown, in the latest week ",
-      school_submitted_percent |>
-        dfeR::round_five_up(dp = 1),
-      "% of schools submitted data, though this has varied throughout the year-to-date."
+      render_percents(school_submitted_percent),
+      " of schools submitted data, though this has varied throughout the year-to-date."
     )
   })
+
 
   output$headline_bullet_attendance_rate <- renderUI({
     time_frame_text <- ifelse(
@@ -1141,8 +1271,13 @@ server <- function(input, output, session) {
     validate(need(input$geography_choice != "", ""))
     validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
-    most_recent_fullweek_date <- live_attendance_data_weekly() %>%
-      pull(week_commencing)
+    # most_recent_fullweek_date <- live_attendance_data_weekly() %>%
+    #   pull(week_commencing)
+
+    most_recent_fullweek_date <- latest_week_data() |>
+      dplyr::arrange(desc(reference_date)) |>
+      dplyr::slice(1) |>
+      dplyr::pull(reference_date)
 
     paste0(
       "Data on this tab relates to the week commencing ",
@@ -1157,21 +1292,31 @@ server <- function(input, output, session) {
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
-    most_recent_fullweek_date <- live_attendance_data_weekly() %>%
-      pull(week_commencing)
+    # most_recent_fullweek_date <- live_attendance_data_weekly() %>%
+    #   pull(week_commencing)
 
-    last_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>%
-      as.Date(attendance_date) +
-      17
-    # as.Date(attendance_date) + 24
-    # as.Date(attendance_date) + 31
+    # last_update_date <- live_attendance_data_weekly() %>%
+    #   pull(attendance_date) %>%
+    #   as.Date(attendance_date) +
+    #   17
+    # # as.Date(attendance_date) + 24
+    # # as.Date(attendance_date) + 31
 
-    next_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>%
-      as.Date(attendance_date) +
-      31
-    # as.Date(attendance_date) + 38
+    last_update_date <- reasons_data_version_info()$release_date
+
+    # next_update_date <- live_attendance_data_weekly() %>%
+    #   pull(attendance_date) %>%
+    #   as.Date(attendance_date) +
+    #   31
+    # # as.Date(attendance_date) + 38
+
+    next_update_date <- as.Date(last_update_date) + 14
+
+    # API data date
+    most_recent_fullweek_date <- latest_week_data() |>
+      dplyr::arrange(desc(reference_date)) |>
+      dplyr::slice(1) |>
+      dplyr::pull(reference_date)
 
     # paste0("Data was last updated on 2025-01-09 and is next expected to be updated on 2025-01-23. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     paste0(
@@ -1193,21 +1338,32 @@ server <- function(input, output, session) {
     validate(need(nrow(live_attendance_data_ytd()) > 0, ""))
     validate(need(live_attendance_data_ytd()$num_schools > 1, ""))
 
-    most_recent_fullweek_date <- live_attendance_data_weekly() %>%
-      pull(week_commencing)
+    # most_recent_fullweek_date <- live_attendance_data_weekly() %>%
+    #   pull(week_commencing)
 
-    last_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>%
-      as.Date(attendance_date) +
-      17
-    # as.Date(attendance_date) + 24
-    # as.Date(attendance_date) + 31
+    # last_update_date <- live_attendance_data_weekly() %>%
+    #   pull(attendance_date) %>%
+    #   as.Date(attendance_date) +
+    #   17
+    # # as.Date(attendance_date) + 24
+    # # as.Date(attendance_date) + 31
 
-    next_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>%
-      as.Date(attendance_date) +
-      31
-    # as.Date(attendance_date) + 38
+    last_update_date <- reasons_data_version_info()$release_date
+
+    # next_update_date <- live_attendance_data_weekly() %>%
+    #   pull(attendance_date) %>%
+    #   as.Date(attendance_date) +
+    #   31
+    # # as.Date(attendance_date) + 38
+
+    next_update_date <- as.Date(last_update_date) + 14
+
+    # API data date
+    most_recent_fullweek_date <- latest_week_data() |>
+      dplyr::arrange(desc(reference_date)) |>
+      dplyr::slice(1) |>
+      dplyr::pull(reference_date)
+
 
     # paste0("Data was last updated on 2025-01-09 and is next expected to be updated on 2025-01-23. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     paste0(
@@ -1231,18 +1387,25 @@ server <- function(input, output, session) {
     most_recent_fullweek_date <- live_attendance_data_weekly() %>%
       pull(week_commencing)
 
-    last_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>%
-      as.Date(attendance_date) +
-      17
-    # as.Date(attendance_date) + 24
-    # as.Date(attendance_date) + 31
+    # last_update_date <- live_attendance_data_weekly() %>%
+    #   pull(attendance_date) %>%
+    #   as.Date(attendance_date) +
+    #   17
+    # # as.Date(attendance_date) + 24
+    # # as.Date(attendance_date) + 31
 
-    next_update_date <- live_attendance_data_weekly() %>%
-      pull(attendance_date) %>%
-      as.Date(attendance_date) +
-      31
-    # as.Date(attendance_date) + 38
+    last_update_date <- reasons_data_version_info()$release_date
+
+    # next_update_date <- live_attendance_data_weekly() %>%
+    #   pull(attendance_date) %>%
+    #   as.Date(attendance_date) +
+    #   31
+    # # as.Date(attendance_date) + 38
+
+    next_update_date <- as.Date(last_update_date) + 14
+
+    # API data date
+    most_recent_fullweek_date <- latest_week_data()$reference_date
 
     # paste0("Data was last updated on 2025-01-09 and is next expected to be updated on 2025-01-23. The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     paste0(
@@ -1279,10 +1442,12 @@ server <- function(input, output, session) {
             attendance_reason == "All authorised",
             time_frame == time_frame_filter
           ) |>
+          # pull(session_percent) |>
+          # as.numeric() |>
+          # dfeR::round_five_up(dp = 2) |>
+          # paste("%"),
           pull(session_percent) |>
-          as.numeric() |>
-          dfeR::round_five_up(dp = 1) |>
-          paste("%"),
+          render_percents(),
         theme = value_box_theme(bg = "#1d70b8")
       ),
       tags$h5(paste0("Unauthorised absence rate:")),
@@ -1294,10 +1459,12 @@ server <- function(input, output, session) {
             attendance_reason == "All unauthorised",
             time_frame == time_frame_filter
           ) |>
+          # pull(session_percent) |>
+          # as.numeric() |>
+          # dfeR::round_five_up(dp = 2) |>
+          # paste("%"),
           pull(session_percent) |>
-          as.numeric() |>
-          dfeR::round_five_up(dp = 1) |>
-          paste("%"),
+          render_percents(),
         theme = value_box_theme(bg = "#1d70b8")
       )
     )
@@ -1332,10 +1499,11 @@ server <- function(input, output, session) {
         ) |>
         select(attendance_reason, session_percent) |>
         mutate(
-          session_percent = session_percent |>
-            as.numeric() |>
-            dfeR::round_five_up(dp = 1) |>
-            paste0("%")
+          # session_percent = session_percent |>
+          #   as.numeric() |>
+          #   dfeR::round_five_up(dp = 2) |>
+          #   paste0("%")
+          session_percent = render_percents(session_percent)
         ) |>
         tidyr::pivot_wider(
           names_from = attendance_reason,
@@ -1362,10 +1530,11 @@ server <- function(input, output, session) {
         attendance_reason = attendance_reason |>
           stringr::str_replace("Unauthorised ", "") |>
           stringr::str_to_sentence(),
-        session_percent = session_percent |>
-          as.numeric() |>
-          dfeR::round_five_up(dp = 1) |>
-          paste0("%")
+        # session_percent = session_percent |>
+        #   as.numeric() |>
+        #   dfeR::round_five_up(dp = 2) |>
+        #   paste0("%")
+        session_percent = render_percents(session_percent)
       ) |>
       tidyr::pivot_wider(
         names_from = attendance_reason,
@@ -1500,14 +1669,15 @@ server <- function(input, output, session) {
           direction = "auto"
         )
       )
+
     rate_map <- rate_map %>%
       addLegend(
         colors = c(
-          "#FFBF47",
-          "#EC933D",
-          "#D86733",
-          "#C53A28",
-          "#B10E1E",
+          "#fecc5c",
+          "#fd8d3c",
+          "#f03b20",
+          "#bd0026",
+          "#800026",
           "#808080"
         ),
         opacity = 1,

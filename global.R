@@ -21,7 +21,7 @@ library(tools)
 library(testthat)
 library(data.table)
 library(ggplot2)
-library(ggiraph)
+# library(ggiraph)
 library(shinycssloaders)
 library(tidyr)
 library(stringr)
@@ -157,8 +157,8 @@ schools_submitting_sqids <- fetch_sqid_lookup(
 #### SECTION 1 - date filters ####
 message("Setting dates")
 date_stamp <- lubridate::stamp_date("20 March 2025")
-start_date <- as.Date("2024-09-09")
-end_date <- as.Date("2025-01-24")
+start_date <- as.Date("2025-09-08")
+end_date <- as.Date("2026-04-03")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -197,6 +197,7 @@ attendance_data <- read.csv("data/attendance_data_dashboard.csv")
 attendance_data$attendance_date <- as.Date(attendance_data$attendance_date)
 attendance_data$week_commencing <- as.Date(attendance_data$week_commencing)
 
+attendance_data <- tibble::as_tibble(attendance_data)
 message(paste("Finished processing steps, ", Sys.time()))
 
 EES_daily_data <- create_EES_daily_data(attendance_data)
@@ -209,7 +210,7 @@ geog_lookup <- attendance_data %>%
   arrange(region_name, la_name) %>%
   mutate(
     la_name = case_when(
-      geographic_level == "Regioinal" ~ "All",
+      geographic_level == "Regional" ~ "All",
       geographic_level != "Regional" ~ la_name
     )
   )
