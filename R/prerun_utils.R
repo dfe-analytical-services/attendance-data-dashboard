@@ -2023,10 +2023,10 @@ create_EES_daily_data <- function(attendance_data) {
           auth_part_time_perc,
           auth_other_perc
         ),
-        ~ ifelse(
+        ~ replace(
+          .x,
           geographic_level == "Local authority" & num_schools == 1,
-          "c",
-          .
+          NA
         )
       )
     )
