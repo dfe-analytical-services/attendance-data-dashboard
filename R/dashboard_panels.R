@@ -358,7 +358,7 @@ dashboard_panel <- function() {
               fluidRow(
                 column(
                   width = 9,
-                  girafeOutput("absence_reasons_timeseries")
+                  plotOutput("absence_reasons_timeseries")
                 ),
                 column(
                   width = 3,

@@ -2135,45 +2135,6 @@
         "RemoteSha": "0.2.0"
       }
     },
-    "ggiraph": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Type": "Package",
-        "Package": "ggiraph",
-        "Title": "Make 'ggplot2' Graphics Interactive",
-        "Version": "0.9.6",
-        "Authors@R": "c(\n    person(\"David\", \"Gohel\", , \"david.gohel@ardata.fr\", role = c(\"aut\", \"cre\")),\n    person(\"Panagiotis\", \"Skintzos\", , \"sigmapi@posteo.net\", role = \"aut\"),\n    person(\"Mike\", \"Bostock\", role = \"cph\",\n           comment = \"d3.js\"),\n    person(\"Speros\", \"Kokenes\", role = \"cph\",\n           comment = \"d3-lasso\"),\n    person(\"Eric\", \"Shull\", role = \"cph\",\n           comment = \"saveSvgAsPng js library\"),\n    person(\"Lee\", \"Thomason\", role = \"cph\",\n           comment = \"TinyXML2\"),\n    person(\"Vladimir\", \"Agafonkin\", role = \"cph\",\n           comment = \"Flatbush\"),\n    person(\"Eric\", \"Book\", role = \"ctb\",\n           comment = \"hline and vline geoms\")\n  )",
-        "Description": "Create interactive 'ggplot2' graphics using 'htmlwidgets'.",
-        "License": "GPL-3",
-        "URL": "https://davidgohel.github.io/ggiraph/",
-        "BugReports": "https://github.com/davidgohel/ggiraph/issues",
-        "Imports": "cli, dplyr, gdtools (>= 0.5.0), ggplot2 (>= 4.0.0), grid,\nhtmltools, htmlwidgets (>= 1.5), MASS, purrr, Rcpp (>= 1.1.0),\nrlang, S7 (>= 0.2.0), stats, systemfonts (>= 1.3.1), vctrs",
-        "Suggests": "ggbeeswarm, ggrepel (>= 0.9.1), hexbin, knitr, maps,\nquantreg, rmarkdown, sf (>= 1.0), shiny, tinytest, xml2 (>=\n1.0)",
-        "LinkingTo": "Rcpp, systemfonts",
-        "VignetteBuilder": "knitr",
-        "Copyright": "See file COPYRIGHTS.",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.3",
-        "SystemRequirements": "libpng",
-        "Collate": "'RcppExports.R' 'ipar.R' 'utils_ggplot2_performance.R'\n'utils_ggplot2.R' 'utils.R' 'annotate_interactive.R'\n'annotation_raster_interactive.R' 'utils_css.R' 'fonts.R'\n'girafe_options.R' 'default.R' 'dsvg.R' 'dsvg_view.R'\n'element_interactive.R' 'facet_interactive.R'\n'geom_abline_interactive.R' 'geom_path_interactive.R'\n'geom_polygon_interactive.R' 'geom_rect_interactive.R'\n'geom_bar_interactive.R' 'geom_bin_2d_interactive.R'\n'geom_boxplot_interactive.R' 'geom_col_interactive.R'\n'geom_contour_interactive.R' 'geom_count_interactive.R'\n'geom_crossbar_interactive.R' 'geom_curve_interactive.R'\n'geom_density_2d_interactive.R' 'geom_density_interactive.R'\n'geom_dotplot_interactive.R' 'geom_errorbar_interactive.R'\n'geom_errorbarh_interactive.R' 'geom_freqpoly_interactive.R'\n'geom_hex_interactive.R' 'geom_histogram_interactive.R'\n'geom_hline_interactive.R' 'geom_jitter_interactive.R'\n'geom_label_interactive.R' 'geom_linerange_interactive.R'\n'geom_map_interactive.R' 'geom_point_interactive.R'\n'geom_pointrange_interactive.R' 'geom_quantile_interactive.R'\n'geom_quasirandom_interactive.R' 'geom_raster_interactive.R'\n'geom_ribbon_interactive.R' 'geom_segment_interactive.R'\n'geom_sf_interactive.R' 'geom_smooth_interactive.R'\n'geom_spoke_interactive.R' 'geom_text_interactive.R'\n'geom_text_repel_interactive.R' 'geom_tile_interactive.R'\n'geom_violin_interactive.R' 'geom_vline_interactive.R'\n'ggiraph.R' 'girafe.R' 'girafe_class.R' 'grob_interactive.R'\n'guide_bins_interactive.R' 'guide_colourbar_interactive.R'\n'guide_coloursteps_interactive.R' 'guide_interactive.R'\n'guide_legend_interactive.R' 'interactive_circle_grob.R'\n'interactive_curve_grob.R' 'interactive_path_grob.R'\n'interactive_points_grob.R' 'interactive_polygon_grob.R'\n'interactive_polyline_grob.R' 'interactive_raster_grob.R'\n'interactive_rect_grob.R' 'interactive_roundrect_grob.R'\n'interactive_segments_grob.R' 'interactive_text_grob.R'\n'labeller_interactive.R' 'layer_interactive.R'\n'scale_alpha_interactive.R' 'scale_brewer_interactive.R'\n'scale_colour_interactive.R' 'scale_gradient_interactive.R'\n'scale_interactive.R' 'scale_linetype_interactive.R'\n'scale_manual_interactive.R' 'scale_shape_interactive.R'\n'scale_size_interactive.R' 'scale_steps_interactive.R'\n'scale_viridis_interactive.R' 'tracers.R' 'utils_data.r'",
-        "NeedsCompilation": "yes",
-        "Packaged": "2026-02-20 10:33:18 UTC; davidgohel",
-        "Author": "David Gohel [aut, cre],\n  Panagiotis Skintzos [aut],\n  Mike Bostock [cph] (d3.js),\n  Speros Kokenes [cph] (d3-lasso),\n  Eric Shull [cph] (saveSvgAsPng js library),\n  Lee Thomason [cph] (TinyXML2),\n  Vladimir Agafonkin [cph] (Flatbush),\n  Eric Book [ctb] (hline and vline geoms)",
-        "Maintainer": "David Gohel <david.gohel@ardata.fr>",
-        "Repository": "CRAN",
-        "Date/Publication": "2026-02-21 10:50:02 UTC",
-        "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-19 03:13:45 UTC; windows",
-        "Archs": "x64",
-        "RemoteType": "standard",
-        "RemoteRef": "ggiraph",
-        "RemotePkgRef": "ggiraph",
-        "RemoteRepos": "https://cran.rstudio.com",
-        "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "x86_64-w64-mingw32",
-        "RemoteSha": "0.9.6"
-      }
-    },
     "ggplot2": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -5875,7 +5836,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "b318190ddc6110b4957ed54b2fef899d"
+      "checksum": "9f63a91ea017935226675338fd520f32"
     },
     "azure-pipelines.yml": {
       "checksum": "161e6e3c4a8af841144c1f338c7049d8"
@@ -5932,7 +5893,7 @@
       "checksum": "12ec8a8981de38a0c0e149b9e67ae51c"
     },
     "global.R": {
-      "checksum": "087d11726cff8a571b965514b9c05f2a"
+      "checksum": "8eb1f12282a4fb6e0ce07da885f15dcb"
     },
     "google-analytics.html": {
       "checksum": "c6848bc54d17ba53262714266256e5c2"
@@ -5947,7 +5908,7 @@
       "checksum": "33bce00050768810c97392bb0bb418da"
     },
     "R/dashboard_panels.R": {
-      "checksum": "4bbabf9f41ee65b5246135a2ff96372f"
+      "checksum": "072ee0b02f7ecf5ef3adb90806a3f934"
     },
     "R/fetch_data.R": {
       "checksum": "447fe5389596bad41e911b025df69045"
@@ -5956,7 +5917,7 @@
       "checksum": "4816dd071ef6e621cf90cadc4dc94ba1"
     },
     "R/headline_panel.R": {
-      "checksum": "f098dc97ebc6a318a73e4c3cac0f4b96"
+      "checksum": "defcc3c29df9dc578a7dfe1ce27d6a9f"
     },
     "R/line_formatters.R": {
       "checksum": "a6f6eeece707c39c7483e0ab05746572"
@@ -5992,10 +5953,10 @@
       "checksum": "83120f3d4bfdc3bd81493340f50b06d6"
     },
     "renv.lock": {
-      "checksum": "467013361a962ff76f970bd6ea6cb0f7"
+      "checksum": "567fce459f831631b7ee971c51ebf37a"
     },
     "server.R": {
-      "checksum": "0701dcb0448ba1a28562491b5c13fcdf"
+      "checksum": "203139542fe5dfebd9b05cc7e98ab337"
     },
     "tests/testthat.R": {
       "checksum": "12e9b09de5275bdc13bde6ae5a82f8b1"

@@ -8,11 +8,10 @@ headline_absence_ggplot <- function(reasons, scope) {
     date_breaks <- "1 day"
   } else {
     plot_data <- reasons |>
-      filter(
-        time_frame == "Week"
-      )
+      filter(time_frame == "Week")
     date_breaks <- "1 month"
   }
+
   plot_data <- plot_data |>
     filter(
       attendance_reason %in%
@@ -27,8 +26,9 @@ headline_absence_ggplot <- function(reasons, scope) {
         attendance_reason == "All unauthorised" ~ "Unauthorised absence rate"
       )
     )
-  dates <- plot_data |>
-    pull(reference_date)
+
+  dates <- plot_data |> pull(reference_date)
+
   ggplot(
     plot_data,
     aes(
@@ -37,22 +37,11 @@ headline_absence_ggplot <- function(reasons, scope) {
       colour = attendance_type
     )
   ) +
-    geom_point_interactive(
-      aes(
-        tooltip = paste0(
-          date_stamp(lubridate::ymd(reference_date)),
-          "\n",
-          attendance_type,
-          ": ",
-          session_percent,
-          "%"
-        )
-      )
-    ) +
-    geom_line_interactive() +
+    geom_point() +
+    geom_line() +
     scale_y_continuous(
       limits = c(0, NA),
-      expand = expansion(mult = c(0, 0.2)), # This adds 20% of scale as white space
+      expand = expansion(mult = c(0, 0.2))
     ) +
     scale_x_date(date_breaks = date_breaks, date_labels = "%d %b") +
     afcharts::theme_af() +
@@ -60,10 +49,7 @@ headline_absence_ggplot <- function(reasons, scope) {
       values = afcharts::af_colour_palettes[["main6"]] |> unname()
     ) +
     labs(
-      x = year(dates) |>
-        unique() |>
-        sort() |>
-        paste(collapse = "/"),
+      x = year(dates) |> unique() |> sort() |> paste(collapse = "/"),
       y = "%",
       colour = NULL
     ) +
@@ -84,11 +70,10 @@ reasons_ggplot <- function(reasons, scope) {
     date_breaks <- "1 day"
   } else {
     plot_data <- reasons |>
-      filter(
-        time_frame == "Week"
-      )
+      filter(time_frame == "Week")
     date_breaks <- "1 month"
   }
+
   plot_data <- plot_data |>
     filter(
       attendance_reason %in%
@@ -101,12 +86,10 @@ reasons_ggplot <- function(reasons, scope) {
         )
     ) |>
     arrange(attendance_type, reference_date) |>
-    mutate(
-      session_percent = as.numeric(session_percent)
-    )
+    mutate(session_percent = as.numeric(session_percent))
 
-  dates <- plot_data |>
-    pull(reference_date)
+  dates <- plot_data |> pull(reference_date)
+
   ggplot(
     plot_data,
     aes(
@@ -115,22 +98,11 @@ reasons_ggplot <- function(reasons, scope) {
       colour = attendance_reason
     )
   ) +
-    geom_point_interactive(
-      aes(
-        tooltip = paste0(
-          date_stamp(lubridate::ymd(reference_date)),
-          "\n",
-          attendance_type,
-          ": ",
-          session_percent,
-          "%"
-        )
-      )
-    ) +
-    geom_line_interactive() +
+    geom_point() +
+    geom_line() +
     scale_y_continuous(
       limits = c(0, NA),
-      expand = expansion(mult = c(0, 0.2)), # This adds 20% of scale as white space
+      expand = expansion(mult = c(0, 0.2))
     ) +
     scale_x_date(date_breaks = date_breaks, date_labels = "%d %b") +
     afcharts::theme_af() +
@@ -140,13 +112,13 @@ reasons_ggplot <- function(reasons, scope) {
         magrittr::extract(c(1, 2, 3, 4, 6))
     ) +
     labs(
-      x = year(dates) |>
-        unique() |>
-        sort() |>
-        paste(collapse = "/"),
+      x = year(dates) |> unique() |> sort() |> paste(collapse = "/"),
       y = "%",
       colour = NULL
     ) +
-    theme(legend.position = "bottom", text = element_text(family = dfe_font)) +
+    theme(
+      legend.position = "bottom",
+      text = element_text(family = dfe_font)
+    ) +
     guides(color = guide_legend(nrow = 2, byrow = TRUE))
 }

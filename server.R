@@ -830,27 +830,24 @@ server <- function(input, output, session) {
     }
   })
 
-  output$headline_absence_chart <- ggiraph::renderGirafe({
-    ggiraph::girafe(
-      ggobj = headline_absence_ggplot(
-        reasons_data() |>
-          filter(geographic_level == input$geography_choice),
-        input$ts_choice
-      )
+
+  output$headline_absence_chart <- renderPlot({
+    headline_absence_ggplot(
+      reasons_data() |>
+        filter(geographic_level == input$geography_choice),
+      input$ts_choice
     )
   })
 
-  output$absence_reasons_timeseries <- ggiraph::renderGirafe({
-    ggiraph::girafe(
-      ggobj = reasons_ggplot(
-        reasons_data() |>
-          filter(geographic_level == input$geography_choice),
-        input$ts_choice
-      ),
-      height_svg = 5.6,
-      width_svg = 9
+
+  output$absence_reasons_timeseries <- renderPlot({
+    reasons_ggplot(
+      reasons_data() |>
+        filter(geographic_level == input$geography_choice),
+      input$ts_choice
     )
   })
+
 
   # Reasons for absence - ytd chart
 
