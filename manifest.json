@@ -2881,31 +2881,26 @@
       "Repository": "https://cran.rstudio.com",
       "description": {
         "Package": "lazyeval",
-        "Version": "0.2.2",
+        "Version": "0.2.3",
         "Title": "Lazy (Non-Standard) Evaluation",
         "Description": "An alternative approach to non-standard evaluation using\n    formulas. Provides a full implementation of LISP style 'quasiquotation',\n    making it easier to generate code with other code.",
         "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", ,\"hadley@rstudio.com\", c(\"aut\", \"cre\")),\n    person(\"RStudio\", role = \"cph\")\n    )",
         "License": "GPL-3",
-        "LazyData": "true",
         "Depends": "R (>= 3.1.0)",
+        "Imports": "rlang",
         "Suggests": "knitr, rmarkdown (>= 0.2.65), testthat, covr",
         "VignetteBuilder": "knitr",
-        "RoxygenNote": "6.1.1",
+        "RoxygenNote": "7.3.3",
+        "Config/build/compilation-database": "true",
         "NeedsCompilation": "yes",
-        "Packaged": "2019-03-15 14:18:01 UTC; lionel",
+        "Packaged": "2026-04-03 09:37:04 UTC; lionel",
         "Author": "Hadley Wickham [aut, cre],\n  RStudio [cph]",
         "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2019-03-15 17:50:07 UTC",
-        "Built": "R 4.5.0; x86_64-w64-mingw32; 2025-06-16 00:32:24 UTC; windows",
-        "Archs": "x64",
-        "RemoteType": "standard",
-        "RemotePkgRef": "lazyeval",
-        "RemoteRef": "lazyeval",
-        "RemoteRepos": "http://cran.rstudio.com",
-        "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "x86_64-w64-mingw32",
-        "RemoteSha": "0.2.2"
+        "Repository": "RSPM",
+        "Date/Publication": "2026-04-04 05:10:53 UTC",
+        "Encoding": "UTF-8",
+        "Built": "R 4.5.0; x86_64-w64-mingw32; 2026-04-05 04:35:51 UTC; windows",
+        "Archs": "x64"
       }
     },
     "leaflet": {
@@ -5812,7 +5807,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "e48ff12c1e3a01bc36f292fe9b5c317f"
+      "checksum": "15b71f97c6eac8289f73442ace22aaa0"
     },
     "azure-pipelines.yml": {
       "checksum": "161e6e3c4a8af841144c1f338c7049d8"
@@ -5929,7 +5924,7 @@
       "checksum": "83120f3d4bfdc3bd81493340f50b06d6"
     },
     "renv.lock": {
-      "checksum": "9b7c76c1d76ae18f97a96ed7e7528ea5"
+      "checksum": "3cda47ab3a63711ea633106c81cd11a5"
     },
     "server.R": {
       "checksum": "b85f6392e0568d61d03a2eb0fcda54ae"
