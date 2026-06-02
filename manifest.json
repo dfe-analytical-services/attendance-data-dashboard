@@ -428,7 +428,7 @@
       "description": {
         "Package": "S7",
         "Title": "An Object Oriented System Meant to Become a Successor to S3 and\nS4",
-        "Version": "0.2.1",
+        "Version": "0.2.2",
         "Authors@R": "c(\n    person(\"Object-Oriented Programming Working Group\", role = \"cph\"),\n    person(\"Davis\", \"Vaughan\", role = \"aut\"),\n    person(\"Jim\", \"Hester\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-2739-7082\")),\n    person(\"Tomasz\", \"Kalinowski\", role = \"aut\"),\n    person(\"Will\", \"Landau\", role = \"aut\"),\n    person(\"Michael\", \"Lawrence\", role = \"aut\"),\n    person(\"Martin\", \"Maechler\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-8685-9910\")),\n    person(\"Luke\", \"Tierney\", role = \"aut\"),\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0003-4757-117X\"))\n  )",
         "Description": "A new object oriented programming system designed to be a\n    successor to S3 and S4. It includes formal class, generic, and method\n    specification, and a limited form of multiple dispatch. It has been\n    designed and implemented collaboratively by the R Consortium\n    Object-Oriented Programming Working Group, which includes\n    representatives from R-Core, 'Bioconductor', 'Posit'/'tidyverse', and\n    the wider R community.",
         "License": "MIT + file LICENSE",
@@ -446,20 +446,13 @@
         "Encoding": "UTF-8",
         "RoxygenNote": "7.3.3",
         "NeedsCompilation": "yes",
-        "Packaged": "2025-11-14 13:45:25 UTC; hadleywickham",
+        "Packaged": "2026-04-20 21:37:20 UTC; hadleywickham",
         "Author": "Object-Oriented Programming Working Group [cph],\n  Davis Vaughan [aut],\n  Jim Hester [aut] (ORCID: <https://orcid.org/0000-0002-2739-7082>),\n  Tomasz Kalinowski [aut],\n  Will Landau [aut],\n  Michael Lawrence [aut],\n  Martin Maechler [aut] (ORCID: <https://orcid.org/0000-0002-8685-9910>),\n  Luke Tierney [aut],\n  Hadley Wickham [aut, cre] (ORCID:\n    <https://orcid.org/0000-0003-4757-117X>)",
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "CRAN",
-        "Date/Publication": "2025-11-14 19:50:02 UTC",
-        "Built": "R 4.5.0; x86_64-w64-mingw32; 2026-05-14 10:37:36 UTC; windows",
-        "Archs": "x64",
-        "RemoteType": "standard",
-        "RemoteRef": "S7",
-        "RemotePkgRef": "S7",
-        "RemoteRepos": "https://cran.rstudio.com",
-        "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "source",
-        "RemoteSha": "0.2.1"
+        "Date/Publication": "2026-04-22 11:00:10 UTC",
+        "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 16:26:34 UTC; windows",
+        "Archs": "x64"
       }
     },
     "afcharts": {
@@ -4083,7 +4076,7 @@
       "Repository": "https://cran.rstudio.com",
       "description": {
         "Package": "rlang",
-        "Version": "1.1.7",
+        "Version": "1.2.0",
         "Title": "Functions for Base Types and Core R and 'Tidyverse' Features",
         "Description": "A toolbox for working with base types, core R features\n  like the condition system, and core 'Tidyverse' features like tidy\n  evaluation.",
         "Authors@R": "c(\n    person(\"Lionel\", \"Henry\", ,\"lionel@posit.co\", c(\"aut\", \"cre\")),\n    person(\"Hadley\", \"Wickham\", ,\"hadley@posit.co\", \"aut\"),\n    person(given = \"mikefc\",\n           email = \"mikefc@coolbutuseless.com\",\n           role = \"cph\",\n           comment = \"Hash implementation based on Mike's xxhashlite\"),\n    person(given = \"Yann\",\n           family = \"Collet\",\n           role = \"cph\",\n           comment = \"Author of the embedded xxHash library\"),\n    person(given = \"Posit, PBC\", role = c(\"cph\", \"fnd\"))\n    )",
@@ -4092,7 +4085,7 @@
         "Biarch": "true",
         "Depends": "R (>= 4.0.0)",
         "Imports": "utils",
-        "Suggests": "cli (>= 3.1.0), covr, crayon, desc, fs, glue, knitr,\nmagrittr, methods, pillar, pkgload, rmarkdown, stats, testthat\n(>= 3.2.0), tibble, usethis, vctrs (>= 0.2.3), withr",
+        "Suggests": "cli (>= 3.1.0), covr, crayon, desc, fs, glue, knitr,\nmagrittr, methods, pillar, pkgload, rmarkdown, stats, testthat\n(>= 3.3.2), tibble, usethis, vctrs (>= 0.2.3), withr",
         "Enhances": "winch",
         "Encoding": "UTF-8",
         "RoxygenNote": "7.3.3",
@@ -4102,20 +4095,18 @@
         "Config/testthat/edition": "3",
         "Config/Needs/website": "dplyr, tidyverse/tidytemplate",
         "NeedsCompilation": "yes",
-        "Packaged": "2026-01-08 10:35:58 UTC; lionel",
+        "Packaged": "2026-04-02 12:23:10 UTC; lionel",
         "Author": "Lionel Henry [aut, cre],\n  Hadley Wickham [aut],\n  mikefc [cph] (Hash implementation based on Mike's xxhashlite),\n  Yann Collet [cph] (Author of the embedded xxHash library),\n  Posit, PBC [cph, fnd]",
         "Maintainer": "Lionel Henry <lionel@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2026-01-09 12:10:02 UTC",
-        "Built": "R 4.5.0; x86_64-w64-mingw32; 2026-05-14 10:37:41 UTC; windows",
+        "Repository": "RSPM",
+        "Date/Publication": "2026-04-06 10:40:02 UTC",
+        "Built": "R 4.5.0; x86_64-w64-mingw32; 2026-04-07 04:42:46 UTC; windows",
         "Archs": "x64",
         "RemoteType": "standard",
-        "RemoteRef": "rlang",
         "RemotePkgRef": "rlang",
+        "RemoteRef": "rlang",
         "RemoteRepos": "https://cran.rstudio.com",
-        "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "source",
-        "RemoteSha": "1.1.7"
+        "RemoteSha": "1.2.0"
       }
     },
     "rmarkdown": {
@@ -5386,7 +5377,7 @@
       "description": {
         "Package": "vctrs",
         "Title": "Vector Helpers",
-        "Version": "0.7.1",
+        "Version": "0.7.3",
         "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\"),\n    person(\"Lionel\", \"Henry\", , \"lionel@posit.co\", role = \"aut\"),\n    person(\"Davis\", \"Vaughan\", , \"davis@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"data.table team\", role = \"cph\",\n           comment = \"Radix sort based on data.table's forder() and their contribution to R's order()\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
         "Description": "Defines new notions of prototype and size that are used to\n    provide tools for consistent and well-founded type-coercion and\n    size-recycling, and are in turn connected to ideas of type- and\n    size-stability useful for analysing function interfaces.",
         "License": "MIT + file LICENSE",
@@ -5401,23 +5392,22 @@
         "Config/testthat/edition": "3",
         "Config/testthat/parallel": "true",
         "Encoding": "UTF-8",
+        "KeepSource": "true",
         "Language": "en-GB",
         "RoxygenNote": "7.3.3",
         "NeedsCompilation": "yes",
-        "Packaged": "2026-01-22 13:56:47 UTC; davis",
+        "Packaged": "2026-04-10 14:27:17 UTC; davis",
         "Author": "Hadley Wickham [aut],\n  Lionel Henry [aut],\n  Davis Vaughan [aut, cre],\n  data.table team [cph] (Radix sort based on data.table's forder() and\n    their contribution to R's order()),\n  Posit Software, PBC [cph, fnd]",
         "Maintainer": "Davis Vaughan <davis@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2026-01-23 18:50:02 UTC",
-        "Built": "R 4.5.0; x86_64-w64-mingw32; 2026-05-14 10:40:29 UTC; windows",
+        "Repository": "RSPM",
+        "Date/Publication": "2026-04-11 06:20:03 UTC",
+        "Built": "R 4.5.0; x86_64-w64-mingw32; 2026-04-12 04:35:25 UTC; windows",
         "Archs": "x64",
         "RemoteType": "standard",
-        "RemoteRef": "vctrs",
         "RemotePkgRef": "vctrs",
+        "RemoteRef": "vctrs",
         "RemoteRepos": "https://cran.rstudio.com",
-        "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "source",
-        "RemoteSha": "0.7.1"
+        "RemoteSha": "0.7.3"
       }
     },
     "viridisLite": {
@@ -5836,7 +5826,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "e3a3a4979aee5f60810f94f6517f810c"
+      "checksum": "63029457d14976abb02e624150656680"
     },
     "azure-pipelines.yml": {
       "checksum": "161e6e3c4a8af841144c1f338c7049d8"
@@ -5953,7 +5943,7 @@
       "checksum": "83120f3d4bfdc3bd81493340f50b06d6"
     },
     "renv.lock": {
-      "checksum": "8824cbae75fd7ea6f5a7e4550ed8ecb8"
+      "checksum": "13aa7951b96dca9316a90f917f164522"
     },
     "server.R": {
       "checksum": "b85f6392e0568d61d03a2eb0fcda54ae"
