@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+rsconnect
+data/sql_export*
+data/export*
+data/enrolment*

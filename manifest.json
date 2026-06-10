@@ -6005,11 +6005,8 @@
     ".hooks/pre-commit.R": {
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
-    ".RData": {
-      "checksum": "98bec133f84247ebc515bb0950eee5f6"
-    },
     ".Rprofile": {
-      "checksum": "33b1d402a5037d6eb77708082628e7e4"
+      "checksum": "c128ef588d9277125f77d840722c87de"
     },
     "azure-pipelines.yml": {
       "checksum": "161e6e3c4a8af841144c1f338c7049d8"
