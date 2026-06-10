@@ -14,8 +14,8 @@ print(Sys.info())
 source("renv/activate.R")
 
 # Install commit-hooks locally
-if (file.exists(".git")) {
-  statusWriteCommit <- file.copy(".hooks/pre-commit.R", ".git/hooks/pre-commit", overwrite = TRUE)
-}
+#if (file.exists(".git")) {
+#  statusWriteCommit <- file.copy(".hooks/pre-commit.R", ".git/hooks/pre-commit", overwrite = TRUE)
+#}
 
 message("End of .Rprofile")

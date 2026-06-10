@@ -41,7 +41,7 @@ ui <- function(input, output, session) {
     shinyjs::useShinyjs(),
 
     # Setting custom disconnect message --------------------------------------------------------------------------------
-
+    shinyGovstyle::full_width_overrides(),
     dfeshiny::custom_disconnect_message(
       dashboard_title = site_title,
       links = site_primary,
@@ -57,13 +57,6 @@ ui <- function(input, output, session) {
       name = site_title
     ),
     tags$head(includeHTML(("google-analytics.html"))),
-    tags$head(
-      tags$link(
-        rel = "stylesheet",
-        type = "text/css",
-        href = "dfe_shiny_gov_style.css"
-      )
-    ),
     dfeshiny::header(
       header = site_title
     ),

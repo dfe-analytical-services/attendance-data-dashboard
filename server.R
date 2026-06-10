@@ -1399,7 +1399,7 @@ server <- function(input, output, session) {
   )
 
   output$absence_auth_reasons_reactable <- renderReactable({
-    dfeshiny::dfe_reactable(
+    govReactable(
       reasons_data() |>
         filter(
           geographic_level == input$geography_choice,
@@ -1457,13 +1457,13 @@ server <- function(input, output, session) {
         names_from = attendance_reason,
         values_from = session_percent
       )
-    dfeshiny::dfe_reactable(
+    govReactable(
       unauth_data
     )
   })
 
   output$absence_reasons_la_reactable <- renderReactable({
-    dfe_reactable(
+    govReactable(
       la_data() |>
         select(-all_of(c("attendance_status", "attendance_type"))) |>
         mutate(session_percent = render_percents(session_percent)) |>
@@ -1506,7 +1506,7 @@ server <- function(input, output, session) {
   }
 
   output$notesTableReasons <- renderReactable({
-    dfe_reactable(notesTableReasons, defaultPageSize = 15)
+    govReactable(notesTableReasons, page_size = 15)
   })
 
   # Data download button ---------------------------------------------------------------------------------
