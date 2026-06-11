@@ -4,6 +4,7 @@ on:
     branches:
       - main
       - development
+      - 202\*LiveData
   pull_request:
     branches:
       - main
