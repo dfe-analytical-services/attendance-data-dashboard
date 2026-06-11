@@ -30,11 +30,14 @@ detect_chrome_path <- function() {
 # Get current username
 current_user <- Sys.getenv("USERNAME")
 
-# Conditional logic based on user
-if (identical(current_user, "FALI7")) {
+# Define list of local users
+local_users <- c("FALI7", "CHALL3", "JMORRIS6")
+
+# Conditional logic based on user membership
+if (current_user %in% local_users) {
   message("Local user detected")
   detect_chrome_path()
-
+  
   # Define run_tests_locally using manual ChromoteSession
   run_tests_locally <- function() {
     message("Running tests locally with manual ChromoteSession")
