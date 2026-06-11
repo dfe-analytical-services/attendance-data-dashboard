@@ -118,7 +118,12 @@ summer_end <- as.Date("2026-07-20")
 
 ##### THIS SECTION CONTROLS THE DATES PRESENTED IN THE LOCAL AUTHORITY DATA MAP
 # most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 4," to ",as.Date(end_date))
-most_recent_week_dates <- paste0("Latest week - ", as.Date(end_date) - 11, " to ", as.Date(end_date) - 7) # Commented this in to edit dates in LA table current selections heading, will need reverting back to above line
+most_recent_week_dates <- paste0(
+  "Latest week - ",
+  as.Date(end_date) - 11,
+  " to ",
+  as.Date(end_date) - 7
+) # Commented this in to edit dates in LA table current selections heading, will need reverting back to above line
 
 ytd_dates <- paste0(
   "Year to date - ",
@@ -270,9 +275,15 @@ expandable <- function(inputId, label, contents) {
 ## Custom rounding function ################################################
 
 roundFiveUp <- function(value, dp) {
-  if (!is.numeric(value) && !is.numeric(dp)) stop("both inputs must be numeric")
-  if (!is.numeric(value)) stop("the value to be rounded must be numeric")
-  if (!is.numeric(dp)) stop("the decimal places value must be numeric")
+  if (!is.numeric(value) && !is.numeric(dp)) {
+    stop("both inputs must be numeric")
+  }
+  if (!is.numeric(value)) {
+    stop("the value to be rounded must be numeric")
+  }
+  if (!is.numeric(dp)) {
+    stop("the decimal places value must be numeric")
+  }
 
   z <- abs(value) * 10^dp
   z <- z + 0.5 + sqrt(.Machine$double.eps)

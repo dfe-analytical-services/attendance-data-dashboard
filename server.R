@@ -2120,8 +2120,9 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-    # as.Date(attendance_date) + 17
-    as.Date(attendance_date) + 24
+      # as.Date(attendance_date) + 17
+      as.Date(attendance_date) +
+      24
     # as.Date(attendance_date) + 31
 
     paste0("Data was last updated on ", last_update_date, ".")
@@ -2155,8 +2156,9 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-    # as.Date(attendance_date) + 17
-    as.Date(attendance_date) + 24
+      # as.Date(attendance_date) + 17
+      as.Date(attendance_date) +
+      24
     # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
@@ -2187,8 +2189,9 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-    # as.Date(attendance_date) + 17
-    as.Date(attendance_date) + 24
+      # as.Date(attendance_date) + 17
+      as.Date(attendance_date) +
+      24
     # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
@@ -2198,7 +2201,13 @@ server <- function(input, output, session) {
     # as.Date(attendance_date) + 38
 
     # paste0("Data was last updated on 2025-05-01 and is next expected to be updated on 2025-05-15. The latest full week of data for this breakdown was the week commencing ", most_recent_fullweek_date, ".")
-    paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
+    paste0(
+      "Data was last updated on ",
+      last_update_date,
+      ". The latest full week of data was the week commencing ",
+      most_recent_fullweek_date,
+      "."
+    )
     # paste0("Data was last updated on ", last_update_date, ". The latest full week of data was the week commencing ", most_recent_fullweek_date, ".")
     # paste0("Data was last updated on 2026-03-05. The latest full week of data was the week commencing 2025-02-09.")
     # paste0(
@@ -2215,8 +2224,9 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-    # as.Date(attendance_date) + 17
-    as.Date(attendance_date) + 24
+      # as.Date(attendance_date) + 17
+      as.Date(attendance_date) +
+      24
     # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
