@@ -836,6 +836,11 @@ server <- function(input, output, session) {
         reasons_data() |>
           filter(geographic_level == input$geography_choice),
         input$ts_choice
+      ),
+      width_svg = NULL, # ✅ important
+      height_svg = 6,
+      options = list(
+        ggiraph::opts_sizing(rescale = TRUE)
       )
     )
   })
