@@ -837,10 +837,28 @@ server <- function(input, output, session) {
           filter(geographic_level == input$geography_choice),
         input$ts_choice
       ),
-      width_svg = NULL, # ✅ important
+      width_svg = 10,
       height_svg = 6,
       options = list(
-        ggiraph::opts_sizing(rescale = TRUE)
+        ggiraph::opts_sizing(rescale = TRUE),
+        ggiraph::opts_tooltip(
+          css = "
+      background-color:white;
+      color:#000;
+      padding:12px;
+      border-radius:6px;
+      border:1px solid #d0d0d0;
+      box-shadow:0 3px 10px rgba(0,0,0,0.15);
+      font-size:13px;
+      line-height:1.5;
+    "
+        ),
+        ggiraph::opts_hover(
+          css = "
+      stroke-width:3;
+      opacity:1;
+    "
+        )
       )
     )
   })

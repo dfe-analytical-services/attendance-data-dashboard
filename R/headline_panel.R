@@ -27,16 +27,14 @@ headline_panel <- function() {
 
         # ✅ CHART CARD (UNDERNEATH)
         bslib::card(
+          full_screen = TRUE,
           bslib::card_body(
+            style = "padding: 0;",
             uiOutput("headline_ts_chart_title"),
-            br(),
-            div(
-              style = "display:flex; justify-content:center;",
-              ggiraph::girafeOutput(
-                "headline_absence_chart",
-                width = "100%",
-                height = "450px"
-              )
+            ggiraph::girafeOutput(
+              "headline_absence_chart",
+              width = "100%",
+              height = "600px"
             )
           )
         )
