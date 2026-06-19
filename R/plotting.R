@@ -1,146 +1,124 @@
-headline_absence_ggplot <- function(reasons, scope) {
+headline_absence_plotly <- function(reasons, scope) {
+  # -------------------------
+  # Filter data
+  # -------------------------
   if (scope == "latestweeks") {
     plot_data <- reasons |>
-      filter(
+      dplyr::filter(
         time_frame != "Week",
         time_frame != "Year to date"
       )
-    date_breaks <- "1 day"
   } else {
     plot_data <- reasons |>
-      filter(time_frame == "Week")
-    date_breaks <- "1 month"
+      dplyr::filter(time_frame == "Week")
   }
 
+  # -------------------------
+  # Data prep
+  # -------------------------
   plot_data <- plot_data |>
-    filter(
+    dplyr::filter(
       attendance_reason %in%
         c("All authorised", "All unauthorised", "Overall absence")
     ) |>
-    arrange(attendance_reason, reference_date) |>
-    mutate(
-      session_percent = suppressWarnings(as.numeric(session_percent)),
-      attendance_reason = case_when(
+    dplyr::mutate(
+      reference_date = as.Date(reference_date),
+      week_commencing = lubridate::floor_date(
+        reference_date,
+        unit = "week",
+        week_start = 1
+      ),
+      session_percent = as.numeric(session_percent),
+      attendance_reason = dplyr::case_when(
         attendance_reason == "Overall absence" ~ "Overall absence rate",
         attendance_reason == "All authorised" ~ "Authorised absence rate",
         attendance_reason == "All unauthorised" ~ "Unauthorised absence rate"
-      ),
-      attendance_reason = factor(
-        attendance_reason,
-        levels = c(
-          "Overall absence rate",
-          "Authorised absence rate",
-          "Unauthorised absence rate"
-        )
       )
-    ) |>
-    group_by(reference_date) |>
-    mutate(
-      tooltip_all = paste0(
-        "<b>",
-        ifelse(
-          scope == "latestweeks",
-          date_stamp(reference_date),
-          paste0("Week commencing ", date_stamp(reference_date))
-        ),
-        "</b><br><br>",
-        paste0(
-          "<span style='color:",
-          case_when(
-            attendance_reason == "Overall absence rate" ~ "#12436D",
-            attendance_reason == "Authorised absence rate" ~ "#28A197",
-            attendance_reason == "Unauthorised absence rate" ~ "#F46A25"
-          ),
-          ";'>●</span> ",
-          attendance_reason,
-          ": ",
-          sprintf("%.2f%%", session_percent),
-          collapse = "<br>"
-        )
-      )
-    ) |>
-    ungroup()
-
-  # ✅ one row per date (for snapping)
-  hover_data <- plot_data |>
-    distinct(reference_date, tooltip_all)
-
-  # ✅ bounds for hover area
-  y_min <- 0
-  y_max <- max(plot_data$session_percent, na.rm = TRUE)
-
-  dates <- plot_data |> pull(reference_date)
-
-  ggplot(
-    plot_data,
-    aes(
-      x = reference_date,
-      y = session_percent,
-      colour = attendance_reason,
-      group = attendance_reason
     )
-  ) +
 
-    # ✅ FULL HEIGHT HOVER BAND (adaptive width for YTD + daily)
-    geom_rect_interactive(
-      data = hover_data,
-      inherit.aes = FALSE,
-      aes(
-        xmin = reference_date - ifelse(scope == "latestweeks", 0.5, 3),
-        xmax = reference_date + ifelse(scope == "latestweeks", 0.5, 3),
-        tooltip = tooltip_all,
-        data_id = reference_date
+  # -------------------------
+  # Colours
+  # -------------------------
+  colours <- c(
+    "Overall absence rate" = "#12436D",
+    "Authorised absence rate" = "#28A197",
+    "Unauthorised absence rate" = "#F46A25"
+  )
+
+  t <- list(
+    family = "arial",
+    size = 12,
+    color = "black"
+  )
+
+  # -------------------------
+  # Build plot
+  # -------------------------
+  p <- plotly::plot_ly()
+
+  for (reason in unique(plot_data$attendance_reason)) {
+    df <- plot_data |>
+      dplyr::filter(attendance_reason == reason)
+
+    x_var <- if (scope == "latestweeks") df$reference_date else df$week_commencing
+
+    p <- p |>
+      plotly::add_trace(
+        x = x_var,
+        y = df$session_percent,
+        type = "scatter",
+        mode = "lines+markers",
+        name = reason,
+
+        # ✅ bold numbers only
+        hovertemplate = paste0(
+          reason, ": <b>%{y:.2f}%</b><extra></extra>"
+        ),
+        line = list(
+          color = colours[reason],
+          width = ifelse(scope == "latestweeks", 2, 3)
+        ),
+        marker = list(
+          size = 6,
+          color = colours[reason]
+        )
+      )
+  }
+
+  # -------------------------
+  # Layout (MATCH TEMPLATE)
+  # -------------------------
+  p |>
+    plotly::layout(
+      hovermode = "x unified",
+      xaxis = list(
+        title = ifelse(scope == "latestweeks", "", "Week commencing"),
+        type = "date",
+
+        # ✅ TEMPLATE MATCH
+        tickmode = "linear",
+        tick0 = min(plot_data$week_commencing, na.rm = TRUE),
+        dtick = ifelse(scope == "latestweeks", 86400000, 14 * 86400000),
+        zeroline = FALSE
       ),
-      ymin = y_min,
-      ymax = y_max,
-      fill = "transparent",
-      alpha = 0
-    ) +
-
-    # ✅ Vertical guide line
-    geom_vline_interactive(
-      data = hover_data,
-      inherit.aes = FALSE,
-      aes(
-        xintercept = reference_date,
-        data_id = reference_date
+      yaxis = list(
+        title = "",
+        rangemode = "tozero",
+        tickformat = ".2f",
+        ticksuffix = "%"
       ),
-      colour = "#7A7A7A",
-      linewidth = 0.7,
-      linetype = "dashed",
-      alpha = 0
-    ) +
-
-    # ✅ Lines (slightly thicker for YTD)
-    geom_line_interactive(
-      linewidth = ifelse(scope == "latestweeks", 1, 1.3),
-      aes(data_id = reference_date)
-    ) +
-
-    # ✅ Points (visual only)
-    geom_point(size = 2.5) +
-    scale_y_continuous(
-      labels = scales::percent_format(scale = 1),
-      limits = c(0, NA),
-      expand = expansion(mult = c(0, 0.2))
-    ) +
-    scale_x_date(date_breaks = date_breaks, date_labels = "%d %b") +
-    afcharts::theme_af() +
-    scale_colour_manual(values = c(
-      "Overall absence rate" = "#12436D",
-      "Authorised absence rate" = "#28A197",
-      "Unauthorised absence rate" = "#F46A25"
-    )) +
-    labs(
-      x = year(dates) |> unique() |> sort() |> paste(collapse = "/"),
-      y = "%",
-      colour = NULL
-    ) +
-    theme(
-      legend.position = "bottom",
-      text = element_text(family = dfe_font)
-    ) +
-    guides(color = guide_legend(nrow = 3, byrow = TRUE))
+      legend = list(
+        orientation = "h",
+        yanchor = "top",
+        y = -0.5,
+        xanchor = "center",
+        x = 0.5,
+        font = list(size = 12)
+      ),
+      margin = list(t = 80),
+      font = t
+    ) |>
+    plotly::config(displayModeBar = FALSE)
 }
 
 reasons_ggplot <- function(reasons, scope) {

@@ -31,11 +31,15 @@ headline_panel <- function() {
           bslib::card_body(
             style = "padding: 0;",
             uiOutput("headline_ts_chart_title"),
-            ggiraph::girafeOutput(
+            plotly::plotlyOutput(
               "headline_absence_chart",
-              width = "100%",
               height = "600px"
             )
+            # ggiraph::girafeOutput(
+            #   "headline_absence_chart",
+            #   width = "100%",
+            #   height = "600px"
+            # )
           )
         )
       )

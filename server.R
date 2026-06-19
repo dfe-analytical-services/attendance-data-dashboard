@@ -233,6 +233,7 @@ server <- function(input, output, session) {
     key
   })
 
+
   reasons_data <- reactive({
     reasons <- eesyapi::query_dataset(
       reasons_dataset_id,
@@ -830,36 +831,44 @@ server <- function(input, output, session) {
     }
   })
 
-  output$headline_absence_chart <- ggiraph::renderGirafe({
-    ggiraph::girafe(
-      ggobj = headline_absence_ggplot(
-        reasons_data() |>
-          filter(geographic_level == input$geography_choice),
-        input$ts_choice
-      ),
-      width_svg = 10,
-      height_svg = 6,
-      options = list(
-        ggiraph::opts_sizing(rescale = TRUE),
-        ggiraph::opts_tooltip(
-          css = "
-      background-color:white;
-      color:#000;
-      padding:12px;
-      border-radius:6px;
-      border:1px solid #d0d0d0;
-      box-shadow:0 3px 10px rgba(0,0,0,0.15);
-      font-size:13px;
-      line-height:1.5;
-    "
-        ),
-        ggiraph::opts_hover(
-          css = "
-      stroke-width:3;
-      opacity:1;
-    "
-        )
-      )
+  # output$headline_absence_chart <- ggiraph::renderGirafe({
+  #   ggiraph::girafe(
+  #     ggobj = headline_absence_ggplot(
+  #       reasons_data() |>
+  #         filter(geographic_level == input$geography_choice),
+  #       input$ts_choice
+  #     ),
+  #     width_svg = 10,
+  #     height_svg = 6,
+  #     options = list(
+  #       ggiraph::opts_sizing(rescale = TRUE),
+  #       ggiraph::opts_tooltip(
+  #         css = "
+  #     background-color:white;
+  #     color:#000;
+  #     padding:12px;
+  #     border-radius:6px;
+  #     border:1px solid #d0d0d0;
+  #     box-shadow:0 3px 10px rgba(0,0,0,0.15);
+  #     font-size:13px;
+  #     line-height:1.5;
+  #   "
+  #       ),
+  #       ggiraph::opts_hover(
+  #         css = "
+  #     stroke-width:3;
+  #     opacity:1;
+  #   "
+  #       )
+  #     )
+  #   )
+  # })
+
+  output$headline_absence_chart <- plotly::renderPlotly({
+    headline_absence_plotly(
+      reasons_data() |>
+        dplyr::filter(geographic_level == input$geography_choice),
+      input$ts_choice
     )
   })
 
@@ -1121,24 +1130,25 @@ server <- function(input, output, session) {
     )
   })
 
-
   output$headline_bullet_attendance_rate <- renderUI({
     time_frame_text <- ifelse(
       input$ts_choice == "latestweeks",
       "in the latest week",
       "across the year to date"
     )
+
     time_frame_data_string <- ifelse(
       input$ts_choice == "latestweeks",
       "Week",
       "Year to date"
     )
-    # --------------------------------------------------------------------------
+
     lines <- reasons_data() |>
       filter(
         time_frame == time_frame_data_string,
         geographic_level == input$geography_choice
       )
+
     if (input$geography_choice == "Local authority") {
       comparator_level <- "Regional"
     } else if (input$geography_choice == "Regional") {
@@ -1154,6 +1164,7 @@ server <- function(input, output, session) {
           geographic_level == comparator_level
         )
     }
+
     tagList(
       tags$h4("Attendance and absence", time_frame_text),
       tags$p(
@@ -1164,56 +1175,18 @@ server <- function(input, output, session) {
         shiny::tags$li(
           headline_bullet(
             lines |>
-              dplyr::filter(
+              filter(
                 attendance_status == "Attendance",
                 attendance_type == "Overall attendance"
               ) |>
-              dplyr::pull(session_percent),
+              pull(session_percent),
             comparators |>
-              dplyr::filter(
+              filter(
                 attendance_status == "Attendance",
                 attendance_type == "Overall attendance"
               ) |>
-              dplyr::pull(session_percent),
+              pull(session_percent),
             "attending",
-            input$geography_choice,
-            input$la_choice,
-            input$region_choice
-          )
-        ),
-        shiny::tags$li(
-          headline_bullet(
-            lines |>
-              dplyr::filter(
-                attendance_status == "Absence",
-                attendance_type == "Overall absence"
-              ) |>
-              dplyr::pull(session_percent),
-            comparators |>
-              dplyr::filter(
-                attendance_status == "Absence",
-                attendance_type == "Overall absence"
-              ) |>
-              dplyr::pull(session_percent),
-            "absence",
-            input$geography_choice,
-            input$la_choice,
-            input$region_choice
-          )
-        ),
-        shiny::tags$li(
-          headline_bullet(
-            lines |>
-              dplyr::filter(
-                attendance_reason == "Illness (i)"
-              ) |>
-              dplyr::pull(session_percent),
-            comparators |>
-              dplyr::filter(
-                attendance_reason == "Illness (i)"
-              ) |>
-              dplyr::pull(session_percent),
-            "illness",
             input$geography_choice,
             input$la_choice,
             input$region_choice
