@@ -1751,7 +1751,7 @@
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [aut, cre], Yihui Xie [aut] (ORCID: <https://orcid.org/0000-0003-0645-5666>), Michael Lawrence [ctb], Thomas Kluyver [ctb], Jeroen Ooms [ctb], Barret Schloerke [ctb], Adam Ryczkowski [ctb], Hiroaki Yutani [ctb], Michel Lang [ctb], Karolis Koncevičius [ctb], Posit Software, PBC [cph, fnd]",
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
-      "Repository": "RSPM"
+      "Repository": "http://cran.rstudio.com"
     },
     "farver": {
       "Package": "farver",
@@ -4950,8 +4950,8 @@
       "Maintainer": "Cam Race <camrace8@gmail.com>",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteUsername": "dfe-analytical-services",
-      "RemoteRepo": "shinyGovstyle",
+      "RemoteUsername": "DfE-analytical-services",
+      "RemoteRepo": "shinygovstyle",
       "RemoteRef": "main",
       "RemoteSha": "3e5518175b06c3fe8a6df029d554b559d0aca276"
     },

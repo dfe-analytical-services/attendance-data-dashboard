@@ -50,8 +50,8 @@ homepage_panel <- function() {
                     tags$li(
                       "This tab includes data relating to persistent absence (pupils missing 10% or more sessions). ",
                       "To view these, select \"year to date\" in the drop-down menu. ",
-                      "Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not valid for short time periods. ",
-                      "Underlying data relating to the Autumn term and year to date is available in our Explore educations statistics publication: ",
+                      "Figures are not provided in the weekly or daily data because persistent absence is a measure over time and not available for short time periods. ",
+                      "Underlying data relating to the autumn term, spring term and year to date is available in our Explore educations statistics publication: ",
                       dfeshiny::external_link(
                         "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools",
                         "Pupil attendance in schools"
@@ -110,9 +110,9 @@ homepage_panel <- function() {
                     "They should be viewed as an early indicator for the more detailed but less regular ",
                     external_link(
                       "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england",
-                      "Official Statistics"
+                      "Accredited Official Statistics"
                     ),
-                    "on pupil absence (which will include school level breakdowns)."
+                    " on pupil absence (which will include school level breakdowns)."
                   ),
                   br(),
                   h3("Coverage"),
@@ -120,20 +120,16 @@ homepage_panel <- function() {
                   p(textOutput("school_count_proportion_homepage")),
                   p(
                     "Absence rates are provided broken down by state-funded primary, secondary and special schools. ",
-                    "At national and regional level, absence figures are also provided across all schools. ",
-                    "In recognition that response rates are not equal across school types and, therefore, ",
-                    "not representative of the total school population, the total absence figure for all schools ",
-                    "has been weighted based on the Spring 2024 school census. ",
-                    "Weighted total figures are not included at local authority level due to the low number of schools involved."
+                    "At national and regional level, absence figures are also provided across all schools."
                   ),
                   br(),
                   h3("Official statistics"),
                   p(
-                    "Data relating to pupil attendance, including pupil characteristics, is published at the link below:"
+                    "Data relating to pupil attendance is published at the link below:"
                   ),
                   external_link(
                     "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools",
-                    "Pupil attendance in schools - 2024/25 academic year"
+                    "Pupil attendance in schools - 2025/26 academic year"
                   ),
                   br(),
                   br(),
@@ -164,11 +160,11 @@ homepage_panel <- function() {
                   textOutput("homepage_update_dates"),
                   br(),
                   p(
-                    "Data prior to 09 September 2024 has not been included in the dashboard due to the impact of different start dates, inset days and phased returns. National level estimates covering the week commencing 02 September 2024 is available in the underlying data of the publication linked below: "
+                    "Data prior to 09 September 2024 has not been included in the dashboard due to the impact of different start dates, inset days and phased returns."
                   ),
                   external_link(
-                    "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2024-week-37",
-                    "Pupil attendance in schools - First publication of 2024/25 academic year"
+                    "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools/2025-week-37",
+                    "Pupil attendance in schools - First publication of 2025/26 academic year"
                   ),
                   br(),
                   br(),
@@ -179,12 +175,12 @@ homepage_panel <- function() {
                         "https://www.gov.uk/guidance/share-your-daily-school-attendance-data",
                         "share attendance data"
                       ),
-                      " with the DfE. If you are a school that is not already sharing your daily attendance data, you need to approve this in your Wonde portal. This will also give you, your local authority and your multi-academy trust (if applicable)",
+                      " with the DfE. If you are a school that is not already sharing your daily attendance data, you need to approve this in your Wonde portal. This will also give you, your local authority and your multi-academy trust (if applicable) ",
                       external_link(
                         "https://www.gov.uk/guidance/access-your-school-attendance-data",
                         "access to daily attendance reports"
                       ),
-                      "to help identify pupils needing attendance support earlier."
+                      " to help identify pupils needing attendance support earlier."
                     )
                   ),
                   br(),
@@ -358,7 +354,7 @@ dashboard_panel <- function() {
               fluidRow(
                 column(
                   width = 9,
-                  girafeOutput("absence_reasons_timeseries")
+                  plotlyOutput("absence_reasons_timeseries", height = "550px")
                 ),
                 column(
                   width = 3,

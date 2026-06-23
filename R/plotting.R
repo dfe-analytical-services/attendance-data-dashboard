@@ -121,79 +121,129 @@ headline_absence_plotly <- function(reasons, scope) {
     plotly::config(displayModeBar = FALSE)
 }
 
-reasons_ggplot <- function(reasons, scope) {
+reasons_plotly <- function(reasons, scope) {
+  # -------------------------
+  # Filter data
+  # -------------------------
   if (scope == "latestweeks") {
     plot_data <- reasons |>
-      filter(
+      dplyr::filter(
         time_frame != "Week",
         time_frame != "Year to date"
       )
-    date_breaks <- "1 day"
+    x_var_name <- "reference_date"
+    dtick_val <- 86400000
   } else {
     plot_data <- reasons |>
-      filter(
-        time_frame == "Week"
-      )
-    date_breaks <- "1 month"
+      dplyr::filter(time_frame == "Week")
+    x_var_name <- "week_commencing"
+    dtick_val <- 14 * 86400000
   }
-  plot_data <- plot_data |>
-    filter(
-      attendance_reason %in%
-        c(
-          "Illness (i)",
-          "Medical dental (m)",
-          "Temporary reduced timetable (c2)",
-          "Unauthorised holiday (g)",
-          "Other unauthorised (o)"
-        )
-    ) |>
-    arrange(attendance_type, reference_date) |>
-    mutate(
-      session_percent = as.numeric(session_percent)
-    )
 
-  dates <- plot_data |>
-    pull(reference_date)
-  ggplot(
-    plot_data,
-    aes(
-      x = reference_date,
-      y = session_percent,
-      colour = attendance_reason
-    )
-  ) +
-    geom_point_interactive(
-      aes(
-        tooltip = paste0(
-          date_stamp(lubridate::ymd(reference_date)),
-          "\n",
-          attendance_type,
-          ": ",
-          session_percent,
-          "%"
-        )
+  # -------------------------
+  # Data prep
+  # -------------------------
+  plot_data <- plot_data |>
+    dplyr::filter(
+      attendance_reason %in% c(
+        "Illness (i)",
+        "Medical dental (m)",
+        "Religious observance (r)",
+        "Unauthorised holiday (g)",
+        "Other unauthorised (o)"
       )
-    ) +
-    geom_line_interactive() +
-    scale_y_continuous(
-      limits = c(0, NA),
-      expand = expansion(mult = c(0, 0.2)), # This adds 20% of scale as white space
-    ) +
-    scale_x_date(date_breaks = date_breaks, date_labels = "%d %b") +
-    afcharts::theme_af() +
-    scale_colour_manual(
-      values = afcharts::af_colour_palettes[["main6"]] |>
-        unname() |>
-        magrittr::extract(c(1, 2, 3, 4, 6))
-    ) +
-    labs(
-      x = year(dates) |>
-        unique() |>
-        sort() |>
-        paste(collapse = "/"),
-      y = "%",
-      colour = NULL
-    ) +
-    theme(legend.position = "bottom", text = element_text(family = dfe_font)) +
-    guides(color = guide_legend(nrow = 2, byrow = TRUE))
+    ) |>
+    dplyr::mutate(
+      reference_date = as.Date(reference_date),
+      week_commencing = lubridate::floor_date(reference_date, "week", week_start = 1),
+      session_percent = as.numeric(session_percent),
+
+      # ✅ Clean labels
+      attendance_reason = dplyr::case_when(
+        attendance_reason == "Illness (i)" ~ "Illness",
+        attendance_reason == "Medical dental (m)" ~ "Medical appointments",
+        attendance_reason == "Religious observance (r)" ~ "Religious observance",
+        attendance_reason == "Unauthorised holiday (g)" ~ "Unauthorised holiday",
+        attendance_reason == "Other unauthorised (o)" ~ "Unauthorised other"
+      )
+    ) |>
+    dplyr::arrange(attendance_reason, reference_date)
+
+  # ✅ Prevent crash if no data
+  if (nrow(plot_data) == 0) {
+    return(plotly::plot_ly() |>
+      plotly::layout(title = "No data available"))
+  }
+
+  # -------------------------
+  # Colours
+  # -------------------------
+  colours <- afcharts::af_colour_palettes[["main6"]] |>
+    unname() |>
+    magrittr::extract(c(1, 2, 3, 4, 6))
+
+  names(colours) <- unique(plot_data$attendance_reason)
+
+  # -------------------------
+  # Build plot
+  # -------------------------
+  p <- plotly::plot_ly()
+
+  for (reason in unique(plot_data$attendance_reason)) {
+    df <- plot_data |>
+      dplyr::filter(attendance_reason == reason)
+
+    x_vals <- if (x_var_name == "reference_date") df$reference_date else df$week_commencing
+
+    p <- p |>
+      plotly::add_trace(
+        data = df,
+        x = x_vals,
+        y = df$session_percent,
+        type = "scatter",
+        mode = "lines+markers",
+        name = reason,
+
+        # ✅ FIXED HOVER (matches your screenshot)
+        hovertemplate = paste0(
+          reason, ": <b>%{y:.2f}%</b><extra></extra>"
+        ),
+        line = list(color = colours[reason], width = 2),
+        marker = list(color = colours[reason], size = 7)
+      )
+  }
+
+  # -------------------------
+  # Layout
+  # -------------------------
+  p |>
+    plotly::layout(
+      hovermode = "x unified",
+      xaxis = list(
+        title = "",
+        type = "date",
+        tickmode = "linear",
+        tick0 = min(plot_data[[x_var_name]], na.rm = TRUE),
+        dtick = dtick_val,
+        tickformat = "%d %b", # axis labels
+        hoverformat = "%b %d, %Y", # ✅ tooltip date (KEY FIX)
+        zeroline = FALSE
+      ),
+      yaxis = list(
+        title = "",
+        rangemode = "tozero",
+        tickformat = ".2f",
+        ticksuffix = "%"
+      ),
+      legend = list(
+        orientation = "h",
+        yanchor = "top",
+        y = -0.4,
+        xanchor = "center",
+        x = 0.5
+      ),
+      margin = list(t = 40),
+      font = list(family = "arial", size = 12, color = "black")
+    ) |>
+    plotly::config(displayModeBar = FALSE)
 }

@@ -1549,7 +1549,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2025-11-19 13:20:08 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 16:26:36 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "digest",
+        "RemoteRef": "digest",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "0.6.39"
       }
     },
     "dplyr": {
@@ -1714,7 +1719,12 @@
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "RSPM",
         "Date/Publication": "2025-08-27 16:40:02 UTC",
-        "Built": "R 4.5.0; ; 2025-12-02 12:37:15 UTC; windows"
+        "Built": "R 4.5.0; ; 2025-12-02 12:37:15 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "evaluate",
+        "RemoteRef": "evaluate",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "1.0.5"
       }
     },
     "farver": {
@@ -2416,7 +2426,12 @@
         "Maintainer": "Yihui Xie <xie@yihui.name>",
         "Repository": "CRAN",
         "Date/Publication": "2026-03-06 06:30:47 UTC",
-        "Built": "R 4.5.3; ; 2026-04-25 17:16:28 UTC; windows"
+        "Built": "R 4.5.3; ; 2026-04-25 17:16:28 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "highr",
+        "RemoteRef": "highr",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "0.12"
       }
     },
     "hms": {
@@ -2481,7 +2496,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2025-12-04 11:50:09 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 17:16:28 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "htmltools",
+        "RemoteRef": "htmltools",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "0.5.9"
       }
     },
     "htmlwidgets": {
@@ -2840,7 +2860,12 @@
         "Maintainer": "Yihui Xie <xie@yihui.name>",
         "Repository": "CRAN",
         "Date/Publication": "2025-12-20 14:30:02 UTC",
-        "Built": "R 4.5.3; ; 2026-04-25 17:41:24 UTC; windows"
+        "Built": "R 4.5.3; ; 2026-04-25 17:41:24 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "knitr",
+        "RemoteRef": "knitr",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "1.51"
       }
     },
     "labeling": {
@@ -3102,7 +3127,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2026-02-04 09:00:02 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 17:41:23 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "lubridate",
+        "RemoteRef": "lubridate",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "1.9.5"
       }
     },
     "magrittr": {
@@ -3893,7 +3923,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2026-01-17 08:40:02 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 16:26:35 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "rappdirs",
+        "RemoteRef": "rappdirs",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "0.3.4"
       }
     },
     "raster": {
@@ -4509,16 +4544,16 @@
         "RoxygenNote": "7.3.3",
         "Author": "Ross Wyatt [aut],\n  Cam Race [aut, cre],\n  Sarah Wong [aut],\n  Richard Bielby [ctb],\n  Charlotte Foster [ctb],\n  Jeni Martin [ctb],\n  Andrew Baker [ctb]",
         "Maintainer": "Cam Race <camrace8@gmail.com>",
-        "Built": "R 4.5.3; ; 2026-06-18 14:35:19 UTC; windows",
+        "Built": "R 4.5.3; ; 2026-06-23 08:55:29 UTC; windows",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
-        "RemoteUsername": "dfe-analytical-services",
-        "RemoteRepo": "shinyGovstyle",
+        "RemoteUsername": "DfE-analytical-services",
+        "RemoteRepo": "shinygovstyle",
         "RemoteRef": "main",
         "RemoteSha": "3e5518175b06c3fe8a6df029d554b559d0aca276",
         "GithubHost": "api.github.com",
-        "GithubRepo": "shinyGovstyle",
-        "GithubUsername": "dfe-analytical-services",
+        "GithubRepo": "shinygovstyle",
+        "GithubUsername": "DfE-analytical-services",
         "GithubRef": "main",
         "GithubSHA1": "3e5518175b06c3fe8a6df029d554b559d0aca276"
       }
@@ -4838,7 +4873,12 @@
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2025-11-04 14:00:02 UTC",
-        "Built": "R 4.5.3; ; 2026-04-25 18:08:54 UTC; windows"
+        "Built": "R 4.5.3; ; 2026-04-25 18:08:54 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "stringr",
+        "RemoteRef": "stringr",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "1.6.0"
       }
     },
     "styler": {
@@ -5190,7 +5230,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2026-01-29 22:20:08 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 17:16:26 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "timechange",
+        "RemoteRef": "timechange",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "0.4.0"
       }
     },
     "tinytex": {
@@ -5506,7 +5551,12 @@
         "Author": "Simon Garnier [aut, cre],\n  Noam Ross [ctb, cph],\n  Bob Rudis [ctb, cph],\n  Marco Sciaini [ctb, cph],\n  Antônio Pedro Camargo [ctb, cph],\n  Cédric Scherer [ctb, cph]",
         "Repository": "CRAN",
         "Date/Publication": "2026-02-04 06:40:10 UTC",
-        "Built": "R 4.5.3; ; 2026-04-25 16:26:34 UTC; windows"
+        "Built": "R 4.5.3; ; 2026-04-25 16:26:34 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "viridisLite",
+        "RemoteRef": "viridisLite",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "0.4.3"
       }
     },
     "vroom": {
@@ -5833,7 +5883,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2025-12-10 07:00:01 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 16:26:35 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "yaml",
+        "RemoteRef": "yaml",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "2.3.12"
       }
     },
     "zip": {
@@ -5898,7 +5953,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "898d116fa22dc5e2eb58adcaed425f8b"
+      "checksum": "c6e42ffc2c6cdd2ae3aa486024c1f81b"
     },
     "azure-pipelines.yml": {
       "checksum": "161e6e3c4a8af841144c1f338c7049d8"
@@ -5970,7 +6025,7 @@
       "checksum": "33bce00050768810c97392bb0bb418da"
     },
     "R/dashboard_panels.R": {
-      "checksum": "4649f50fdca7b2cbe83db40b2ebdbdfe"
+      "checksum": "d4ff28e74a09af4c1f682c7243103090"
     },
     "R/fetch_data.R": {
       "checksum": "447fe5389596bad41e911b025df69045"
@@ -5985,7 +6040,7 @@
       "checksum": "a6f6eeece707c39c7483e0ab05746572"
     },
     "R/plotting.R": {
-      "checksum": "0f6aae6161b32947ba3b418af6ed19a3"
+      "checksum": "5a016d8f6eae51b442af5e7c1c4825cd"
     },
     "R/prerun_utils.R": {
       "checksum": "e7f093c1794902ecc69e43814ea3d097"
@@ -6015,10 +6070,10 @@
       "checksum": "83120f3d4bfdc3bd81493340f50b06d6"
     },
     "renv.lock": {
-      "checksum": "006888d73765a829b8527bd1dea29fb8"
+      "checksum": "5fc519b57b0612d3e5c3f78ffb322033"
     },
     "server.R": {
-      "checksum": "b37dbfd831890aa17ee6b1361c85ba63"
+      "checksum": "e833ec8d9be7dee922e4beeb258c27b2"
     },
     "tests/testthat.R": {
       "checksum": "12e9b09de5275bdc13bde6ae5a82f8b1"
@@ -6114,7 +6169,7 @@
       "checksum": "eada1b3e2b501aa593e95c80aafbde63"
     },
     "ui.R": {
-      "checksum": "077a961499ba6904fb233ebe76b508ee"
+      "checksum": "1f604e6da358931d0be65292cb422782"
     },
     "www/cookie-consent.js": {
       "checksum": "942789aa3ef2153ae6e6236579b53a2e"

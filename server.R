@@ -872,15 +872,11 @@ server <- function(input, output, session) {
     )
   })
 
-  output$absence_reasons_timeseries <- ggiraph::renderGirafe({
-    ggiraph::girafe(
-      ggobj = reasons_ggplot(
-        reasons_data() |>
-          filter(geographic_level == input$geography_choice),
-        input$ts_choice
-      ),
-      height_svg = 5.6,
-      width_svg = 9
+  output$absence_reasons_timeseries <- plotly::renderPlotly({
+    reasons_plotly(
+      reasons_data() |>
+        dplyr::filter(geographic_level == input$geography_choice),
+      input$ts_choice
     )
   })
 
@@ -1097,7 +1093,7 @@ server <- function(input, output, session) {
     paste0(
       "This number is approximately ",
       render_percents(percent_submitted),
-      "% of the number of schools participating in the School Census. From the start of the ",
+      " of the number of schools participating in the School Census. From the start of the ",
       "2024/25 academic year, it became mandatory for schools to share attendance data with the ",
       "DfE. As more schools share their data, the number of schools reporting may change over ",
       "time."
@@ -1168,28 +1164,47 @@ server <- function(input, output, session) {
     tagList(
       tags$h4("Attendance and absence", time_frame_text),
       tags$p(
-        "Attendance and absence rates presented here are calculated across all sessions",
-        time_frame_text
+        paste0(
+          "Attendance and absence rates presented here are calculated across all sessions ",
+          time_frame_text,
+          "."
+        )
       ),
       shiny::tags$ul(
         shiny::tags$li(
-          headline_bullet(
-            lines |>
-              filter(
-                attendance_status == "Attendance",
-                attendance_type == "Overall attendance"
-              ) |>
-              pull(session_percent),
-            comparators |>
-              filter(
-                attendance_status == "Attendance",
-                attendance_type == "Overall attendance"
-              ) |>
-              pull(session_percent),
-            "attending",
-            input$geography_choice,
-            input$la_choice,
-            input$region_choice
+          paste0(
+            render_percents(
+              lines |>
+                filter(
+                  attendance_status == "Attendance",
+                  attendance_type == "Overall attendance"
+                ) |>
+                pull(session_percent)
+            ),
+            " of sessions were recorded as attending"
+          )
+        ),
+        shiny::tags$li(
+          paste0(
+            render_percents(
+              lines |>
+                filter(
+                  attendance_status == "Absence",
+                  attendance_type == "Overall absence"
+                ) |>
+                pull(session_percent)
+            ),
+            " of sessions were recorded as absence"
+          )
+        ),
+        shiny::tags$li(
+          paste0(
+            render_percents(
+              lines |>
+                filter(attendance_reason == "Illness (i)") |>
+                pull(session_percent)
+            ),
+            " of sessions were recorded as illness"
           )
         )
       )
@@ -1203,7 +1218,7 @@ server <- function(input, output, session) {
           "To view persistent absence figures, select \"year to date\" in the drop-down menu.",
           "Figures are not provided in the weekly or daily data because persistent absence is a",
           "measure over time and not valid for short time periods. Underlying data relating to",
-          "the Summer, Spring and Autumn terms and year to date is available at the ",
+          "the summer, spring and autumn terms and year to date is available at the ",
           dfeshiny::external_link(
             paste0(
               "https://explore-education-statistics.service.gov.uk/find-statistics/",
@@ -1425,49 +1440,78 @@ server <- function(input, output, session) {
 
   output$absence_rates_value_boxes <- renderUI({
     if (input$ts_choice == "latestweeks") {
-      time_frame_text <- "Latest full week"
+      time_frame_text <- "latest full week"
       time_frame_filter <- "Week"
     } else {
-      time_frame_text <- "Year to date"
+      time_frame_text <- "year to date"
       time_frame_filter <- "Year to date"
     }
+
     tagList(
-      tags$h5(paste0("Authorised absence rate:")),
-      bslib::value_box(
-        title = time_frame_text,
-        value = reasons_data() |>
-          filter(
-            geographic_level == input$geography_choice,
-            attendance_reason == "All authorised",
-            time_frame == time_frame_filter
-          ) |>
-          # pull(session_percent) |>
-          # as.numeric() |>
-          # dfeR::round_five_up(dp = 2) |>
-          # paste("%"),
-          pull(session_percent) |>
-          render_percents(),
-        theme = value_box_theme(bg = "#1d70b8")
+      # ✅ AUTHORISED
+      tags$h5(tags$b("Authorised absence rate:"), style = "margin-bottom:8px;"),
+      div(
+        style = "width:70%; margin-bottom:15px;", # ✅ controls box size
+
+        bslib::value_box(
+          title = "",
+          value = tags$div(
+            # ✅ BIG NUMBER
+            tags$div(
+              style = "font-weight:700; font-size:42px; line-height:1;",
+              reasons_data() |>
+                filter(
+                  geographic_level == input$geography_choice,
+                  attendance_reason == "All authorised",
+                  time_frame == time_frame_filter
+                ) |>
+                pull(session_percent) |>
+                render_percents()
+            ),
+
+            # ✅ TEXT UNDER NUMBER
+            tags$div(
+              style = "font-size:15px; margin-top:4px;",
+              time_frame_text
+            )
+          ),
+          theme = value_box_theme(bg = "#1d70b8")
+        )
       ),
-      tags$h5(paste0("Unauthorised absence rate:")),
-      bslib::value_box(
-        title = time_frame_text,
-        value = reasons_data() |>
-          filter(
-            geographic_level == input$geography_choice,
-            attendance_reason == "All unauthorised",
-            time_frame == time_frame_filter
-          ) |>
-          # pull(session_percent) |>
-          # as.numeric() |>
-          # dfeR::round_five_up(dp = 2) |>
-          # paste("%"),
-          pull(session_percent) |>
-          render_percents(),
-        theme = value_box_theme(bg = "#1d70b8")
+
+      # ✅ UNAUTHORISED
+      tags$h5(tags$b("Unauthorised absence rate:"), style = "margin-top:20px; margin-bottom:8px;"),
+      div(
+        style = "width:70%; margin-bottom:10px;", # ✅ same width
+
+        bslib::value_box(
+          title = "",
+          value = tags$div(
+            # ✅ BIG NUMBER
+            tags$div(
+              style = "font-weight:700; font-size:42px; line-height:1;",
+              reasons_data() |>
+                filter(
+                  geographic_level == input$geography_choice,
+                  attendance_reason == "All unauthorised",
+                  time_frame == time_frame_filter
+                ) |>
+                pull(session_percent) |>
+                render_percents()
+            ),
+
+            # ✅ TEXT UNDER NUMBER
+            tags$div(
+              style = "font-size:15px; margin-top:4px;",
+              time_frame_text
+            )
+          ),
+          theme = value_box_theme(bg = "#1d70b8")
+        )
       )
     )
   })
+
 
   # Creating reactive reasons and la comparison table ------------------------------------------------------------
 
