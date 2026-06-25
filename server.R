@@ -2120,9 +2120,9 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      # as.Date(attendance_date) + 17
-      as.Date(attendance_date) +
-      24
+      as.Date(attendance_date) + 17
+      # as.Date(attendance_date) +
+      # 24
     # as.Date(attendance_date) + 31
 
     paste0("Data was last updated on ", last_update_date, ".")
@@ -2156,9 +2156,9 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      # as.Date(attendance_date) + 17
-      as.Date(attendance_date) +
-      24
+      as.Date(attendance_date) + 17
+      # as.Date(attendance_date) +
+      # 24
     # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
@@ -2189,9 +2189,9 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      # as.Date(attendance_date) + 17
-      as.Date(attendance_date) +
-      24
+      as.Date(attendance_date) + 17
+      # as.Date(attendance_date) +
+      # 24
     # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
@@ -2224,9 +2224,9 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
-      # as.Date(attendance_date) + 17
-      as.Date(attendance_date) +
-      24
+      as.Date(attendance_date) + 17
+      # as.Date(attendance_date) +
+      # 24
     # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
