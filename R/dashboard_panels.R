@@ -106,7 +106,7 @@ homepage_panel <- function() {
                     "These figures are derived from regular data automatically submitted to the Department for Education (DfE) by participating schools. Due to the timeliness of the data and that they are based on a subset of schools, the figures are estimates that we expect to change as registers are adjusted. They should be viewed as an early indicator for the more detailed but less regular",
                     a(
                       href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england",
-                      "National Statistics"
+                      "Accredited official statistics"
                     ),
                     "on pupil absence (which will include school level breakdowns)."
                   ),
@@ -118,7 +118,7 @@ homepage_panel <- function() {
                     "Absence rates are provided broken down by state-funded primary, secondary and special schools. At national and regional level, absence figures are also provided across all schools."
                   ),
                   br(),
-                  h3("National statistics"),
+                  h3("Official statistics"),
                   p(
                     "Data relating to pupil attendance is published at the link below:"
                   ),
@@ -138,7 +138,7 @@ homepage_panel <- function() {
                   br(),
                   br(),
                   p(
-                    "This dashboard has been developed as an accompaniment to DFE's termly National statistics on pupil absence. You can access this publication through the link below:"
+                    "This dashboard has been developed as an accompaniment to DFE's termly Accredited official statistics on pupil absence. You can access this publication through the link below:"
                   ),
                   a(
                     href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england",
@@ -147,7 +147,7 @@ homepage_panel <- function() {
                   br(),
                   br(),
                   p(
-                    "Statistics presented in this dashboard are based on a smaller, non-random sample of schools in comparison to National statistics. Absence statistics are available on a termly basis in the National statistics, while this dashboard enables more timely daily and weekly data. They should, therefore, be viewed as an early indicator for the more detailed but less regular National Statistics (which will include school level breakdowns)."
+                    "Statistics presented in this dashboard are based on a smaller, non-random sample of schools in comparison to Accredited official statistics. Absence statistics are available on a termly basis in the Accredited official statistics, while this dashboard enables more timely daily and weekly data. They should, therefore, be viewed as an early indicator for the more detailed but less regular Accredited official statistics (which will include school level breakdowns)."
                   ),
                   p(
                     "Data is lagged by 2 weeks in order to allow for any retrospective changes to the data in schools, for example changing an unauthorised absence to late. As a result, data presented may change between dashboard updates."
