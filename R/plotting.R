@@ -1,4 +1,4 @@
-headline_absence_plotly <- function(reasons, scope) {
+headline_absence_plotly <- function(reasons, scope, title_text = "") {
   # -------------------------
   # Filter data
   # -------------------------
@@ -90,12 +90,16 @@ headline_absence_plotly <- function(reasons, scope) {
   # -------------------------
   p |>
     plotly::layout(
+      title = list(
+        text = title_text,
+        x = 0.5,
+        xanchor = "center",
+        font = list(size = 18)
+      ),
       hovermode = "x unified",
       xaxis = list(
-        title = ifelse(scope == "latestweeks", "", "Week commencing"),
+        title = "",
         type = "date",
-
-        # ✅ TEMPLATE MATCH
         tickmode = "linear",
         tick0 = min(plot_data$week_commencing, na.rm = TRUE),
         dtick = ifelse(scope == "latestweeks", 86400000, 14 * 86400000),
@@ -110,15 +114,17 @@ headline_absence_plotly <- function(reasons, scope) {
       legend = list(
         orientation = "h",
         yanchor = "top",
-        y = -0.5,
+        y = -0.3,
         xanchor = "center",
-        x = 0.5,
-        font = list(size = 12)
+        x = 0.5
       ),
-      margin = list(t = 80),
+      margin = list(t = 90),
       font = t
     ) |>
-    plotly::config(displayModeBar = FALSE)
+    plotly::config(
+      displayModeBar = FALSE,
+      displaylogo = FALSE
+    )
 }
 
 reasons_plotly <- function(reasons, scope) {
@@ -158,7 +164,7 @@ reasons_plotly <- function(reasons, scope) {
       week_commencing = lubridate::floor_date(reference_date, "week", week_start = 1),
       session_percent = as.numeric(session_percent),
 
-      # ✅ Clean labels
+      # Clean labels
       attendance_reason = dplyr::case_when(
         attendance_reason == "Illness (i)" ~ "Illness",
         attendance_reason == "Medical dental (m)" ~ "Medical appointments",
@@ -169,7 +175,7 @@ reasons_plotly <- function(reasons, scope) {
     ) |>
     dplyr::arrange(attendance_reason, reference_date)
 
-  # ✅ Prevent crash if no data
+  # Prevent crash if no data
   if (nrow(plot_data) == 0) {
     return(plotly::plot_ly() |>
       plotly::layout(title = "No data available"))
@@ -203,18 +209,22 @@ reasons_plotly <- function(reasons, scope) {
         type = "scatter",
         mode = "lines+markers",
         name = reason,
-
-        # ✅ FIXED HOVER (matches your screenshot)
         hovertemplate = paste0(
           reason, ": <b>%{y:.2f}%</b><extra></extra>"
         ),
-        line = list(color = colours[reason], width = 2),
-        marker = list(color = colours[reason], size = 7)
+        line = list(
+          color = colours[reason],
+          width = ifelse(scope == "latestweeks", 2, 3)
+        ),
+        marker = list(
+          color = colours[reason],
+          size = 6
+        )
       )
   }
 
   # -------------------------
-  # Layout
+  # Layout (MATCH HEADLINE)
   # -------------------------
   p |>
     plotly::layout(
@@ -225,8 +235,6 @@ reasons_plotly <- function(reasons, scope) {
         tickmode = "linear",
         tick0 = min(plot_data[[x_var_name]], na.rm = TRUE),
         dtick = dtick_val,
-        tickformat = "%d %b", # axis labels
-        hoverformat = "%b %d, %Y", # ✅ tooltip date (KEY FIX)
         zeroline = FALSE
       ),
       yaxis = list(
@@ -238,7 +246,7 @@ reasons_plotly <- function(reasons, scope) {
       legend = list(
         orientation = "h",
         yanchor = "top",
-        y = -0.4,
+        y = -0.5,
         xanchor = "center",
         x = 0.5
       ),

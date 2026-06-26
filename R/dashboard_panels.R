@@ -365,15 +365,22 @@ dashboard_panel <- function() {
                 column(
                   width = 12,
                   uiOutput("absence_auth_table_title"),
-                  tags$h5("Authorised"),
+                  tags$p(
+                    tags$b("Authorised absence"),
+                    class = "govuk-body-s"
+                  ),
                   govReactableOutput(
                     "absence_auth_reasons_reactable",
-                    caption = "Authorised absences"
+                    caption = ""
                   ),
-                  tags$h5("Unauthorised"),
+                  br(),
+                  tags$p(
+                    tags$b("Unauthorised absence"),
+                    class = "govuk-body-s"
+                  ),
                   govReactableOutput(
                     "absence_unauth_reasons_reactable",
-                    caption = "Unauthorised absences"
+                    caption = ""
                   ),
                 )
               )

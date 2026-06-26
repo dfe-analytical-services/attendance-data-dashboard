@@ -48,6 +48,15 @@ server <- function(input, output, session) {
     }
   )
 
+  rank_data_multi <- function(df) {
+    df |>
+      dplyr::mutate(
+        rank_overall = dplyr::dense_rank(desc(`Overall absence`)),
+        rank_authorised = dplyr::dense_rank(desc(`All authorised`)),
+        rank_unauthorised = dplyr::dense_rank(desc(`All unauthorised`))
+      )
+  }
+
   latest_time_period <- reactive({
     eesyapi::query_dataset(
       schools_submitting_dataset_id,
@@ -358,25 +367,34 @@ server <- function(input, output, session) {
     )
 
   map_data <- reactive({
-    merge(
-      mapshape |> rename("la_code" = "CTYUA23CD"),
+    merged <- merge(
+      mapshape |> dplyr::rename(la_code = CTYUA23CD),
       la_data(),
       by = "la_code",
       duplicateGeoms = TRUE
-    ) |>
-      mutate(
-        session_percent = as.numeric(session_percent),
-        label = paste(
-          la_name,
-          input$measure_choice,
-          "absence rate:",
-          render_percents(session_percent)
-          # paste0(
-          #   as.character(dfeR::round_five_up(session_percent, dp = 2)),
-          #   "%"
-          # )
-        )
+    )
+
+    # ✅ convert long → wide (fixes correctness)
+    wide <- merged |>
+      sf::st_drop_geometry() |>
+      dplyr::select(la_code, la_name, attendance_reason, session_percent) |>
+      tidyr::pivot_wider(
+        names_from = attendance_reason,
+        values_from = session_percent
+      ) |>
+      dplyr::mutate(
+        overall_absence_perc = as.numeric(`Overall absence`),
+        authorised_absence_perc = as.numeric(`All authorised`),
+        unauthorised_absence_perc = as.numeric(`All unauthorised`)
       )
+
+    # ✅ England only + reattach geometry
+    final <- mapshape |>
+      dplyr::rename(la_code = CTYUA23CD) |>
+      dplyr::filter(substr(la_code, 1, 1) == "E") |>
+      dplyr::left_join(wide, by = "la_code")
+
+    final
   }) |>
     shiny::bindCache(
       reasons_data_version_info()$version,
@@ -794,41 +812,27 @@ server <- function(input, output, session) {
     }
   })
 
-  # Headline absence rates - latest week chart
-  newtitle_daily <- renderText({
-    if (input$geography_choice == "National") {
-      paste0(
-        "Daily summary of absence rates for ",
-        str_to_lower(input$school_choice),
-        "<br>",
-        " state-funded schools at ",
-        str_to_lower(input$geography_choice),
-        " level"
-      )
-    } else if (input$geography_choice == "Regional") {
-      paste0(
-        "Daily summary of absence rates for ",
-        "<br>",
-        str_to_lower(input$school_choice),
-        " state-funded schools ",
-        "(",
-        input$region_choice,
-        ")"
-      )
-    } else if (input$geography_choice == "Local authority") {
-      paste0(
-        "Daily summary of absence rates for ",
-        "<br>",
-        str_to_lower(input$school_choice),
-        " state-funded schools ",
-        "<br>",
-        "(",
-        input$region_choice,
-        ", ",
-        input$la_choice,
-        ")"
-      )
-    }
+
+  # Headline absence rates - titles (FIXED)
+
+  newtitle_weekly <- reactive({
+    paste0(
+      "Weekly summary of absence rates for ",
+      str_to_lower(input$school_choice),
+      "<br>state-funded schools at ",
+      str_to_lower(input$geography_choice),
+      " level"
+    )
+  })
+
+  newtitle_daily <- reactive({
+    paste0(
+      "Daily summary of absence rates for ",
+      str_to_lower(input$school_choice),
+      "<br>state-funded schools at ",
+      str_to_lower(input$geography_choice),
+      " level"
+    )
   })
 
   # output$headline_absence_chart <- ggiraph::renderGirafe({
@@ -864,13 +868,22 @@ server <- function(input, output, session) {
   #   )
   # })
 
+
   output$headline_absence_chart <- plotly::renderPlotly({
+    title_text <- if (input$ts_choice == "latestweeks") {
+      newtitle_daily()
+    } else {
+      newtitle_weekly()
+    }
+
     headline_absence_plotly(
       reasons_data() |>
         dplyr::filter(geographic_level == input$geography_choice),
-      input$ts_choice
+      input$ts_choice,
+      title_text
     )
   })
+
 
   output$absence_reasons_timeseries <- plotly::renderPlotly({
     reasons_plotly(
@@ -1515,12 +1528,16 @@ server <- function(input, output, session) {
 
   # Creating reactive reasons and la comparison table ------------------------------------------------------------
 
-  output$absence_auth_table_title <- renderUI(
-    shiny::tags$h4(
-      "Reasons for absence in the",
-      tolower(time_frame_descriptors()$display_string)
+  output$absence_auth_table_title <- renderUI({
+    tags$h4(
+      tags$b(
+        paste0(
+          "Reasons for absence in the ",
+          tolower(time_frame_descriptors()$display_string)
+        )
+      )
     )
-  )
+  })
 
   output$absence_auth_reasons_reactable <- renderGovReactable({
     govReactable(
@@ -1540,20 +1557,27 @@ server <- function(input, output, session) {
               "Other authorised (c)"
             )
         ) |>
-        select(attendance_reason, session_percent) |>
         mutate(
-          # session_percent = session_percent |>
-          #   as.numeric() |>
-          #   dfeR::round_five_up(dp = 2) |>
-          #   paste0("%")
+          attendance_reason = dplyr::case_when(
+            attendance_reason == "Illness (i)" ~ "Illness",
+            attendance_reason == "Medical dental (m)" ~ "Medical appointments",
+            attendance_reason == "Religious observance (r)" ~ "Religious observance",
+            attendance_reason == "Study leave (s)" ~ "Study leave",
+            attendance_reason == "Mobile child (t)" ~ "Mobile child",
+            attendance_reason == "Excluded (e)" ~ "Excluded",
+            attendance_reason == "Temporary reduced timetable (c2)" ~ "Temporary reduced timetable",
+            attendance_reason == "Other authorised (c)" ~ "Other authorised"
+          ),
           session_percent = render_percents(session_percent)
         ) |>
+        select(attendance_reason, session_percent) |>
         tidyr::pivot_wider(
           names_from = attendance_reason,
           values_from = session_percent
         )
     )
   })
+
 
   output$absence_unauth_reasons_reactable <- renderGovReactable({
     unauth_data <- reasons_data() |>
@@ -1568,53 +1592,66 @@ server <- function(input, output, session) {
             "No reason yet (n)"
           )
       ) |>
-      select(attendance_reason, session_percent) |>
       mutate(
-        attendance_reason = attendance_reason |>
-          stringr::str_replace("Unauthorised ", "") |>
-          stringr::str_to_sentence(),
-        # session_percent = session_percent |>
-        #   as.numeric() |>
-        #   dfeR::round_five_up(dp = 2) |>
-        #   paste0("%")
+        attendance_reason = dplyr::case_when(
+          attendance_reason == "Unauthorised holiday (g)" ~ "Holiday",
+          attendance_reason == "Late after registers closed (u)" ~ "Late after registers closed",
+          attendance_reason == "Other unauthorised (o)" ~ "Unauthorised other",
+          attendance_reason == "No reason yet (n)" ~ "No reason yet"
+        ),
         session_percent = render_percents(session_percent)
       ) |>
+      select(attendance_reason, session_percent) |>
       tidyr::pivot_wider(
         names_from = attendance_reason,
         values_from = session_percent
       )
-    govReactable(
-      unauth_data
-    )
+
+    govReactable(unauth_data)
   })
 
   output$absence_reasons_la_reactable <- renderGovReactable({
+    data <- la_data() |>
+      dplyr::select(-attendance_status, -attendance_type) |>
+      tidyr::pivot_wider(
+        names_from = attendance_reason,
+        values_from = session_percent
+      )
+
+    data <- data |>
+      mutate(
+        `Overall absence` = suppressWarnings(as.numeric(`Overall absence`)),
+        `All authorised` = suppressWarnings(as.numeric(`All authorised`)),
+        `All unauthorised` = suppressWarnings(as.numeric(`All unauthorised`))
+      )
+
+    # ✅ ONLY THIS PART CHANGED
+    fmt <- function(x) {
+      ifelse(is.na(x), "—", paste0(round(x, 2), "%"))
+    }
+
+    data <- data |>
+      mutate(
+        `Overall absence rate` = fmt(`Overall absence`),
+        `Authorised absence rate` = fmt(`All authorised`),
+        `Unauthorised absence rate` = fmt(`All unauthorised`)
+      )
+
     govReactable(
-      la_data() |>
-        select(-all_of(c("attendance_status", "attendance_type"))) |>
-        mutate(session_percent = render_percents(session_percent)) |>
-        tidyr::pivot_wider(
-          names_from = "attendance_reason",
-          values_from = "session_percent"
-        ) |>
-        select(
+      data |>
+        dplyr::select(
           Year = time_period,
           `Week commencing` = reference_date,
-          Region = reg_name,
-          `Local authority` = la_name,
-          `Overall absence rate` = "Overall absence",
-          `Authorised absence rate` = "All authorised",
-          `Unauthorised absence rate` = "All unauthorised"
+          `Region name` = reg_name,
+          `Local authority name` = la_name,
+          `Overall absence rate`,
+          `Authorised absence rate`,
+          `Unauthorised absence rate`
         ),
-      searchable = TRUE,
-      defaultSorted = list(
-        `Overall absence rate` = "desc",
-        `Authorised absence rate` = "desc",
-        `Unauthorised absence rate` = "desc",
-        `Local authority` = "asc"
-      )
+      searchable = TRUE
     )
   })
+
 
   # Tech guidance tables ----------------------------------------------------
 
@@ -1658,85 +1695,115 @@ server <- function(input, output, session) {
     }
   )
 
-  ## Create the map function ###############################################
-
-  mapdata_shaped_type <- reactive({
-    dplyr::filter(
-      mapdata_shaped,
-      school_type == input$school_choice
-    )
-  })
 
   # Create map function
 
   output$rates_map <- renderLeaflet({
-    if (input$measure_choice == "Overall") {
-      rate_choice <- "Overall absence"
-    } else {
-      rate_choice <- paste("All", tolower(input$measure_choice))
+    dat <- map_data()
+    req(nrow(dat) > 0)
+
+    # ✅ palettes (consistent with better project)
+    overall_abs_pal <- colorBin(
+      palette = c("#fecc5c", "#fd8d3c", "#f03b20", "#bd0026", "#800026"),
+      domain = dat$overall_absence_perc,
+      bins = quantile(dat$overall_absence_perc, probs = seq(0, 1, 0.2), na.rm = TRUE),
+      na.color = "#808080"
+    )
+
+    auth_abs_pal <- colorBin(
+      palette = c("#fecc5c", "#fd8d3c", "#f03b20", "#bd0026", "#800026"),
+      domain = dat$authorised_absence_perc,
+      bins = quantile(dat$authorised_absence_perc, probs = seq(0, 1, 0.2), na.rm = TRUE),
+      na.color = "#808080"
+    )
+
+    unauth_abs_pal <- colorBin(
+      palette = c("#fecc5c", "#fd8d3c", "#f03b20", "#bd0026", "#800026"),
+      domain = dat$unauthorised_absence_perc,
+      bins = quantile(dat$unauthorised_absence_perc, probs = seq(0, 1, 0.2), na.rm = TRUE),
+      na.color = "#808080"
+    )
+
+    # ✅ format %
+    fmt_pct <- function(x) {
+      ifelse(is.na(x), "—", sprintf("%0.2f%%", x))
     }
 
-    data <- map_data() |>
-      filter(attendance_reason == rate_choice)
-    pallette_scale <- colorQuantile(
-      map_gov_colours,
-      data |>
-        dplyr::pull(session_percent),
-      n = 5
-    )
-    rate_map <- data %>%
-      leaflet() %>%
-      addProviderTiles(providers$CartoDB.Positron) %>%
+    # ✅ choose measure (same behaviour as your good project)
+    if (input$measure_choice == "Overall") {
+      values <- dat$overall_absence_perc
+      pal <- overall_abs_pal
+      label_name <- "Overall absence"
+    } else if (input$measure_choice == "Authorised") {
+      values <- dat$authorised_absence_perc
+      pal <- auth_abs_pal
+      label_name <- "Authorised absence"
+    } else {
+      values <- dat$unauthorised_absence_perc
+      pal <- unauth_abs_pal
+      label_name <- "Unauthorised absence"
+    }
+
+    # ✅ ranking helper
+    make_rank <- function(v) {
+      valid <- !is.na(v)
+      r <- rep(NA_integer_, length(v))
+      r[valid] <- rank(v[valid], ties.method = "min")
+      list(rank = r, total = sum(valid))
+    }
+
+    ranks <- make_rank(values)
+
+    label_html <- lapply(seq_len(nrow(dat)), function(i) {
+      chip_col <- pal(values[i])
+
+      rk_txt <- if (is.na(values[i])) {
+        "Suppressed / missing"
+      } else {
+        paste0(ranks$rank[i], " / ", ranks$total)
+      }
+
+      htmltools::HTML(paste0(
+        "<div style='font-family:Arial;'>",
+        "<strong>", dat$la_name[i], "</strong><br/>",
+        "<span style='display:inline-block;width:10px;height:10px;background:",
+        chip_col, ";margin-right:6px;border:1px solid #ccc;'></span>",
+        label_name, ": <strong>", fmt_pct(values[i]), "</strong><br/>",
+        "<span style='font-size:12px;color:#666;'>Rank ", rk_txt, "</span>",
+        "</div>"
+      ))
+    })
+
+
+    leaflet(dat) |>
+      addProviderTiles(providers$CartoDB.Positron) |>
       addPolygons(
-        fillColor = ~ pallette_scale(session_percent),
-        weight = 1,
+        fillColor = ~ pal(values),
+        weight = 0.8,
         opacity = 1,
-        color = "black",
-        dashArray = "0",
-        fillOpacity = 0.7,
+        color = "#4d4d4d",
+        fillOpacity = 0.78,
         highlight = highlightOptions(
-          weight = 5,
-          color = "#666",
-          dashArray = "",
-          fillOpacity = 0.7,
+          weight = 2,
+          color = "#1f1f1f",
+          fillOpacity = 0.88,
           bringToFront = TRUE
         ),
-        label = ~label,
+        label = label_html,
         labelOptions = labelOptions(
-          style = list(
-            "font-weight" = "normal",
-            padding = "3px 8px",
-            "background-color" = "white"
-          ),
-          textsize = "15px",
-          direction = "auto"
+          direction = "auto",
+          textsize = "13px"
         )
-      )
-
-    rate_map <- rate_map %>%
+      ) |>
       addLegend(
-        colors = c(
-          "#fecc5c",
-          "#fd8d3c",
-          "#f03b20",
-          "#bd0026",
-          "#800026",
-          "#808080"
-        ),
+        colors = c("#fecc5c", "#fd8d3c", "#f03b20", "#bd0026", "#800026", "#808080"),
         opacity = 1,
-        title = NULL,
         position = "topright",
-        labels = c(
-          "Lowest absence rates",
-          "",
-          "",
-          "",
-          "Highest absence rates",
-          "Supressed data"
-        )
-      ) %>%
+        labels = c("Lowest absence rates", "", "", "", "Highest absence rates", "Suppressed data")
+      ) |>
       setMaxBounds(lat1 = 55.5, lng1 = -6.8, lat2 = 49.99, lng2 = 1.95)
   })
+
 
   output$map_title <- renderText({
     paste0(

@@ -5953,7 +5953,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "c6e42ffc2c6cdd2ae3aa486024c1f81b"
+      "checksum": "b9cd1aa8702079c75c0dccdd11776d85"
     },
     "azure-pipelines.yml": {
       "checksum": "161e6e3c4a8af841144c1f338c7049d8"
@@ -6025,7 +6025,7 @@
       "checksum": "33bce00050768810c97392bb0bb418da"
     },
     "R/dashboard_panels.R": {
-      "checksum": "d4ff28e74a09af4c1f682c7243103090"
+      "checksum": "154ac5acabe5c7f072a6b9611ddb91cf"
     },
     "R/fetch_data.R": {
       "checksum": "447fe5389596bad41e911b025df69045"
@@ -6040,7 +6040,7 @@
       "checksum": "a6f6eeece707c39c7483e0ab05746572"
     },
     "R/plotting.R": {
-      "checksum": "5a016d8f6eae51b442af5e7c1c4825cd"
+      "checksum": "21bb8bcb15ea044822f97221e79d7333"
     },
     "R/prerun_utils.R": {
       "checksum": "e7f093c1794902ecc69e43814ea3d097"
@@ -6073,7 +6073,7 @@
       "checksum": "5fc519b57b0612d3e5c3f78ffb322033"
     },
     "server.R": {
-      "checksum": "e833ec8d9be7dee922e4beeb258c27b2"
+      "checksum": "8f2d26514908a66be3ffdade2dbb18a9"
     },
     "tests/testthat.R": {
       "checksum": "12e9b09de5275bdc13bde6ae5a82f8b1"
