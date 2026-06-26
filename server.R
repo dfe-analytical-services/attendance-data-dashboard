@@ -775,43 +775,6 @@ server <- function(input, output, session) {
 
   # Creating reactive charts ------------------------------------------------------------
 
-  # Headline absence rates - ytd chart
-  newtitle_weekly <- renderText({
-    if (input$geography_choice == "National") {
-      paste0(
-        "Weekly summary of absence rates for ",
-        str_to_lower(input$school_choice),
-        "<br>",
-        " state-funded schools at ",
-        str_to_lower(input$geography_choice),
-        " level"
-      )
-    } else if (input$geography_choice == "Regional") {
-      paste0(
-        "Weekly summary of absence rates for ",
-        "<br>",
-        str_to_lower(input$school_choice),
-        " state-funded schools ",
-        "(",
-        input$region_choice,
-        ")"
-      )
-    } else if (input$geography_choice == "Local authority") {
-      paste0(
-        "Weekly summary of absence rates for ",
-        "<br>",
-        str_to_lower(input$school_choice),
-        " state-funded schools ",
-        "<br>",
-        "(",
-        input$region_choice,
-        ", ",
-        input$la_choice,
-        ")"
-      )
-    }
-  })
-
 
   # Headline absence rates - titles (FIXED)
 
@@ -885,97 +848,45 @@ server <- function(input, output, session) {
   })
 
 
-  output$absence_reasons_timeseries <- plotly::renderPlotly({
-    reasons_plotly(
-      reasons_data() |>
-        dplyr::filter(geographic_level == input$geography_choice),
-      input$ts_choice
+  # Reasons chart titles (FIXED)
+
+  newtitle_reasonsweekly <- reactive({
+    paste0(
+      "Weekly absence reasons for ",
+      str_to_lower(input$school_choice),
+      " state-funded schools",
+      "<br>at ",
+      str_to_lower(input$geography_choice),
+      " level"
     )
   })
 
-  # Reasons for absence - ytd chart
-
-  newtitle_reasonsweekly <- renderText({
-    if (input$geography_choice == "National") {
-      paste0(
-        "Weekly summary of absence reasons for ",
-        "<br>",
-        str_to_lower(input$school_choice),
-        " state-funded schools",
-        "<br>",
-        "at ",
-        str_to_lower(input$geography_choice),
-        " level"
-      )
-    } else if (input$geography_choice == "Regional") {
-      paste0(
-        "Weekly summary of absence reasons for ",
-        "<br>",
-        str_to_lower(input$school_choice),
-        " state-funded schools",
-        " at ",
-        str_to_lower(input$geography_choice),
-        " level",
-        "<br>",
-        "(",
-        input$region_choice,
-        ")"
-      )
-    } else if (input$geography_choice == "Local authority") {
-      paste0(
-        "Weekly summary of absence reasons for ",
-        "<br>",
-        str_to_lower(input$school_choice),
-        " state-funded schools",
-        " at ",
-        str_to_lower(input$geography_choice),
-        " level",
-        "<br>",
-        "(",
-        input$region_choice,
-        ", ",
-        input$la_choice,
-        ")"
-      )
-    }
+  newtitle_reasonsdaily <- reactive({
+    paste0(
+      "Daily absence reasons for ",
+      str_to_lower(input$school_choice),
+      " state-funded schools",
+      "<br>at ",
+      str_to_lower(input$geography_choice),
+      " level"
+    )
   })
 
-  # Reasons for absence - latest week chart
-  newtitle_reasonsdaily <- renderText({
-    if (input$geography_choice == "National") {
-      paste0(
-        "Daily absence reasons for ",
-        str_to_lower(input$school_choice),
-        " state-funded schools",
-        "<br>",
-        "at ",
-        str_to_lower(input$geography_choice),
-        " level"
-      )
-    } else if (input$geography_choice == "Regional") {
-      paste0(
-        "Daily absence reasons for ",
-        str_to_lower(input$school_choice),
-        " state-funded schools",
-        "<br>",
-        "(",
-        input$region_choice,
-        ")"
-      )
-    } else if (input$geography_choice == "Local authority") {
-      paste0(
-        "Daily absence reasons for ",
-        str_to_lower(input$school_choice),
-        " state-funded schools",
-        "<br>",
-        "(",
-        input$region_choice,
-        ", ",
-        input$la_choice,
-        ")"
-      )
+  output$absence_reasons_timeseries <- plotly::renderPlotly({
+    title_text <- if (input$ts_choice == "latestweeks") {
+      newtitle_reasonsdaily()
+    } else {
+      newtitle_reasonsweekly()
     }
+
+    reasons_plotly(
+      reasons_data() |>
+        dplyr::filter(geographic_level == input$geography_choice),
+      input$ts_choice,
+      title_text
+    )
   })
+
 
   # Creating reactive titles ------------------------------------------------------------
 

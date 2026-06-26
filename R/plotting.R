@@ -127,7 +127,7 @@ headline_absence_plotly <- function(reasons, scope, title_text = "") {
     )
 }
 
-reasons_plotly <- function(reasons, scope) {
+reasons_plotly <- function(reasons, scope, title_text = "") {
   # -------------------------
   # Filter data
   # -------------------------
@@ -228,6 +228,12 @@ reasons_plotly <- function(reasons, scope) {
   # -------------------------
   p |>
     plotly::layout(
+      title = list(
+        text = title_text,
+        x = 0.5,
+        xanchor = "center",
+        font = list(size = 18)
+      ),
       hovermode = "x unified",
       xaxis = list(
         title = "",
@@ -246,11 +252,11 @@ reasons_plotly <- function(reasons, scope) {
       legend = list(
         orientation = "h",
         yanchor = "top",
-        y = -0.5,
+        y = -0.3,
         xanchor = "center",
         x = 0.5
       ),
-      margin = list(t = 40),
+      margin = list(t = 90),
       font = list(family = "arial", size = 12, color = "black")
     ) |>
     plotly::config(displayModeBar = FALSE)
