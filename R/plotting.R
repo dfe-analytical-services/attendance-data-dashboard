@@ -244,7 +244,7 @@ reasons_plotly <- function(reasons, scope, title_text = "") {
         zeroline = FALSE
       ),
       yaxis = list(
-        title = "",
+        title = "Absence rate (%)",
         rangemode = "tozero",
         tickformat = ".2f",
         ticksuffix = "%"

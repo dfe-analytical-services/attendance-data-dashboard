@@ -4,8 +4,6 @@ headline_panel <- function() {
       column(
         width = 12,
         uiOutput("headline_title"),
-
-        # ✅ TEXT CARD (TOP)
         bslib::card(
           bslib::card_body(
             tags$h4("School return rate"),
@@ -24,8 +22,6 @@ headline_panel <- function() {
           )
         ),
         br(),
-
-        # ✅ CHART CARD (UNDERNEATH)
         bslib::card(
           full_screen = TRUE,
           bslib::card_body(
@@ -34,12 +30,10 @@ headline_panel <- function() {
             plotly::plotlyOutput(
               "headline_absence_chart",
               height = "600px"
-            )
-            # ggiraph::girafeOutput(
-            #   "headline_absence_chart",
-            #   width = "100%",
-            #   height = "600px"
-            # )
+            ),
+            tags$br(),
+            tags$h5("Underlying data for the chart"),
+            reactableOutput("headline_chart_table")
           )
         )
       )

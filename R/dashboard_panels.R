@@ -354,7 +354,10 @@ dashboard_panel <- function() {
               fluidRow(
                 column(
                   width = 9,
-                  plotlyOutput("absence_reasons_timeseries", height = "550px")
+                  plotlyOutput("absence_reasons_timeseries", height = "550px"),
+                  tags$br(),
+                  tags$h5("Underlying data for the chart"),
+                  reactableOutput("reasons_chart_table")
                 ),
                 column(
                   width = 3,

@@ -872,6 +872,7 @@ server <- function(input, output, session) {
     )
   })
 
+
   output$absence_reasons_timeseries <- plotly::renderPlotly({
     title_text <- if (input$ts_choice == "latestweeks") {
       newtitle_reasonsdaily()
@@ -885,6 +886,102 @@ server <- function(input, output, session) {
       input$ts_choice,
       title_text
     )
+  })
+
+  output$headline_chart_table <- renderGovReactable({
+    df <- reasons_data() |>
+      dplyr::filter(
+        geographic_level == input$geography_choice,
+        attendance_reason %in% c(
+          "Overall absence",
+          "All authorised",
+          "All unauthorised"
+        )
+      )
+
+    # ✅ Same logic as chart
+    if (input$ts_choice == "latestweeks") {
+      df <- df |> dplyr::filter(time_frame != "Week")
+    } else {
+      df <- df |> dplyr::filter(time_frame == "Week")
+    }
+
+    df |>
+      dplyr::mutate(
+        Date = as.Date(reference_date)
+      ) |>
+      dplyr::select(
+        Date,
+        Reason = attendance_reason,
+        Rate = session_percent
+      ) |>
+      tidyr::pivot_wider(
+        names_from = Reason,
+        values_from = Rate
+      ) |>
+      dplyr::arrange(Date) |>
+      dplyr::mutate(
+        dplyr::across(
+          -Date,
+          render_percents # ✅ LET govReactable HANDLE FORMATTING
+        )
+      ) |>
+      govReactable()
+  })
+
+
+  output$reasons_chart_table <- renderGovReactable({
+    visible_reasons <- c(
+      "Illness (i)",
+      "Medical dental (m)",
+      "Religious observance (r)",
+      "Unauthorised holiday (g)",
+      "Other unauthorised (o)"
+    )
+
+    name_map <- c(
+      "Illness (i)" = "Illness",
+      "Medical dental (m)" = "Medical appointments",
+      "Religious observance (r)" = "Religious observance",
+      "Unauthorised holiday (g)" = "Unauthorised holiday",
+      "Other unauthorised (o)" = "Unauthorised other"
+    )
+
+    df <- reasons_data() |>
+      dplyr::filter(
+        geographic_level == input$geography_choice,
+        attendance_reason %in% visible_reasons
+      )
+
+    # ✅ Same logic as chart
+    if (input$ts_choice == "latestweeks") {
+      df <- df |> dplyr::filter(time_frame != "Week")
+    } else {
+      df <- df |> dplyr::filter(time_frame == "Week")
+    }
+
+    df |>
+      dplyr::mutate(
+        Date = as.Date(reference_date),
+        attendance_reason = name_map[attendance_reason]
+      ) |>
+      dplyr::select(
+        Date,
+        Reason = attendance_reason,
+        Rate = session_percent
+      ) |>
+      tidyr::pivot_wider(
+        names_from = Reason,
+        values_from = Rate
+      ) |>
+      dplyr::arrange(Date) |>
+      dplyr::mutate(
+        dplyr::across(
+          -Date,
+          render_percents # ✅ GOV formatting
+        )
+      ) |>
+      govReactable()
   })
 
 
