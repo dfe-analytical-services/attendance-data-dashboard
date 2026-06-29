@@ -1,7 +1,7 @@
 {
   "version": 1,
   "locale": "en_GB",
-  "platform": "4.5.0",
+  "platform": "4.5.3",
   "metadata": {
     "appmode": "shiny",
     "primary_rmd": null,
@@ -100,7 +100,7 @@
         "Maintainer": "Brian Ripley <Brian.Ripley@R-project.org>",
         "Repository": "CRAN",
         "Date/Publication": "2025-01-01 10:25:36 UTC",
-        "Built": "R 4.5.0; x86_64-w64-mingw32; 2025-04-11 10:22:45 UTC; windows",
+        "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-03-11 08:56:06 UTC; windows",
         "Archs": "x64"
       }
     },
@@ -130,7 +130,7 @@
         "Maintainer": "Brian Ripley <Brian.Ripley@R-project.org>",
         "Repository": "CRAN",
         "Date/Publication": "2025-02-28 17:44:52 UTC",
-        "Built": "R 4.5.0; x86_64-w64-mingw32; 2025-04-11 10:17:02 UTC; windows",
+        "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-03-11 08:46:11 UTC; windows",
         "Archs": "x64"
       }
     },
@@ -937,7 +937,7 @@
         "Maintainer": "Brian Ripley <Brian.Ripley@R-project.org>",
         "Repository": "CRAN",
         "Date/Publication": "2025-01-01 10:25:33 UTC",
-        "Built": "R 4.5.0; x86_64-w64-mingw32; 2025-04-11 10:23:01 UTC; windows",
+        "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-03-11 08:56:31 UTC; windows",
         "Archs": "x64"
       }
     },
@@ -1067,7 +1067,7 @@
         "Packaged": "2024-03-31 18:18:09 UTC; luke",
         "Repository": "CRAN",
         "Date/Publication": "2024-03-31 20:10:06 UTC",
-        "Built": "R 4.5.0; ; 2025-04-11 10:22:35 UTC; windows"
+        "Built": "R 4.5.3; ; 2026-03-11 08:55:50 UTC; windows"
       }
     },
     "commonmark": {
@@ -1549,7 +1549,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2025-11-19 13:20:08 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 16:26:36 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "digest",
+        "RemoteRef": "digest",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "0.6.39"
       }
     },
     "dplyr": {
@@ -1714,7 +1719,12 @@
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "RSPM",
         "Date/Publication": "2025-08-27 16:40:02 UTC",
-        "Built": "R 4.5.0; ; 2025-12-02 12:37:15 UTC; windows"
+        "Built": "R 4.5.0; ; 2025-12-02 12:37:15 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "evaluate",
+        "RemoteRef": "evaluate",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "1.0.5"
       }
     },
     "farver": {
@@ -2416,7 +2426,12 @@
         "Maintainer": "Yihui Xie <xie@yihui.name>",
         "Repository": "CRAN",
         "Date/Publication": "2026-03-06 06:30:47 UTC",
-        "Built": "R 4.5.3; ; 2026-04-25 17:16:28 UTC; windows"
+        "Built": "R 4.5.3; ; 2026-04-25 17:16:28 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "highr",
+        "RemoteRef": "highr",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "0.12"
       }
     },
     "hms": {
@@ -2481,7 +2496,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2025-12-04 11:50:09 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 17:16:28 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "htmltools",
+        "RemoteRef": "htmltools",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "0.5.9"
       }
     },
     "htmlwidgets": {
@@ -2840,7 +2860,12 @@
         "Maintainer": "Yihui Xie <xie@yihui.name>",
         "Repository": "CRAN",
         "Date/Publication": "2025-12-20 14:30:02 UTC",
-        "Built": "R 4.5.3; ; 2026-04-25 17:41:24 UTC; windows"
+        "Built": "R 4.5.3; ; 2026-04-25 17:41:24 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "knitr",
+        "RemoteRef": "knitr",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "1.51"
       }
     },
     "labeling": {
@@ -3102,7 +3127,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2026-02-04 09:00:02 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 17:41:23 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "lubridate",
+        "RemoteRef": "lubridate",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "1.9.5"
       }
     },
     "magrittr": {
@@ -3550,6 +3580,34 @@
         "RemoteSha": "1.5.0"
       }
     },
+    "plotly": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "description": {
+        "Package": "plotly",
+        "Title": "Create Interactive Web Graphics via 'plotly.js'",
+        "Version": "4.12.0",
+        "Authors@R": "c(person(\"Carson\", \"Sievert\", role = c(\"aut\", \"cre\"),\n    email = \"cpsievert1@gmail.com\", comment = c(ORCID = \"0000-0002-4958-2844\")),\n    person(\"Chris\", \"Parmer\", role = \"aut\",\n    email = \"chris@plot.ly\"),\n    person(\"Toby\", \"Hocking\", role = \"aut\",\n    email = \"tdhock5@gmail.com\"),\n    person(\"Scott\", \"Chamberlain\", role = \"aut\",\n    email = \"myrmecocystus@gmail.com\"),\n    person(\"Karthik\", \"Ram\", role = \"aut\",\n    email = \"karthik.ram@gmail.com\"),\n    person(\"Marianne\", \"Corvellec\", role = \"aut\",\n    email = \"marianne.corvellec@igdore.org\", comment = c(ORCID = \"0000-0002-1994-3581\")),\n    person(\"Pedro\", \"Despouy\", role = \"aut\",\n    email = \"pedro@plot.ly\"),\n    person(\"Salim\", \"Brüggemann\", role = \"ctb\",\n    email = \"salim-b@pm.me\", comment = c(ORCID = \"0000-0002-5329-5987\")),\n    person(\"Plotly Technologies Inc.\", role = \"cph\"))",
+        "License": "MIT + file LICENSE",
+        "Description": "Create interactive web graphics from 'ggplot2' graphs and/or a custom interface to the (MIT-licensed) JavaScript library 'plotly.js' inspired by the grammar of graphics.",
+        "URL": "https://plotly-r.com, https://github.com/plotly/plotly.R,\nhttps://plotly.com/r/",
+        "BugReports": "https://github.com/plotly/plotly.R/issues",
+        "Depends": "R (>= 3.5.0), ggplot2 (>= 3.0.0)",
+        "Imports": "tools, scales, httr (>= 1.3.0), jsonlite (>= 1.6), magrittr,\ndigest, viridisLite, base64enc, htmltools (>= 0.3.6),\nhtmlwidgets (>= 1.5.2.9001), tidyr (>= 1.0.0), RColorBrewer,\ndplyr, vctrs, tibble, lazyeval (>= 0.2.0), rlang (>= 1.0.0),\ncrosstalk, purrr, data.table, promises",
+        "Suggests": "MASS, maps, hexbin, ggthemes, GGally, ggalluvial, testthat,\nknitr, shiny (>= 1.1.0), shinytest2, curl, rmarkdown, Cairo,\nbroom, webshot, listviewer, dendextend, sf, png, IRdisplay,\nprocessx, plotlyGeoAssets, forcats, withr, palmerpenguins,\nrversions, reticulate, rsvg, ggridges",
+        "LazyData": "true",
+        "RoxygenNote": "7.3.3",
+        "Encoding": "UTF-8",
+        "Config/Needs/check": "tidyverse/ggplot2, ggobi/GGally, rcmdcheck,\ndevtools, reshape2, s2",
+        "NeedsCompilation": "no",
+        "Packaged": "2026-01-24 00:53:27 UTC; cpsievert",
+        "Author": "Carson Sievert [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-4958-2844>),\n  Chris Parmer [aut],\n  Toby Hocking [aut],\n  Scott Chamberlain [aut],\n  Karthik Ram [aut],\n  Marianne Corvellec [aut] (ORCID:\n    <https://orcid.org/0000-0002-1994-3581>),\n  Pedro Despouy [aut],\n  Salim Brüggemann [ctb] (ORCID: <https://orcid.org/0000-0002-5329-5987>),\n  Plotly Technologies Inc. [cph]",
+        "Maintainer": "Carson Sievert <cpsievert1@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2026-01-24 07:50:02 UTC",
+        "Built": "R 4.5.3; ; 2026-04-25 20:18:00 UTC; windows"
+      }
+    },
     "png": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -3771,8 +3829,8 @@
       "description": {
         "Package": "ps",
         "Title": "List, Query, Manipulate System Processes",
-        "Version": "1.9.1",
-        "Authors@R": "c(\n    person(\"Jay\", \"Loden\", role = \"aut\"),\n    person(\"Dave\", \"Daeschler\", role = \"aut\"),\n    person(\"Giampaolo\", \"Rodola'\", role = \"aut\"),\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
+        "Version": "1.9.3",
+        "Authors@R": "c(\n    person(\"Jay\", \"Loden\", role = \"aut\"),\n    person(\"Dave\", \"Daeschler\", role = \"aut\"),\n    person(\"Giampaolo\", \"Rodola'\", role = \"aut\"),\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"),\n           comment = c(ROR = \"03wc8by49\"))\n  )",
         "Description": "List, query and manipulate all system processes, on\n    'Windows', 'Linux' and 'macOS'.",
         "License": "MIT + file LICENSE",
         "URL": "https://github.com/r-lib/ps, https://ps.r-lib.org/",
@@ -3783,23 +3841,17 @@
         "Biarch": "true",
         "Config/Needs/website": "tidyverse/tidytemplate",
         "Config/testthat/edition": "3",
+        "Config/usethis/last-upkeep": "2025-04-28",
         "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.2",
+        "RoxygenNote": "7.3.3",
         "NeedsCompilation": "yes",
-        "Packaged": "2025-04-12 09:23:06 UTC; gaborcsardi",
-        "Author": "Jay Loden [aut],\n  Dave Daeschler [aut],\n  Giampaolo Rodola' [aut],\n  Gábor Csárdi [aut, cre],\n  Posit Software, PBC [cph, fnd]",
+        "Packaged": "2026-04-20 12:53:07 UTC; gaborcsardi",
+        "Author": "Jay Loden [aut],\n  Dave Daeschler [aut],\n  Giampaolo Rodola' [aut],\n  Gábor Csárdi [aut, cre],\n  Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
         "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-04-12 09:50:01 UTC",
-        "Built": "R 4.5.0; x86_64-w64-mingw32; 2025-06-16 00:32:53 UTC; windows",
-        "Archs": "x64",
-        "RemoteType": "standard",
-        "RemotePkgRef": "ps",
-        "RemoteRef": "ps",
-        "RemoteRepos": "http://cran.rstudio.com",
-        "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "x86_64-w64-mingw32",
-        "RemoteSha": "1.9.1"
+        "Repository": "RSPM",
+        "Date/Publication": "2026-04-20 13:40:03 UTC",
+        "Built": "R 4.5.0; x86_64-w64-mingw32; 2026-04-21 04:42:30 UTC; windows",
+        "Archs": "x64"
       }
     },
     "purrr": {
@@ -3871,7 +3923,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2026-01-17 08:40:02 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 16:26:35 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "rappdirs",
+        "RemoteRef": "rappdirs",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "0.3.4"
       }
     },
     "raster": {
@@ -4469,35 +4526,36 @@
       "Repository": null,
       "description": {
         "Package": "shinyGovstyle",
-        "Title": "Custom GOV.UK Style Inputs for Shiny",
-        "Version": "0.1.0.9000",
-        "Authors@R": "c(\n    person(\"Ross\", \"Wyatt\", , \"ross.wyatt@justice.gov.uk\", role = \"aut\"),\n    person(\"Cam\", \"Race\", , \"cameron.race@education.gov.uk\", role = c(\"aut\", \"cre\")),\n    person(\"Sarah\", \"Wong\", role = \"aut\"),\n    person(\"Richard\", \"Bielby\", , \"richard.bielby@education.gov.uk\", role = \"ctb\"),\n    person(\"Charlotte\", \"Foster\", , \"charlotte.foster@education.gov.uk\", role = \"ctb\"),\n    person(\"Jeni\", \"Martin\", role = \"ctb\"),\n    person(\"Andrew\", \"Baker\", , \"andrew.baker1@dhsc.gov.uk\", role = \"ctb\")\n  )",
-        "Description": "Collection of 'shiny' application styling that are based\n    on the GOV.UK Design System. See\n    <https://design-system.service.gov.uk/components/> for details.",
+        "Title": "Custom Gov Style Inputs for Shiny",
+        "Version": "0.2.0.9000",
+        "Authors@R": "c(\n    person(\"Ross\", \"Wyatt\", , \"ross.wyatt@justice.gov.uk\", role = \"aut\"),\n    person(\"Cam\", \"Race\", , \"camrace8@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Sarah\", \"Wong\", role = \"aut\"),\n    person(\"Richard\", \"Bielby\", , \"richard.bielby@education.gov.uk\", role = \"ctb\"),\n    person(\"Charlotte\", \"Foster\", , \"charlotte.foster@education.gov.uk\", role = \"ctb\"),\n    person(\"Jeni\", \"Martin\", role = \"ctb\"),\n    person(\"Andrew\", \"Baker\", , \"andrew.baker1@dhsc.gov.uk\", role = \"ctb\")\n  )",
+        "Description": "Collection of 'shiny' application styling that are based on\n    the GOV.UK Design System. See\n    <https://design-system.service.gov.uk/components/> for details.",
         "License": "GPL (>= 3)",
         "URL": "https://github.com/dfe-analytical-services/shinyGovstyle",
-        "BugReports": "https://github.com/dfe-analytical-services/shinyGovstyle/issues/new/choose",
+        "BugReports": "https://github.com/dfe-analytical-services/shinyGovstyle/issues",
         "Depends": "R (>= 4.1.0)",
-        "Imports": "htmltools,\njsonlite,\npurrr,\nreactable,\nreadr,\nreadODS,\nshiny (>= 0.14),\nshinyjs,\nstringr,\nwritexl",
-        "Suggests": "testthat,\nshinytest2",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.3",
-        "LazyData": "true",
+        "Imports": "htmltools,\njsonlite,\nlifecycle,\npurrr,\nreactable,\nreadODS,\nreadr,\nshiny (>= 0.14),\nshinyjs,\nstringr,\nwritexl",
+        "Suggests": "bslib,\nknitr,\nrlang,\nrmarkdown,\nshinytest2,\ntestthat",
+        "VignetteBuilder": "knitr",
         "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "LazyData": "true",
         "Roxygen": "list(markdown = TRUE)",
+        "RoxygenNote": "7.3.3",
         "Author": "Ross Wyatt [aut],\n  Cam Race [aut, cre],\n  Sarah Wong [aut],\n  Richard Bielby [ctb],\n  Charlotte Foster [ctb],\n  Jeni Martin [ctb],\n  Andrew Baker [ctb]",
-        "Maintainer": "Cam Race <cameron.race@education.gov.uk>",
-        "Built": "R 4.5.0; ; 2026-05-14 11:36:52 UTC; windows",
+        "Maintainer": "Cam Race <camrace8@gmail.com>",
+        "Built": "R 4.5.3; ; 2026-06-23 08:55:29 UTC; windows",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
-        "RemoteUsername": "dfe-analytical-services",
-        "RemoteRepo": "shinyGovstyle",
+        "RemoteUsername": "DfE-analytical-services",
+        "RemoteRepo": "shinygovstyle",
         "RemoteRef": "main",
-        "RemoteSha": "54fbe26c92ffb4890749a7afb648ff828b551d22",
+        "RemoteSha": "3e5518175b06c3fe8a6df029d554b559d0aca276",
         "GithubHost": "api.github.com",
-        "GithubRepo": "shinyGovstyle",
-        "GithubUsername": "dfe-analytical-services",
+        "GithubRepo": "shinygovstyle",
+        "GithubUsername": "DfE-analytical-services",
         "GithubRef": "main",
-        "GithubSHA1": "54fbe26c92ffb4890749a7afb648ff828b551d22"
+        "GithubSHA1": "3e5518175b06c3fe8a6df029d554b559d0aca276"
       }
     },
     "shinycssloaders": {
@@ -4815,7 +4873,12 @@
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2025-11-04 14:00:02 UTC",
-        "Built": "R 4.5.3; ; 2026-04-25 18:08:54 UTC; windows"
+        "Built": "R 4.5.3; ; 2026-04-25 18:08:54 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "stringr",
+        "RemoteRef": "stringr",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "1.6.0"
       }
     },
     "styler": {
@@ -5167,7 +5230,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2026-01-29 22:20:08 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 17:16:26 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "timechange",
+        "RemoteRef": "timechange",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "0.4.0"
       }
     },
     "tinytex": {
@@ -5483,7 +5551,12 @@
         "Author": "Simon Garnier [aut, cre],\n  Noam Ross [ctb, cph],\n  Bob Rudis [ctb, cph],\n  Marco Sciaini [ctb, cph],\n  Antônio Pedro Camargo [ctb, cph],\n  Cédric Scherer [ctb, cph]",
         "Repository": "CRAN",
         "Date/Publication": "2026-02-04 06:40:10 UTC",
-        "Built": "R 4.5.3; ; 2026-04-25 16:26:34 UTC; windows"
+        "Built": "R 4.5.3; ; 2026-04-25 16:26:34 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "viridisLite",
+        "RemoteRef": "viridisLite",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "0.4.3"
       }
     },
     "vroom": {
@@ -5810,7 +5883,12 @@
         "Repository": "CRAN",
         "Date/Publication": "2025-12-10 07:00:01 UTC",
         "Built": "R 4.5.3; x86_64-w64-mingw32; 2026-04-25 16:26:35 UTC; windows",
-        "Archs": "x64"
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "yaml",
+        "RemoteRef": "yaml",
+        "RemoteRepos": "http://cran.rstudio.com",
+        "RemoteSha.Version": "2.3.12"
       }
     },
     "zip": {
@@ -5875,7 +5953,7 @@
       "checksum": "940dff53b51d664e52e90e4349a97eaa"
     },
     ".Rprofile": {
-      "checksum": "b318190ddc6110b4957ed54b2fef899d"
+      "checksum": "fc920e1ecaf02d9c6ede13f2cdb73490"
     },
     "azure-pipelines.yml": {
       "checksum": "161e6e3c4a8af841144c1f338c7049d8"
@@ -5932,7 +6010,7 @@
       "checksum": "12ec8a8981de38a0c0e149b9e67ae51c"
     },
     "global.R": {
-      "checksum": "087d11726cff8a571b965514b9c05f2a"
+      "checksum": "f79f637692d2cc74e8709b40d39a0dc4"
     },
     "google-analytics.html": {
       "checksum": "c6848bc54d17ba53262714266256e5c2"
@@ -5947,7 +6025,7 @@
       "checksum": "33bce00050768810c97392bb0bb418da"
     },
     "R/dashboard_panels.R": {
-      "checksum": "4bbabf9f41ee65b5246135a2ff96372f"
+      "checksum": "776ec585d3d3e90573263a911cf2c1d0"
     },
     "R/fetch_data.R": {
       "checksum": "447fe5389596bad41e911b025df69045"
@@ -5956,13 +6034,13 @@
       "checksum": "4816dd071ef6e621cf90cadc4dc94ba1"
     },
     "R/headline_panel.R": {
-      "checksum": "f098dc97ebc6a318a73e4c3cac0f4b96"
+      "checksum": "dc7f758506d712ce7553819cd52a090f"
     },
     "R/line_formatters.R": {
       "checksum": "a6f6eeece707c39c7483e0ab05746572"
     },
     "R/plotting.R": {
-      "checksum": "59a3e173d82988437afa21b54e56e897"
+      "checksum": "8536baebc83f24153f99846975cd3a83"
     },
     "R/prerun_utils.R": {
       "checksum": "e7f093c1794902ecc69e43814ea3d097"
@@ -5992,10 +6070,10 @@
       "checksum": "83120f3d4bfdc3bd81493340f50b06d6"
     },
     "renv.lock": {
-      "checksum": "467013361a962ff76f970bd6ea6cb0f7"
+      "checksum": "5fc519b57b0612d3e5c3f78ffb322033"
     },
     "server.R": {
-      "checksum": "0701dcb0448ba1a28562491b5c13fcdf"
+      "checksum": "431fcdd095b4b879e318f2dec0e2c0d7"
     },
     "tests/testthat.R": {
       "checksum": "12e9b09de5275bdc13bde6ae5a82f8b1"
@@ -6091,7 +6169,7 @@
       "checksum": "eada1b3e2b501aa593e95c80aafbde63"
     },
     "ui.R": {
-      "checksum": "077a961499ba6904fb233ebe76b508ee"
+      "checksum": "1f604e6da358931d0be65292cb422782"
     },
     "www/cookie-consent.js": {
       "checksum": "942789aa3ef2153ae6e6236579b53a2e"

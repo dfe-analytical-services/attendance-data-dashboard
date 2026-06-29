@@ -40,6 +40,7 @@ library(shinytest2)
 library(diffviewer)
 library(dplyr)
 library(eesyapi)
+library(plotly)
 
 # Few things to manage fonts
 library(gfonts)
