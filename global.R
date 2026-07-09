@@ -134,19 +134,19 @@ ytd_dates <- paste0(
 # ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date) - 7)
 
 # # Read CSV without factors
-# attendance_data <- read.csv(
-#   "data/attendance_data_dashboard.csv",
-#   stringsAsFactors = FALSE
-# )
-
-# Read CSV from ZIP file
 attendance_data <- read.csv(
-  unz(
-    "data/attendance_data_dashboard.zip",
-    "attendance_data_dashboard.csv"
-  ),
+  "data/attendance_data_dashboard.csv",
   stringsAsFactors = FALSE
 )
+
+# Read CSV from ZIP file
+# attendance_data <- read.csv(
+#   unz(
+#     "data/attendance_data_dashboard.zip",
+#     "attendance_data_dashboard.csv"
+#   ),
+#   stringsAsFactors = FALSE
+# )
 
 # Clean column names (remove quotes and escaped underscores)
 names(attendance_data) <- gsub("\\\\_", "_", names(attendance_data)) # remove backslashes
