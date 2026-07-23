@@ -95,7 +95,7 @@ team_email <- "school.statistics@education.gov.uk"
 #### SECTION 1 - date filters ####
 
 start_date <- as.Date("2025-09-08")
-end_date <- as.Date("2026-06-26")
+end_date <- as.Date("2026-07-10")
 # funeral_date <- as.Date("2022-09-19")
 # strike_date_1 <- as.Date("2023-02-01")
 # strike_date_2 <- as.Date("2023-03-15")
@@ -134,19 +134,19 @@ ytd_dates <- paste0(
 # ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date) - 7)
 
 # # Read CSV without factors
-# attendance_data <- read.csv(
-#   "data/attendance_data_dashboard.csv",
-#   stringsAsFactors = FALSE
-# )
-
-# Read CSV from ZIP file
 attendance_data <- read.csv(
-  unz(
-    "data/attendance_data_dashboard.zip",
-    "attendance_data_dashboard.csv"
-  ),
+  "data/attendance_data_dashboard.csv",
   stringsAsFactors = FALSE
 )
+
+# Read CSV from ZIP file
+# attendance_data <- read.csv(
+#   unz(
+#     "data/attendance_data_dashboard.zip",
+#     "attendance_data_dashboard.csv"
+#   ),
+#   stringsAsFactors = FALSE
+# )
 
 # Clean column names (remove quotes and escaped underscores)
 names(attendance_data) <- gsub("\\\\_", "_", names(attendance_data)) # remove backslashes
