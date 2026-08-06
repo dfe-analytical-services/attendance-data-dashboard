@@ -563,9 +563,9 @@ server <- function(input, output, session) {
       time_period == max(time_period),
       breakdown == "Weekly"
     ) %>%
-      filter(time_identifier == max(time_identifier)) %>%
+      # filter(time_identifier == max(time_identifier)) %>%
       # CHANGED THIS SUCH THAT THE TABLE DISPLAYS ONE WEEK BEHIND
-      # filter(time_identifier == max(time_identifier) - 1) %>%
+      filter(time_identifier == max(time_identifier) - 1) %>%
       mutate(
         overall_absence_perc = overall_absence_perc / 100,
         authorised_absence_perc = authorised_absence_perc / 100,
@@ -2120,10 +2120,10 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
+      # as.Date(attendance_date) +
+      # 17
       as.Date(attendance_date) +
-      17
-    # as.Date(attendance_date) +
-    # 24
+      24
     # as.Date(attendance_date) + 31
 
     paste0("Data was last updated on ", last_update_date, ".")
@@ -2157,10 +2157,10 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
+      # as.Date(attendance_date) +
+      # 17
       as.Date(attendance_date) +
-      17
-    # as.Date(attendance_date) +
-    # 24
+      24
     # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
@@ -2191,10 +2191,10 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
+      # as.Date(attendance_date) +
+      # 17
       as.Date(attendance_date) +
-      17
-    # as.Date(attendance_date) +
-    # 24
+      24
     # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%
@@ -2227,10 +2227,10 @@ server <- function(input, output, session) {
 
     last_update_date <- live_attendance_data_weekly() %>%
       pull(attendance_date) %>%
+      # as.Date(attendance_date) +
+      # 17
       as.Date(attendance_date) +
-      17
-    # as.Date(attendance_date) +
-    # 24
+      24
     # as.Date(attendance_date) + 31
 
     next_update_date <- live_attendance_data_weekly() %>%

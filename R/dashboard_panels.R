@@ -138,7 +138,7 @@ homepage_panel <- function() {
                   br(),
                   br(),
                   p(
-                    "This dashboard has been developed as an accompaniment to DFE's termly Accredited official statistics on pupil absence. You can access this publication through the link below:"
+                    "This dashboard has been developed as an accompaniment to DfE's termly Accredited official statistics on pupil absence. You can access this publication through the link below:"
                   ),
                   a(
                     href = "https://explore-education-statistics.service.gov.uk/find-statistics/pupil-absence-in-schools-in-england",
