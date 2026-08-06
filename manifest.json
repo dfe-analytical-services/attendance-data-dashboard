@@ -5592,23 +5592,23 @@
     ".github/ISSUE_TEMPLATE/feature_request.md": {
       "checksum": "2c95cb00ebd7546ccec06638cd813767"
     },
+    ".github/workflows/air.yml": {
+      "checksum": "3325dee1337dcbdbe33348b7fd275a7e"
+    },
+    ".github/workflows/automated-tests.yaml": {
+      "checksum": "7fec9834ee9927cf76307a613d0e699e"
+    },
     ".github/workflows/deploy-shiny.yaml": {
-      "checksum": "95dc25410e51b69262044e328cb1fd00"
+      "checksum": "78b719353a001a3e8199ac35033f36f0"
     },
-    ".github/workflows/lintr.yml": {
-      "checksum": "1dfc7a1fd8514c8e667b10797a8b6a42"
-    },
-    ".github/workflows/shiny-tests.yaml": {
-      "checksum": "aa894abda903eec52ac7180832688869"
+    ".github/workflows/lint.yaml": {
+      "checksum": "db7c5661bd52696cbed5255f3e4003e4"
     },
     ".hooks/pre-commit.R": {
       "checksum": "f97721452ace8bbfe1247b0740392330"
     },
-    ".RData": {
-      "checksum": "9119b8bed12a40df29ba6563be0f3d9b"
-    },
     ".Rprofile": {
-      "checksum": "97c40843b82eb9e642317634bd2fefc9"
+      "checksum": "d00a5654a73ba6e4ba587537e0d449fc"
     },
     "CODE_OF_CONDUCT.md": {
       "checksum": "7dcf9b0b5bac78fc7d7fe45f8c5102b1"
