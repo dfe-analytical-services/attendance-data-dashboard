@@ -5,6 +5,7 @@ on:
       - main
       - development
       - 202*LiveData
+      - eesp*
   pull_request:
     branches:
       - main
