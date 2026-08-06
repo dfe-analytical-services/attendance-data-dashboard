@@ -4565,8 +4565,8 @@
     },
     "shinyGovstyle": {
       "Package": "shinyGovstyle",
-      "Version": "0.2.0.9000",
-      "Source": "GitHub",
+      "Version": "0.2.0",
+      "Source": "Repository",
       "Title": "Custom Gov Style Inputs for Shiny",
       "Authors@R": "c( person(\"Ross\", \"Wyatt\", , \"ross.wyatt@justice.gov.uk\", role = \"aut\"), person(\"Cam\", \"Race\", , \"camrace8@gmail.com\", role = c(\"aut\", \"cre\")), person(\"Sarah\", \"Wong\", role = \"aut\"), person(\"Richard\", \"Bielby\", , \"richard.bielby@education.gov.uk\", role = \"ctb\"), person(\"Charlotte\", \"Foster\", , \"charlotte.foster@education.gov.uk\", role = \"ctb\"), person(\"Jeni\", \"Martin\", role = \"ctb\"), person(\"Andrew\", \"Baker\", , \"andrew.baker1@dhsc.gov.uk\", role = \"ctb\") )",
       "Description": "Collection of 'shiny' application styling that are based on the GOV.UK Design System. See <https://design-system.service.gov.uk/components/> for details.",
@@ -4601,16 +4601,11 @@
       "Config/testthat/edition": "3",
       "Encoding": "UTF-8",
       "LazyData": "true",
-      "Roxygen": "list(markdown = TRUE)",
       "RoxygenNote": "7.3.3",
+      "NeedsCompilation": "no",
       "Author": "Ross Wyatt [aut], Cam Race [aut, cre], Sarah Wong [aut], Richard Bielby [ctb], Charlotte Foster [ctb], Jeni Martin [ctb], Andrew Baker [ctb]",
       "Maintainer": "Cam Race <camrace8@gmail.com>",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "dfe-analytical-services",
-      "RemoteRepo": "shinyGovstyle",
-      "RemoteRef": "main",
-      "RemoteSha": "112d08089335f8488b5c35d02847cda7f7071406"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
     },
     "shinyWidgets": {
       "Package": "shinyWidgets",
