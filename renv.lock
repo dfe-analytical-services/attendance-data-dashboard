@@ -4610,7 +4610,7 @@
       "RemoteUsername": "dfe-analytical-services",
       "RemoteRepo": "shinyGovstyle",
       "RemoteRef": "main",
-      "RemoteSha": "3e5518175b06c3fe8a6df029d554b559d0aca276"
+      "RemoteSha": "112d08089335f8488b5c35d02847cda7f7071406"
     },
     "shinyWidgets": {
       "Package": "shinyWidgets",
