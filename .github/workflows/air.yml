@@ -3,19 +3,17 @@
 on:
   push:
     branches: [main, master]
-  pull_request:
+  pull_request_target:
 
-name: lintr
+name: Reusable
 
 permissions:
-  actions: write
   contents: read
   packages: write
   pull-requests: write
-  security-events: write
 
 jobs:
-  lint:
-    uses: dfe-analytical-services/dfeshiny/.github/workflows/lintr_reusable.yaml@main
-    with:
-      is_package: "false"
+  air:
+    name: Air
+    uses: dfe-analytical-services/dfeshiny/.github/workflows/air_reusable.yaml@main
+    

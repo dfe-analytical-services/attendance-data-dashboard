@@ -83,8 +83,6 @@ appLoadingCSS <- "
 source("R/prerun_utils.R")
 
 site_primary <- "https://department-for-education.shinyapps.io/pupil-attendance-in-schools"
-site_overflow <- "https://department-for-education.shinyapps.io/pupil-attendance-in-schools-overflow"
-site_c <- ""
 google_analytics_key <- "DG7P4WLB0Y"
 site_title <- "Pupil attendance in schools dashboard"
 team_email <- "school.statistics@education.gov.uk"
