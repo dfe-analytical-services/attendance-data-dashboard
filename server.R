@@ -2659,7 +2659,7 @@ server <- function(input, output, session) {
   #   if (input$measure_choice == "Overall") {
   #     rate_map <- mapdata_shaped_type() %>%
   #       leaflet() %>%
-  #       addProviderTiles(providers$CartoDB.Positron) %>%
+  #       addTiles(urlTemplate = paste0("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=",  Sys.getenv("CARTO_API_TOKEN"))) %>%
   #       addPolygons(
   #         fillColor = ~ overall_abs_pal(overall_absence_perc),
   #         weight = 1,
@@ -2688,7 +2688,7 @@ server <- function(input, output, session) {
   #   } else if (input$measure_choice == "Authorised") {
   #     rate_map <- mapdata_shaped_type() %>%
   #       leaflet() %>%
-  #       addProviderTiles(providers$CartoDB.Positron) %>%
+  #       addTiles(urlTemplate = paste0("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=",  Sys.getenv("CARTO_API_TOKEN"))) %>%
   #       addPolygons(
   #         fillColor = ~ auth_abs_pal(authorised_absence_perc),
   #         weight = 1,
@@ -2717,7 +2717,7 @@ server <- function(input, output, session) {
   #   } else if (input$measure_choice == "Unauthorised") {
   #     rate_map <- mapdata_shaped_type() %>%
   #       leaflet() %>%
-  #       addProviderTiles(providers$CartoDB.Positron) %>%
+  #       addTiles(urlTemplate = paste0("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=",  Sys.getenv("CARTO_API_TOKEN"))) %>%
   #       addPolygons(
   #         fillColor = ~ unauth_abs_pal(unauthorised_absence_perc),
   #         weight = 1,
@@ -2848,7 +2848,12 @@ server <- function(input, output, session) {
 
       rate_map <- mapdata_shaped_type() %>%
         leaflet() %>%
-        addProviderTiles(providers$CartoDB.Positron) %>%
+        addTiles(
+          urlTemplate = paste0(
+            "https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=",
+            Sys.getenv("CARTO_API_TOKEN")
+          )
+        ) %>%
         addPolygons(
           fillColor = ~ overall_abs_pal(overall_absence_perc),
           color = "#4d4d4d",
@@ -2906,7 +2911,12 @@ server <- function(input, output, session) {
 
       rate_map <- mapdata_shaped_type() %>%
         leaflet() %>%
-        addProviderTiles(providers$CartoDB.Positron) %>%
+        addTiles(
+          urlTemplate = paste0(
+            "https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=",
+            Sys.getenv("CARTO_API_TOKEN")
+          )
+        ) %>%
         addPolygons(
           fillColor = ~ auth_abs_pal(authorised_absence_perc),
           color = "#4d4d4d",
@@ -2964,7 +2974,12 @@ server <- function(input, output, session) {
 
       rate_map <- mapdata_shaped_type() %>%
         leaflet() %>%
-        addProviderTiles(providers$CartoDB.Positron) %>%
+        addTiles(
+          urlTemplate = paste0(
+            "https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=",
+            Sys.getenv("CARTO_API_TOKEN")
+          )
+        ) %>%
         addPolygons(
           fillColor = ~ unauth_abs_pal(unauthorised_absence_perc),
           color = "#4d4d4d",
