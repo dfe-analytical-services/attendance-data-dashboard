@@ -19,4 +19,5 @@ jobs:
     secrets:
       SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
       SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
+      CARTO_API_TOKEN: ${{ secrets.CARTO_API_KEY }}
       
