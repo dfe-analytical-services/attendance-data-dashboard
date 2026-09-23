@@ -10,6 +10,8 @@
 # Run renv::restore()
 # If it doesn't work first time, maybe try renv::activate() and then renv::restore()
 
+# Just add a line to test
+
 # Library calls ----------------------------------------------------------------------------------
 
 library(rsconnect)
