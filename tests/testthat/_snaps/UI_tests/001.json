@@ -9,12 +9,12 @@
     "measure_choice": "Overall",
     "navlistPanel": "Homepage",
     "region_choice": "East Midlands",
-    "school_choice": "Primary",
+    "school_choice": "Total",
     "ts_choice": "latestweeks"
   },
   "output": {
-    "daily_schools_count": "20,048 schools provided information on the latest full day of data, i.e. 2026-07-17",
-    "headline_update_date": "Data was last updated on 2026-08-06.",
-    "homepage_update_dates": "Data was last updated on 2026-08-06. The latest full week of data was the week commencing 2026-07-13."
+    "daily_schools_count": "21,066 schools provided information on the latest full day of data, i.e. 2026-09-11",
+    "headline_update_date": "Data was last updated on 2026-09-24.",
+    "homepage_update_dates": "Data was last updated on 2026-09-24. The latest full week of data was the week commencing 2026-09-07."
   }
 }
