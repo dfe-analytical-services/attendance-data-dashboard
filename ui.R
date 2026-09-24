@@ -49,7 +49,6 @@ ui <- function(input, output, session) {
       name = "DfE pupil attendance and absence in schools in England"
     ),
     tags$head(includeHTML(("google-analytics.html"))),
-    shinyGovstyle::full_width_overrides(),
     dfeshiny::header(
       "Pupil attendance and absence in schools in England"
     ),

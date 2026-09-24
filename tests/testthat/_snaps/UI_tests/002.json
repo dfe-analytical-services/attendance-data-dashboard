@@ -9,7 +9,7 @@
     "measure_choice": "Overall",
     "navlistPanel": "dashboard",
     "region_choice": "East Midlands",
-    "school_choice": "Primary",
+    "school_choice": "Total",
     "ts_choice": "latestweeks"
   },
   "output": {
@@ -30,11 +30,11 @@
             "automargin": true,
             "title": "",
             "tickvals": [
-              "2026-07-13",
-              "2026-07-14",
-              "2026-07-15",
-              "2026-07-16",
-              "2026-07-17"
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11"
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -52,7 +52,7 @@
             "ticksuffix": "%",
             "range": [
               0,
-              11.194394620961196
+              7.1067499901066613
             ],
             "zeroline": true,
             "zerolinewidth": 2,
@@ -69,7 +69,7 @@
             "xanchor": "center",
             "x": 0.5
           },
-          "title": "Daily summary of absence rates for primary<br> state-funded schools at national level",
+          "title": "Daily summary of absence rates for total<br> state-funded schools at national level",
           "font": {
             "family": "arial",
             "size": 12,
@@ -113,18 +113,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-07-13",
-              "2026-07-14",
-              "2026-07-15",
-              "2026-07-16",
-              "2026-07-17"
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11"
             ],
             "y": [
-              6.04511269576407,
-              5.5622684378348399,
-              5.8800429096817997,
-              6.7919710238816,
-              8.2921441636749602
+              4.5747409287133802,
+              4.5634343671593003,
+              4.3549396136255503,
+              4.5302370639637601,
+              5.2642592519308602
             ],
             "line": {
               "color": "#12436D"
@@ -157,18 +157,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-07-13",
-              "2026-07-14",
-              "2026-07-15",
-              "2026-07-16",
-              "2026-07-17"
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11"
             ],
             "y": [
-              3.4501618844075801,
-              3.10760549480971,
-              3.0691766028223002,
-              3.2851922504825,
-              3.6422079863583798
+              2.3801854482795899,
+              2.5689700714339199,
+              2.5182776849547999,
+              2.7188799418571601,
+              3.30157727469921
             ],
             "line": {
               "color": "#28A197"
@@ -201,18 +201,18 @@
             "mode": "markers+lines",
             "type": "scatter",
             "x": [
-              "2026-07-13",
-              "2026-07-14",
-              "2026-07-15",
-              "2026-07-16",
-              "2026-07-17"
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11"
             ],
             "y": [
-              2.5949508113564801,
-              2.4546629430251299,
-              2.8108663068594999,
-              3.5067787733991098,
-              4.6499361773165804
+              2.1945554804337899,
+              1.99446429572538,
+              1.83666192867075,
+              1.8113571221066,
+              1.9626819772316499
             ],
             "line": {
               "color": "#F46A25"
@@ -355,9 +355,9 @@
         }
       ]
     },
-    "headline_bullet_title_nat": "Headline figures for the latest week - 2026-07-13 to 2026-07-17: primary state-funded school attendance at national level",
-    "weekly_absence_rate_nat": "- 6.49% of sessions were recorded as absence",
-    "weekly_attendance_rate_nat": "- 93.51% of sessions were recorded as attending",
-    "weekly_illness_rate_nat": "- 2.3% of sessions were recorded as illness"
+    "headline_bullet_title_nat": "Headline figures for the latest week - 2026-09-07 to 2026-09-11: total state-funded school attendance at national level",
+    "weekly_absence_rate_nat": "- 4.66% of sessions were recorded as absence",
+    "weekly_attendance_rate_nat": "- 95.34% of sessions were recorded as attending",
+    "weekly_illness_rate_nat": "- 1.71% of sessions were recorded as illness"
   }
 }
