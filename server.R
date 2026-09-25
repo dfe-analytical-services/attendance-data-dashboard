@@ -182,18 +182,28 @@ server <- function(input, output, session) {
   reactive_period_selected <- reactive({
     if (input$ts_choice == "latestweeks") {
       period <- reactive_latestweeks_string()
-    } else {
+    } else if (input$ts_choice == "yeartodate") {
       period <- reactive_yeartodate_string()
+    } else if (input$ts_choice == "previousyear") {
+      period <- "2025/26 academic year"
     }
+
     period
   })
 
   observe({
-    newchoices <- c(latest_weeks = "latestweeks", ytd_dates = "yeartodate")
+    newchoices <- c(
+      latestweeks = "latestweeks",
+      yeartodate = "yeartodate",
+      previousyear = "previousyear"
+    )
+
     names(newchoices) <- c(
       reactive_latestweeks_string(),
-      reactive_yeartodate_string()
+      reactive_yeartodate_string(),
+      "2025/26 academic year"
     )
+
     updateSelectInput(
       session,
       "ts_choice",
@@ -249,6 +259,17 @@ server <- function(input, output, session) {
         ", ",
         input$la_choice
       )
+    }
+  })
+
+  # Select the current or previous academic-year dataset
+  selected_attendance_data <- reactive({
+    req(input$ts_choice)
+
+    if (input$ts_choice == "previousyear") {
+      attendance_data_previous
+    } else {
+      attendance_data
     }
   })
 
@@ -623,76 +644,75 @@ server <- function(input, output, session) {
     )
   })
 
-  # Full weekly timeseries for latest year
+  # Full weekly timeseries for selected academic year
   live_attendance_data_ts <- reactive({
+    data_selected <- selected_attendance_data()
+
     if (input$geography_choice == "National") {
-      attendance_data %>%
+      data_selected %>%
         dplyr::filter(
           geographic_level == "National",
           school_type == input$school_choice,
           breakdown == "Weekly"
-        )
-      # USED TO REMOVE RIGHTMOST POINT ON YTD CHART
-      # %>%
-      #   arrange(time_period, as.numeric(time_identifier)) %>%
-      #   slice(-n())
+        ) %>%
+        arrange(week_commencing)
     } else if (input$geography_choice == "Regional") {
-      attendance_data %>%
+      data_selected %>%
         dplyr::filter(
           geographic_level == "Regional",
           region_name == input$region_choice,
           school_type == input$school_choice,
           breakdown == "Weekly"
-        )
-      # USED TO REMOVE RIGHTMOST POINT ON YTD CHART
-      # %>%
-      #   arrange(time_period, as.numeric(time_identifier)) %>%
-      #   slice(-n())
+        ) %>%
+        arrange(week_commencing)
     } else if (input$geography_choice == "Local authority") {
-      attendance_data %>%
+      data_selected %>%
         dplyr::filter(
           geographic_level == "Local authority",
           region_name == input$region_choice,
           la_name == input$la_choice,
           school_type == input$school_choice,
           breakdown == "Weekly"
-        )
+        ) %>%
+        arrange(week_commencing)
     } else {
-      NA
+      data.frame()
     }
   })
 
-  # Full timeseries for latest year
+  # YTD data for selected academic year
   live_attendance_data_ytd <- reactive({
+    data_selected <- selected_attendance_data()
+
     if (input$geography_choice == "National") {
-      dplyr::filter(
-        attendance_data,
-        geographic_level == "National",
-        school_type == input$school_choice,
-        # time_period == max(time_period),
-        breakdown == "YTD"
-      )
+      data_selected %>%
+        dplyr::filter(
+          geographic_level == "National",
+          school_type == input$school_choice,
+          breakdown == "YTD"
+        ) %>%
+        filter(attendance_date == max(attendance_date, na.rm = TRUE))
     } else if (input$geography_choice == "Regional") {
-      dplyr::filter(
-        attendance_data,
-        geographic_level == "Regional",
-        region_name == input$region_choice,
-        school_type == input$school_choice,
-        # time_period == max(time_period),
-        breakdown == "YTD"
-      )
+      data_selected %>%
+        dplyr::filter(
+          geographic_level == "Regional",
+          region_name == input$region_choice,
+          school_type == input$school_choice,
+          breakdown == "YTD"
+        ) %>%
+        filter(attendance_date == max(attendance_date, na.rm = TRUE))
     } else if (input$geography_choice == "Local authority") {
-      dplyr::filter(
-        attendance_data,
-        geographic_level == "Local authority",
-        region_name == input$region_choice,
-        la_name == input$la_choice,
-        school_type == input$school_choice,
-        # time_period == max(time_period),
-        breakdown == "YTD"
-      )
+      data_selected %>%
+        dplyr::filter(
+          geographic_level == "Local authority",
+          region_name == input$region_choice,
+          la_name == input$la_choice,
+          school_type == input$school_choice,
+          breakdown == "YTD"
+        ) %>%
+        filter(attendance_date == max(attendance_date, na.rm = TRUE))
     } else {
-      NA
+      data.frame()
     }
   })
 
@@ -2264,8 +2284,8 @@ server <- function(input, output, session) {
     validate(need(nrow(live_attendance_data_weekly()) > 0, ""))
     validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
 
-    overall_absence_rate_weekly_headline <- live_attendance_data_weekly()
-    pull(overall_absence_perc) %>%
+    overall_absence_rate_weekly_headline <- live_attendance_data_weekly() %>%
+      pull(overall_absence_perc) %>%
       round(digits = 2)
 
     # Put value into box to plug into app

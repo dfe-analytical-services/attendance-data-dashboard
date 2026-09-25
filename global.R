@@ -136,12 +136,6 @@ ytd_dates <- paste0(
 )
 # ytd_dates <- paste0("Year to date - ", as.Date(start_date), " to ", as.Date(end_date) - 7)
 
-# # Read CSV without factors
-attendance_data <- read.csv(
-  "data/attendance_data_dashboard.csv",
-  stringsAsFactors = FALSE
-)
-
 # Read CSV from ZIP file
 # attendance_data <- read.csv(
 #   unz(
@@ -151,19 +145,40 @@ attendance_data <- read.csv(
 #   stringsAsFactors = FALSE
 # )
 
-# Clean column names (remove quotes and escaped underscores)
-names(attendance_data) <- gsub("\\\\_", "_", names(attendance_data)) # remove backslashes
-names(attendance_data) <- gsub("\"", "", names(attendance_data)) # remove quotes
+# Function to read and prepare dashboard CSV files
+read_attendance_dashboard_data <- function(file_path) {
+  data <- read.csv(
+    file_path,
+    stringsAsFactors = FALSE
+  )
 
-# Parse dates flexibly (handles both dmy and ymd)
-attendance_data$attendance_date <- as.Date(parse_date_time(
-  attendance_data$attendance_date,
-  orders = c("dmy", "ymd")
-))
-attendance_data$week_commencing <- as.Date(parse_date_time(
-  attendance_data$week_commencing,
-  orders = c("dmy", "ymd")
-))
+  # Clean column names
+  names(data) <- gsub("\\\\_", "_", names(data))
+  names(data) <- gsub("\"", "", names(data))
+
+  # Parse dates flexibly
+  data$attendance_date <- as.Date(parse_date_time(
+    data$attendance_date,
+    orders = c("dmy", "ymd")
+  ))
+
+  data$week_commencing <- as.Date(parse_date_time(
+    data$week_commencing,
+    orders = c("dmy", "ymd")
+  ))
+
+  data
+}
+
+# Current 2026/27 data
+attendance_data <- read_attendance_dashboard_data(
+  "data/attendance_data_dashboard.csv"
+)
+
+# Fixed final 2025/26 data
+attendance_data_previous <- read_attendance_dashboard_data(
+  "data/attendance_data_dashboard_2025_26_final.csv"
+)
 
 
 message(paste("Finished processing steps, ", Sys.time()))
