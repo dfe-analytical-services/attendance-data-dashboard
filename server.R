@@ -1147,7 +1147,7 @@ server <- function(input, output, session) {
         marker = list(color = "#28A197"),
         name = "Medical appointments",
         hovertemplate = paste(
-          "medical appointments: <b>%{y:.2f}%</b><extra></extra>"
+          "Medical appointments: <b>%{y:.2f}%</b><extra></extra>"
         ),
         mode = "markers"
       ) %>%
