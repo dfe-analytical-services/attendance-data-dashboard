@@ -189,11 +189,16 @@ server <- function(input, output, session) {
   })
 
   observe({
-    newchoices <- c(latest_weeks = "latestweeks", ytd_dates = "yeartodate")
+    newchoices <- c(
+      latest_weeks = "latestweeks",
+      ytd_dates = "yeartodate"
+    )
+
     names(newchoices) <- c(
       reactive_latestweeks_string(),
       reactive_yeartodate_string()
     )
+
     updateSelectInput(
       session,
       "ts_choice",
@@ -202,19 +207,97 @@ server <- function(input, output, session) {
     )
   })
 
+  # Date labels for the Local Authority Data time-period dropdown
+
+  reactive_la_latestweek_string <- reactive({
+    latestweek_line <- most_recent_week_lookup %>%
+      dplyr::ungroup() %>%
+      dplyr::filter(
+        geographic_level == "Local authority"
+      ) %>%
+      dplyr::distinct(
+        week_start,
+        week_end
+      ) %>%
+      dplyr::slice(1)
+
+    req(nrow(latestweek_line) > 0)
+
+    paste0(
+      "Latest week - ",
+      latestweek_line$week_start[[1]],
+      " to ",
+      latestweek_line$week_end[[1]]
+    )
+  })
+
+  reactive_la_yeartodate_string <- reactive({
+    year_line <- year_lookup %>%
+      dplyr::ungroup() %>%
+      dplyr::filter(
+        geographic_level == "Local authority"
+      ) %>%
+      dplyr::distinct(
+        year_start,
+        year_end
+      ) %>%
+      dplyr::slice(1)
+
+    req(nrow(year_line) > 0)
+
+    paste0(
+      "Year to date - ",
+      year_line$year_start[[1]],
+      " to ",
+      year_line$year_end[[1]]
+    )
+  })
+
+  observe({
+    req(input$map_period_choice)
+
+    la_period_choices <- stats::setNames(
+      c(
+        "Weekly",
+        "YTD"
+      ),
+      c(
+        reactive_la_latestweek_string(),
+        reactive_la_yeartodate_string()
+      )
+    )
+
+    updateSelectInput(
+      session = session,
+      inputId = "map_period_choice",
+      choices = la_period_choices,
+      selected = input$map_period_choice
+    )
+  })
   # Dropdown expandable label ------------------------------------------------------------
   observeEvent(input$go, {
-    toggle(id = "div_a", anim = T)
+    toggle(id = "div_a", anim = TRUE)
   })
 
   output$dropdown_label <- renderText({
     if (input$dash == "la comparisons") {
+      req(
+        input$map_period_choice,
+        input$school_choice
+      )
+
+      selected_map_period <- if (input$map_period_choice == "Weekly") {
+        reactive_la_latestweek_string()
+      } else {
+        reactive_la_yeartodate_string()
+      }
+
       paste0(
         "Current selections: ",
-        most_recent_week_dates,
+        selected_map_period,
         ", ",
         input$school_choice,
-        ", National"
+        ", Local authority data"
       )
     } else if (input$geography_choice == "National") {
       paste0(
@@ -554,22 +637,71 @@ server <- function(input, output, session) {
     }
   })
 
-  # Weekly data for local authority comparisons table
-  live_attendance_data_weekly_las <- reactive({
-    filter(
-      attendance_data,
-      geographic_level == "Local authority",
-      school_type == input$school_choice,
-      time_period == max(time_period),
-      breakdown == "Weekly"
-    ) %>%
-      filter(time_identifier == max(time_identifier)) %>%
-      # CHANGED THIS SUCH THAT THE TABLE DISPLAYS ONE WEEK BEHIND
-      # filter(time_identifier == max(time_identifier) - 1) %>%
-      mutate(
+  # # Weekly data for local authority comparisons table
+  # live_attendance_data_weekly_las <- reactive({
+  #   filter(
+  #     attendance_data,
+  #     geographic_level == "Local authority",
+  #     school_type == input$school_choice,
+  #     time_period == max(time_period),
+  #     breakdown == "Weekly"
+  #   ) %>%
+  #     filter(time_identifier == max(time_identifier)) %>%
+  #     # CHANGED THIS SUCH THAT THE TABLE DISPLAYS ONE WEEK BEHIND
+  #     # filter(time_identifier == max(time_identifier) - 1) %>%
+  #     mutate(
+  #       overall_absence_perc = overall_absence_perc / 100,
+  #       authorised_absence_perc = authorised_absence_perc / 100,
+  #       unauthorised_absence_perc = unauthorised_absence_perc / 100
+  #     )
+  # })
+
+  # Latest-week or YTD data for local authority comparisons table
+  live_attendance_data_las <- reactive({
+    req(
+      input$school_choice,
+      input$map_period_choice
+    )
+
+    if (input$map_period_choice == "Weekly") {
+      la_table_data <- attendance_data %>%
+        dplyr::filter(
+          geographic_level == "Local authority",
+          school_type == input$school_choice,
+          time_period == max(time_period),
+          breakdown == "Weekly"
+        ) %>%
+        dplyr::filter(
+          time_identifier == max(time_identifier)
+        ) %>%
+        dplyr::mutate(
+          period = paste0(
+            "Week commencing ",
+            week_commencing
+          )
+        )
+    } else {
+      la_table_data <- attendance_data %>%
+        dplyr::filter(
+          geographic_level == "Local authority",
+          school_type == input$school_choice,
+          time_period == max(time_period),
+          breakdown == "YTD"
+        ) %>%
+        dplyr::mutate(
+          period = "Year to date"
+        )
+    }
+
+    la_table_data %>%
+      dplyr::mutate(
         overall_absence_perc = overall_absence_perc / 100,
         authorised_absence_perc = authorised_absence_perc / 100,
         unauthorised_absence_perc = unauthorised_absence_perc / 100
+      ) %>%
+      dplyr::distinct(
+        la_name,
+        .keep_all = TRUE
       )
   })
 
@@ -1445,11 +1577,32 @@ server <- function(input, output, session) {
     )
   })
 
-  # la comparison table reactive title
+  # # la comparison table reactive title
+  # output$la_comparison_title <- renderText({
+  #   paste0(
+  #     input$school_choice,
+  #     " state-funded schools: overall, authorised and unauthorised absence rates by local authority"
+  #   )
+  # })
+
+  # LA comparison table reactive title
   output$la_comparison_title <- renderText({
+    req(
+      input$school_choice,
+      input$map_period_choice
+    )
+
+    table_period_text <- if (input$map_period_choice == "Weekly") {
+      "in the latest full week"
+    } else {
+      "across the academic year to date"
+    }
+
     paste0(
       input$school_choice,
-      " state-funded schools: overall, authorised and unauthorised absence rates by local authority"
+      " state-funded schools: overall, authorised and unauthorised ",
+      "absence rates by local authority ",
+      table_period_text
     )
   })
 
@@ -2132,19 +2285,28 @@ server <- function(input, output, session) {
   })
 
   output$la_clarity_dates <- renderText({
-    validate(need(input$geography_choice != "", ""))
-    validate(need(live_attendance_data_weekly()$num_schools > 1, ""))
-
-    most_recent_fullweek_date <- live_attendance_data_weekly() %>%
-      pull(week_commencing)
-
-    paste0(
-      "Data on this tab relates to the week commencing ",
-      most_recent_fullweek_date,
-      "."
+    req(
+      input$school_choice,
+      input$map_period_choice
     )
-    # FORCING DATE
-    # paste0("Data on this tab relates to the week commencing 2026-03-23.")
+
+    if (input$map_period_choice == "Weekly") {
+      paste0(
+        "The map and table show data for the ",
+        stringr::str_to_lower(
+          reactive_la_latestweek_string()
+        ),
+        "."
+      )
+    } else {
+      paste0(
+        "The map and table show data for the ",
+        stringr::str_to_lower(
+          reactive_la_yeartodate_string()
+        ),
+        "."
+      )
+    }
   })
 
   output$update_dates <- renderText({
@@ -2557,24 +2719,31 @@ server <- function(input, output, session) {
       formatPercentage(c(0:3), 2)
   })
 
-  # absence reasons by local authority
+  # Latest-week or YTD absence rates by local authority
   output$absence_reasons_la_table <- renderDT({
-    absence_reasons_la <- live_attendance_data_weekly_las() %>%
+    validate(
+      need(
+        nrow(live_attendance_data_las()) > 0,
+        "There is no data available for this breakdown at present"
+      )
+    )
+
+    absence_reasons_la <- live_attendance_data_las() %>%
       dplyr::select(
         time_period,
-        time_identifier,
-        week_commencing,
+        period,
         region_name,
         la_name,
         overall_absence_perc,
         authorised_absence_perc,
         unauthorised_absence_perc
       ) %>%
-      arrange(desc(overall_absence_perc)) %>%
-      rename(
-        "Year" = time_period,
-        "Week number" = time_identifier,
-        "Week commencing" = week_commencing,
+      dplyr::arrange(
+        dplyr::desc(overall_absence_perc)
+      ) %>%
+      dplyr::rename(
+        "Academic year" = time_period,
+        "Period" = period,
         "Region name" = region_name,
         "Local authority name" = la_name,
         "Overall absence rate" = overall_absence_perc,
@@ -2582,7 +2751,7 @@ server <- function(input, output, session) {
         "Unauthorised absence rate" = unauthorised_absence_perc
       )
 
-    absence_reasons_la <- datatable(
+    datatable(
       absence_reasons_la,
       selection = "none",
       escape = FALSE,
@@ -2590,13 +2759,63 @@ server <- function(input, output, session) {
       options = list(
         scrollX = TRUE,
         columnDefs = list(
-          list(className = "dt-center", targets = 0:7),
-          list(targets = 1, searchable = FALSE, visible = FALSE)
+          list(
+            className = "dt-center",
+            targets = 0:6
+          )
         )
       )
     ) %>%
-      formatPercentage(c(6:8), 2)
+      formatPercentage(
+        columns = c(
+          "Overall absence rate",
+          "Authorised absence rate",
+          "Unauthorised absence rate"
+        ),
+        digits = 2
+      )
   })
+
+  # # absence reasons by local authority
+  # output$absence_reasons_la_table <- renderDT({
+  #   absence_reasons_la <- live_attendance_data_weekly_las() %>%
+  #     dplyr::select(
+  #       time_period,
+  #       time_identifier,
+  #       week_commencing,
+  #       region_name,
+  #       la_name,
+  #       overall_absence_perc,
+  #       authorised_absence_perc,
+  #       unauthorised_absence_perc
+  #     ) %>%
+  #     arrange(desc(overall_absence_perc)) %>%
+  #     rename(
+  #       "Year" = time_period,
+  #       "Week number" = time_identifier,
+  #       "Week commencing" = week_commencing,
+  #       "Region name" = region_name,
+  #       "Local authority name" = la_name,
+  #       "Overall absence rate" = overall_absence_perc,
+  #       "Authorised absence rate" = authorised_absence_perc,
+  #       "Unauthorised absence rate" = unauthorised_absence_perc
+  #     )
+  #
+  #   absence_reasons_la <- datatable(
+  #     absence_reasons_la,
+  #     selection = "none",
+  #     escape = FALSE,
+  #     rownames = FALSE,
+  #     options = list(
+  #       scrollX = TRUE,
+  #       columnDefs = list(
+  #         list(className = "dt-center", targets = 0:7),
+  #         list(targets = 1, searchable = FALSE, visible = FALSE)
+  #       )
+  #     )
+  #   ) %>%
+  #     formatPercentage(c(6:8), 2)
+  # })
 
   # Tech guidance tables ----------------------------------------------------
 
@@ -2647,10 +2866,70 @@ server <- function(input, output, session) {
   ## Create the map function ###############################################
 
   mapdata_shaped_type <- reactive({
-    dplyr::filter(
-      mapdata_shaped,
-      school_type == input$school_choice
+    req(
+      input$school_choice,
+      input$map_period_choice
     )
+
+    # Use the existing shaped map as the source of LA boundaries.
+    map_boundaries <- mapdata_shaped %>%
+      dplyr::filter(
+        school_type == input$school_choice
+      ) %>%
+      dplyr::select(
+        -dplyr::any_of(
+          c(
+            "overall_absence_perc",
+            "authorised_absence_perc",
+            "unauthorised_absence_perc",
+            "overall_label",
+            "auth_label",
+            "unauth_label"
+          )
+        )
+      )
+
+    # Select latest-week or year-to-date values.
+    if (input$map_period_choice == "Weekly") {
+      map_values <- attendance_data %>%
+        dplyr::filter(
+          geographic_level == "Local authority",
+          school_type == input$school_choice,
+          time_period == max(time_period),
+          breakdown == "Weekly"
+        ) %>%
+        dplyr::filter(
+          time_identifier == max(time_identifier)
+        )
+    } else {
+      map_values <- attendance_data %>%
+        dplyr::filter(
+          geographic_level == "Local authority",
+          school_type == input$school_choice,
+          time_period == max(time_period),
+          breakdown == "YTD"
+        )
+    }
+
+    # Keep one set of values for each LA.
+    map_values <- map_values %>%
+      dplyr::select(
+        la_name,
+        overall_absence_perc,
+        authorised_absence_perc,
+        unauthorised_absence_perc
+      ) %>%
+      dplyr::distinct(
+        la_name,
+        .keep_all = TRUE
+      )
+
+    # Join the selected values onto the map boundaries.
+    map_boundaries %>%
+      dplyr::left_join(
+        map_values,
+        by = "la_name"
+      )
   })
 
   # # Create map function
@@ -3025,18 +3304,28 @@ server <- function(input, output, session) {
           "",
           "",
           "Highest absence rates",
-          "Supressed data"
+          "Suppressed data"
         )
       ) %>%
       setMaxBounds(lat1 = 55.5, lng1 = -6.8, lat2 = 49.99, lng2 = 1.95)
   })
 
   output$map_title <- renderText({
-    paste0(
-      input$school_choice,
-      " state-funded schools: ",
-      str_to_lower(input$measure_choice),
-      " absence rates by local authority"
+    req(
+      input$measure_choice,
+      input$map_period_choice
     )
+
+    if (input$map_period_choice == "Weekly") {
+      paste0(
+        input$measure_choice,
+        " absence rates by local authority in the latest full week"
+      )
+    } else {
+      paste0(
+        input$measure_choice,
+        " absence rates by local authority across the academic year to date"
+      )
+    }
   })
 }
