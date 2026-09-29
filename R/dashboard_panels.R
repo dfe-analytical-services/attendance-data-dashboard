@@ -79,7 +79,7 @@ homepage_panel <- function() {
                   title = "Breakdown of overall, authorised and unauthorised absence by local authority",
                   h3(actionLink("link_to_la_tab", "Local authority data")),
                   p(
-                    "The local authority data tab includes information on the overall, authorised and unauthorised absence rates for each local authority in the latest week."
+                    "The local authority data tab includes information on the overall, authorised and unauthorised absence rates for each local authority in the latest week and across the year to date."
                   )
                 ),
               )
@@ -227,7 +227,7 @@ dashboard_panel <- function() {
               column(
                 width = 3,
                 conditionalPanel(
-                  condition = "input.dash == 'headlines'|| input.dash == 'reasons'",
+                  condition = "input.dash == 'headlines' || input.dash == 'reasons'",
                   selectInput(
                     inputId = "ts_choice",
                     label = "Choose time period:",
@@ -235,6 +235,20 @@ dashboard_panel <- function() {
                       most_recent_week_dates = "latestweeks",
                       ytd_dates = "yeartodate"
                     ),
+                    selectize = TRUE,
+                    width = "100%"
+                  )
+                ),
+                conditionalPanel(
+                  condition = "input.dash == 'la comparisons'",
+                  selectInput(
+                    inputId = "map_period_choice",
+                    label = "Choose time period:",
+                    choices = c(
+                      "Latest full week" = "Weekly",
+                      "Year to date" = "YTD"
+                    ),
+                    selected = "Weekly",
                     selectize = TRUE,
                     width = "100%"
                   )
@@ -654,27 +668,41 @@ dashboard_panel <- function() {
               fluidRow(
                 column(
                   width = 12,
+
                   h4(textOutput("map_title")),
                   textOutput("la_clarity_dates"),
+
                   fluidRow(
                     column(
-                      3,
+                      width = 3,
                       br(),
-                      p(strong(
-                        "Select absence rate of interest from drop down menu to view on the map:"
-                      )),
-                    ),
-                    column(
-                      3,
-                      selectInput(
-                        inputId = "measure_choice",
-                        label = "Choose measure of interest:",
-                        choices = c("Overall", "Authorised", "Unauthorised")
+                      p(
+                        strong(
+                          "Select an absence measure to display on the map:"
+                        )
                       )
                     ),
+                    column(
+                      width = 3,
+                      selectInput(
+                        inputId = "measure_choice",
+                        label = "Choose map measure:",
+                        choices = c(
+                          "Overall",
+                          "Authorised",
+                          "Unauthorised"
+                        ),
+                        selected = "Overall",
+                        selectize = TRUE,
+                        width = "100%"
+                      )
+                    )
                   ),
+
                   leafletOutput("rates_map"),
+
                   br(),
+
                   h4(textOutput("la_comparison_title")),
                   DTOutput("absence_reasons_la_table")
                 )
