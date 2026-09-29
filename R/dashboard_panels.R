@@ -233,8 +233,10 @@ dashboard_panel <- function() {
                     label = "Choose time period:",
                     choices = c(
                       most_recent_week_dates = "latestweeks",
-                      ytd_dates = "yeartodate"
+                      ytd_dates = "yeartodate",
+                      "2025/26 academic year" = "previousyear"
                     ),
+                    selected = "latestweeks",
                     selectize = TRUE,
                     width = "100%"
                   )
@@ -329,77 +331,61 @@ dashboard_panel <- function() {
                     h4(textOutput("headline_bullet_title_la"))
                   ),
                   conditionalPanel(
-                    condition = paste0("input.ts_choice == 'latestweeks'"),
+                    condition = "input.ts_choice == 'latestweeks'",
                     textOutput("school_count_proportion_weekly"),
-                    textOutput("update_dates"),
+                    textOutput("update_dates")
                   ),
+
                   conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate'"),
-                    textOutput("school_count_proportion_weekly2"),
-                    textOutput("update_dates2"),
+                    condition = paste0(
+                      "input.ts_choice == 'yeartodate' || ",
+                      "input.ts_choice == 'previousyear'"
+                    ),
+                    textOutput("school_count_proportion_ytd"),
+                    textOutput("update_dates2")
                   ),
+
                   br(),
-                  conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate'"),
-                    p(strong(paste0(
-                      "Attendance and absence across year to date"
-                    ))),
-                    p(
-                      "Attendance and absence rates presented here are calculated across all sessions in the year to date."
-                    )
-                  ),
+
                   conditionalPanel(
                     condition = paste0(
-                      "input.ts_choice == 'yeartodate' && input.geography_choice == 'National'"
+                      "input.ts_choice == 'yeartodate' || ",
+                      "input.ts_choice == 'previousyear'"
                     ),
-                    textOutput("ytd_attendance_rate_nat")
+                    h4(textOutput("ytd_section_title")),
+                    textOutput("ytd_section_description")
                   ),
+
                   conditionalPanel(
                     condition = paste0(
-                      "input.ts_choice == 'yeartodate' && input.geography_choice == 'Regional'"
+                      "(input.ts_choice == 'yeartodate' || ",
+                      "input.ts_choice == 'previousyear') && ",
+                      "input.geography_choice == 'National'"
                     ),
-                    textOutput("ytd_attendance_rate_reg")
-                  ),
-                  conditionalPanel(
-                    condition = paste0(
-                      "input.ts_choice == 'yeartodate' && input.geography_choice == 'Local authority'"
-                    ),
-                    textOutput("ytd_attendance_rate_la")
-                  ),
-                  conditionalPanel(
-                    condition = paste0(
-                      "input.ts_choice == 'yeartodate' && input.geography_choice == 'National'"
-                    ),
-                    textOutput("ytd_absence_rate_nat")
-                  ),
-                  conditionalPanel(
-                    condition = paste0(
-                      "input.ts_choice == 'yeartodate' && input.geography_choice == 'Regional'"
-                    ),
-                    textOutput("ytd_absence_rate_reg")
-                  ),
-                  conditionalPanel(
-                    condition = paste0(
-                      "input.ts_choice == 'yeartodate' && input.geography_choice == 'Local authority'"
-                    ),
-                    textOutput("ytd_absence_rate_la")
-                  ),
-                  conditionalPanel(
-                    condition = paste0(
-                      "input.ts_choice == 'yeartodate' && input.geography_choice == 'National'"
-                    ),
+                    textOutput("ytd_attendance_rate_nat"),
+                    textOutput("ytd_absence_rate_nat"),
                     textOutput("ytd_illness_rate_nat")
                   ),
+
                   conditionalPanel(
                     condition = paste0(
-                      "input.ts_choice == 'yeartodate' && input.geography_choice == 'Regional'"
+                      "(input.ts_choice == 'yeartodate' || ",
+                      "input.ts_choice == 'previousyear') && ",
+                      "input.geography_choice == 'Regional'"
                     ),
+                    textOutput("ytd_attendance_rate_reg"),
+                    textOutput("ytd_absence_rate_reg"),
                     textOutput("ytd_illness_rate_reg")
                   ),
+
                   conditionalPanel(
                     condition = paste0(
-                      "input.ts_choice == 'yeartodate' && input.geography_choice == 'Local authority'"
+                      "(input.ts_choice == 'yeartodate' || ",
+                      "input.ts_choice == 'previousyear') && ",
+                      "input.geography_choice == 'Local authority'"
                     ),
+                    textOutput("ytd_attendance_rate_la"),
+                    textOutput("ytd_absence_rate_la"),
                     textOutput("ytd_illness_rate_la")
                   ),
                   # conditionalPanel(
@@ -506,7 +492,9 @@ dashboard_panel <- function() {
                   br(),
                   h5(textOutput("headline_ts_chart_title")),
                   conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate'"),
+                    condition = paste0(
+                      "input.ts_choice == 'yeartodate' || input.ts_choice == 'previousyear'"
+                    ),
                     p(
                       "Absence rates presented here are calculated on a weekly basis. Each point on the chart shows an absence rate calculated across all sessions in the given week."
                     ),
@@ -581,13 +569,14 @@ dashboard_panel <- function() {
                     )
                   ),
                   conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate'"),
+                    condition = paste0(
+                      "input.ts_choice == 'yeartodate' || ",
+                      "input.ts_choice == 'previousyear'"
+                    ),
                     p(
                       "Absence rates presented on the chart below are calculated on a weekly basis. Each point on the chart shows an absence rate calculated across all sessions in the given week."
                     ),
-                    p(
-                      "Absence rates presented in the blue boxes and tables below are calculated across all sessions in the year to date."
-                    ),
+                    textOutput("reasons_period_description"),
                     column(
                       9,
                       br(),
@@ -597,7 +586,7 @@ dashboard_panel <- function() {
                       3,
                       fluidRow(
                         br(),
-                        p(strong(paste0("Authorised absence rate:"))),
+                        p(strong("Authorised absence rate:")),
                         shinydashboard::valueBoxOutput(
                           "headline_auth_rate_ytd",
                           width = 12
@@ -605,7 +594,7 @@ dashboard_panel <- function() {
                       ),
                       fluidRow(
                         br(),
-                        p(strong(paste0("Unauthorised absence rate:"))),
+                        p(strong("Unauthorised absence rate:")),
                         shinydashboard::valueBoxOutput(
                           "headline_unauth_rate_ytd",
                           width = 12
@@ -629,11 +618,14 @@ dashboard_panel <- function() {
                     )
                   ),
                   conditionalPanel(
-                    condition = paste0("input.ts_choice == 'yeartodate'"),
+                    condition = paste0(
+                      "input.ts_choice == 'yeartodate' || ",
+                      "input.ts_choice == 'previousyear'"
+                    ),
                     column(
                       12,
                       fluidRow(
-                        p(strong("Reasons for absence in the year to date")),
+                        h4(textOutput("reasons_table_title")),
                         p("Authorised absence"),
                         DTOutput("absence_auth_reasons_table_ytd"),
                         br(),
